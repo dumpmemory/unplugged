@@ -6,8 +6,7 @@ from itertools import permutations
 # output a list of k-cycles, e.g. [[1, 2, 4, 3], [6, 7]]
 def kcycles(a):
     r = []
-    n = len(a)
-    for i in range(n):
+    for i in range(len(a)):
         p = []
         while i + 1 != a[i]:
             p.append(a[i])
@@ -16,6 +15,21 @@ def kcycles(a):
         if p != []:
             r.append([a[i]] + p)
     return r if r != [] else [[1]]
+
+# method 2, avoid mutating the input
+def k_cycles(a):
+    r = []
+    for i in range(len(a)):
+        p = []
+        j = i
+        while j + 1 != a[j]:
+            p.append(j + 1)
+            j = a[j] - 1
+            if (j == i):
+                break
+        if p:
+            r.append(p)
+    return r if r else [[1]]
 
 # Produce the permutation from a list of disjoint k-cycles.
 # input the k-cycle list and the length of the permutation.
@@ -30,11 +44,11 @@ def permute(ps, n):
         a[p[-1] - 1] = p[0]
     return a
 
-def test():
+def test(f_kcycles):
     for _ in range(100):
         a = list(range(1, randint(2, 100)))
         shuffle(a)
-        ps = kcycles(a[:])
+        ps = f_kcycles(a[:])
         b = permute(ps, len(a))
         if a != b:
             print("permutation:", a)
@@ -48,7 +62,8 @@ def senum(n):
     return [kcycles(list(p)) for p in permutations(range(1, n + 1))]
 
 if __name__ == "__main__":
-    test()
+    test(kcycles)
+    test(k_cycles)
     print("examples of S3, S4")
     print("S3:", senum(3))
     print("S4:", senum(4))
