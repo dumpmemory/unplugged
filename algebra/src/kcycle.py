@@ -8,19 +8,6 @@ def kcycles(a):
     r = []
     for i in range(len(a)):
         p = []
-        while i + 1 != a[i]:
-            p.append(a[i])
-            j = a[i] - 1
-            a[i], a[j] = a[j], a[i]
-        if p != []:
-            r.append([a[i]] + p)
-    return r if r != [] else [[1]]
-
-# method 2, avoid mutating the input
-def k_cycles(a):
-    r = []
-    for i in range(len(a)):
-        p = []
         j = i
         while j + 1 != a[j]:
             p.append(j + 1)
@@ -30,6 +17,19 @@ def k_cycles(a):
         if p:
             r.append(p)
     return r if r else [[1]]
+
+# Another method, restore the original order.
+def k_cycles(a):
+    r = []
+    for i in range(len(a)):
+        p = []
+        while i + 1 != a[i]:
+            p.append(a[i])
+            j = a[i] - 1
+            a[i], a[j] = a[j], a[i]
+        if p != []:
+            r.append([a[i]] + p)
+    return r if r != [] else [[1]]
 
 # Produce the permutation from a list of disjoint k-cycles.
 # input the k-cycle list and the length of the permutation.
