@@ -2010,7 +2010,11 @@ F_2 & = F_1[\sqrt{\beta}] \\
 %% \label{fig:root-of-unity}
 %% \end{figure}
 
-如果$\alpha$的整数次方等于域$F$中的某个元素$b$，也就是说$\alpha^m = b \in F$，这样$\alpha$就可以写成$b$的根式形式$\alpha = \sqrt[m]{b}$。我们可以逐一用这样的一组根式进行扩域，从而得到$F[\alpha_1][\alpha_2]...[\alpha_k]$。如果每次扩张所用的$\alpha_i$都是根式，我们称扩域$F[\alpha_1, \alpha_2, ..., \alpha_k]$为$F$的根式扩域（radical extension）。设方程的根是$x_1, x_2, ..., x_n$（注意，这里我们没有说$x_i$一定是根式），如果其分裂域$E = Q[x_1, x_2, ..., x_n]$是根式扩域，我们说方程是根式可解的。
+\index{正规扩域}
+如果$\alpha$的整数次方等于域$F$中的某个元素$b$，也就是说$\alpha^m = b \in F$，这样$\alpha$就可以写成$b$的根式形式$\alpha = \sqrt[m]{b}$。为了简化问题，假设每次根式扩域$F[\alpha_i]$中加入的$\alpha_i$都是素数次方根。例如对$\sqrt[6]{\alpha}$，我们把它拆成$\sqrt{\alpha} = \beta$和$\sqrt[3]{\beta}$，然后分两次进行根式扩域。还有一个问题需要解决，考虑方程$x^3 - 2 = 0$，仅仅将$\sqrt[3]{2}$加入域中是不够的。方程的另外两个根$\omega\sqrt[3]{2}, \omega^2\sqrt[3]{2}$不在扩域$Q[\sqrt[3]{2}]$中。为此我们需要同时加入$\sqrt[3]{2}$和$\omega = \dfrac{-1 + i\sqrt{3}}{2}$，形成扩域$Q[\sqrt[3]{2}, \omega]$。这样的扩域包含多项式的\textbf{所有}根，我们将这样的扩域称为正规扩域。
+
+\index{根式扩域}
+我们可以逐一用这样的一组根式进行扩域，从而得到$F[\alpha_1][\alpha_2]...[\alpha_k]$。如果每次扩张所用的$\alpha_i$都是根式，我们称扩域$F[\alpha_1, \alpha_2, ..., \alpha_k]$为$F$的根式扩域（radical extension）。设方程的根是$x_1, x_2, ..., x_n$（注意，这里我们没有说$x_i$一定是根式），如果其分裂域$E = Q[x_1, x_2, ..., x_n]$是根式扩域，我们说方程是根式可解的。
 
 \begin{Exercise}
 \Question{证明$Q[a, b] = Q[a][b]$，其中$Q[a, b]$是所有由$a, b$组成的表达式如$2ab, a + a^2b$等。}
@@ -2351,7 +2355,7 @@ $F$-自同构：进一步，如果$E$是$F$的扩域，并且在域$E$的自同�
 现在我们进入了伽罗瓦理论的核心部分了。从方程系数所在的域$F$开始，我们可以进行一系列扩域一直到达分裂域$F \subset F_1 \subset F_2 ... \subset E$。对应的伽罗瓦群为$Gal(E/F)$。伽罗瓦发现，这个群的所有子群和这些中间域$F_1, F_2, ...$之间存在着反序的一一对应。
 
 \begin{theorem}
-\textbf{伽罗瓦基本定理}：令$E/F$为扩域\footnote{严格说，要求是伽罗瓦扩张，我们这里略去了伽罗瓦扩张的定义。}，$G$是对应的伽罗瓦群。这个群的子群和中间域之间存在一一对应。若$F \subset L \subset E$，有$Gal(E/L) = H$，则$H$是$Gal(E/F)$的子群。
+\textbf{伽罗瓦基本定理}：令$E/F$为正规扩域，$G$是对应的伽罗瓦群。这个群的子群和中间域之间存在一一对应。若$F \subset L \subset E$，有$Gal(E/L) = H$，则$H$是$Gal(E/F)$的子群。
 \end{theorem}
 
 之所以说是反序，是因为，随着域的扩张，对应的群是减小的。扩张的起点是域$F$，此时对应的群是完整的伽罗瓦群$G = Gal(E/F)$；扩张的终点是分裂域$E$，此时的群只有一个元素，就是恒等变换$\{1\}$。扩张的中间域$L$，对应的群是$H = Gal(E/L)$，它是子群，有$Gal(E/L) \subset Gal(E/F)$。并且如果$H$是正规子群，则它的商群$G/H = Gal(L/F)$。
@@ -2452,24 +2456,36 @@ g((a + b\sqrt{3}) + (c + d\sqrt{3}) \sqrt {5}) & = (a + b\sqrt{3}) - (c + d\sqrt
 
 \subsection{可解性}
 
-通过伽罗瓦对应，我们将根式扩域的结构和群的结构联系起来了。为了简化问题，我们增加一些额外的限制。首先，我们假设每次根式扩域$F[\alpha_i]$中加入的$\alpha_i$都是素数次方根。例如对$\sqrt[6]{\alpha}$，我们把它拆成$\sqrt{\alpha} = \beta$和$\sqrt[3]{\beta}$，然后分两次进行根式扩域。其次，如果$\alpha_i$是$p$次方根，若扩域$F[\alpha_1, ..., \alpha_{i-1}]$中不含有$p$次单位根，我们可以认为$F[\alpha_1, ..., \alpha_i]$中也不含有$p$次单位根。除非$\alpha_i$本身就是$p$次单位根。举个例子，假设要加入$\alpha = \sqrt[3]{2}$进行根式扩域，如果上一个域$F$中不含有$\zeta = \dfrac{-1 + i\sqrt{3}}{2}$，我们可以认为扩域$F[\sqrt[3]{2}]$中也不含有$\zeta$。除非$\alpha^3 = 1$即$\alpha$本身就等于$\zeta$。如果这一点不成立，我们可以在加入$\alpha_i$之前先用$\zeta$进行扩域，这样域$F[\alpha_1, ..., \alpha_{i-1}, \zeta]$中就包含了所有$p$次单位根：$1, \zeta, \zeta^2, ..., \zeta^{p-1}$。以上这两个对根式扩域的修改并不会改变最终扩域的结果$F[\alpha_1, ..., \alpha_k]$。
+\begin{definition}
+多项式方程根式可解，当且仅当它的根域$E$是基本域$F$的根式扩域。
+\end{definition}
 
-这样，任何根式扩域$F[\alpha_1, ..., \alpha_k]$都组成一系列递增的链条：
-
-\[
-F = F_0 \subseteq F_1 \subseteq F_2 \subseteq ... \subseteq F_k = F[\alpha_1, ..., \alpha_k]
-\]
-
-其中每个$F_i = F_{i-1}[\alpha_i]$，而$\alpha_i$是$F_{i-1}$中某个元素的素数次方根。并且满足上面关于单位根的条件。和这一系列扩域链对应的，是一系列递减的子群链：
+我们可以从基本域$F = Q$开始，不断通过根式扩域加入前一个域中某个元素的素数次方根或者本原单位根，最终可以到达方程的根域$E = F[\alpha_1, ..., \alpha_k]$。这样就可以形成了域的“根式塔”：
 
 \[
-Gal(F_k/F_0) = G_0 \supseteq G_1 \supseteq ... \supseteq G_k = Gal(F_k/F_k) = \{1\}
+F = F_0 \subseteq F_1 \subseteq F_2 \subseteq ... \subseteq F_k = E
 \]
 
-其中$G_i = Gal(F_k/F_i) = Gal(F_k/F_{i-1}[\alpha_i])$。每一步从$G_{i-1}$前进到它的子群$G_i$，都反应了向域$F$中扩张素数次方根$\alpha_i$。用群论的术语说，$G_i$是前一个群$G_{i-1}$的正规子群，而商群$G_{i-1}/G_i$是阿贝尔群（可交换的）。我们下面来证明这点。
+其中每个$F_i = F_{i-1}[\alpha_i]$，而$\alpha_i$是$F_{i-1}$中某个元素的素数次方根或本原单位根。通过伽罗瓦对应，根式扩域的结构就和群的结构联系起来了，和这一系列不断扩大的域塔对应的，是一系列缩小的子群塔：
+
+\[
+Gal(F_k/F_0) = G_0 \rhd G_1 \rhd ... \rhd G_k = Gal(F_k/F_k) = \{e\}
+\]
+
+其中，每一个群都是上一个的正规子群，每一步从$G_{i-1}$前进到它的子群$G_i$，都反应了向域$F$中扩张某个$\alpha_i$。
+
+\begin{definition}
+\textbf{可解群}：$G$是一个有限群，如果存在一个$G$的子群列
+\[
+  G = G_0 \rhd G_1 \rhd ... \rhd G_k = \{e\}
+\]
+使得每个商群$G_i/G_{i+1}$都是阿贝尔群（可交换），则称$G$是一个可解群，上述群列为一个可解群列。
+\end{definition}
+
+从定义可以直接得出，可解群列中的任何子群都是可解群。另外任何阿贝尔群都有$G \rhd \{e\}$，所有阿贝尔群都是可解群。另外从练习\ref{ex:p-grp-abelian}的结论可知，素数阶群$p$一定是阿贝尔群，因而可解群列中的商群都是素数阶的。
 
 \begin{theorem}
-如果扩域$B \subseteq B[\alpha] \subseteq E$中，$\alpha^p \in B$，$p$是素数。并且满足上面的单位根的条件，则$Gal(E/B[\alpha])$是群$Gal(E/B)$的正规子群，并且商群
+如果扩域$B \subseteq B[\alpha] \subseteq E$中，$\alpha^p \in B$，$p$是素数，或者是本原单位根，则$Gal(E/B[\alpha])$是群$Gal(E/B)$的正规子群，并且商群
 \[
 Gal(E/B) / Gal(E/B[\alpha])
 \]
