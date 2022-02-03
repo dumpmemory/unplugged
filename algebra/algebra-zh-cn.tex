@@ -2358,7 +2358,7 @@ $F$-自同构：进一步，如果$E$是$F$的扩域，并且在域$E$的自同�
 \textbf{伽罗瓦基本定理}：令$E/F$为正规扩域，$G$是对应的伽罗瓦群。这个群的子群和中间域之间存在一一对应。若$F \subset L \subset E$，有$Gal(E/L) = H$，则$H$是$Gal(E/F)$的子群。
 \end{theorem}
 
-之所以说是反序，是因为，随着域的扩张，对应的群是减小的。扩张的起点是域$F$，此时对应的群是完整的伽罗瓦群$G = Gal(E/F)$；扩张的终点是分裂域$E$，此时的群只有一个元素，就是恒等变换$\{1\}$。扩张的中间域$L$，对应的群是$H = Gal(E/L)$，它是子群，有$Gal(E/L) \subset Gal(E/F)$。并且如果$H$是正规子群，则它的商群$G/H = Gal(L/F)$。
+之所以说是反序，是因为，随着域的扩张，对应的群是缩小的。扩张的起点是域$F$，此时对应的群是完整的伽罗瓦群$G = Gal(E/F)$；扩张的终点是分裂域$E$，此时的群只有一个元素，就是恒等变换$\{e\}$。扩张的中间域$L$，对应的群是$H = Gal(E/L)$，它是子群，有$Gal(E/L) \subset Gal(E/F)$。并且如果$H$是正规子群，则它的商群$G/H = Gal(L/F)$。
 
 例如方程$x^4 - 8x^2 + 15 = 0$，它可以表示成$(x^2 - 3)(x^2 - 5) = 0$。它的系数域是有理数域$Q$，方程的分裂域是$E = Q[\sqrt{3}, \sqrt{5}]$。它的伽罗瓦群$Gal(E/Q)$的阶是4，同构于一个4阶循环群。可以找到3个中间扩域分别是$Q[\sqrt{3}]$, $Q[\sqrt{5}]$和$Q[\sqrt{15}]$，这3个中间扩域对应的子群的阶都是2。而方程的伽罗瓦群，也就是4阶循环群只有一个2阶子群。除此之外，它不再有其它非平凡子群了。根据伽罗瓦基本定理，我们知道，除了那3个中间扩域之外，再也没有其它中间扩域了。换个角度看，分裂域上的任何元素都可以表示为$\alpha = a + b\sqrt{3} + c\sqrt{5} + d\sqrt{15}$，其中$a, b, c, d$是有理数；对于3个中间扩域上的任何元素，$b, c, d$中至少有两个为0。
 
@@ -2432,15 +2432,12 @@ g((a + b\sqrt{3}) + (c + d\sqrt{3}) \sqrt {5}) & = (a + b\sqrt{3}) - (c + d\sqrt
 \end{array}
 \]
 
-%\begin{figure}[htbp]
-\begin{wrapfigure}{R}{0.4\textwidth}
+\begin{figure}[htbp]
 \centering
 \includegraphics[scale=0.4]{img/K4}
-\captionsetup{labelformat=empty}
 \caption{克莱因群（$K_4$）的对称性。左右翻转，上下翻转，或者同时上下左右翻转都是对称的。}
 \label{fig:Klein-four-group}
-\end{wrapfigure}
-%\end{figure}
+\end{figure}
 
 再加上恒等变换1，基本域$Q$上的伽罗瓦群一共有4个元素：$G = \{1, f, g, (f \cdot g)\}$。这个群同构于克莱因群$K_4$，而$K_4$相当于是两个循环群$C_2$的积。它共有5个子群，每个都对应着一个扩域：
 
@@ -2472,7 +2469,11 @@ F = F_0 \subseteq F_1 \subseteq F_2 \subseteq ... \subseteq F_k = E
 Gal(F_k/F_0) = G_0 \rhd G_1 \rhd ... \rhd G_k = Gal(F_k/F_k) = \{e\}
 \]
 
-其中，每一个群都是上一个的正规子群，每一步从$G_{i-1}$前进到它的子群$G_i$，都反应了向域$F$中扩张某个$\alpha_i$。
+其中，每一个群都是上一个的正规子群，每一步从$G_{i-1}$前进到它的子群$G_i$，都反应了向域$F$中扩张某个$\alpha_i$。伽罗瓦看出了根式扩域和伽罗瓦群缩小之间的规律。伽罗瓦每次向域中加入的是最小多项式$f_t(X)$的全部$p$个根，其中$p$为素数。正规扩域后对应的伽罗瓦群$H$将原来的群划分为$p$个陪集:
+\[
+G = \sigma_1H + \sigma_2H + ... \sigma_pH
+\]
+其中$H$为不变子群，而这些陪集组成的商群$G/H$的阶等于素数$p$。从练习\ref{ex:p-grp-abelian}的结论可知，素数阶群$p$一定是阿贝尔群（可交换的），因此根式扩域时，伽罗瓦群缩小后产生的商群是阿贝尔群。
 
 \begin{definition}
 \textbf{可解群}：$G$是一个有限群，如果存在一个$G$的子群列
@@ -2482,144 +2483,61 @@ Gal(F_k/F_0) = G_0 \rhd G_1 \rhd ... \rhd G_k = Gal(F_k/F_k) = \{e\}
 使得每个商群$G_i/G_{i+1}$都是阿贝尔群（可交换），则称$G$是一个可解群，上述群列为一个可解群列。
 \end{definition}
 
-从定义可以直接得出，可解群列中的任何子群都是可解群。另外任何阿贝尔群都有$G \rhd \{e\}$，所有阿贝尔群都是可解群。另外从练习\ref{ex:p-grp-abelian}的结论可知，素数阶群$p$一定是阿贝尔群，因而可解群列中的商群都是素数阶的。
+从定义可以直接得出，可解群列中的任何子群都是可解群。另外任何阿贝尔群都有$G \rhd \{e\}$，所有阿贝尔群都是可解群。
+
+伽罗瓦应用他的理论揭示出了多项式方程根式可解的答案：
 
 \begin{theorem}
-如果扩域$B \subseteq B[\alpha] \subseteq E$中，$\alpha^p \in B$，$p$是素数，或者是本原单位根，则$Gal(E/B[\alpha])$是群$Gal(E/B)$的正规子群，并且商群
-\[
-Gal(E/B) / Gal(E/B[\alpha])
-\]
-是阿贝尔群。
+多项式方程根式可解，当且仅当它的伽罗瓦群是可接群。
 \end{theorem}
 
-\begin{mdframed}
-这一段的证明较难，一般的读者可以跳过框中的内容
-\begin{proof}
-我们要利用在\ref{normal-subgroup}中介绍的群同态定理来完成这一证明。我们要找到一个$Gal(E/B)$上的同态映射，它的核是$Gal(E/B[\alpha])$，它映射到一个阿贝尔群上。以$Gal(E/B[\alpha])$为核的映射显然限制在域$B[\alpha]$上，我们将这一映射记为$|_{B[\alpha]}$，根据伽罗瓦群的元素是自同构的定义：
+对于一般3次方程，3个根的全部置换构成群$S_3$，它有一个正规子群$C_3$，$C_3$是单群，只有一个子群$\{e\}$。参考图\ref{fig:S3-Cayley}，我们有群列：
 
 \[
-\sigma \in Gal(E/B[\alpha]) \iff \sigma|_{B[\alpha]} \text{是恒等变换}
+S_3 \rhd C_3 \rhd \{e\}
 \]
 
-伽罗瓦群$Gal(E/B)$中所有这样的自同构$\sigma$满足同态映射的性质：
+对应商群的阶: $S_3/C_3 = 2, C_3/\{e\} = 3$都是素数，是可解群列。因此一般三次方程可解。
 
-\[
-\sigma'\sigma|_{B[\alpha]} = \sigma'|_{B[\alpha]}\sigma|_{B[\alpha]}
-\]
-
-由于$\sigma$固定所有$B$中的元素不变，所以$\sigma|_{B[\alpha]}$完全由$\sigma(\alpha)$决定。这里有两种情况。第一种情况是$\alpha$恰好等于$p$次单位根$\zeta$。此时：
-
-\[
-(\sigma(\alpha))^p = \sigma(\alpha^p) = \sigma(\zeta^p) = \sigma(1) = 1
-\]
-
-所以$\sigma(\alpha) = \zeta^i \in B[\alpha]$，这是因为每个$p$次单位根都是$\zeta^i$的形式。第二种情况下，$\alpha$不是$p$次单位根，此时：
-
-\[
-(\sigma(\alpha))^p = \sigma(\alpha^p) = \alpha^p
-\]
-
-根据根式扩域的规则，$\alpha^p$是$B$中的元素，所以$\sigma(\alpha) = \zeta^j\alpha$。其中$\zeta$是$p$次单位根，并且$\zeta \in B$。所以也有$\sigma(\alpha) \in B[\alpha]$。两种情况合并到一起，说明映射在每个$\sigma$下都是封闭的。
-
-这就说明了$|_{B[\alpha]}$将伽罗瓦群$Gal(E/B)$映射到$Gal(E/B[\alpha])$。接下来我们要证明群$Gal(B[\alpha]/B)$是可交换的。我们仍然分两种情况来讨论：第一种情况$\alpha$是单位根，我们看到每个群中的元素，也就是自同构$\sigma_i = \sigma|_{B[\alpha]} \in Gal(B[\alpha]/B)$都可以写成$\sigma_i(\alpha) = \alpha^i$的形式，所以：
-
-\[
-\sigma_i\sigma_j(\alpha) = \sigma_i(\alpha^j) = \alpha^{ij} = \sigma_j\sigma_i(\alpha)
-\]
-
-第二种情况$\alpha$不是单位根，这样每个群中的元素，也就是自同构$\sigma_i$都可以写成$\sigma_i(\alpha) = \zeta^i\alpha$的形式，所以：
-
-\[
-\sigma_i\sigma_j(\alpha) = \sigma_i(\zeta^j\alpha) = \zeta^{i + j}\alpha = \sigma_j\sigma_i(\alpha)
-\]
-
-由于$\zeta \in B$，所以$\zeta$在自同构下固定不变。这样两种情况下，我们都证明了交换性。
-\end{proof}
-\end{mdframed}
-
-这样回过头来看伽罗瓦群的子群链：
-
-\[
-Gal(F[\alpha_1, ..., \alpha_k]/F) = G_0 \supseteq G_1 \supseteq ... \supseteq G_k = \{1\}
-\]
-
-如果这链条中，每个群$G_i$都是上一个群$G_{i-1}$的正规子群，并且每个商群$G_{i-1}/G_i$都是可交换的，我们称伽罗瓦群$Gal(F[\alpha_1, ..., \alpha_k]/F)$是\textbf{可解的}。
-
-现在我们来看一般的$n$次方程。
-
-\[
-x^n - a_1x^{n-1} + a_2x^{n-2}... \pm a_n = 0
-\]
-
-包含系数的基本域为$Q[a_1, ..., a_n]$。如果它的$n$个根（不一定为根式）是$x_1, ..., x_n$，即
-
-\[
-(x - x_1)...(x - x_n) = x^n - a_1x^{n-1} ... \pm a_n
-\]
-
-方程的根域为$Q[x_1, ..., x_n]$。如果无论怎样对基本域做根式扩域，都无法包含方程的根域，我们就说方程是无法用根式求解的。
-
-\begin{theorem}
-当$n \geq 5$时，$Q[a_1, ..., a_n]$的根式扩域不包含根域$Q[x_1, ..., x_n]$。
-\end{theorem}
-
-\begin{proof}
-我们用反证法，假设某个根式扩域$E$包含根域$Q[x_1, ..., x_n]$，根据此前的定理，还存在更大个根式扩域$\overline{E} \supseteq E$，使得对应的伽罗瓦群$G_0 = Gal(\overline{E}/Q[a_1, ..., a_n])$包括所有根的置换的自同构。这样我们就可以构造一个子群的链条：
-
-\[
-G_0 \supseteq G_1 \supseteq ... \supseteq G_k = \{1\}
-\]
-
-每个$G_i$都是上一个群$G_{i-1}$的正规子群，并且商群$G_{i-1}/G_i$是可交换的。我们要证明这是不可能的。正规子群$G_i$是同态映射下$G_{i-1}$中的核，所以任意$G_{i-1}$中的两个自同构$\sigma, \tau$都有：
-
-\[
-\sigma^{-1}\tau^{-1}\sigma\tau \in G_{i}
-\]
-
-当$n$大于等于5时，$G_0$包含所有根的置换，同构于对称群$S_n$，它必然包含3循环的置换$(a\ b\ c)$。假设$G_{i-1}$中也包含3循环置换，我们有：
-
-\[
-(a\ b\ c) = (d\ a\ c)^{-1}(c\ e\ b)^{-1}(d\ a\ c)(c\ e\ b) \in G_i
-\]
-
-这说明$G_i$也包含3循环置换。根据数学归纳法，子群链条中所有的群都包含3循环置换。但这是不可能的，因为最后一个群是$\{1\}$，它不含3循环置换。
-\end{proof}
+对于一般4次方程，4个根的全部置换构成群$S_4$，有24个元素。它有一个正规子群，是交错群$A_4$，有12个元素，如图\ref{fig:A4-Cayley}所示。接下来的正规子群是克莱因群$K_4$，有4个元素；而它又有正规子群$C_2$（同构于$S_2$），这是一个单群，只有一个子群$\{e\}$。我们有群列：
 
 \begin{figure}[htbp]
-%\begin{wrapfigure}{R}{0.3\textwidth}
  \centering
- \includegraphics[scale=0.3]{img/Soccer-ball.png}
- \captionsetup{labelformat=empty}
- \caption{对称群$S_5$是交错群$A_5$与二阶循环群的积。可以描述一个足球的对称}
- \label{fig:S5}
-%\end{wrapfigure}
+ \includegraphics[scale=0.3]{img/A4-Cayley}
+ \caption{交错群$A_4$的形状像一个三棱锥被截去了3个顶角}
+ \label{fig:A4-Cayley}
 \end{figure}
-
-这样我们就证明了一般5次方程是不能用根式解的。我们也可以从另一个角度做出解释。对称群$S_5$有120个元素，它的唯一正规子群是$A_5$，其中$A_5$叫做交错群，有60个元素。$A_5$的唯一正规子群是$\{1\}$。这一子群链是$S_5 \supset A_5 \supset \{1\}$。但是商群$A_5/\{1\}$不是阿贝尔群（不可交换）。因此它不是可解群。这样它对应的一般5次方程不是根式可解的。
-
-一般4次方程，对称群$S_4$的正规子群是$A_4$，交错群$A_4$有一个正规子群
 
 \[
-\{(1), (1 2)(3 4), (1 3)(2 4), (1 4)(2 3)\}
+S_4 \rhd A_4 \rhd K_4 \rhd C_2 \rhd \{e\}
 \]
 
-而这个群和克莱因群同构，所以是可解的。
+对应商群的阶分别是2、3、2、2，都是素数，是可接群列。因此一般4次方程可解。
 
-对于三次方程，对称群$S_3$的正规子群$A_3$，交错群$A_3$同构于3阶循环群。所以也是可解的。
+从伽罗瓦理论可以直接推出鲁菲尼——阿贝尔定理：一般5次方程根式不可解。5个根的全部置换构成对称群$S_5$，有120个元素，它唯一的正规子群是交错群$A_5$，有60个元素，如图\ref{fig:A5-Cayley}所示。但是$A_5$是一个单群，它唯一的正规子群是$\{e\}$。我们有群列：
+
+\[
+S_5 \rhd A_5 \rhd \{e\}
+\]
+
+但是商群$A_5/\{e\}$同构于$A_5$，而$A_5$不是阿贝尔群。商群的阶是60，不是素数。因此它不是可解群。这样一般5次方程不是根式可解的。
 
 \begin{figure}[htbp]
-  \centering
-  \subcaptionbox{交错群$A_3$相当于3阶循环群}[0.3\linewidth]{\includegraphics[scale=0.25]{img/C3.png}} \quad
-  \subcaptionbox{对称群$S_3$，其上部为$A_3$}[0.3\linewidth]{\includegraphics[scale=0.25]{img/S3.png}}
-  \subcaptionbox{交错群$A_4$}[0.3\linewidth]{\includegraphics[scale=0.25]{img/A4.png}}
-  \caption{对称群和交错群，黑点是单位元，循环用闭环表示}
-  \label{fig:group-graph}
+ \centering
+ \includegraphics[scale=0.25]{img/A5-Cayley}
+ \captionsetup{labelformat=empty}
+ \caption{交错群$A_5$的形状像一个足球}
+ \label{fig:A5-Cayley}
 \end{figure}
 
-至此我们简单介绍了伽罗瓦理论。伽罗瓦理论是抽象代数中的强大工具，它可以解决很多问题，如证明代数基本定理、证明当年高斯用尺规作图画出的正17边形是可行的。证明无法用尺规作图完成古希腊三大作图问题——圆化方、三分角、倍立方等等。我们希望读者能通过这一章，领略到抽象思维的深邃和优美。
+我们还可以推出$n > 5$时，$S_n$也都不是可解群（见练习\ref{ex:3-cycle}，用反证法，这会导致$\{e\}$包含3循环的矛盾）。应用伽罗瓦理论，一般5次以上的多项式方程也都不是根式可解的。
+
+伽罗瓦正是通过对方程对称性的研究，发展出了伽罗瓦理论。它是抽象思想的明珠，是理性思维的强大工具。它可以解决很多问题，如证明正17边形可以用尺规作出，这是高斯年轻时发现的结论。伽罗瓦理论给出古希腊三大作图问题——圆化方、三分角、倍立方的否定答案，它们都无法用尺规作出。
 
 \begin{Exercise}
-\Question{考虑5次方程$x^5 - 1 = 0$，它是根式可解的。它的伽罗瓦群和对应的子群链是什么？}
+\Question{考虑5次方程$x^5 - 1 = 0$，它是根式可解的。它的伽罗瓦群和对应的子群列是什么？}
+\Question{证明：当$n \geq 5$时，设$S_n$的子群$G$含有所有的3循环，形如$(abc)$，$N$是$G$的一个正规子群，商群$G/N$是阿贝尔群。则$N$也含有所有的三循环。}
+\label{ex:3-cycle}
 \end{Exercise}
 
 \section{扩展阅读}
