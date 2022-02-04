@@ -2347,6 +2347,14 @@ $F$-自同构：进一步，如果$E$是$F$的扩域，并且在域$E$的自同�
 \Question{考虑复数，多项式$p(x) = x^4-1$的分裂域是什么？它的$Q$-自同构中有哪些变换？}
 \Question{尝试写出二次方程$x^2 - bx + c = 0$的伽罗瓦群。}
 \Question{证明，如果$p$是素数，则方程$x^p - 1$的伽罗瓦群是$p-1$阶的循环群$C_{p-1}$。}
+\Question{若$\alpha$是方程$x^3 + x^2 - 4x + 1$的根，验证$2 − 2\alpha - \alpha^2$也是方程的根。方程在有理数域上的伽罗瓦群是什么？}
+% from: https://math.stackexchange.com/questions/850818/find-the-galois-group-of-the-polynomial-when-a-root-is-given
+% If $\alpha$ is a root of a polynomial $f(x) = x^3 + x^2 - 4x + 1$ then show that $2 − 2\alpha - \alpha^2$ is also a root of $f(x)$. Use this fact to compute the Galois group of the splitting field of $f(x) over $Q$.
+% step 1: show f(2 − 2\alpha - \alpha^2) = 0
+% step 2: let g(\alpha) = 2 − 2\alpha - \alpha^2, and
+%             g^2(\alpha) = g(2 − 2\alpha - \alpha^2) \equiv \alpha^3 + \alpha - 3 (\bmod f(\alpha))
+%             g^3(\alpha) = g(\alpha^3 + \alpha - 3) \equiv \alpha (\bmod f(\alpha)
+% G = \{e, g, g^2\}
 \end{Exercise}
 
 \subsection{伽罗瓦基本定理}
@@ -2507,6 +2515,7 @@ S_3 \rhd C_3 \rhd \{e\}
  \caption{交错群$A_4$的形状像一个三棱锥被截去了3个顶角}
  \label{fig:A4-Cayley}
 \end{figure}
+% http://weddslist.com/groups/cayley-31/index.html
 
 \[
 S_4 \rhd A_4 \rhd K_4 \rhd C_2 \rhd \{e\}
