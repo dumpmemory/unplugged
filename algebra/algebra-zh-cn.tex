@@ -145,9 +145,24 @@ x_1 x_2 x_3 = -q
 
 %% 令$x = 1$，格兰迪发现无穷级数$1 - 1 + 1 - 1 + 1 - 1 + ...$的和可以等于1/3, 1/4, ...就连大数学家莱布尼茨也主张，它的和可能是0或者1，而且概率相等，所以其“真”值应该是它们的平均值1/2。格兰迪还做出了另一个“奇妙”的解释：父亲留给两个儿子一块宝石，由兄弟二人轮流保存，每人一年。于是，交给对方保存的时候，可以说所有权是0，自己保存的时候，可以说所有权是1，而平均而言，每人的所有权为1/2\cite{HanXueTao16}。这些奇怪的问题，要等到法国数学家柯西引入无穷级数收敛性后才得以解决。
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:reflective-binary-tree}
 \Question{编程判断一棵二叉树是否是左右对称的。}
 \end{Exercise}
+\begin{Answer}[ref={ex:reflective-binary-tree}]
+\Question{编程判断一棵二叉树是否是左右对称的。
+\bea*{rcl}
+reflective\ \nil & = & True \\
+reflective\ (l, k, r) & = & eq\ l\ r \\
+\eea*
+其中
+\bea*{rcl}
+eq\ \nil\ \nil & = & True \\
+eq\ \nil\ (l, k, r) & = & False \\
+eq\ (l, k, r)\ \nil & = & False \\
+eq\ (l_1, k_1, r_1)\ (l_2, k_2, r_2) & = & k_1 = k_2\ \textbf{and}\ (eq\ l_1\ l_2)\ \textbf{and}\ (eq\ r_1\ r_2) \\
+\eea*
+}
+\end{Answer}
 
 \section{群}
 
@@ -2667,6 +2682,9 @@ abcd \\
 \end{center}
 
 \ifx\wholebook\relax \else
+\section{参考答案}
+\shipoutAnswer
+
 \begin{thebibliography}{99}
 
 \bibitem{HanXueTao16}
