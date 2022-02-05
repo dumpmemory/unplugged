@@ -1314,8 +1314,6 @@ $n$ & 分圆方程 & 根 & 本原单位根 & 分圆多项式$\Phi_n(x)$ & 循环
 
 \begin{Exercise}\label{ex:cyclic-group}
 \Question{证明循环群一定是阿贝尔群。}
-\Question{证明素数$p$阶的群一定循环群，从而一定是阿贝尔群。}
-\label{ex:p-grp-abelian}
 \Question{编程实现多项式长除法。}
 \Question{将$x^{12} - 1$分解为分圆多项式。}
 \Question{试求5次分圆方程的代数解。提示：分圆多项式$x^4 + x^3 + x^2 + x + 1 = 0$除以$x^2$后是对称的：$x^2 + x + 1 + x^{-1} + x^{-2} = 0$。}
@@ -1329,8 +1327,6 @@ $n$ & 分圆方程 & 根 & 本原单位根 & 分圆多项式$\Phi_n(x)$ & 循环
 a^p a^q = a^{p + q} = a^{q + p} = a^q a^p
 \]
 故而循环群一定是阿贝尔群。
-}
-\Question{证明素数$p$阶的群一定循环群，从而一定是阿贝尔群。
 }
 \Question{编程实现多项式长除法。
 }
@@ -1699,6 +1695,7 @@ ana^{-1} \in N
 
 \begin{corollary}
 如果$G$的阶是素数，那么$G$是循环群。
+\label{co:prime-order-group}
 \end{corollary}
 
 这是因为任何不等于单位元的元素$a$，它所生成的子群的阶一定等于$G$的阶。所以$a$是$G$的生成元，即$G = (a)$。
@@ -2775,7 +2772,7 @@ Gal(F_k/F_0) = G_0 \rhd G_1 \rhd ... \rhd G_k = Gal(F_k/F_k) = \{e\}
 \[
 G = \sigma_1H + \sigma_2H + ... \sigma_pH
 \]
-其中$H$为不变子群，而这些陪集组成的商群$G/H$的阶等于素数$p$。从练习\ref{ex:p-grp-abelian}的结论可知，素数阶群$p$一定是阿贝尔群（可交换的），因此根式扩域时，伽罗瓦群缩小后产生的商群是阿贝尔群。
+其中$H$为不变子群，而这些陪集组成的商群$G/H$的阶等于素数$p$。从拉格朗日定理的推论\ref{co:prime-order-group}可知素数阶群$p$一定是循环群，而循环群一定是阿贝尔群（可交换的，见练习\ref{ex:cyclic-group}），因此根式扩域时，伽罗瓦群缩小后产生的商群是阿贝尔群。
 
 \begin{definition}
 \textbf{可解群}：$G$是一个有限群，如果存在一个$G$的子群列
