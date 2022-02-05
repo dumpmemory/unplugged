@@ -815,11 +815,64 @@ S = \{\tau, \lambda, \mu, ...\}
 
 我们这里略去了证明过程。这个定理告诉我们，任意一个抽象的群都能在变换群里找到一个具体的实例。换一句话说，我们不必害怕，将来会找到一个抽象群，这个群完全是我们脑子里造出来的空中楼阁\cite{ZhangHeRui1978}(49页)。
 
-\begin{Exercise}
-\Question{奇偶判断函数在整数加群$(Z，+)$和布尔逻辑与群$(Bool, \land)$下是否构成同态？去除0元素的整数乘法群呢？}
+\begin{Exercise}\label{ex:group-rules}
+\Question{奇偶判断函数在整数加群$(\pmb{Z}，+)$和布尔逻辑与群$(Bool, \land)$下是否构成同态？去除0元素的整数乘法群呢？}
 \Question{假定两个群$G$和$G'$在映射下同态，群$G$中的元$a \to a'$，那么$a$和$a'$的阶是否相同？}
 \Question{证明一个变换群的单位元一定是恒等变换。}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:group-rules}]
+\Question{奇偶判断函数在整数加群$(\pmb{Z}，+)$和布尔逻辑与群$(Bool, \land)$下是否构成同态？去除0元素的整数乘法群呢？
+
+奇偶判断函数将每个整数映射为布尔值真、假。为了判断是否构成同态，我们需要检查它是否满足$f(a) f (b) = f(a \cdot b)$。但我们有下面的反例：
+
+$a, b$都是奇数：$odd(a) = odd(b) = True$，它们的和是偶数，故而：$odd(a + b) = False$。而逻辑与的结果：$odd(a) \land odd(b) = True \neq odd(a + b) = False$。
+
+因而不构成同态。
+
+而去除0后的整数乘法群在奇偶判断函数下与逻辑与群构成同态。我们可以验证全部的三种情况：
+
+  \begin{itemize}
+  \item $a, b$都是奇数：$odd(a) = odd(b) = True$, 积$ab$仍然是奇数：$odd(ab) = True$。所以$odd(a) \land odd(b) = odd(ab)$；
+  \item $a, b$都是偶数：$odd(a) = odd(b) = False$, 积$ab$仍然是偶数：$odd(ab) = False$。所以$odd(a) \land odd(b) = odd(ab)$；
+  \item $a, b$一奇一偶：不妨令$odd(a) = True, odd(b) = False$, 积$ab$是偶数：$odd(ab) = False$。所以$odd(a) \land odd(b) = odd(ab)$。
+  \end{itemize}
+
+故而是构成同态。
+}
+\Question{假定两个群$G$和$G'$在映射下同态，群$G$中的元$a \to a'$，那么$a$和$a'$的阶是否相同？
+
+它们的阶相同。我们可以证明这一点。令单位元$e$的像是$e'$，同态映射为$f$。记$a$的阶为$n$，我们有$a^n = e$。
+
+一方面我们有：
+\[
+f(a^n) = f(e) = e'
+\]
+
+另一方面，根据同态的定义，我们有：
+
+\bre
+f(a^n) & = & f(a) f(a) ... f(a) & \text{共$n$个} \\
+  & = & a' a' ... a' & \text{共$n$个} \\
+  & = & (a')^n
+\ere
+
+综合上述两个结果，我们有$(a')^n = e'$。所以$a$和$a'$的阶相同。
+}
+\Question{证明一个变换群的单位元一定是恒等变换。
+
+假设某一变换$\epsilon': a \to a^{\epsilon'} = \epsilon'(a)$是变换群的单位元。根据单位元的性质，我们有$\epsilon' \tau = \tau$。即：
+
+\[
+\begin{array}{l}
+\tau: a \to a^\tau \\
+\epsilon' \tau: a \to (a^{\epsilon'})^\tau \\
+\end{array}
+\]
+
+故而：$a^{\epsilon'} = a = \epsilon'(a)$，也就是$\epsilon'$为恒等变换。
+}
+\end{Answer}
 
 \subsection{置换群}
 \label{permutation group}
@@ -925,12 +978,62 @@ e = (1) = (2) = ... = (n)
 
 这样对于任何有限群，例如方程的根，我们都可以用置换群加以研究。而置换群又是一种比较容易计算的群，这正是伽罗瓦解决方程根式解问题的方法。
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:symmetric-group}
 \Question{证明，如果置换$\sigma$将第$i$个元素映射为第$j$个，即$\sigma(i) = j$，则$k$循环可写成$(\sigma(i_1)\ \sigma(\sigma(i_1))\ ...\ \sigma^k(i_1))$。}
 \Question{列出$S_4$的全体元素。}
-\Question{将$S_3$的所有元写成不相连的循环置换的乘积。}
 \Question{编程将$k$-循环的乘积转换回置换。}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:symmetric-group}]
+\Question{证明，如果置换$\sigma$将第$i$个元素映射为第$j$个，即$\sigma(i) = j$，则$k$循环可写成$(\sigma(i_1)\ \sigma(\sigma(i_1))\ ...\ \sigma^k(i_1))$。
+
+根据$k$循环的定义：
+\[
+i_1 \to i_2 \to i_3 \to ... \to i_{k−1} \to i_k \to i_1
+\]
+
+有：
+\bea*{l}
+i_2 = \sigma(i_1) \\
+i_3 = \sigma(i_2) = \sigma(\sigma(i_1)) = \sigma^2(i_1) \\
+... \\
+i_k = \sigma(i_{k-1}) = \sigma(\sigma(i_{k-2})) = \sigma^{k-1}(i_1) \\
+i_1 = \sigma(i_k) = \sigma^k(i_1) \\
+\eea*
+}
+\Question{列出$S_4$的全体元素。
+
+(1);
+
+(12), (34), (13), (24), (14), (23);
+
+(123), (132), (134), (143), (124), (142), (234), (243);
+
+(1234), (1243), (1324), (1342), (1423), (1432);
+
+(12)(34), (13)(24), (14)(23)。
+
+共$4!=24$个元素。
+}
+\Question{编程将$k$-循环的乘积转换回置换。
+
+\begin{algorithmic}
+\Function{Permute}{$C, n$}
+  \State $\pi \gets [1, 2, ..., n]$
+  \For{$c \in C$}
+    \State $j \gets c[1]$
+    \State $m \gets |c|$
+    \For{$i \gets 2$ to $m$}
+      \State $\pi[j] \gets c[i]$
+      \State $j \gets c[i]$
+    \EndFor
+    \State $\pi[c[m]] \gets c[1]$
+  \EndFor
+  \State \Return $\pi$
+\EndFunction
+\end{algorithmic}
+}
+\end{Answer}
 
 \subsection{群与对称}
 
@@ -967,9 +1070,43 @@ e = (1) = (2) = ... = (n)
 在现实世界中，我们无法通过运动将左螺旋变成镜子中的右螺旋。这就是真与非真叠合的区别：真叠合不改变螺旋的方向，将左螺旋变为左螺旋，右螺旋变为右螺旋；非真叠合改变螺旋的方向，将左螺旋变为右螺旋，右螺旋变为左螺旋。非真叠合又称为反射\cite{Weyl1952}。它把任一点$P$变成它关于$O$点的对应点$P'$：先连接$PO$，然后将其延长一倍使得$|PO| = |OP'|$。对$O$的反射，通常也称为反演。
 对于海螺图中的4点，对称群$S_4$中的变换(2 4)就是一个非真叠合。它将左侧的海螺变换成右侧的。因此对称群既可以描述现实世界，也可以描述镜中世界的对称。
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:symmetry-and-group}
 对称群$S_4$描述了什么几何形状的哪些对称性？
 \end{Exercise}
+
+\begin{Answer}[ref={ex:symmetry-and-group}]
+对称群$S_4$描述了什么几何形状的哪些对称性？
+
+它描述了正四面体（每个面都是正三角形的三棱锥）的对称性。正四面体每个顶点有一条对称轴，每个轴上有120度和240度两个旋转对称。穿过相对的两条边有3条对称轴，每个轴上有一个翻转对称。再加上恒等变换，一共有$2 \times 4 + 3 + 1 = 12$种对称性。这12个变换组成一个群，记作$A_4$。它是一个交错群。
+
+%\begin{figure}[htbp]
+\begin{center}
+ \includegraphics[scale=0.3]{../appendix/answer/img/tetrahedron}
+ \captionof{figure}{正四面体的两种对称轴}
+ \label{fig:tetrahedron}
+\end{center}
+%\end{figure}
+
+对于图\ref{fig:S4}中左侧的四面体1234，群$A_4$将其变为：
+
+3124, 2314, 1423, 1342, 4213, 3241, 4132, 2431, 2143, 3412, 4321, 1234
+
+这12个变换都是真叠合，但还存在反射的非真叠合。如图所示，四面体1234绕对称轴$O4$旋转120度变换成右侧的3124，这是一个真叠合。接下来以平面$O13$进行反射得到右下角的四面体3142，这是一个非真叠合。
+
+%\begin{figure}[htbp]
+\begin{center}
+ \includegraphics[scale=0.4]{../appendix/answer/img/S4}
+ \captionof{figure}{非真叠合的例子}
+ \label{fig:S4}
+\end{center}
+%\end{figure}
+
+针对$A_4$中的每个变换，都存在一个这样的非真叠合变换，也有12个：
+
+3142, 2341, 1432, 1324, 4231, 3214, 4123, 2413, 2134, 3421, 4312, 1243
+
+对于其它两个镜像平面也会有非真叠合，但是它们不会产生新的变换了。因为4个顶点的全部排列只有$4! = 24$个。这样真叠合和非真叠合的全部变换恰好对应对称群$S_4$中的每个元素。
+\end{Answer}
 
 \subsection{旋转对称与循环群}
 \index{循环群（cyclic group）}
