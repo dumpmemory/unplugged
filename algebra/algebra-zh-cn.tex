@@ -1312,16 +1312,59 @@ $n$ & 分圆方程 & 根 & 本原单位根 & 分圆多项式$\Phi_n(x)$ & 循环
 \hline
 \etab
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:cyclic-group}
 \Question{证明循环群一定是阿贝尔群。}
 \Question{证明素数$p$阶的群一定循环群，从而一定是阿贝尔群。}
 \label{ex:p-grp-abelian}
 \Question{编程实现多项式长除法。}
 \Question{将$x^{12} - 1$分解为分圆多项式。}
 \Question{试求5次分圆方程的代数解。提示：分圆多项式$x^4 + x^3 + x^2 + x + 1 = 0$除以$x^2$后是对称的：$x^2 + x + 1 + x^{-1} + x^{-2} = 0$。}
+\end{Exercise}
+
+\begin{Answer}[ref={ex:cyclic-group}]
+\Question{证明循环群一定是阿贝尔群。
+
+令生成元为$a$，循环群中的任意两个元素可表示为$a$的幂$a^p, a^q$。我们有：
+\[
+a^p a^q = a^{p + q} = a^{q + p} = a^q a^p
+\]
+故而循环群一定是阿贝尔群。
+}
+\Question{证明素数$p$阶的群一定循环群，从而一定是阿贝尔群。
+}
+\Question{编程实现多项式长除法。
+}
+\Question{将$x^{12} - 1$分解为分圆多项式。
+
+\bea*{rcl}
+x^{12} - 1 & = & \Phi_1(x)\Phi_2(x)\Phi_3(x)\Phi_4(x)\Phi_6(x)\Phi_{12}(x) \\
+          & = & (x - 1)(x + 1)(x^2 + x + 1)(x^2 + 1)(x^2 - x + 1)(x^4 - x + 1) \\
+\eea*
+}
+\Question{试求5次分圆方程的代数解。提示：分圆多项式$x^4 + x^3 + x^2 + x + 1 = 0$除以$x^2$后是对称的：$x^2 + x + 1 + x^{-1} + x^{-2} = 0$。
+
 % let y = x + 1/x => y^2 + y - 1 = 0
 % from: https://crypto.stanford.edu/pbc/notes/numbertheory/cyclo.html
-\end{Exercise}
+令$ y = x + \dfrac{1}{x}$，则上述方程转化成
+
+\[
+y^2 + y - 1 = 0
+\]
+
+解此二次方程得到
+
+\[
+y = \dfrac{-1 \pm \sqrt{5}}{2}
+\]
+
+进一步解出$x$的二次方程得到：
+
+\[
+x = \dfrac{\sqrt{5} - 1 \pm \sqrt{-2\sqrt{5} - 10}}{4},
+    \dfrac{-\sqrt{5} - 1 \pm \sqrt{2\sqrt{5} - 10}}{4}
+\]
+}
+\end{Answer}
 
 \subsection{子群}
 \index{子群}
