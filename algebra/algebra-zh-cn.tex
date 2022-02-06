@@ -2340,10 +2340,70 @@ a(b + c) = ab + ac \\
 \end{definition}
 自然数$N$就是半环的典型例子。布尔运算是一个只有两个元素的半环。
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:ring}
 \Question{证明本节的定理，一个没有零因子的环里，两个消去律成立。}
 \Question{证明所有形如$a + b \sqrt{2}$，其中$a, b$是整数的实数对于普通加法和乘法构成一个整环。}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:ring}]
+\Question{证明本节的定理，一个没有零因子的环里，两个消去律成立。
+
+\begin{proof}
+假定环$R$没有零因子。因为：
+\[
+  ab = ac \Rightarrow a(b - c) = 0
+\]
+
+在此假定之下，
+
+\[
+  a \neq 0, ab = ac \Rightarrow b - c = 0 \Rightarrow b = c
+\]
+
+同样可证，
+
+\[
+  a \neq 0, ba = ca \Rightarrow b = c
+\]
+
+这样$R$里两个消去律都成立。反过来，假定环$R$里第一个消去律成立。因为
+
+\[
+  ab = 0 \Rightarrow ab = a0
+\]
+
+在此假定之下，
+
+\[
+  a \neq 0, ab = 0 \Rightarrow b = 0
+\]
+
+这就是说，$R$没有零因子。第二个消去律成立的时候，同样可证。
+\end{proof}
+}
+\Question{证明所有形如$a + b \sqrt{2}$，其中$a, b$是整数的实数对于普通加法和乘法构成一个整环。
+
+\begin{proof}
+我们依次验证三点：
+
+  \begin{enumerate}[i]
+  \item 乘法交换律成立
+    \bre
+      (a + b \sqrt{2})(c + d \sqrt{2}) & = & ac + 2bd + (ad + bc)\sqrt{2} \\
+        & = & (c + d \sqrt{2})(a + b \sqrt{2})
+    \ere
+  \item 有乘法单位元1
+    \[
+      1 (a + b \sqrt{2}) = (a + b \sqrt{2}) 1 = a + b \sqrt{2}
+    \]
+  \item 没有零因子
+    \[
+    (a + b \sqrt{2})(c + d \sqrt{2}) = 0 \Rightarrow a = b = 0 \text{或} c = d = 0
+    \]
+  \end{enumerate}
+\end{proof}
+}
+\end{Answer}
 
 \subsection{除环和域}
 
@@ -2483,9 +2543,53 @@ F_2 & = F_1[\sqrt{\beta}] \\
 \index{根式扩域}
 我们可以逐一用这样的一组根式进行扩域，从而得到$F[\alpha_1][\alpha_2]...[\alpha_k]$。如果每次扩张所用的$\alpha_i$都是根式，我们称扩域$F[\alpha_1, \alpha_2, ..., \alpha_k]$为$F$的根式扩域（radical extension）。设方程的根是$x_1, x_2, ..., x_n$（注意，这里我们没有说$x_i$一定是根式），如果其分裂域$E = Q[x_1, x_2, ..., x_n]$是根式扩域，我们说方程是根式可解的。
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:field}
 \Question{证明$Q[a, b] = Q[a][b]$，其中$Q[a, b]$是所有由$a, b$组成的表达式如$2ab, a + a^2b$等。}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:field}]
+\Question{证明$Q[a, b] = Q[a][b]$，其中$Q[a, b]$是所有由$a, b$组成的表达式如$2ab, a + a^2b$等。
+
+证明之前，我们先举个例子：
+
+\[
+ Q[\sqrt{2}, \sqrt{3}] = \{a + b \sqrt{2} + c \sqrt{3} + d \sqrt{6}, \text{其中} a, b, c, d \in Q\}
+\]
+
+\bre
+Q[\sqrt{2}][\sqrt{3}] & = & \{a + b \sqrt{3}, \text{其中} a, b \in Q[\sqrt{2}]\} \\
+  & = & \{a' + b' \sqrt{2} + (c + d \sqrt{2}) \sqrt{3}, \text{其中} a', b', c, d \in Q\} \\
+  & = & \{a' + (b' + d) \sqrt{2} + c \sqrt{3} + d \sqrt{6}, \text{其中} a', b', c, d \in Q\}
+\ere
+
+\begin{proof}
+\[
+Q[a][b] = \{x_0 + x_1 b + x_2 b^2 + ... + x_n b^n, \text{其中} x_i \in Q[a]\}
+\]
+$n$是使得存在多项式$p(b) = 0$的最小整数。现在我们把$x_i$替换成域$Q[a]$的表达式
+
+\bre
+Q[a][b] & = & \{ y_{0,0} + y_{0,1} a + y_{0,2} a^2 + ... + y_{0,m} a^m\ + \\
+        &   &   (y_{1,0} + y_{1,1} a + y_{1,2} a^2 + ... + y_{1,m} a^m) b\ + \\
+        &   &   ... \\
+        &   &   + (y_{n,0} + y_{n,1} a + y_{n,2} a^2 + ... + y_{n,m} a^m) b^n \}
+\ere
+
+其中，$y_{i,j} \in Q$，整数$m$是使得存在多项式$p(a) = 0$的最小整数。
+
+不失一般性，我们可以认为$m < n$（否则，我们只需令$m' = min(m, n), n' = max(m, n)$），可以进一步整理成：
+
+\bre
+Q[a][b] & = & \{ y_{0,0} + y_{0,1} a + y_{1,0} b + y_{0,2} a^2 + y_{1,1} ab + y_{2,0} b^2 + ... \\
+        &   &    + y_{0,m} a^m + y_{1,m-1} a^{m-1} b + ... + y_{m, 0} b^m + \\
+        &   &    y_{1,m} a^m b + y_{2, m-1} a^{m-1} b^2 + ... + y_{m, 1} b^{m+1} + ... \\
+        &   &    + y_{n, m} a^m b^n \}
+\ere
+
+可以看到，这的确是由$a, b$组成的所有表达式构成的域。
+\end{proof}
+}
+\end{Answer}
 
 \subsection{从牛顿、拉格朗日到伽罗瓦}
 
