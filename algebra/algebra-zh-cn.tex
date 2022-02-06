@@ -1017,7 +1017,7 @@ i_1 = \sigma(i_k) = \sigma^k(i_1) \\
 }
 \Question{编程将$k$-循环的乘积转换回置换。
 
-\begin{algorithmic}
+\begin{algorithmic}[1]
 \Function{Permute}{$C, n$}
   \State $\pi \gets [1, 2, ..., n]$
   \For{$c \in C$}
@@ -1973,7 +1973,7 @@ RSA算法的核心思想是人们可以容易地将两个大素数乘在一起�
 
 根据这一思想构造的“费马素数检测”算法如下：
 
-\begin{algorithmic}
+\begin{algorithmic}[1]
 \Function{primality}{$n$}
   \State 随机选择正整数$a < n$
   \If{$a^{n-1} \equiv 1 \mod n$}
@@ -2106,6 +2106,7 @@ eqiv(S_1, S_2) = S_2 \subset (S_1 \doubleplus S_1)
 \Question{编程实现埃拉托斯特尼筛法。
 
 从2开始对于所有的自然数，取出下一个作为素数，然后去掉所有它的倍数，并递归进行这一操作。如下面的Haskell例子程序：
+\lstset{frame = single}
 \begin{Haskell}
 primes = sieve [2..] where
     sieve (x:xs) = x : sieve [y | y <- xs, y `mod` x > 0]
@@ -2158,7 +2159,7 @@ public class Prime {
 
 我们一边用埃拉托斯特尼筛法产生$n$以内的素数，一边用每个新找到的素数更新一个欧拉$\upphi$函数表。这个函数表被全部初始化为1。对于每个素数$p$，其对应的$\upphi(p) = p(1 - \dfrac{1}{p}) = p - 1$，我们需要把所有$p$的倍数都乘以这个值。但仅仅这样还不够，这是因为$\upphi(p^2) = p^2(1 - \dfrac{1}{p}) = p \upphi(p)$。所以我们接下来要把所有$p^2$倍数的欧拉函数值都乘以$p$，重复这一步骤，再把所有$p^3$倍数的欧拉函数值乘以$p$。继续持续这一过程，直到我们发现$p^m$超过$n$。下面是利用这一思想的解法：
 
-\begin{algorithmic}
+\begin{algorithmic}[1]
 \Function{Euler-Totient}{$n$}
   \State $\upphi \gets \{1, 1, ..., 1\}$ \Comment{1到$n$}
   \State $P \gets \{2, 3, ..., n\}$ \Comment{素数筛法序列}
@@ -2182,7 +2183,8 @@ public class Prime {
 \end{algorithmic}
 }
 \Question{根据欧拉定理，$n$次本原单位根有多少个？
-$\upphi(n)$
+
+$\upphi(n)$，如果$n$是素数，则除了1以外的所有单位根都是本原单位根。
 }
 \Question{编程实现模乘的幂运算，并实现费马素数检测。
 
@@ -2197,7 +2199,7 @@ y \text{是奇数}: & x \cdot x^{\lfloor y / 2 \rfloor} \\
 
 只要在此基础上，将乘法改为模乘即可：
 
-\begin{algorithmic}
+\begin{algorithmic}[1]
 \Function{Mod-Exp}{$x, y, n$}
   \If{$y = 0$}
     \State \Return 1
@@ -2213,7 +2215,7 @@ y \text{是奇数}: & x \cdot x^{\lfloor y / 2 \rfloor} \\
 
 然后我们利用费马小定理，选取若干“证人”，进行素数检测：
 
-\begin{algorithmic}
+\begin{algorithmic}[1]
 \Function{primality}{$n$}
   \State 随机选择$k$个正整数$a_1, a_2, ..., a_k < n$
   \If{$a_i^{n-1} \equiv 1 \mod n$，对于全部$i = 1, 2, ..., k$}
