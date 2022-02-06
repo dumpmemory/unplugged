@@ -1329,6 +1329,22 @@ a^p a^q = a^{p + q} = a^{q + p} = a^q a^p
 故而循环群一定是阿贝尔群。
 }
 \Question{编程实现多项式长除法。
+
+我们用系数列表来代表多项式。$a(x) = a_0 x^n + a_1 x^{n-1} + ... =a_n x + a_{n+1}$用列表$[a_0, a_1, ..., a_{n+1}]$表示，缺项用0补充。若系数都为整数，多项式除法可以表示为：
+\[
+a(x) = q(x)b(x) + r(x)
+\]
+
+其中$q(x)$是商，$r(x)$是余项，$r(x)$的次数小于等于$b(x)$的次数。我们约定$a(x)$的次数大于等于$b(x)$的次数。下面是Haskell例子程序：
+
+\lstset{frame = single}
+\begin{Haskell}
+polyndiv as bs = pdiv as (length as - length bs) [] where
+  pdiv as i qs = if i == 0 then (reverse (q:qs), as')
+                 else pdiv as' (i - 1) (q:qs) where
+    q = head as `div` head bs
+    as' = dropWhile (== 0) [a - b*q | (a, b) <- zip as (bs ++ repeat 0)]
+\end{Haskell}
 }
 \Question{将$x^{12} - 1$分解为分圆多项式。
 
