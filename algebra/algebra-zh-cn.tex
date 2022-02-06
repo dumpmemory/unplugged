@@ -2863,10 +2863,51 @@ $t_2$ & $1, -\sqrt{2}, \sqrt{2}$ & (23) \\
 
 例如方程$x^2 - 2x - 1 = 0$的两个根为$1 \pm \sqrt{2}$。方程在有理数域上的伽罗瓦群是$S_2 = \{(1), (12)\}$，包括恒等置换$e = (1)$和对换$(12)$。任何有理式在恒等置换下的值不变，所以我们只需要考虑对换(12)。如果有理式$r$对换变量值不变，它一定是对称多项式。根据牛顿定理，可以由基本对称多项式$x_1x_2 = -1$和$x_1 + x_2 = 2$表达，因而仍然是有理数，所以是已知的。回顾前面的例子，方程$x^3 - x^2 - 2x + 2 = 0$的伽罗瓦群恰恰就是$\{(1), (23)\}$，包括恒等置换，以及固定第一个根，交换后两个根$\pm \sqrt{2}$的置换。它是$S_3$的一个子群。
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:resolvent-and-galois-group}
 \Question{推导式(\ref{eq:LR-pq})给出的拉格朗日预解式和原方程系数间的关系。提示：考虑$(L + R)(L + \omega R)(L + \omega^2 R)$}
 \Question{验证方程$x^3 - x^2 - 2x + 2 = 0$的伽罗瓦群是$\{(1), (23)\}$。提示：验证“已知则不变，不变则已知”。}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:resolvent-and-galois-group}]
+\Question{推导式(\ref{eq:LR-pq})给出的拉格朗日预解式和原方程系数间的关系。提示：考虑$(L + R)(L + \omega R)(L + \omega^2 R)$
+
+展开$(L + R)(L + \omega R)(L + \omega^2 R)$，并利用$1 + \omega + \omega^2 = 0$，可以得到：
+
+\[
+(L + R)(L + \omega R)(L + \omega^2 R) = L^3 + R^3
+\]
+
+利用$L, R$表示的三个根$r_1, r_2, r_3$的关系，有：
+
+\[
+\begin{cases}
+L + R & = 3r_3 \\
+L + \omega R & = 3 \omega^2 r_2 \\
+L + \omega^2 R & = 3 \omega r_1 \\
+\end{cases}
+\]
+代入上式，并利用$\omega^3 = 1$得：
+
+\bea*{rcll}
+L^3 + R^3 & = & 27 r_1 r_2 r_3 & \text{代入}r_1, r_2, r_3 \\
+          & = & -27q & \text{韦达定理}
+\eea*
+
+接下来求$LR$：
+\bea*{rcll}
+LR & = & (r_1 + \omega r_2 + \omega^2 r_3)(r_1 + \omega^2 r_2 + \omega r_3) & L, R\text{的定义} \\
+   & = & (r_1^2 + r_2^2 + r_3^2) + (\omega + \omega^2)(r_1r_2 + r_2r_3 + r_1r_3) & \text{展开} \\
+   & = & (r_1^2 + r_2^2 + r_3^2) - (r_1r_2 + r_2r_3 + r_1r_3) & 1 + \omega + \omega^2 = 0 \\
+   & = & -2p - p & \text{牛顿笔记} \\
+   & = & -3p
+\eea*
+因此$L^3R^3 = -27p^3$。
+}
+\Question{验证方程$x^3 - x^2 - 2x + 2 = 0$的伽罗瓦群是$\{(1), (23)\}$。提示：验证“已知则不变，不变则已知”。
+
+TODO
+}
+\end{Answer}
 
 \subsection{自同构和伽罗瓦群}
 \index{阿廷(Emil Artin)}
