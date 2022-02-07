@@ -257,15 +257,148 @@
 
 二零一九年五月于北京
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:preface}
 \Question{编程实现一个井字棋游戏是传统人工智能中的经典问题，而计算机可以轻松算出三个数字的和并判断其是否等于15。请利用这个同构编写一个简化的井字棋程序，并做到不被人类玩家击败\footnote{本书附录提供了全部习题的答案，希望读者先自行思考再参考后面的答案。}。}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:preface}]
+\Question{编程实现一个井字棋游戏是传统人工智能中的经典问题，而计算机可以轻松算出三个数字的和并判断其是否等于15。请利用这个同构编写一个简化的井字棋程序，并做到不被人类玩家击败。
+
+\vspace{3mm}
+我们的思路是使用《洛书》幻方来同构井字棋游戏，我们用集合$X$, $O$来保存两个玩家所占领的格子。对于前言中的对局，开始时$X = \phi$，$O = \phi$，结束时$X = \{ 2, 5, 7, 1 \}$，$O = \{ 4, 3, 8, 6 \}$。为此我们需要先写一个程序判断一个集合中是否有3个元素相加等于15，从而知道某个玩家获胜与否。
+
+有两种思路解决这个问题，第一种是列举洛书幻方中的所有行、列、对角线，共8个三元组：\{ \{4, 9, 2\}, \{3, 5, 7\}, ..., \{2, 5, 8\} \}。然后看是否某个三元组包含在玩家占领的格子集合中。第二种比较有趣，假设玩家占领了格子$ X = \{x_1, x_2, ..., x_n\}$。这些格子按照洛书幻方中的元素升序排列。我们可以先选出$x_1$，然后用左右两个指针$l, r$分别指向下一个元素和最后一个元素，然后把这3个数加起来$s = x_1 + x_l + x_r$，如果等于15，说明玩家连成一条直线已经获胜了。如果小于15，由于元素是升序排列的，我们可以把左侧指针$l$加一，然后再次尝试；如果大于15，我们把右侧指针$r$减一，然后再次尝试。如果左右指针相遇，说明固定$x_1$没有找到相加等于15的三元组，我们选出$x_2$再次进行这样的检查。这样最差情况总共进行$(n - 2)+ (n - 3) + ... + 1$次检查就得知玩家是否获胜了。
+
+\lstset{language=Python
+    , frame=single
+}
+\begin{lstlisting}
+def win(s):
+    n = len(s)
+    if n < 3:
+        return False
+    s = sorted(s)
+    for i in range(n - 2):
+        l = i + 1
+        r = n - 1
+        while l < r:
+            total = s[i] + s[l] + s[r]
+            if total == 15:
+                return True
+            elif total < 15:
+                l = l + 1
+            else:
+                r = r - 1
+    return False
+\end{lstlisting}
+
+这样给定$X$和$O$，就能判断局面。如果$X$和$O$占满全部9个格子，还未分出胜负，则表示平局。接下来我们用传统人工智能中的\texttt{min-max}方法来实现井字棋，我们给每个局面一个评分，一方试图让评分最大化，称为正方；另一方试图让评分最小化，称为反方，从而实现对抗。平局的话评分为0，如果某个局面让正方获胜，我们设置评分为10，反方获胜评分为-10。这个分数值完全是随意设置的，不影响结果。
+
+\begin{lstlisting}
+WIN = 10
+INF = 1000
+
+# Lo Shu magic square
+MAGIC_SQUARE = [4, 9, 2,
+                3, 5, 7,
+                8, 1, 6]
+
+def eval(x, o):
+    if win(x):
+        return WIN
+    if win(o):
+        return -WIN
+    return 0
+
+def finished(x, o):
+    return len(x) + len(o) >= 9
+\end{lstlisting}
+
+对于任何一个对局，我们都让计算机不断向前探索，直到找到输赢或者平局的确定局面才停下来。探索的方法是穷尽当前所有能占领的格子，然后转换身份，考虑自己是对方时怎样对抗。对于所有候选方案，如果是正方，就选择评分高的方案，如果是反方，就选择评分低的方案。
+
+\begin{lstlisting}
+def findbest(x, o, maximize):
+    best = -INF if maximize else INF
+    move = 0
+    for i in MAGIC_SQUARE:
+        if (i not in x) and (i not in o):
+            if maximize:
+                val = minmax([i] + x, o, 0, not maximize)
+                if val > best:
+                    best = val
+                    move = i
+            else:
+                val = minmax(x, [i] + o, 0, not maximize)
+                if val < best:
+                    best = val
+                    move = i
+    return move
+\end{lstlisting}
+
+\texttt{min-max}是一个递归搜索的过程，为了尽快获胜，我们在评分上加上对向前探索步数的考虑。如果是正方，就从评分中减去递归深度，而对于反方，则加上递归深度。
+
+\begin{lstlisting}
+def minmax(x, o, depth, maximize):
+    score = eval(x, o)
+    if score == WIN:
+        return score - depth
+    if score == -WIN:
+        return score + depth
+    if finished(x, o):
+        return 0  # draw
+    best = -INF if maximize else INF
+    for i in MAGIC_SQUARE:
+        if (i not in x) and (i not in o):
+            if maximize:
+                best = max(best, minmax([i] + x, o, depth + 1, not maximize))
+            else:
+                best = min(best, minmax(x, [i] + o, depth + 1, not maximize))
+    return best
+\end{lstlisting}
+
+现在我们就做出一个无法被人类击败的程序了，我们的程序在背后用洛书幻方对抗人类玩家：
+
+\begin{lstlisting}
+def board(x, o):
+    for r in range(3):
+        print "-----------"
+        for c in range(3):
+            p = MAGIC_SQUARE[r*3 + c]
+            if p in x:
+                print "|X",
+            elif p in o:
+                print "|O",
+            else:
+                print "| ",
+        print "|"
+    print "-----------"
+
+def play():
+    x = []
+    o = []
+    while not (win(x) or win(o) or finished(x, o)):
+        board(x, o)
+        while True:
+            i = int(input("[1..9]==>"))
+            if i not in MAGIC_SQUARE or MAGIC_SQUARE[i-1] in x or \
+               MAGIC_SQUARE[i-1] in o:
+                print "invalid move"
+            else:
+                x = [MAGIC_SQUARE[i-1]] + x
+                break
+        o = [findbest(x, o, False)] + o
+    board(x, o)
+\end{lstlisting}
+}
+\end{Answer}
 
 \vspace{10mm}
 
 本书的电子版可以在\url{https://github.com/liuxinyu95/unplugged}下载。如果希望获得纸质版，请联系作者：liuxinyu95@gmail.com
 
 \ifx\wholebook\relax \else
+\section{参考答案}
+\shipoutAnswer
 
 \expandafter\enddocument
 %\end{document}
