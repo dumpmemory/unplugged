@@ -49,7 +49,7 @@
 最早可能是简单的数数，如数清果实的数量。随着文明的发展，人们逐渐开始进行物品交易。交易的数量逐渐增长，这就需要采用助记工具来处理更大的数。
 考古发现在今天的伊朗一带，人们在公元前4000年左右开始使用陶制的小球来辅助计数。比如用两个刻有十字的小球代表两只羊，同时还有代表十只羊，二十只羊的不同小球。
 为了防止忘记或者篡改数过的数目，人们还把这些小球放在陶罐中用泥土封存起来。图\ref{fig:clay-token}是乌鲁克时期的陶制计数罐和小球\cite{wiki-number}。
-交易过程中，人们可以通过这些工具掌握货物的数量\cite{trip-to-number-kindom}。
+交易过程中，人们可以通过这些工具掌握货物的数量\cite{trip-to-number-kingdom}。
 
 % 乌鲁克（Uruk）
 
@@ -502,25 +502,31 @@ fact = 2nd \cdot foldn(c, h) \\
 在累加和阶乘的定义中，我们使用了符号“$\cdot$”点来连接两个函数$2nd$和$foldn(c, h)$。我们称之为函数组合，$f\cdot g$表示先将函数$g$应用到变量上，然后再将函数$f$应用到结果上。即$(f\cdot g)(x) = f(g(x))$。
 
 \index{斐波那契}
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.35]{img/Fibonacci}
+ \captionsetup{labelformat=empty}
+ \caption{比萨的列奥纳多（斐波那契）1175-1250}
+ \label{fig:Fibonacci}
+\end{figure}
+
 为了展示这一抽象工具的强大，我们再来看一个例子：斐波那契数列。这一数列是用中世纪数学家比萨的列奥纳多命名的。斐波那契来自拉丁文filius Bonacci意思是波那契之子。斐波那契的父亲当时是商人，在北非以及地中海一带经商，斐波那契逐渐向当地阿拉伯人学习了印度——阿拉伯的数字系统并通过他的著作《算盘书》（Liber Abaci）将其介绍到欧洲。中世纪的欧洲一直使用罗马数字系统，我们今天在一些钟表盘上仍然可以看到罗马数字。例如2018年的罗马数字表示为MMXVIII，其中一个M代表1000，两个M代表2000，X代表10，V表示5，三个I表示3。把这些加起来得到2018。斐波那契引入欧洲的是我们今天仍然使用的位值制十进制系统。它使用了印度数学发明的零，不同的数字在不同的位置上含义不同。这一先进的数字系统极大地方便了计算，广泛应用在记账、利息、汇率等方面。《算盘书》更是对欧洲的数学复兴产生了深远的影响。
 
 斐波那契数列来自《算盘书》中的一个问题：兔子在出生两个月后，就有繁殖能力，一对兔子每个月能生出一对小兔子来。如果所有兔子都不死，那么一年以后可以繁殖多少对兔子？开始时有一对兔子。第一个月小兔尚未具备繁殖能力，所以仍然只有一对兔子。第二个月它们生下一对小兔，共有两对。第三个月大兔子又生下一对小兔，而上月生的小兔还在成长，总共有2+1=3对。第四个月有两对大兔子产下两对小兔，加上原有的三对兔子，总共有3+2=5对。按照这样，我们可以得到一个序列
 
 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, ...
 
-%\begin{wrapfigure}{R}{0.35\textwidth}
 \begin{figure}[htbp]
  \centering
- \subcaptionbox{这些正方形的边长组成了斐波那契序列。}[0.45\linewidth]{
-     \includegraphics[scale=0.4]{img/fibonacci_spiral.jpg}}
- \subcaptionbox{比萨的列奥纳多（斐波那契）1175-1250}[0.45\linewidth]{
-     \includegraphics[scale=0.35]{img/Fibonacci.jpg}}
+ \subcaptionbox{正方形的边长组成了斐波那契序列}[0.45\linewidth]{
+     \includegraphics[scale=0.4]{img/fibonacci_spiral}}
+ \subcaptionbox{深色：成兔，浅色：小兔}[0.45\linewidth]{
+     \includegraphics[scale=0.3]{img/Fibonacci-rabbits}}
  \captionsetup{labelformat=empty}
  \caption{}
  \label{fig:fibonacci_spiral}
- \label{fig:Fibonacci}
+ \label{fig:Fibonacci-rabbits}
 \end{figure}
-%\end{wrapfigure}
 
 \index{斐波那契数列}
 这个数列很有规律，从第三项后，任何一项都等于前两项的和。我们可以这样思考它的原理，如果前一个月有$m$对兔子，这个月有$n$对兔子，那么增加的一定都是新产下的小兔，共有$n-m$对，而剩下的都是成年兔子，共$m$对。到下个月时，这$n-m$对小兔刚刚成熟，而$m$对成兔又产下了$m$对小兔。所以下个月的兔子总数等于小兔加上成兔为：$(n - m) + m + m = n + m$对。根据这一推理，我们可以给出斐波那契数列的递归定义：
@@ -1110,24 +1116,24 @@ n\text{是偶数}: & pow(M \times M, \dfrac{n}{2}, A) \\
 \bibitem{wiki-number}
 Wikipedia. ``古代计数系统的历史''. \url{https://en.wikipedia.org/wiki/History_of_ancient_numeral_systems}
 
-\bibitem{trip-to-number-kindom}
-[美]卡尔文$\cdot$C$\cdot$克劳森. ``数学旅行家：漫游数王国''. 袁向东、袁钧译，上海教育出版社。ISBN: 7-5320-7883-3/G $cdot$ 7972
+\bibitem{trip-to-number-kingdom}
+[美]\ 卡尔文$\cdot$C$\cdot$克劳森\ 著\ 袁向东、袁钧\ 译. ``数学旅行家：漫游数王国''. 上海教育出版社。ISBN: 7-5320-7883-3/G $\cdot$ 7972
 
 \bibitem{wiki-babylonian-num}
 Wikipedia. ``古巴比伦数字''. \url{https://en.wikipedia.org/wiki/Babylonian_numerals}
 
 \bibitem{M-Kline-2007}
-[美] M$\cdot$克莱因 著 李宏魁 译 ``数学：确定性的丧失'' 湖南科学技术出版社，2007年4月 ISBN: 978-7-5357-1857-0
+[美] M$\cdot$克莱因\ 著\ 李宏魁\ 译. ``数学：确定性的丧失'' 湖南科学技术出版社，2007年4月 ISBN: 978-7-5357-1857-0
 % Morris Kline ``Mathematics: The Loss of Certainty''. Oxford University Press, 1980.
 
 \bibitem{GEB}
-[美]候世达 ``哥德尔、埃舍尔、巴赫——集异壁之大成''. 商务印书馆 1996. ISBN: 978-7-100-01323-9
+[美]\ 候世达\ 著. ``哥德尔、埃舍尔、巴赫——集异壁之大成''. 商务印书馆 1996. ISBN: 978-7-100-01323-9
 
 \bibitem{Bird97}
 Richard Bird, Oege de Moor. ``Algebra of Programming''. University of Oxford, Prentice Hall Europe. 1997. ISBN: 0-13-507245-X.
 
 \bibitem{Gusen2014}
-顾森 ``浴缸里的惊叹''. 人民邮电出版社. 2014, ISBN: 9787115355744
+顾森. ``浴缸里的惊叹''. 人民邮电出版社. 2014, ISBN: 9787115355744
 
 \end{thebibliography}
 
