@@ -341,7 +341,7 @@ g = \gcm(a, b) = \gcm(b, r_0) = ... = \gcm(r_{n-2}, r_{n-1}) = r_{n-1}
 
 \begin{figure}[htbp]
  \centering
- \subcaptionbox{反复剪掉正方形}{\includegraphics[scale=0.45]{img/GCM.png}}
+ \subcaptionbox{反复剪掉正方形}{\includegraphics[scale=0.4]{img/GCM}}
  \subcaptionbox{用最终的小正方形铺满原图}{
    \begin{adjustbox}{max width=\textwidth}
    \begin{tikzpicture}
@@ -590,7 +590,7 @@ jars a b c = (x, y) where
 \end{figure}
 %\end{wrapfigure}
 
-十九世纪的苏格兰数学家乔治$\cdot$克里斯托重建了希帕索思的证明。使用反证法，假设存在一条单位线段$c$能够公度正方形的边和对角线。根据度量的定义，可以令边长为$mc$、对角线长为$nc$，其中$m$、$n$都是正整数。如图\ref{fig:irrational}所示，我们以点A为圆心，以边长为半径做圆弧交对角线AC于点E。然后从E出发作垂直于对角线的直线，并交边BC于点F。
+十九世纪的苏格兰数学家乔治$\cdot$克里斯托重建了希帕索思的证明。使用反证法，假设存在一条单位线段$c$能够公度正方形的边和对角线。根据度量的定义，可以令边长为$nc$、对角线长为$mc$，其中$m$、$n$都是正整数。如图\ref{fig:irrational}所示，我们以点A为圆心，以边长为半径做圆弧交对角线AC于点E。然后从E出发作垂直于对角线的直线，并交边BC于点F。
 
 根据圆的定义，线段AE的长度等于正方形的边长，所以线段EC的长度等于$(m - n)c$。因为EF垂直于AC，而角$\angle ECF$是$45\degree$，故三角形ECF是等腰直角三角形。由于等腰三角形两腰相等，故而有$|EC| = |EF|$。接下来我们注意两个直角三角形$\triangle AEF$和$\triangle ABF$，由于边AE等于AB，同时AF是公共边，因此两个直角三角形全等。这样就得到边$|EF| = |FB|$。综合下来，我们有$|EC| = |EF| = |FB|$。这样线段FB的长度也等于$(m - n)c$，所以线段CF的长度等于CB的长度减去FB的长度，等于$nc - (m - n)c = (2n - m)c$。我们把得到的结论列在下面。
 
@@ -1223,10 +1223,10 @@ foldt(f, g, c, node(l, x, r)) = foldt(f, g, g(foldt(f, g, c, l), f(x)), r)
 
 \section{附录：倒水趣题完整程序}
 
-求得两个瓶子倒水的次数后，就可以生成一系列倒水的步骤，将这些步骤像表(\ref{tab:designed-jugs-ops})一样输出。
+求得两个瓶子倒水的次数后，就可以生成一系列倒水的步骤，将这些步骤像表\ref{tab:designed-jugs-ops}一样输出。
 
 \lstset{frame=single}
-\begin{lstlisting}
+\begin{Haskell}
 -- Populate the steps
 water a b c = if x > 0 then pour a x b y
               else map swap $ pour b y a x
@@ -1242,7 +1242,7 @@ pour a x b y = steps x y [(0, 0)]
       | b' == b = steps x (y + 1) ((a', 0):ps)  -- empty b
       | otherwise = steps x y ((max (a' + b' - b) 0,
                                 min (a' + b') b):ps) -- a to b
-\end{lstlisting}
+\end{Haskell}
 
 运行这一程序，输入\texttt{water 9 4 6}就可以得到最佳的倒水步骤:
 

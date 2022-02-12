@@ -330,7 +330,7 @@ g = \gcm(a, b) = \gcm(b, r_0) = ... = \gcm(r_{n-2}, r_{n-1}) = r_{n-1}
 
 \begin{figure}[htbp]
  \centering
- \subcaptionbox{Recursively cut off squares}{\includegraphics[scale=0.45]{img/GCM.png}}
+ \subcaptionbox{Recursively cut off squares}{\includegraphics[scale=0.4]{img/GCM}}
  \subcaptionbox{Tile the small squares}{
    \begin{adjustbox}{max width=\textwidth}
    \begin{tikzpicture}
@@ -455,14 +455,14 @@ The last two operations stop when either jar is empty or full. Below example sho
 $A$ & $B$ & Operation \\
 \hline
 0 & 0 & start \\
-0 & b & fill $B$ \\
-b & 0 & pour from $B$ to $A$ \\
-b & b & fill $B$ \\
-a & 2b - a & pour from $B$ to $A$ \\
-0 & 2b - a & empty $A$ \\
-2b - a & 0 & pour from $B$ to $A$ \\
-2b - a & b & fill $B$ \\
-a & 3b - 2a & pour from $B$ to $A$ \\
+0 & $b$ & fill $B$ \\
+$b$ & 0 & pour from $B$ to $A$ \\
+$b$ & $b$ & fill $B$ \\
+$a$ & $2b - a$ & pour from $B$ to $A$ \\
+0 & $2b - a$ & empty $A$ \\
+$2b - a$ & 0 & pour from $B$ to $A$ \\
+$2b - a$ & $b$ & fill $B$ \\
+$a$ & $3b - 2a$ & pour from $B$ to $A$ \\
 ... & ... & ... \\
 \end{tabular}
 \caption{The water in the jars and the operations.} \label{tab:jug-ops}
@@ -572,7 +572,7 @@ The Euclid algorithm is a double-edges sword. The powerful recursive method can 
 \end{figure}
 %\end{wrapfigure}
 
-The Scottish mathematician George Chrystal reconstructed Hippasus's proof in the 19th Century. Using reduction to absurdity, suppose there exists a segment $c$ that measures both the side and diagonal of the square. From the definition of the common measurement, let the side be $mc$, and the diagonal be $nc$, where both $m, n$ are integers. As shown in figure \ref{fig:irrational}, taking the side as radius, we draw an arc with $A$ as the center, which intersects the diagonal $AC$ at point $E$. Then draw a line from $E$ that is perpendicular to the diagonal, and intersects side $BC$ at point $F$.
+The Scottish mathematician George Chrystal reconstructed Hippasus's proof in the 19th Century. Using reduction to absurdity, suppose there exists a segment $c$ that measures both the side and diagonal of the square. From the definition of the common measurement, let the side be $nc$, and the diagonal be $mc$, where both $m, n$ are integers. As shown in figure \ref{fig:irrational}, taking the side as radius, we draw an arc with $A$ as the center, which intersects the diagonal $AC$ at point $E$. Then draw a line from $E$ that is perpendicular to the diagonal, and intersects side $BC$ at point $F$.
 
 %\begin{wrapfigure}{L}{0.4\textwidth}
 \begin{figure}[htbp]
@@ -1218,10 +1218,10 @@ We show another two fractal patterns as the close of this chapter. One is the fr
 
 \section{Appendix: Example program for 2 water jars puzzle}
 
-After figure out the integer solutions for 2 water jars puzzle, we can generate the detailed steps, and output them like table (\ref{tab:designed-jugs-ops}).
+After figure out the integer solutions for 2 water jars puzzle, we can generate the detailed steps, and output them like table \ref{tab:designed-jugs-ops}.
 
 \lstset{frame=single}
-\begin{lstlisting}
+\begin{Haskell}
 -- Populate the steps
 water a b c = if x > 0 then pour a x b y
               else map swap $ pour b y a x
@@ -1237,7 +1237,7 @@ pour a x b y = steps x y [(0, 0)]
       | b' == b = steps x (y + 1) ((a', 0):ps)  -- empty b
       | otherwise = steps x y ((max (a' + b' - b) 0,
                                 min (a' + b') b):ps) -- a to b
-\end{lstlisting}
+\end{Haskell}
 
 Run this program, enter \texttt{water 9 4 6}, the best pour water steps
 are output as below:
