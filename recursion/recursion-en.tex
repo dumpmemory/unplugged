@@ -274,9 +274,7 @@ Suppose segement $a$ and $b$ are comensurable. If they are equal, then either on
 \label{fig:line-seg-gcm}
 \end{figure}
 
-\vspace{5mm}
-
-\begin{tabular}{|l|l|l|}
+\btab{|l|l|l|}
 \hline
 $\gcm(a, b)$ & $a$ & $b$ \\
 \hhline{|=|=|=|}
@@ -290,9 +288,7 @@ $\gcm(12, 6)$ & 12 & 6 \\
 \hline
 $\gcm(6, 6)$ & 6 & 6 \\
 \hline
-\end{tabular}
-
-\vspace{5mm}
+\etab
 
 Repeatedly subtracting $b$ from $a$ to get $a'$, it's exactly the definition of division with remainder: $a' = a - \lfloor a / b \rfloor b$, or denoted as $a'= a \bmod b$. We can use the division with remainder to replace the repeated subtraction in the origin Euclidean algorithm. Besides that, when one magnitude is an integer multiple of the other, for example $b \leq a$ and $a$ can be divided by $b$, we know the greatest common measure is $b$. As the remainder $a \bmod b = 0$, we define $\gcm(0, b) = \gcm(b, 0) = b$. We can compare $a$ and $b$ first, then exchange them if $a < b$. As we know $a \bmod b$ must be less than $b$, when recursively compute the next time, we can directly exchange them as $\gcm(b, a \bmod b)$. This gives the improved Euclidean algorithm.
 
@@ -1254,7 +1250,7 @@ are output as below:
 \begin{thebibliography}{99}
 
 \bibitem{HanXueTao16}
-{\fontspec{\cnmainft}韩雪涛 ``数学悖论与三次数学危机''. 人民邮电出版社. 2016, ISBN: 9787115430434}
+韩雪涛\ ``数学悖论与三次数学危机''. 人民邮电出版社. 2016, ISBN: 9787115430434
 
 \bibitem{MKlein1972}
 Morris Klein. ``Mathematical thought from Ancient to Modern Times, Vol. 1''. Oxford University Press; 1972. ISBN: 9780195061352
@@ -1266,13 +1262,13 @@ Alexander A. Stepanov, Daniel E. Rose ``From Mathematics to Generic Programming'
 Euclid, Thomas Heath (Translator) ``Euclid's Elements (The Thirteen Books) ''. Digireads.com Publishing (December 26, 2017). ISBN-13: 978-1420956474
 
 \bibitem{HanXueTao2009}
-{\fontspec{\cnmainft}韩雪涛 ``好的数学——“下金蛋”的数学问题''. 湖南科学技术出版社. 2009, ISBN: 9787535756725}
+韩雪涛\ ``好的数学——“下金蛋”的数学问题''. 湖南科学技术出版社. 2009, ISBN: 9787535756725
 
 \bibitem{Bezout-Identity}
 Wikipedia ``Bézout's identity'' \url{https://en.wikipedia.org/wiki/Bézout's_identity}
 
 \bibitem{LiuXinyu2017}
-{\fontspec{\cnmainft}刘新宇 ``算法新解'' 人民邮电出版社. 2017, ISBN: 9787115440358}
+刘新宇\ ``算法新解'' 人民邮电出版社. 2017, ISBN: 9787115440358
 
 \bibitem{wiki-Turing}
 Wikipedia ``Alan Turing'' \url{https://en.wikipedia.org/wiki/Alan_Turing}
