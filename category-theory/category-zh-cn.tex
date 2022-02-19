@@ -492,7 +492,7 @@ A \to B \to C
 
 \subsection{函子的定义}
 \index{函子}
-在某种意义上说，函子好比是范畴之间的变换关系（态射）。但是它不仅把一个范畴中的对象映射为另一范畴中的对象，它还将一个范畴中的箭头映射到另一个范畴中。这一点是和普通的态射（例如群之间的态射）不同的。
+在某种意义上说，函子好比是范畴之间的变换关系（态射）。但是它不仅把一个范畴中的对象映射为另一范畴中的对象，它还将一个范畴中的箭头映射到另一个范畴中。这一点和普通的态射（例如群之间的态射）不同。
 
 函子通常用符号$\mathbf{F}$表示。既然说函子好比是范畴间的态射，那么函子必须能够忠实保持范畴间的结构和关系，这是如何做到的呢？为此函子必须满足两条性质。
 
@@ -543,7 +543,7 @@ A \arrowto{id} A \quad \longmapsto \quad \mathbf{F}A \arrowto{id} \mathbf{F}A
 %\end{wrapfigure}
 
 \index{函子!恒等函子} \index{函子!id函子}
-让我们用具体的例子来更好地理解函子的概念。如果一个函子从一个范畴映射到这个范畴本身上，这样的函子被称为\textbf{自函子}（endo-functor）\footnote{这和代数中的自同构概念很类似。如果记不清了，请回顾一下上一章。}。最简单的函子称为“恒等函子”，它是一个自函子，记为$id: \pmb{C} \to \pmb{C}$。它可以作用到任何范畴上，将对象$A$映射为对象$A$，将箭头$f$映射为箭头$f$。
+让我们用具体的例子来更好地理解函子的概念。如果一个函子从一个范畴映射到这个范畴本身上，这样的函子被称为\textbf{自函子}（endo-functor）\footnote{这和代数中的自同构概念很类似。参考上一章。}。最简单的函子称为“恒等函子”，它是一个自函子，记为$id: \pmb{C} \to \pmb{C}$。它可以作用到任何范畴上，将对象$A$映射为对象$A$，将箭头$f$映射为箭头$f$。
 
 \index{函子!常函子}
 其次简单的函子叫做“常函子”，它的行为像一个黑洞，我们可以把它记作$\mathbf{K}_B : \pmb{C} \to \pmb{B}$。它可以作用到任何范畴上，把所有的对象都映射为黑洞中的对象$B$，把所有的箭头都映射为黑洞中的恒等箭头$id_B$。黑洞范畴中只有一个恒等箭头，它显然也满足箭头组合的性质：$id_B \circ id_B = id_B$。
@@ -566,9 +566,7 @@ A \arrowto{id} A \quad \longmapsto \quad \mathbf{F}A \arrowto{id} \mathbf{F}A
 \end{figure}
 %\end{wrapfigure}
 
-2015年后主流的编程环境都纷纷将Maybe概念引入以取代null来获取更安全的方法\footnote{例如Java和C++中的\texttt{Optional<T>}。}。
-
-下图描述了$\mathbf{Maybe}$函子的行为。
+2015年后主流的编程环境都纷纷将Maybe概念引入以取代null来获取更安全的方法\footnote{例如Java和C++中的\texttt{Optional<T>}。}。下图描述了$\mathbf{Maybe}$函子的行为。
 
 \begin{center}
 \begin{tikzpicture}
@@ -591,9 +589,7 @@ A \arrowto{id} A \quad \longmapsto \quad \mathbf{F}A \arrowto{id} \mathbf{F}A
 data Maybe A = Nothing | Just A
 \end{lstlisting}
 
-也就是说，若对象是类型$A$，则映射到的对象是类型$\mathbf{Maybe}\ A$。注意，这里的对象是类型，而不是值。而类型$\mathbf{Maybe}\ A$的值要么是一个空值$Nothing$，要么是一个用$Just$构造的值。
-
-例如，对象是类型$Int$，可能函子映射后对象是类型$\mathbf{Maybe}\ Int$，它的值可能是$Nothing$或者$Just\ 5$。
+也就是说，若对象是类型$A$，则映射到的对象是类型$\mathbf{Maybe}\ A$。注意，这里的对象是类型，而不是值。而类型$\mathbf{Maybe}\ A$的值要么是一个空值$Nothing$，要么是一个用$Just$构造的值。例如，对象是类型$Int$，可能函子映射后对象是类型$\mathbf{Maybe}\ Int$，它的值可能是$Nothing$或者$Just\ 5$。
 
 例如有一个元素类型为$A$的二叉搜索树，在其中搜索一个值时，可能会搜不到。所以搜索的结果类型是$\mathbf{Maybe}\ A$\footnote{完整的代码见本章附录}。
 
@@ -643,7 +639,7 @@ fmap : (A \to B) \to (\mathbf{F} A \to \mathbf{F} B)
 \end{array}
 \]
 
-回到前面二叉搜索树的例子，假如树中元素的类型是自然数，我们在树中搜索一个值，如果搜到，就将这个值转换成二进制，否则返回$Nothing$。如果我们以前已经写过一个将十进制自然数转换成二进制的函数：
+回到前面二叉搜索树的例子，假如树中元素的类型是自然数，我们在树中搜索一个值，如果搜到，就将这个值转换成二进制，否则返回$Nothing$。如果我们已经写好一个将十进制自然数转换成二进制的函数：
 
 \[
 binary(n) = \begin{cases}
@@ -655,12 +651,12 @@ n < 2: & [n] \\
 下面是一个相应的例子代码实现。为了提高性能，这个实现使用了尾递归。
 
 \lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 binary = bin [] where
    bin xs 0 = 0 : xs
    bin xs 1 = 1 : xs
    bin xs n = bin ((n `mod` 2) : xs) (n `div` 2)
-\end{lstlisting}
+\end{Haskell}
 
 有了函子，就可以直接将这个函数箭头“举”到上面去，如下图所示：
 
@@ -810,12 +806,12 @@ fmap\ f\ Cons(x, xs) = Cons(f\ x, fmap\ f\ xs)
 \end{array}
 \]
 
-如果使用第一章介绍的简记法，用冒号“:”表示$Cons$，用中括号表示列表，用“[]”表示$Nil$，则列表函子的箭头部分映射可以简写为：
+如果使用第一章介绍的简记法，用冒号“:”表示$Cons$，用中括号表示列表，用“[\ ]”表示$Nil$，则列表函子的箭头部分映射可以简写为：
 
 \[
 \begin{array}{l}
 \quad    fmap : (A \to B) \to (\mathbf{List}\ A \to \mathbf{List}\ B) \\
-\quad    fmap\ f\ [] = [] \\
+\quad    fmap\ f\ [\ ] = [\ ] \\
 \quad    fmap\ f\ (x:xs) = (f\ x):(fmap\ f\ xs) \\
 \end{array}
 \]
@@ -823,10 +819,10 @@ fmap\ f\ Cons(x, xs) = Cons(f\ x, fmap\ f\ xs)
 仔细观察这个定义，再和第一章中列表的“逐一映射”定义对比，会发现它们除了名字之外完全一样，因此我们可以复用列表的“逐一映射”来定义列表函子，在一些编程环境中，列表函子的定义就是通过复用\texttt{map}实现的。
 
 \lstset{frame=single}
-\begin{lstlisting}
+\begin{Haskell}
 instance Functor [] where
     fmap = map
-\end{lstlisting}
+\end{Haskell}
 
 作为本例的结尾，我们来验证一下列表函子的箭头映射部分是否满足组合和恒等的两条性质。\textbf{一般的读者可以跳过这一证明部分}。
 
