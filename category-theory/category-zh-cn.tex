@@ -886,7 +886,7 @@ fmap\ (f \circ g)\ (x:xs) & = & ((f \circ g)\ x):(fmap\ (f \circ g)\ xs) & \text
 \end{mdframed}
 \end{example}
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:functor}
 \Question{请使用叠加操作$foldr$来定义列表函子的箭头映射。}
 \Question{证明可能函子和列表函子的组合$\mathbf{Maybe} \circ \mathbf{List}$与$\mathbf{List} \circ \mathbf{Maybe}$仍然是函子。}
 \Question{证明任意函子的组合$\mathbf{G} \circ \mathbf{F}$仍然是函子。}
@@ -894,9 +894,89 @@ fmap\ (f \circ g)\ (x:xs) & = & ((f \circ g)\ x):(fmap\ (f \circ g)\ xs) & \text
 \Question{回顾第二章中介绍的二叉树，请定义一个二叉树函子。}
 \end{Exercise}
 
+\begin{Answer}[ref={ex:functor}]
+\Question{请使用叠加操作$foldr$来定义列表函子的箭头映射。
+
+本质上就是用$foldr$定义列表的逐一映射：
+
+\[
+fmap\ f = foldr\ f\ Nil
+\]
+}
+\Question{证明可能函子和列表函子的组合$\mathbf{Maybe} \circ \mathbf{List}$与$\mathbf{List} \circ \mathbf{Maybe}$仍然是函子。
+
+我们只证明$\mathbf{Maybe} \circ \mathbf{List}$仍然是函子。另一证明与此类似。任何对象$A$被映射为$\mathbf{Maybe} (\mathbf{List}\ A)$。对于箭头，我们先看恒等箭头的情况：
+
+\bre
+(\mathbf{Maybe} \circ \mathbf{List})\ id & = & \mathbf{Maybe} (\mathbf{List}\ id) & \text{函子的组合} \\
+ & = & \mathbf{Maybe}\ id & \text{列表函子的恒等箭头} \\
+ & = & id & \text{可能函子的恒等箭头} \\
+\ere
+
+然后是箭头组合：
+
+\[
+\resizebox{\textwidth}{!}{\ensuremath{
+\begin{array}{rcll}
+(\mathbf{Maybe} \circ \mathbf{List})\ (f \circ g) & = & \mathbf{Maybe} (\mathbf{List}\ (f \circ g)) & \text{函子的组合} \\
+ & = & \mathbf{Maybe} ((\mathbf{List}\ f) \circ (\mathbf{List}\ g)) & \text{列表函子的箭头组合性质} \\
+ & = & (\mathbf{Maybe}\ (\mathbf{List}\ f)) \circ (\mathbf{Maybe}\ (\mathbf{List}\ g)) & \text{可能函子的箭头组合性质} \\
+ & = & ((\mathbf{Maybe} \circ \mathbf{List})\ f) \circ ((\mathbf{Maybe} \circ \mathbf{List})\ g) & \text{函子的组合} \\
+\end{array}
+}}
+\]
+}
+\Question{证明任意函子的组合$\mathbf{G} \circ \mathbf{F}$仍然是函子。
+
+仿照前一题，我们分别证明函子的组合满足恒等箭头，和箭头组合的性质即可。首先是恒等箭头性质：
+
+\bre
+(\mathbf{G} \circ \mathbf{F})\ id & = & \mathbf{G} (\mathbf{F}\ id) & \text{函子的组合} \\
+ & = & \mathbf{G}\ id & \text{函子$\mathbf{F}$的恒等箭头} \\
+ & = & id & \text{函子$\mathbf{G}$的恒等箭头} \\
+\ere
+
+然后是箭头组合：
+
+\bre
+(\mathbf{G} \circ \mathbf{F})\ (\phi \circ \psi) & = & \mathbf{G} (\mathbf{F}\ (\phi \circ \psi)) & \text{函子的组合} \\
+ & = & \mathbf{G} ((\mathbf{F}\ \phi) \circ (\mathbf{F}\ \psi)) & \text{函子$\mathbf{F}$的箭头组合性质} \\
+ & = & (\mathbf{G}\ (\mathbf{F}\ \phi)) \circ (\mathbf{G}\ (\mathbf{F}\ \psi)) & \text{函子$\mathbf{G}$的箭头组合性质} \\
+ & = & ((\mathbf{G} \circ \mathbf{F})\ \phi) \circ ((\mathbf{G} \circ \mathbf{F})\ \psi) & \text{函子的组合} \\
+\ere
+}
+\Question{思考一个预序集范畴上的函子的例子。
+
+预序集范畴上的函子是一个单调映射。
+% monotone function(map)
+}
+\Question{回顾第二章中介绍的二叉树，请定义一个二叉树函子。
+
+考虑集合全函数范畴上的对象$A$，二叉树函子将其映射为：
+
+\lstset{frame=none}
+\begin{Haskell}
+data Tree A = Empty | Branch (Tree A) A (Tree A)
+\end{Haskell}
+
+对于箭头$A \arrowto{f} B$，二叉树函子将其映射为：
+
+\bre
+fmap\ f\ Empty & = & Empty \\
+fmap\ f\ (Branch\ l\ x\ r) & = & Branch\ (fmap\ f\ l)\ (f\ x)\ (fmap\ f\ r) \\
+\ere
+
+或者利用第二章定义的$mapt$：
+
+\[
+fmap = mapt
+\]
+}
+\end{Answer}
+
 \section{积与和}
 
-在介绍更复杂的范畴和函子的例子之前，我们先了解一下积与和的概念。这里的积是指范畴的积。为了容易理解，我们先从集合的积入手。两个集合$A$和$B$的笛卡尔积$A \times B$，是所有有序对$(a, b)$的集合。其中$a \in A, b \in B$。即：
+为了理解范畴的积，我们先从集合入手。两个集合$A$和$B$的笛卡尔积$A \times B$，是所有序对$(a, b)$的集合，即：
 
 \[
 \{(a, b) | a \in A, b \in B\}
@@ -940,19 +1020,11 @@ fmap\ (f \circ g)\ (x:xs) & = & ((f \circ g)\ x):(fmap\ (f \circ g)\ xs) & \text
 \index{笛卡尔积} \index{笛卡尔}
 笛卡尔积又称直积，是用法国哲学家、数学家、物理学家笛卡尔的名字命名的。在笛卡尔的时代，拉丁文是学术上广泛使用的语言。笛卡尔也有一个拉丁化的名字——卡提修斯（Cartesius）。正因为如此，笛卡尔积也称卡氏积，笛卡尔坐标系也称卡氏坐标系。
 
-笛卡尔1596年生于法国一个地位较低的贵族家庭。一岁时他的母亲患肺结核去世，而他也受到传染，造成体弱多病。母亲去世后，父亲移居他乡并再婚，笛卡尔由外祖母带大，自此父子很少见面，但是父亲一直提供金钱方面的帮助，使他能够受到良好的教育。
+笛卡尔1596年生于法国一个地位较低的贵族家庭。一岁时他的母亲患肺结核去世，而他也受到传染，造成体弱多病。母亲去世后，父亲移居他乡并再婚，笛卡尔由外祖母带大，自此父子很少见面，但是父亲一直提供金钱方面的帮助，使他能够受到良好的教育。笛卡尔后来进入位于拉弗莱什的耶稣会的皇家大亨利学院学习。在那里，他学习到了数学和物理学，包括伽利略的工作。由于笛卡尔体弱多病，学校特许他每天早上不用像其他同学一样5点起床，而是一直睡到11点。笛卡尔直到晚年仍然保留了这一作息习惯。1614年毕业后，他遵从父亲的意愿，进入普瓦捷大学学习法律，并获得业士学位和文凭。毕业后笛卡尔一直对职业选择不定，又决心游历欧洲各地，专心寻求“世界这本大书”中的智慧。1618年，笛卡尔加入荷兰拿骚的毛里茨军队。笛卡尔对数学与物理学的兴趣，是在荷兰当兵期间产生的。1618年，他偶然在路旁公告栏上，看到用佛莱芒语提出的数学问题征答。这引起了他的兴趣，并且让身旁的人，将他不懂的佛莱芒语翻译成拉丁语。这位身旁的人就是大他八岁的以撒·贝克曼（Isaac Beeckman）。贝克曼在数学和物理学方面有很高造诣，很快成为了他的导师。4个月后，他写信给贝克曼：“你是将我从冷漠中唤醒的人……”。
 
-笛卡尔后来进入位于拉弗莱什的耶稣会的皇家大亨利学院学习。在那里，他学习到了数学和物理学，包括伽利略的工作。由于笛卡尔体弱多病，学校特许他每天早上不用像其他同学一样5点起床，而是一直睡到11点。笛卡尔直到晚年仍然保留了这一作息习惯。
+1622年，26岁的笛卡尔变卖掉父亲留下的资产，用4年时间游历欧洲。他先在意大利住了2年，随后迁往巴黎。当时法国教会势力庞大，不能自由讨论宗教问题，因此笛卡尔在1628年移居荷兰，在那里住了20多年。他深居简出，仅仅通过好友梅森\footnote{马林$\cdot$梅森，法国修道士、学者、数学家和音乐理论家。他发现了梅森素数，即形如$M_n = 2^n − 1$的素数。他和当时的著名数学家和科学家有广泛的联系，被称为16世纪上半叶世界数学和科学的中心人物。}和学术界取得联系。在此期间，笛卡尔致力于哲学研究，他发表了多部重要的文集，包括《方法论》、《形而上学的沉思》和《哲学原理》等，成为欧洲最有影响力的哲学家之一。1637年，笛卡尔在他的文章《几何学》中，创立了解析几何。
 
-1614年毕业后，他遵从父亲的意愿，进入普瓦捷大学学习法律，并获得业士学位和文凭。毕业后笛卡尔一直对职业选择不定，又决心游历欧洲各地，专心寻求“世界这本大书”中的智慧。1618年，笛卡尔加入荷兰拿骚的毛里茨军队。
-
-笛卡尔对数学与物理学的兴趣，是在荷兰当兵期间产生的。1618年，他偶然在路旁公告栏上，看到用佛莱芒语提出的数学问题征答。这引起了他的兴趣，并且让身旁的人，将他不懂的佛莱芒语翻译成拉丁语。这位身旁的人就是大他八岁的以撒·贝克曼（Isaac Beeckman）。贝克曼在数学和物理学方面有很高造诣，很快成为了他的导师。4个月后，他写信给贝克曼：“你是将我从冷漠中唤醒的人……”。
-
-1622年，当他26岁时，笛卡尔变卖掉父亲留下的资产，用4年时间游历欧洲。他先在意大利住了2年，随后迁往于巴黎。当时法国教会势力庞大，不能自由讨论宗教问题，因此笛卡尔在1628年移居荷兰，在那里住了20多年。他深居简出，仅仅通过好友梅森\footnote{马林$\cdot$梅森，法国修道士、学者、数学家和音乐理论家。他发现了梅森素数，即形如$M_n = 2^n − 1$的素数。他和当时的著名数学家和科学家有广泛的联系，被称为16世纪上半叶世界数学和科学的中心人物。}和学术界取得联系。在此期间，笛卡尔致力于哲学研究，他发表了多部重要的文集，包括《方法论》、《形而上学的沉思》和《哲学原理》等，成为欧洲最有影响力的哲学家之一。1637年，笛卡尔在他的文章《几何学》中，创立了解析几何。
-
-1649年笛卡尔受瑞典克里斯蒂娜女王之邀来到斯德哥尔摩担任女王的私人教师。但是女王习惯在清晨5点起床向笛卡尔学习，这一下子打破了笛卡尔一生11点起床的作息习惯。几个月后，在这片“熊、冰雪与岩石的土地”上，笛卡尔不幸得了肺炎，在1650年2月去世，享年54岁。
-
-笛卡尔留下名言“我思故我在”，提出了“普遍怀疑”的主张。他开拓了欧洲理性主义哲学，是西方现代哲学的奠基人。他的哲学思想深深影响了之后的几代人。笛卡尔对现代数学的发展做出了重要的贡献，他创立的解析几何，成功地将当时完全分开的代数和几何学联系到了一起。
+1649年笛卡尔受瑞典克里斯蒂娜女王之邀来到斯德哥尔摩担任女王的私人教师。但是女王习惯在清晨5点起床向笛卡尔学习，这一下子打破了笛卡尔一生11点起床的作息习惯。几个月后，在这片“熊、冰雪与岩石的土地”上，笛卡尔不幸得了肺炎，在1650年2月去世，享年54岁。笛卡尔留下名言“我思故我在”，提出了“普遍怀疑”的主张。他开拓了欧洲理性主义哲学，是西方现代哲学的奠基人。他的哲学思想深深影响了之后的几代人。笛卡尔对现代数学的发展做出了重要的贡献，他创立的解析几何，成功地将当时完全分开的代数和几何学联系到了一起。
 
 \vspace{5mm}
 
@@ -968,14 +1040,11 @@ A + B = (A \times \{0\}) \cup (B \times \{1\})
 \{(1, 0), (2, 0), (3, 0), (a, 1), (b, 1)\}
 \]
 
-$A + B$也可以用程序等价地这样定义：
+下面的例子程序构造了两个列表的和$A + B$：
 
-\begin{mdframed}
-\[
-A + B = zip\ A\ \{0, ...\} \doubleplus zip\ B\ \{1, ...\}
-\]
-\end{mdframed}
-
+\begin{Haskell}[frame=single]
+A + B = zip A [0, 0, ...] ++ zip B [1, 1, ...]
+\end{Haskell}
 
 当$A, B$是同类的代数结构时，我们可以定义如下的对象和箭头：
 
@@ -995,22 +1064,20 @@ A + B = zip\ A\ \{0, ...\} \doubleplus zip\ B\ \{1, ...\}
 \end{tikzpicture}
 \end{center}
 
-%\begin{wrapfigure}{R}{0.4\textwidth}
+对比这两种构造我们发现它们是对偶的。如果把两张图旋转90度，把$A$画在上，$B$画在下。这样两个问题一个在左，一个在右，如同双手一样对称。这种现象在范畴的相关概念中很常见。世界中到处都有对称，这样当我们了解了一个事物，就对偶地了解了另一个事物。
+
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.06]{img/hands.png}
+ \includegraphics[scale=0.06]{img/hands}
  \captionsetup{labelformat=empty}
  \caption{}
  \label{fig:hands}
 \end{figure}
-%\end{wrapfigure}
-
-对比这两种构造我们发现它们是对偶的。如果把两张图旋转90度，把$A$画在上面，$B$画在下面，这样两个问题一个在左侧，一个在右侧。如同双手一样对称。我们后面会发现，这种现象在范畴的相关概念中很常见。甚至我们的宇宙中也充满了对称。这样当我们了解了一个事物，就对偶地了解了另一个事物。
 
 \subsection{积与和的定义}
 \index{积} \index{和}
 \begin{definition}
-对于范畴$\pmb{C}$中的一对对象$A$和$B$，一个
+\textbf{楔形}：对于范畴$\pmb{C}$中的一对对象$A$和$B$，一个
 
 \[
 \text{指向$A, B$的} \quad \quad \quad \text{从$A, B$出发的}
@@ -1169,20 +1236,19 @@ S \arrowto{m} S
 \end{center}
 \end{lemma}
 
-详细的证明过程可以参考本书后面的附录。在一些编程环境中，积的确是通过二元组$(a, b)$以及函数$fst$和$snd$来实现的。但是，和却是以单独的数据类型来实现的。
+详细的证明过程可以参考本书后面的附录。在一些编程环境中，积的确是通过二元组$(a, b)$以及函数$fst$和$snd$来实现的。但是，和却是以单独的数据类型来实现的：
 
-\lstset{frame = single}
-\begin{lstlisting}
+\begin{Haskell}[frame = single]
 data Either a b = Left a | Right b
-\end{lstlisting}
+\end{Haskell}
 
 这样的好处是，我们不需要再通过0, 1这样的标记（tag）来了解一个\texttt{Either a b}的元素$x$究竟是来自\texttt{a}还是\texttt{b}。例如下面的例子代码使用模式匹配来决定如何处理和的元素：
 
-\begin{lstlisting}
+\begin{Haskell}
 either :: (a -> c) -> (b -> c) -> Either a b -> c
 either f _ (Left x)     =  f x
 either _ g (Right y)    =  g y
-\end{lstlisting}
+\end{Haskell}
 \lstset{frame = none}
 
 举个具体的例子，假设我们有一个\texttt{Either String Int}类型的和，它或者为一个字符串，例如\texttt{s = Left "hello"}，或者是一个整数，例如\texttt{n = Right 8}。如果是字符串，我们希望得到它的长度；如果是整数，我们希望将它加倍。为此我们可以这样调用$either$函数：\texttt{either length (*2) x}。
@@ -1204,7 +1270,7 @@ m (b, 1) = q(b)
 \end{array}
 \]
 
-在更一般的范畴中更，媒介箭头如何定义呢？为此我们引入两个特殊的箭头运算符号。任意给定楔形：
+在更一般的范畴中，媒介箭头如何定义呢？为此我们引入两个特殊的箭头运算符号。任意给定楔形：
 
 \begin{center}
 \begin{tikzpicture}
@@ -1433,6 +1499,7 @@ id \times id = id \\
 接着证明组合性质。
 
 \[
+\resizebox{\textwidth}{!}{\ensuremath{
 \begin{array}{rcll}
 ((f \circ f') \times (g \circ g'))(a, b) & = & ((f \circ f')\ a, (g \circ g')\ b) & \text{箭头积的定义} \\
     & = & (f(f'(a)), g(g'(b))) & \text{箭头组合的定义} \\
@@ -1440,6 +1507,7 @@ id \times id = id \\
     & = & (f \times g)((f' \times g')(a, b)) & \text{反向用箭头积的定义} \\
     & = & ((f \times g) \circ (f' \times g'))(a, b)
 \end{array}
+}}
 \]
 
 这样就证明了二元函子满足所有函子的性质。
@@ -1472,6 +1540,7 @@ f + g = [left \circ f, right \circ g]
 接下来需要验证函子的两条性质，\textbf{一般的读者可以略过框中的内容}。首先是恒等性质。将$f, g$都用$id$代入：
 
 \[
+\resizebox{\textwidth}{!}{\ensuremath{
 \begin{array}{lr}
   \begin{array}{cll}
     & id \times id & \\
@@ -1487,17 +1556,20 @@ f + g = [left \circ f, right \circ g]
   = & id & \text{和的反射律} \\
   \end{array}
 \end{array}
+}}
 \]
 
 其次验证组合性质。
 
 \[
+\resizebox{\textwidth}{!}{\ensuremath{
 \begin{array}{ccc}
 \text{积} & \quad \quad & \text{和} \\
  (f \times g) \circ (f' \times g') = f \circ f' \times g \circ g'
  & \quad \quad &
  (f + g) \circ (f' + g') = f \circ f' + g \circ g'
 \end{array}
+}}
 \]
 
 \index{吸收律}

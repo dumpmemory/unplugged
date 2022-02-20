@@ -1343,7 +1343,7 @@ polyndiv as bs = pdiv as (length as - length bs) [] where
   pdiv as i qs = if i == 0 then (reverse (q:qs), as')
                  else pdiv as' (i - 1) (q:qs) where
     q = head as `div` head bs
-    as' = dropWhile (== 0) [a - b*q | (a, b) <- zip as (bs ++ repeat 0)]
+    as' = dropWhile (== 0) [a - b*q | (a, b) <- zip as (bs ++ [0, 0..])]
 \end{Haskell}
 }
 \Question{将$x^{12} - 1$分解为分圆多项式。
