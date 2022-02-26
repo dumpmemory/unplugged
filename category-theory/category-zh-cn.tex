@@ -47,9 +47,9 @@
 欢迎来到范畴世界！我建议你小小的奖励自己一下。你已经迈过了第一道门槛，正在通往神奇的抽象王国之路上。这条路是世界上许多最聪明的心智披荆斩棘开辟出来的。如果说，人们将具体的事物，抽象成不带具体意义的数与形是原始阶段；将数、形与计算的意义去除，抽象成代数结构（例如群）和代数关系（例如同构）是第一阶段；范畴可以算是抽象的第二阶段。
 
 你也许会问，什么是范畴？为什么要了解范畴？这和编程有什么关系？范畴是数学家在1940年代研究同调代数时的“副产品”——顺手发展出的理论。最近十几年，范畴论由于其强大的抽象，几乎普适于任何问题，正向各种各样的领域渗透。不要说各大编程语言纷纷引入lambda演算和闭包等结构，有超过20种语言已经实现了单子（Monad）\cite{Monad-Haskell-Wiki}——用范畴的语言说，叫做“自函子范畴上的幺半群”。许多基本的计算逐渐使用范畴的语言进行抽象\footnote{例如，传统的右侧叠加定义：\\
-\texttt{foldr \_ z {[} {]} = z} \\
-\texttt{foldr f z (x:xs) = f x (foldr f z xs)} \\
-用范畴语言抽象为：\texttt{foldr f z t = appEndo (foldMap (Endo . f) t) z} 详见本章结尾部分。}。
+\lstinline{foldr _ z [] = z} \\
+\lstinline{foldr f z (x:xs) = f x (foldr f z xs)} \\
+用范畴语言抽象为：\lstinline{foldr f z t = appEndo (foldMap (Endo . f) t) z} 详见本章结尾部分。}。
 
 更重要的是：我们需要抽象。赫尔曼$\cdot$外尔说现代数学在过去几十年不断沉湎在抽象和形式化上。编程领域何尝不是如此呢？现代计算机科学解决的问题空前复杂，大数据量、分布式、高并发、还要保证数据和计算的安全。仅仅靠着前几十年的传统方法——暴力求解、务实的工程实践再加上一点聪明的头脑已经不够了。这逼迫着我们去吸取其它科学和数学中的新方法和新工具。正如迪厄多内所说：“这种抽象绝不是来自数学家的反常意愿，似乎他们想通过使用深奥莫测的语言来把自己与其他人隔开。数学家是被经典对象和关系的本质特性逼着去锻造新的抽象工具，来解决过去看来是不可攻克的问题。”\cite{Dieudonne1987}%（第2页）
 
@@ -566,7 +566,7 @@ A \arrowto{id} A \quad \longmapsto \quad \mathbf{F}A \arrowto{id} \mathbf{F}A
 \end{figure}
 %\end{wrapfigure}
 
-2015年后主流的编程环境都纷纷将Maybe概念引入以取代null来获取更安全的方法\footnote{例如Java和C++中的\texttt{Optional<T>}。}。下图描述了$\mathbf{Maybe}$函子的行为。
+2015年后主流的编程环境都纷纷将Maybe概念引入以取代null来获取更安全的方法\footnote{例如Java和C++中的\lstinline{Optional<T>}。}。下图描述了$\mathbf{Maybe}$函子的行为。
 
 \begin{center}
 \begin{tikzpicture}
@@ -816,7 +816,7 @@ fmap\ f\ Cons(x, xs) = Cons(f\ x, fmap\ f\ xs)
 \end{array}
 \]
 
-仔细观察这个定义，再和第一章中列表的“逐一映射”定义对比，会发现它们除了名字之外完全一样，因此我们可以复用列表的“逐一映射”来定义列表函子，在一些编程环境中，列表函子的定义就是通过复用\texttt{map}实现的。
+仔细观察这个定义，再和第一章中列表的“逐一映射”定义对比，会发现它们除了名字之外完全一样，因此我们可以复用列表的“逐一映射”来定义列表函子，在一些编程环境中，列表函子的定义就是通过复用map实现的。
 
 \lstset{frame=single}
 \begin{Haskell}
@@ -1942,23 +1942,23 @@ safeHead\ (x:xs) = Just\ x
 在某些编程环境中，可以这样写\footnote{Haskell中有一个ExplicitForAll的选项，我们在下一章介绍构造——叠加融合律（build/foldr fusion law）时会再次遇到它。}：
 
 \lstset{frame=single}
-\begin{lstlisting}
-phi :: forall a . F a -> G a
-\end{lstlisting}
+\begin{Haskell}
+phi :: forall a *'$\cdot$'* F a -> G a
+\end{Haskell}
 
 通常我们不需要明确标明\texttt{forall a}，这样自然变换就可以写为：
 
-\begin{lstlisting}
+\begin{Haskell}
 phi : F a -> G a
-\end{lstlisting}
+\end{Haskell}
 
 回顾此前的两个例子，我们可以知道$inits$和$safeHead$的类型分别为：
 
-\begin{lstlisting}
+\begin{Haskell}
 inits :: [a] -> [[a]]
 
 safeHead :: [a] -> Maybe a
-\end{lstlisting}
+\end{Haskell}
 
 它们仅仅是把\texttt{phi}换成了各自的名字，把$F, G$换成了各自的函子。
 
