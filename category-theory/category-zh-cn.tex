@@ -504,7 +504,7 @@ A \arrowto{id} A \quad \longmapsto \quad \mathbf{F}A \arrowto{id} \mathbf{F}A
 \]
 
 \index{协变} \index{反变}
-\item 第二条性质，函子必须能够保持箭头的组合仍然变换为箭头的组合\footnote{实际存在两种变换方式，一种叫做协变，一种叫做反变(在编程语言的类型系统中译为“逆变”。编程语言借鉴了范畴论中函子相关的用语)。这里仅考虑了协变。}。
+\item 第二条性质，函子必须能够保持箭头的组合仍然变换为箭头的组合\footnote{实际存在两种变换方式，一种叫做协变，一种叫做反变，其中反变将箭头反向(在编程语言的类型系统中译为“逆变”。编程语言借鉴了范畴论中函子相关的用语)。这里仅考虑了协变。}。
 
 \begin{center}
 \begin{tikzpicture}
@@ -1631,21 +1631,80 @@ bimap\ f\ g\ (right\ y) = right\ (g\ y)
 \end{array}
 \]
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:product-coproduct}
 \Question{考虑偏序集（poset）中的两个对象，它们的积是什么？和是什么？}
 %\Question{考虑集合范畴$\pmb{Set}$，积中的两个箭头$fst, snd$是右消去（epic）的么？和中的两个箭头$left, right$是左消去（monic）的么？}
 \Question{证明和的吸收率，并验证和函子的组合性质。}
 \end{Exercise}
 
+\begin{Answer}[ref={ex:product-coproduct}]
+\Question{考虑偏序集（poset）中的两个对象，它们的积是什么？和是什么？
+
+我们说一个偏序集本身就是一个范畴，每个元素都是一个对象，任何两个对象间最多有一个箭头（如果有序关系，则存在箭头）。对于偏序集中的两个元素（对象）$a$和$b$，如果它们都有指向上下游的箭头，则
+
+\[
+\text{交运算meet}\ a \land b \quad \quad \quad \text{并运算join}\ a \lor b
+\]
+
+是这一对对象的
+
+\[
+\text{积} \quad \quad \quad \text{和}
+\]
+
+其中交运算是两个对象的最小上界，而并运算是两个对象的最大下界。由于最小上界和最大下界并不一定存在，所以偏序集中任何两个对象的积与和也并不一定存在。
+
+% https://en.wikipedia.org/wiki/Join_and_meet
+%In mathematics, specifically order theory, the join and meet of a subset S of a partially ordered set P are respectively the supremum (least upper bound) of S, denoted ⋁S, and infimum (greatest lower bound) of S, denoted ⋀S. In general, the join and meet of a subset of a partially ordered set need not exist. Join and meet are dual to one another with respect to order inversion.
+}
+%\Question{考虑集合范畴$\pmb{Set}$，积中的两个箭头$fst, snd$是右消去（epic）的么？和中的两个箭头$left, right$是左消去（monic）的么？}
+\Question{证明和的吸收率，并验证和函子的组合性质。
+
+和的吸收率是：
+
+\[
+[p, q] \circ (f + g) = [p \circ f, q \circ g]
+\]
+
+\begin{proof}
+\blre
+  & [p, q] \circ (f + g)  \\
+= & [p, q] \circ [left \circ f, right \circ g] & \text{$+$的定义} \\
+= & [[p, q] \circ (left \circ f), [p, q] \circ (right \circ g)] & \text{和的融合律} \\
+= & [[p, q] \circ left \circ f, [p, q] \circ right \circ g] & \text{结合性} \\
+= & [p \circ f, q \circ g] & \text{和的消去律} \\
+\elre
+\end{proof}
+
+和函子的组合性质：
+
+\[
+ (f + g) \circ (f' + g') = f \circ f' + g \circ g'
+\]
+
+\begin{proof}
+令$p = left \circ f$，$q = right \circ g$
+
+\blre
+  & (f + g) \circ (f' + g') \\
+= & [left \circ f, right \circ g] \circ (f' + g') & \text{$+$的定义} \\
+= & [p, q] \circ (f' + g') & \text{用$p, q$代换} \\
+= & [p \circ f', q \circ g'] & \text{和的吸收律} \\
+= & [left \circ f \circ f', right \circ g \circ g'] & \text{把$p, q$代回} \\
+= & [left \circ (f \circ f'), right \circ (g \circ g')] & \text{结合律} \\
+= & f \circ f' + g \circ g' & \text{反向用$+$的定义} \\
+\elre
+\end{proof}
+}
+\end{Answer}
+
 \section{自然变换}
 
 % natural transformation
 
-艾伦伯格和麦克兰恩在1940年代发展范畴论时，他们想解释为何某些构造是“自然”的，而某些不是。现在这一术语被命名为“自然变换”。麦克兰恩曾说：“我并非为了研究函子而发明了范畴，我发明它们是为了研究自然变换。”通过前面介绍的范畴和函子，我们可以说在范畴论中，箭头用于比较对象，而函子用于比较范畴。那么我们用什么比较函子呢？自然变换正是用于比较函子的工具。
+艾伦伯格和麦克兰恩在1940年代发展范畴论时，他们想解释为何某些构造是“自然”的，而某些不是。现在这一术语被命名为“自然变换”。麦克兰恩曾说：“我并非为了研究函子而发明了范畴，我发明它们是为了研究自然变换。”通过前面介绍的范畴和函子，我们可以说在范畴论中，箭头用于比较对象，而函子用于比较范畴。那么我们用什么比较函子呢？自然变换正是用于比较函子的工具。考虑下面的两个函子：
 
 % Saunders Mac Lane, one of the founders of category theory, is said to have remarked, "I didn't invent categories to study functors; I invented them to study natural transformations."
-
-考虑下面的两个函子：
 
 \begin{center}
 \begin{tikzpicture}
@@ -1660,7 +1719,7 @@ bimap\ f\ g\ (right\ y) = right\ (g\ y)
 \end{tikzpicture}
 \end{center}
 
-它们联系两个同样的范畴，或者都是协变的，或者都是反变的。我们怎样比较它们呢？由于函子既映射对象，又映射箭头，所以我们也得既比较函子映射后的对象，也比较函子映射后的箭头。考虑$\pmb{Src}$中的任意对象$A$，它被两个函子映射成$\pmb{Trg}$中的两个对象$\mathbf{F}A$和$\mathbf{G}A$。我们要研究的是从$\mathbf{F}A$到$\mathbf{G}A$之间的箭头
+它们联系两个同样的范畴\footnote{都是协变的或都是反变的}，我们怎样比较它们呢？由于函子既映射对象，又映射箭头，所以我们也得既比较函子映射后的对象，也比较函子映射后的箭头。考虑$\pmb{Src}$中的任意对象$A$，它被两个函子映射成$\pmb{Trg}$中的两个对象$\mathbf{F}A$和$\mathbf{G}A$。我们要研究的是从$\mathbf{F}A$到$\mathbf{G}A$之间的箭头
 
 \[
 \mathbf{F}A \arrowto{\phi_A} \mathbf{G}A
@@ -1733,7 +1792,7 @@ inits [1, 2, 3, 4] = [[],[1],[1,2],[1,2,3],[1,2,3,4]]
 概括来说，$inits$的行为如下：
 
 \[
-inits [a_1, a_2, ..., a_n] = [[], [a_1], [a_1, a_2], ..., [a_1, a_2, ..., a_n]]
+inits [a_1, a_2, ..., a_n] = [[\ ], [a_1], [a_1, a_2], ..., [a_1, a_2, ..., a_n]]
 \]
 
 考虑集合范畴$\pmb{Set}$，对于任何对象，也就是集合$A$（或者说是类型$A$），都存在被$A$索引的$inits$箭头：
@@ -1744,7 +1803,7 @@ inits_A : \mathbf{List} A \to \mathbf{List}(\mathbf{List} A)
 
 其中一个函子是列表函子$\mathbf{List}$，另一个函子是嵌套列表函子$\mathbf{List}\ \mathbf{List}$。
 
-如果我们用“[]”简记法，这个箭头也可以表示为：
+如果我们用“[\ ]”简记法，这个箭头也可以表示为：
 
 \[
 [A] \arrowto{inits_A} [[A]]
@@ -1799,12 +1858,12 @@ inits_A : \mathbf{List} A \to \mathbf{List}(\mathbf{List} A)
 \end{example}
 
 \begin{example}
-我们举的第二个例子叫做$safeHead$，它的行为是安全地获取列表中的第一个元素。所谓“安全”，就是说它能够处理空列表Nil的情况。为此我们可以使用前面介绍过的可能函子$\mathbf{Maybe}$。它的定义如下：
+我们举的第二个例子叫做\textit{safeHead}，它的行为是安全地获取列表中的第一个元素。所谓“安全”，就是说它能够处理空列表Nil的情况。为此我们可以使用前面介绍过的可能函子$\mathbf{Maybe}$。它的定义如下：
 
 \[
 \begin{array}{l}
 safeHead : [A] \to \mathbf{Maybe}\ A \\
-safeHead\ [] = Nothing \\
+safeHead\ [\ ] = Nothing \\
 safeHead\ (x:xs) = Just\ x
 \end{array}
 \]
@@ -1844,11 +1903,11 @@ safeHead\ (x:xs) = Just\ x
 
 \[
 \begin{array}{cll}
-  & \mathbf{Maybe}(f) \circ safeHead_A\ [] & \\
+  & \mathbf{Maybe}(f) \circ safeHead_A\ [\ ] & \\
 = & \mathbf{Maybe}(f)\ Nothing & \text{$safeHead$的定义} \\
 = & Nothing & \text{$fmap\ f\ Nothing$的定义} \\
-= & safeHead_B\ [] & \text{反向用$safeHead$的定义} \\
-= & safeHead_B \circ \mathbf{List}(f)\ [] & \text{反向用$fmap\ f\ []$的定义} \\
+= & safeHead_B\ [\ ] & \text{反向用$safeHead$的定义} \\
+= & safeHead_B \circ \mathbf{List}(f)\ [\ ] & \text{反向用$fmap\ f\ [\ ]$的定义} \\
 \end{array}
 \]
 
