@@ -1251,7 +1251,7 @@ either _ g (Right y)    =  g y
 \end{Haskell}
 \lstset{frame = none}
 
-举个具体的例子，假设我们有一个\texttt{Either String Int}类型的和，它或者为一个字符串，例如\texttt{s = Left "hello"}，或者是一个整数，例如\texttt{n = Right 8}。如果是字符串，我们希望得到它的长度；如果是整数，我们希望将它加倍。为此我们可以这样调用$either$函数：\texttt{either length (*2) x}。
+举个具体的例子，假设我们有一个\texttt{Either String Int}类型的和，它或者为一个字符串，例如\texttt{s = Left "hello"}，或者是一个整数，例如\texttt{n = Right 8}。如果是字符串，我们希望得到它的长度；如果是整数，我们希望将它加倍。为此我们可以这样调用：\texttt{either length (*2) x}。
 
 这样\texttt{either length (*2) s}会计算“hello”的长度，结果为5；而\texttt{either length (*2) n}会将8加倍，结果为16。有些编程环境中，使用联合体（union）或者枚举（enum）来部分实现和的概念。方便起见，我们有时把集合和的这两个箭头称为$left$和$right$。
 
