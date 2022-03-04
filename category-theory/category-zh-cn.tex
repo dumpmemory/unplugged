@@ -1986,7 +1986,7 @@ safeHead :: [a] -> Maybe a
 
 有时我们也说自然同构的两个函子是自然等价的。 % naturally equivalent
 
-我们举一个极端的例子$swap$。对于任意两个对象的积$A \times B$，$swap$将其对换为$B \times A$：
+我们举一个极端的例子$swap$。对于任意两个对象的积$A \times B$，$swap$将其调换为$B \times A$：
 
 \[
 \begin{array}{l}
@@ -2023,9 +2023,7 @@ $swap$是一个自然变换，它将一个二元函子变换为另一个二元�
 \end{tikzpicture}
 \end{center}
 
-证明这一点很简单，只要任选两个对象的积$(a, b)$和$(c, d)$分别代入自然条件的左右两侧即可。我们把它留给读者作为练习。
-
-虽然两个函子都是积函子，我们还是来证明一下它们是自然同构的。对于任何两个对象的积$A \times B$，注意到：
+证明这一点很简单，只要任选两个对象的积$(a, b)$和$(c, d)$分别代入自然条件的左右两侧即可。我们把它留作练习。虽然两个函子都是积函子，我们还是来证明一下它们是自然同构的。对于任何两个对象的积$A \times B$，注意到：
 
 \[
 swap_{A \times B} \circ swap_{B \times A} = id
@@ -2035,7 +2033,7 @@ swap_{A \times B} \circ swap_{B \times A} = id
 
 以上的三个例子$inits, safeHead, swap$都是多态函数，它们也都是自然变换。这不是一个巧合。在函数式编程中，所有的多态函数都是自然映射\cite{Wadler-1989}。
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:nature-transform}
 \Question{证明$swap$满足自然变换的条件$(g \times f) \circ swap = swap \circ (f \times g)$}
 \Question{证明多态函数$length$是一个自然变换，其定义如下：
 \[
@@ -2049,12 +2047,153 @@ length\ (x:xs) = 1 + length\ xs
 \Question{自然变换也可以进行组合，考虑两个自然变换$\mathbf{F} \arrowto{\phi} \mathbf{G}$和$\mathbf{G} \arrowto{\psi} \mathbf{H}$，对于任意箭头$A \arrowto{f} B$，试画出自然变换组合$\psi \circ \phi$的范畴图，并列出可交换性的条件。}
 \end{Exercise}
 
+\begin{Answer}[ref={ex:nature-transform}]
+\Question{证明$swap$满足自然变换的条件$(g \times f) \circ swap = swap \circ (f \times g)$
+
+对于$A \arrowto{f} C$和$B \arrowto{g} D$，我们要证明下面的范畴图可交换。
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     (A, B) & (B, A) \\
+     (C, D) & (D, C) \\};
+  \path[-stealth]
+    (m-1-1) edge node [above] {$swap_{A, B}$} (m-1-2)
+    (m-2-1) edge node [below] {$swap_{C, D}$} (m-2-2)
+    (m-1-1) edge node [left] {$f \times g$} (m-2-1)
+    (m-1-2) edge node [right] {$g \times f = swap\ f \times g$} (m-2-2);
+\end{tikzpicture}
+\end{center}
+
+\begin{proof}
+\blre
+  & ((g \times f) \circ swap)\ (A, B) \\
+= & (g \times f)\ (swap\ (A, B)) & \text{组合的定义} \\
+= & (g \times f) \circ (B, A) & \text{$swap$的定义} \\
+= & (g\ B, f\ A) & \text{箭头的积} \\
+= & (D, C) & \text{箭头$g, f$的定义} \\
+= & swap\ (C, D) & \text{反向用$swap$的定义} \\
+= & swap\ (f\ A, g\ B) & \text{反向用$f, g$的定义} \\
+= & swap\ ((f \times g)\ (A, B)) & \text{箭头的积} \\
+= & (swap \circ (f \times g))\ (A, B) & \text{反向用组合的定义} \\
+\elre
+\end{proof}
+}
+\Question{证明多态函数$length$是一个自然变换，其定义如下：
+\[
+\begin{array}{l}
+length : [A] \to Int \\
+length\ [] = 0 \\
+length\ (x:xs) = 1 + length\ xs
+\end{array}
+\]
+对于任何对象$A$，它的索引箭头$length$为：
+
+\[
+[A] \arrowto{length_A} \mathbf{K}_{Int}\ A
+\]
+
+其中$\mathbf{K}_{Int}$是常函子，它将任何对象映射到$Int$，所有箭头映射为恒等箭头$id_{int}$。对于箭头$A \arrowto{f} B$，我们要证明下面的范畴图可交换。
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     A & \lbrack A \rbrack & \mathbf{K}_{Int}\ A \\
+     B & \lbrack B \rbrack & \mathbf{K}_{Int}\ B \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$f$} (m-2-1)
+    % square
+    (m-1-2) edge node [above] {$length_A$} (m-1-3)
+    (m-2-2) edge node [below] {$length_B$} (m-2-3)
+    (m-1-2) edge node [left] {$\mathbf{List}(f)$} (m-2-2)
+    (m-1-3) edge node [right] {$\mathbf{K}_{Int}(f)$} (m-2-3);
+\end{tikzpicture}
+\end{center}
+
+利用常函子的定义，这个范畴图等价于：
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     A & \lbrack A \rbrack & Int \\
+     B & \lbrack B \rbrack & Int \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$f$} (m-2-1)
+    % square
+    (m-1-2) edge node [above] {$length_A$} (m-1-3)
+    (m-2-2) edge node [below] {$length_B$} (m-2-3)
+    (m-1-2) edge node [left] {$\mathbf{List}(f)$} (m-2-2)
+    (m-1-3) edge node [right] {$id$} (m-2-3);
+\end{tikzpicture}
+\end{center}
+
+也就是要证明：
+
+\[
+id \circ length_{A} = length_{B} \circ \mathbf{List}(f)
+\]
+
+即：$length_{A} = length_{B} \circ \mathbf{List}(f)$
+
+
+\begin{proof}
+我们用数学归纳法证明。首先是空列表：
+
+\blre
+  & length_B \circ \mathbf{List}(f) [] \\
+= & length_B [] & \text{列表函子的定义} \\
+= & 0 & \text{$length$的定义} \\
+= & length_A\ [] & \text{反向用$length$的定义}
+\elre
+
+然后是归纳假设，设$length_B \circ \mathbf{List}(f)\ as = length_A\ as$成立，我们有：
+
+\blre
+  & length_B \circ \mathbf{List}(f) (a:as) \\
+= & length_B\ (f(a) : \mathbf{List}(f)\ as) & \text{列表函子的定义} \\
+= & 1 + length_B\ (\mathbf{List}(f)\ as) & \text{$length$的定义} \\
+= & 1 + length_B\ \circ \mathbf{List}(f)\ as & \text{箭头组合} \\
+= & 1 + length_A\ as & \text{归纳假设} \\
+= & length_A\ (a:as) & \text{反向用$length$的定义}
+\elre
+\end{proof}
+}
+\Question{自然变换也可以进行组合，考虑两个自然变换$\mathbf{F} \arrowto{\phi} \mathbf{G}$和$\mathbf{G} \arrowto{\psi} \mathbf{H}$，对于任意箭头$A \arrowto{f} B$，试画出自然变换组合$\psi \circ \phi$的范畴图，并列出可交换性的条件。
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     \mathbf{F}A & \mathbf{G}A & \mathbf{H}A \\
+     \mathbf{F}B & \mathbf{G}B & \mathbf{H}B \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$\mathbf{F}(f)$} (m-2-1)
+    (m-1-1) edge node [above] {$\phi_A$} (m-1-2)
+    (m-2-1) edge node [below] {$\phi_B$} (m-2-2)
+    (m-1-2) edge node [above] {$\psi_A$} (m-1-3)
+    (m-2-2) edge node [below] {$\psi_B$} (m-2-3)
+    (m-1-2) edge node [left] {$\mathbf{G}(f)$} (m-2-2)
+    (m-1-3) edge node [right] {$\mathbf{H}(f)$} (m-2-3);
+\end{tikzpicture}
+\end{center}
+
+可交换的条件为：
+
+\[
+\mathbf{H}(f) \circ (\psi_A \circ \phi_A) = (\psi_B \circ \phi_B) \circ \mathbf{F} (f)
+\]
+}
+\end{Answer}
+
 \section{数据类型}
 
 我们已经简单介绍了范畴论中的最基本概念，包括范畴、函子、自然变换。接下来我们了解一下如何通过这些基本组件实现较复杂的数据类型。
 
 \subsection{起始对象和终止对象}
-让我们先认识两个最简单的数据类型，起始对象（initial object）和终止对象（terminal object或final object）。这两个对象也像左右手一样是对偶的，它们虽然简单，可是并不容易理解。
+我们先认识两个最简单的数据类型，起始对象（initial object）和终止对象（terminal object或final object）。这两个对象也像左右手一样是对偶的。
 
 \index{起始对象} \index{终止对象}
 \begin{definition}
