@@ -2454,18 +2454,16 @@ p & \mapsto & \bigstar
 \subsection{幂}
 \index{幂} \index{exponential}
 
-起始对象和终止对象，相当于0和1，积与和相当于$\times$和$+$，如果再有了指数（幂），我们就可以在范畴这个抽象层面中拥有和基本算术运算，甚至和多项式“同构”的强大工具。
-
-观察一个定义在自然数上二元函数$f(x, y) = z$，例如$f(x, y) = x^2 + 2y + 1$。其类型为$f: N \times N \to N$。我们会自然联想到，可以把这个类型写成:
+起始对象和终止对象，相当于0和1，积与和相当于$\times$和$+$，如果再有了指数（幂），我们就可以在范畴这个抽象层面中拥有和基本算术运算，甚至和多项式“同构”的强大工具。观察一个定义在自然数上的二元函数$f(x, y) = z$，例如$f(x, y) = x^2 + 2y + 1$。其类型为$f: N \times N \to N$。我们会自然联想到，可以把这个类型写成:
 
 \[
 f : N^2 \to N
 \]
 
-对于函数$f$，我们能否把$N^2$看成一个对象，而不是两个参数呢？也就是说，看成$f\ (x, y)$，而不是$f(x, y)$。如果把参数看成一个“洞”，则前者是$f\ \bullet$，然后把一个对$(x, y)$填入洞中；而后者是$f(\bullet, \bullet)$，然后分别把$x, y$填入到两个洞中。另一方面，在第二章我们介绍了柯里化，可以把$f$看成$f: N \to (N \to N)$，也就是传入$x$后，$f\ x$会返回另一个函数，这个新函数把一个自然数映射到另一个自然数。但使用柯里化，我们反而得不到幂的概念了。峰回路转，如果我们把柯里化后返回的东西，也就是$N \to N$看成一个事物，比方叫做“函数对象”会怎样呢？$N$是一个无穷集，想起来比较困难。我们后退一步，构造一个简单点的例子——只有两个元素的有限集$Bool$——来分析一下。
+对于函数$f$，我们能否把$N^2$看成一个对象，而不是两个参数呢？也就是说，看成$f\quad (x, y)$，而不是$f(x, y)$。如果把参数看成一个“洞”，则前者是$f\ \bullet$，然后把一对$(x, y)$填入洞中；而后者是$f(\bullet, \bullet)$，然后分别把$x, y$填入到两个洞中。另一方面，在第二章我们介绍了柯里化，可以把$f$看成$f: N \to (N \to N)$，也就是传入$x$后，$f\ x$会返回另一个函数，这个新函数把一个自然数映射到另一个自然数。但使用柯里化，我们反而得不到幂的概念了。峰回路转，如果我们把柯里化后返回的东西，也就是$N \to N$看成一个事物，比方叫做“函数对象”会怎样呢？$N$是一个无穷集，想起来比较困难。我们后退一步，构造一个简单点的例子——只有两个元素的有限集$Bool$——来分析一下。
 
 \begin{example}
-存在无穷多个从$Bool$到$Int$的函数（箭头）组成的集合$\{Bool \arrowto{f} Int\}$，我们从这个集合中挑选一个元素，也就是一个例子函数来看看：
+存在无穷多个从$Bool$到$Int$的函数（箭头）组成的集合$\{Bool \arrowto{f} Int\}$，我们从这个集合中挑选一个元素作为例子：
 
 \[
 \begin{array}{l}
@@ -2495,7 +2493,7 @@ f\ True = ... \\
 \end{array}
 \]
 
-这告诉我们，箭头的集合，也就是箭头的类型\footnote{严格来说，我们应该去掉上面箭头两侧的大括号，增加大括号是为了容易理解}：$Bool \to Int$，相当于一个幂$Int^{Bool}$。也就是说$Bool \to Int = Int^{Bool}$。为什么在上面的推理中，我们可以用$Bool$替换$2$，从而把$Int^2$变成$Int^{Bool}$呢？原因是同构，上述的等号的真正含义是同构，所以严格来说，应该用“$\cong$”符号，而不是“=”。$Int^2$，是两个整数积的自然记法，也就是一对$Int$值的集合。一对$Int$值的集合可以看成是从一个名叫\textbf{2}的，拥有2个元素的索引集合$\{0, 1\}$到$Int$的映射。
+这告诉我们，箭头的集合，也就是箭头的类型\footnote{严格来说，我们应该去掉上面箭头两侧的大括号，增加大括号是为了容易理解}：$Bool \to Int$，相当于一个幂$Int^{Bool}$。也就是说$Bool \to Int = Int^{Bool}$。为什么在上面的推理中，我们可以用$Bool$替换$2$，从而把$Int^2$变成$Int^{Bool}$呢？原因是同构，上面等号的真正含义是同构，所以严格来说，应该用“$\cong$”符号，而不是“=”。$Int^2$，是两个整数积的自然记法，也就是一对$Int$值的集合。一对$Int$值的集合可以看成是从一个名叫\textbf{2}的，拥有2个元素的索引集合$\{0, 1\}$到$Int$的映射。
 
 \[
 \{0, 1\} \arrowto{f} Int = \{(f(0), f(1))\} = Int^2
@@ -2532,7 +2530,7 @@ isDigit 'b' = False
 apply(f, b) = f(b)
 \]
 
-聪明的读者可能会问：符号$A$哪里去了？因为$A$还有别的用处。我们还要把柯里化考虑进来。对于二元函数$g: A \times B \to C$，传入一个$A$中的值$a$后，就得到了一个柯里化的函数$g(a, \bullet) : B \to C$。它是一个函数对象，属于$C^B$。这样，对于任何二元函数$A \times B \arrowto{g} C$，都存在唯一的一元函数$A \arrowto{\lambda g} C^B$，将$a \in A$送入$g(a, \bullet) : B \to C$中。我们称$\lambda g$为$g$的幂转换（exponential transpose）\footnote{有的文献中用$\bar{g}$来表示，根据第二章中对$\lambda$的介绍，以及关于丘奇出版商的小插曲，我认为用$\lambda g$更为传神，它表示$a \mapsto \lambda \bullet \cdot g(a, \bullet)$。}。并且，有这样的关系：
+读者可能会问：符号$A$哪里去了？因为$A$还有别的用处。我们还要把柯里化考虑进来。对于二元函数$g: A \times B \to C$，传入一个$A$中的值$a$后，就得到了一个柯里化的函数$g(a, \bullet) : B \to C$。它是一个函数对象，属于$C^B$。这样，对于任何二元函数$A \times B \arrowto{g} C$，都存在唯一的一元函数$A \arrowto{\lambda g} C^B$，将$a \in A$送入$g(a, \bullet) : B \to C$中。我们称$\lambda g$为$g$的幂转换（exponential transpose）\footnote{有的文献中用$\bar{g}$来表示，根据第二章中对$\lambda$的介绍，以及关于丘奇出版商的小插曲，我认为用$\lambda g$更为传神，它表示$a \mapsto \lambda \bullet \cdot g(a, \bullet)$。}。并且，有这样的关系：
 
 
 \[
@@ -2645,7 +2643,7 @@ curry\ g = \lambda g
 curry\ apply = id
 \]
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:exp-obj}
 \Question{验证$\pmb{Exp}$的确是一个范畴，指出$id$箭头和箭头的组合。}
 \Question{反射律$curry\ apply = id$中，$id$的下标是什么？请用另一种方法证明它。}
 \Question{我们称下面的等式
@@ -2655,9 +2653,106 @@ curry\ apply = id
 为柯里化的融合律。请画出它的范畴图并证明它。}
 \end{Exercise}
 
+\begin{Answer}[ref={ex:exp-obj}]
+\Question{验证$\pmb{Exp}$的确是一个范畴，指出$id$箭头和箭头的组合。
+
+我们先看$id$箭头的定义$h \arrowto{id} h$，它使得下面的范畴图可交换：
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     A & A \times B & \\
+     A & A \times B & C \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$id_A$} (m-2-1)
+    (m-1-2) edge node [left] {$id_A \times id_B$} (m-2-2)
+    (m-1-2) edge node [above] {$h$} (m-2-3)
+    (m-2-2) edge node [below] {$h$} (m-2-3);
+\end{tikzpicture}
+\end{center}
+
+然后是箭头组合：
+
+$h \arrowto{i} k$和$k \arrowto{j} m$的组合是$j \circ i$使得下面的范畴图交换：
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     A & A \times B & \\
+     D & D \times B & C \\
+     E & E \times B & \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$f$} (m-2-1)
+    (m-2-1) edge node [left] {$g$} (m-3-1)
+    (m-1-2) edge node [left] {$f \times id_B$} (m-2-2)
+    (m-2-2) edge node [left] {$g \times id_B$} (m-3-2)
+    (m-1-2) edge node [above] {$h$} (m-2-3)
+    (m-2-2) edge node [above] {$k$} (m-2-3)
+    (m-3-2) edge node [below] {$m$} (m-2-3);
+\end{tikzpicture}
+\end{center}
+
+因此对于箭头$h \arrowto{j} k$有：$id_k \circ j = j = j \circ id_h$。并且对于三个箭头有结合律。
+}
+\Question{反射律$curry\ apply = id$中，$id$的下标是什么？请用另一种方法证明它。
+
+$id$的下标是二元箭头的类型$A \times B \to C$。
+
+\begin{proof}
+\blre
+  & curry \circ apply\ f\ a\ b \\
+= & curry\ (apply\ f)\ a\ b & \text{组合的定义} \\
+= & (apply\ f)\ (a, b) & \text{$curry$的定义}\\
+= & f(a, b) & \text{$apply$的定义} \\
+= & id_{A \times B \to C}\ f(a, b)
+\elre
+\end{proof}
+}
+\Question{我们称下面的等式
+\[
+(curry\ f) \circ g = curry(f \circ (g \times id))
+\]
+为柯里化的融合律。请画出它的范畴图并证明它。
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     D & D \times B & \\
+     A & A \times B & \\
+     C^B & C^B \times B & C \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$g$} (m-2-1)
+    (m-2-1) edge node [left] {$curry\ f$} (m-3-1)
+    (m-1-2) edge node [left] {$g \times id$} (m-2-2)
+    (m-1-2) edge [bend right] node {} (m-3-2)
+    (m-1-2) edge node [above] {$f \circ (g \times id)$} (m-3-3)
+    (m-2-2) edge node [above] {$f$} (m-3-3)
+    (m-3-2) edge node [below] {$apply$} (m-3-3);
+\end{tikzpicture}
+\end{center}
+
+观察图中$D \times B$，$A \times B$，和$C$这个三角形。我们知道$D \times B \to C$这个组合箭头为$f \circ (g \times id)$。
+
+根据幂对象和转换箭头的定义有：
+
+\[
+apply \circ (curry\ f) \circ g = f \circ (g \times id)
+\]
+
+由$curry$和$apply$的泛性性质有：
+
+\[
+(curry\ f) \circ g = curry (f \circ (g \times id))
+\]
+}
+\end{Answer}
+
 \subsection{笛卡尔闭和对象算术}
 
-有了起始对象0，终止对象1，和代表的加法，积代表的乘法，再加上幂对象代表的指数幂，我们终于拥有了在范畴上进行运算甚至构造抽象多项式的能力。但是且慢，让我们停下来看一下这样能跑多远。正如第三章开头我们讲到的，必须时刻关注一个问题：“某一种抽象的适用范围有多大？什么情况下这一抽象会失效？”
+有了起始对象0，终止对象1，和代表加法，积代表乘法，再加上幂对象，我们终于拥有了在范畴上进行运算甚至构造抽象多项式的能力。在此之前，我们必须关注一个问题：“某一种抽象的适用范围有多大？什么情况下这一抽象会失效？”
 
 \index{笛卡尔闭}
 并非所有的范畴都有起始或终止对象，也并非所有的范畴都有幂对象。如果一个范畴存在有限积、对于任何对象$A$和$B$都存在幂$A^B$，我们称这样的范畴为\textbf{笛卡尔闭}的（Cartesian closed）。一个笛卡尔闭范畴必须包含：
@@ -2735,7 +2830,7 @@ A^0 & = & \{ 0 \to A \} & \text{幂对象的定义} \\
   f_a : 1 \to a
 \]
 
-这种选择函数，能从集合$A$中选出一个元素$a$。所有从1到$A$中元素的选择函数的集合为$\{f_a : 1 \mapsto a | a \in A\}$，它恰好就是集合$1 \to A$。另一方面，集合$\{ f_a \}$是和$A = \{a\}$一一对应的，也就是说它们是同构的。
+这种选择函数，能从集合$A$中选出一个元素$a$。所有从1到$A$中元素的选择函数的集合为$\{f_a : 1 \mapsto a | a \in A\}$，它恰好就是集合$1 \to A$。另一方面，集合$\{ f_a \}$是和$\{a\} = A$一一对应的，也就是说它们是同构的。
 
 \[
 \begin{array}{rcll}
@@ -2946,9 +3041,9 @@ M^{M \times M} \times M^1 = M^{M \times M + 1}
 
 例如在编程中，可以这样定义一个F-代数箭头的类型：
 
-\begin{lstlisting}
+\begin{Haskell}
 type Algebra f a = f a -> a
-\end{lstlisting}
+\end{Haskell}
 
 这本质上是给箭头$\mathbf{F}A \to A$起了一个别名（alias），名叫\texttt{Algebra} $\mathbf{F}, A$。对于幺半群，还需要定义一个函子\footnote{
 Haskell中有一个对幺半群的标准定义（见本章附录）。但这是一个幺半群代数结构的定义，而不是幺半群函子。}：
