@@ -38,37 +38,6 @@
 
 \begin{enumerate}
 
-\item{在本节的例子中，我们说在一个偏序集中，如果存在最小值（或最大值），则最小值（或最大值）就是起始对象（或终止对象）。考虑全体偏序集构成的范畴$\pmb{Poset}$，如果存在起始对象，它是什么？如果存在终止对象，它是什么？}
-
-对于$\pmb{Poset}$范畴，对象是偏序集，箭头是单调映射。对于两个偏序集$P, Q$，箭头$P \arrowto{h} Q$使得偏序集$P$中任何两个有序元素$a \leq b$，有$h(a) \leq h(b)$。
-
-这一范畴中的起始对象是空偏序集$0 = \varnothing$。它到任何其它偏序集有唯一的箭头：
-
-\[
-\varnothing \longrightarrow P
-\]
-
-终止对象是只有一个元素的偏序集$1 = \{\bigstar\}$，偏序关系为$R = \{(\bigstar, \bigstar)\}$，即$\bigstar \leq \bigstar$。任何偏序集$P$到1有唯一的箭头：
-
-\bre
-P & \longrightarrow & \{\bigstar\} \\
-p & \mapsto & \bigstar
-\ere
-
-\item{皮亚诺范畴$\pmb{Pno}$（参见本章第一节的习题2）中，什么样的对象$(A, f, z)$是起始对象？终止对象是什么？}
-
-起始对象是$(\pmb{N}, succ, 0)$，它到任何其它对象唯一箭头是：
-
-\[
-(\pmb{N}, succ, 0) \arrowto{\sigma} (A, f, z): \sigma(n) = f^n(z)
-\]
-
-终止对象是只有一个元素的对象$1 = (\{\bigstar\}, \bigstar, id)$。任何皮亚诺范畴的对象$(A, f, z)$到终止对象的唯一箭头是：
-
-\[
-(A, f, z) \arrowto{\sigma} 1 : \sigma(a) = \bigstar
-\]
-
 \item{验证$\pmb{Exp}$的确是一个范畴，指出$id$箭头和箭头的组合。}
 
 我们先看$id$箭头的定义$h \arrowto{id} h$，它使得下面的范畴图可交换：

@@ -2309,9 +2309,9 @@ G \longrightarrow \{e\}
 
 回答刚才的问题，由于空集到任何集合都有唯一的箭头，所以空集到$\{ \bigstar \}$也有唯一的箭头。这样从任何集合（包括空集）都存在到$\{ \bigstar \}$的唯一箭头，因此$\{ \bigstar \}$的确是集合范畴中的终止对象。
 
-为什么不能像群一样，让只含有一个元素的集合$\{ \bigstar \}$成为起始对象呢？原因是，从$\{ \bigstar \}$到任意集合$S$的箭头可能不唯一。考虑有若干元素的集合$S = \{x, y, z, ...\}$，我们可以定义箭头（全函数）$\{ \bigstar \} \arrowto{\vec{x}} S$，将唯一元素映射到$x$上，也可以定义箭头$\{ \bigstar \} \arrowto{\vec{y}} S$和$\{ \bigstar \} \arrowto{\vec{z}} S$，将其映射到其它元素上。
+为什么不能像群一样，让只含有一个元素的集合$\{ \bigstar \}$成为起始对象呢？原因是，从$\{ \bigstar \}$到任意集合$S$的箭头可能不唯一\footnote{另外一个原因是任何群都至少包换一个元素，即单位元。存在空集合，但不存在空群。}。考虑有若干元素的集合$S = \{x, y, z, ...\}$，我们可以定义箭头（全函数）$\{ \bigstar \} \arrowto{\vec{x}} S$，将唯一元素映射到$x$上，也可以定义箭头$\{ \bigstar \} \arrowto{\vec{y}} S$和$\{ \bigstar \} \arrowto{\vec{z}} S$，将其映射到其它元素上。
 
-我们选择符号$\{ \bigstar \}$的用意是说，元素是什么不重要，只要它是只含有一个元素的集合（singleton set），在同构意义上就是等价的。
+我们选择符号$\{ \bigstar \}$的用意是说，元素是什么不重要，只要它是只含有一个元素的集合，在同构意义上就是等价的。
 
 \label{sec:selection-arrow} \index{选择箭头}
 从终止对象$\{ \bigstar \}$到某一集合$S$的箭头
@@ -2412,10 +2412,44 @@ one () = 1
 现在我们看到用“()”的好处了，调用的时候，就像传入0个参数的函数那样：$zero\ ()$返回0，$one\ ()$返回1。
 \end{example}
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:01-obj}
 \Question{在本节的例子中，我们说在一个偏序集中，如果存在最小值（或最大值），则最小值（或最大值）就是起始对象（或终止对象）。考虑全体偏序集构成的范畴$\pmb{Poset}$，如果存在起始对象，它是什么？如果存在终止对象，它是什么？}
 \Question{皮亚诺范畴$\pmb{Pno}$（参见本章第一节的习题2）中，什么样的对象$(A, f, z)$是起始对象？终止对象是什么？}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:01-obj}]
+\Question{在本节的例子中，我们说在一个偏序集中，如果存在最小值（或最大值），则最小值（或最大值）就是起始对象（或终止对象）。考虑全体偏序集构成的范畴$\pmb{Poset}$，如果存在起始对象，它是什么？如果存在终止对象，它是什么？
+
+对于$\pmb{Poset}$范畴，对象是偏序集，箭头是单调映射。对于两个偏序集$P, Q$，箭头$P \arrowto{h} Q$使得偏序集$P$中任何两个有序元素$a \leq b$，有$h(a) \leq h(b)$。
+
+这一范畴中的起始对象是空偏序集$0 = \varnothing$。它到任何其它偏序集有唯一的箭头：
+
+\[
+\varnothing \longrightarrow P
+\]
+
+终止对象是只有一个元素的偏序集$1 = \{\bigstar\}$，偏序关系为$R = \{(\bigstar, \bigstar)\}$，即$\bigstar \leq \bigstar$。任何偏序集$P$到1有唯一的箭头：
+
+\bre
+P & \longrightarrow & \{\bigstar\} \\
+p & \mapsto & \bigstar
+\ere
+}
+\Question{皮亚诺范畴$\pmb{Pno}$（参见本章第一节的习题2）中，什么样的对象$(A, f, z)$是起始对象？终止对象是什么？
+
+起始对象是$(\pmb{N}, succ, 0)$，它到任何其它对象唯一箭头是：
+
+\[
+(\pmb{N}, succ, 0) \arrowto{\sigma} (A, f, z): \sigma(n) = f^n(z)
+\]
+
+终止对象是只有一个元素的对象$1 = (\{\bigstar\}, \bigstar, id)$。任何皮亚诺范畴的对象$(A, f, z)$到终止对象的唯一箭头是：
+
+\[
+(A, f, z) \arrowto{\sigma} 1 : \sigma(a) = \bigstar
+\]
+}
+\end{Answer}
 
 \subsection{幂}
 \index{幂} \index{exponential}
