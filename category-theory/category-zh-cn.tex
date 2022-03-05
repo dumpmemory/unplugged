@@ -3048,13 +3048,13 @@ type Algebra f a = f a -> a
 这本质上是给箭头$\mathbf{F}A \to A$起了一个别名（alias），名叫\texttt{Algebra} $\mathbf{F}, A$。对于幺半群，还需要定义一个函子\footnote{
 Haskell中有一个对幺半群的标准定义（见本章附录）。但这是一个幺半群代数结构的定义，而不是幺半群函子。}：
 
-\begin{lstlisting}
+\begin{Haskell}
 data MonoidF a = MEmptyF | MAppendF a a
-\end{lstlisting}
+\end{Haskell}
 
 当\texttt{a}是字符串时，我们可以这样定义一个F-代数\texttt{(String, evals)}的箭头实现：
 
-\begin{lstlisting}
+\begin{Haskell}
 evals :: Algebra MonoidF String
 evals MEmpty = e ()
 evals (MAppendF s1 s2) = m s1 s2
@@ -3064,15 +3064,15 @@ e () = ""
 
 m :: String -> String -> String
 m = (++)
-\end{lstlisting}
+\end{Haskell}
 
 当然，也可将\texttt{e}和\texttt{m}内嵌到\texttt{evals}中简化实现为：
 
-\begin{lstlisting}
+\begin{Haskell}
 evals :: Algebra MonoidF String
 evals MEmpty = ""
 evals (MAppendF s1 s2) = s1 ++ s2
-\end{lstlisting}
+\end{Haskell}
 
 \texttt{evals}是箭头$\alpha : \mathbf{F}A \to A$的一种实现，其中$\mathbf{F}$为\texttt{MonoidF}，$A$为\texttt{String}。当然还可以有别的实现，只要它能够满足幺半群的单位元公理和结合性公理。
 \end{example}
@@ -3132,7 +3132,7 @@ i (x) = x^{-1}
 
 这样，任何群都可以用一个四元组$(G, m, e, i)$表示。
 
-第三步，利用和求$m, e, i$的和$\alpha = e + m + i$，通过多项式函子$\mathbf{F} A = 1 + A + A \times A$，并令$A = G$，描述群$G$上的代数运算。
+第三步，求$m, e, i$的和$\alpha = e + m + i$，通过多项式函子$\mathbf{F} A = 1 + A + A \times A$，并令$A = G$，描述群$G$上的代数运算。
 
 \[
 \begin{array}{rcll}
