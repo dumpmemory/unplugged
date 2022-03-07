@@ -3321,37 +3321,34 @@ n(a) = -a \\
 
 \subsubsection{递归和不动点}
 
-在第一章中，我们介绍了自然数和皮亚诺公理。并且介绍了和自然数同构的事物。实际上，我们可以把所有类似自然数的东西都用F-代数描述。
-
-假设有一个集合$A$，具有自然数的代数结构。例如第一章中介绍过的斐波那契数列，其中$A$是数对$(Int, Int)$。起始对象是$(1, 1)$，后继函数是$h(m, n) = (n, m + n)$。
+第一章中，我们介绍了自然数和皮亚诺公理，以及和自然数同构的事物。我们可以用F-代数描述所有类似自然数的东西。设有一个集合$A$，具有同构于自然数的代数结构。例如第一章中介绍过的斐波那契数列，其中$A$是数对$(Int, Int)$的集合。起始对象是$(1, 1)$，后继函数是$h(m, n) = (n, m + n)$。
 
 为了用F-代数描述这一\textbf{类}代数结构，我们需要三样东西：函子，携带对象和$\alpha$箭头。根据皮亚诺公理，自然数的函子应当这样定义：
 
-\lstset{frame=none}
-\begin{lstlisting}
+\begin{Haskell}[frame=none]
 data NatF A = ZeroF | SuccF A
-\end{lstlisting}
+\end{Haskell}
 
-这个函子是一个多项式函子$\mathbf{NatF} A = 1 + A$。现在我们提出一个问题。如果令$A’ = \mathbf{NatF} A$，将其代入$\mathbf{NatF}$函子，那么$\mathbf{NatF} A'$是什么？应该是两重函子$\mathbf{NatF}(\mathbf{NatF} A)$。我们还可以重复这一过程得到三重的$\mathbf{NatF}(\mathbf{NatF}(\mathbf{NatF} A))$。我们可以重复无穷多次，现在我们给重复无穷多次后产生类型$\mathbf{NatF}(\mathbf{NatF}(...))$起名为$\mathbf{Nat}$，即：
+这个函子是一个多项式函子$\mathbf{NatF} A = 1 + A$。现在我们提出一个问题。如果令$A’ = \mathbf{NatF} A$，将其代入$\mathbf{NatF}$函子，那么$\mathbf{NatF} A'$是什么？应该是两重函子$\mathbf{NatF}(\mathbf{NatF} A)$。我们还可以重复这一过程得到三重的$\mathbf{NatF}(\mathbf{NatF}(\mathbf{NatF} A))$。我们给重复无穷多次后产生的类型$\mathbf{NatF}(\mathbf{NatF}(...))$起名为$\mathbf{Nat}$，即：
 
 \[
 \begin{array}{rcll}
-\texttt{data}\ \mathbf{Nat} & = & \mathbf{NatF}(\mathbf{NatF}(...)) & \text{无穷重} \\
-         & = & ZeroF\ |\ SuccF\ (SuccF (...)) & \text{无穷重}SuccF \\
-         & = & ZeroF\ |\ SuccF\ \mathbf{Nat} & \text{无穷重}SuccF\text{的类型是}\mathbf{Nat} \\
+\texttt{data}\ \mathbf{Nat} & = & \mathbf{NatF}(\mathbf{NatF}(...)) & \text{无穷多重} \\
+         & = & ZeroF\ |\ SuccF\ (SuccF (...)) & \text{无穷多重}SuccF \\
+         & = & ZeroF\ |\ SuccF\ \mathbf{Nat} & \text{无穷多重}SuccF\text{的类型是}\mathbf{Nat} \\
          & = & Zero\ |\ Succ\ \mathbf{Nat} & \text{重命名}
 \end{array}
 \]
 
 这恰恰是我们在第一章定义的自然数类型。我们把\texttt{Nat}和\texttt{NatF A}并列写在一起：
 
-\begin{lstlisting}
+\begin{Haskell}[frame = none]
 data Nat = Zero | Succ Nat
 
 data NatF A = ZeroF | SuccF A
-\end{lstlisting}
+\end{Haskell}
 
-这是函子层面的递归，在第二章中，我们曾经遇到过类似的概念。将自函子应用到自身无穷次产生了\textbf{不动点}：
+这是函子层面的递归，在第二章中，我们曾经遇到过类似的概念。将自函子应用到自身无穷多次产生了\textbf{不动点}：
 
 \[
 \mathbf{Fix}\ \mathbf{F} = \mathbf{F}\ (\mathbf{Fix}\ \mathbf{F})
