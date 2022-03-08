@@ -3366,11 +3366,11 @@ data NatF A = ZeroF | SuccF A
 %% \end{array}
 %% \]
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:fix-point-functor}
 \Question{可否把类自然数函子写成如下递归的形式？谈谈你的看法。
-\begin{lstlisting}
+\begin{Haskell}[frame = none]
 data NatF A = ZeroF | SuccF (NatF A)
-\end{lstlisting}
+\end{Haskell}
 }
 \Question{我们可以为$\mathbf{NatF} Int \to Int$定义一个$\alpha$箭头，名叫$eval$：
 \[
@@ -3388,6 +3388,46 @@ eval : \mathbf{NatF}^n Int \to Int \\
 \]
 }
 \end{Exercise}
+
+\begin{Answer}[ref = {ex:fix-point-functor}]
+\Question{可否把类自然数函子写成如下递归的形式？谈谈你的看法。
+\begin{Haskell}[frame = none]
+data NatF A = ZeroF | SuccF (NatF A)
+\end{Haskell}
+
+不可以。考虑携带对象$A$，上述函子$\mathbf{NatF}$是迭代的，它并不将$A$映射为确定的某个对象。事实上，我们希望把它映射为皮亚诺范畴上的对象$(A, f, z)$。
+
+}
+\Question{我们可以为$\mathbf{NatF} Int \to Int$定义一个$\alpha$箭头，名叫$eval$：
+\[
+\begin{array}{l}
+eval : \mathbf{NatF} Int \to Int \\
+eval\ ZeroF = 0 \\
+eval\ (SuccF\ n) = n + 1 \\
+\end{array}
+\]
+如果迭代地将$A' = \mathbf{NatF} A$代入$\mathbf{NatF}$函子$n$次。我们把这样得到的函子记为$\mathbf{NatF}^n A$。试思考能否定义下面的$\alpha$箭头：
+\[
+\begin{array}{l}
+eval : \mathbf{NatF}^n Int \to Int \\
+\end{array}
+\]
+
+\[
+\resizebox{\textwidth}{!}{\ensuremath{
+\begin{array}{rcll}
+eval & : &\mathbf{NatF}^n Int \to Int \\
+eval\ ZeroF & = & 0 & \text{$ZeroF$是$\mathbf{NatF}^n Int$的对象}\\
+eval\ (SuccF\ ZeroF) & = & 1 & \text{$ZeroF$是$\mathbf{NatF}^{n-1} Int$的对象}\\
+eval\ (SuccF\ (SuccF\ ZeroF)) & = & 2 & \text{$ZeroF$是$\mathbf{NatF}^{n-2} Int$的对象}\\
+... \\
+eval\ (SuccF^{n-1}\ ZeroF) & = & n - 1 & \text{$ZeroF$是$\mathbf{NatF} Int$的对象}\\
+eval\ (SuccF^n\ m) & = & m + n \\
+\end{array}
+}}
+\]
+}
+\end{Answer}
 
 \subsubsection{初始代数和向下态射}
 
@@ -3558,11 +3598,11 @@ F-代数中若存在初始代数$(I, i)$，则存在到任何其它代数$(A, f)
 
 自然数函子$\mathbf{NatF}$是非递归的，而其起始代数自然数$\mathbf{Nat}$的定义是递归的：
 
-\begin{lstlisting}
+\begin{Haskell}[frame = none]
 data NatF A = ZeroF | SuccF A
 
 data Nat = Zero | Succ Nat
-\end{lstlisting}
+\end{Haskell}
 
 所以箭头$\mathbf{NatF} A \arrowto{f} A$是非递归的。一个$cata$（向下态射）能够从$f$构造出在递归的$\mathbf{Nat}$上进行计算的箭头$\mathbf{Nat} \to A$。所以$cata$的类型应为：
 
@@ -3581,32 +3621,31 @@ cata\ f\ (Succ\ n) = f (SuccF\ (cata\ f\ n)) \\
 
 这一定义的第一行处理递归的边界情况。针对$\mathbf{Nat}$的零值$Zero$，我们转而用$f$对$\mathbf{NatF}A$的零值$Zero$求值；对于递归情况，也就是$\mathbf{Nat}$的值$Succ\ n$，我们先递归地用$cata\ f\ n$求出类型为$A$的值$a$，然后用$SuccF\ a$将其转化为$\mathbf{NatF}A$类型的值，最后再把$f$作用于其上。这个自然数的向下态射对于任何携带对象$A$都成立，它是非常通用的。我们进一步举两个具体的例子。第一个例子是将任何$\mathbf{Nat}$的值转换回$Int$。
 
-\lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 toInt :: Nat -> Int
 toInt = cata eval where
   eval :: NatF Int -> Int
   eval ZeroF = 0
   eval (SuccF x) = x + 1
-\end{lstlisting}
+\end{Haskell}
 
 这样$toInt\ Zero$会得到0，而$toInt\ (Succ\ (Succ\ (Succ\ Zero)))$会得到3。为了方便验证，可以再定义一个辅助函数：
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 fromInt :: Int -> Nat
 fromInt 0 = Zero
 fromInt n = Succ (fromInt (n-1))
-\end{lstlisting}
+\end{Haskell}
 
 对于任何整数$n$，有$n = (toInt \circ fromInt)\ n$。这个例子看起来很平常，我们来看第二个关于斐波那契数列的例子。
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 toFib :: Nat -> (Integer, Integer)
 toFib = cata fibAlg where
   fibAlg :: NatF (Integer, Integer) -> (Integer, Integer)
   fibAlg ZeroF = (1, 1)
   fibAlg (SuccF (m, n)) = (n, m + n)
-\end{lstlisting}
+\end{Haskell}
 
 我们特意将此前定义的函数$fib$改名为$fibAlg$，意思是说，从斐波那契的代数关系（非递归的），我们通过向下态射获得了递归计算斐波那契数列的能力。这样$toFib\ Zero$会得到数对$(1, 1)$，而$toFib\ (Succ\ (Succ\ (Succ\ Zero)))$会得到数对$(3, 5)$。下面的辅助函数，可以计算第$n$个斐波那契数。
 

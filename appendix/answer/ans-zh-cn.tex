@@ -38,44 +38,6 @@
 
 \begin{enumerate}
 
-\item{可否把类自然数函子写成如下递归的形式？谈谈你的看法。
-\begin{lstlisting}
-data NatF A = ZeroF | SuccF (NatF A)
-\end{lstlisting}
-}
-
-不可以。考虑携带对象$A$，上述函子$\mathbf{NatF}$是迭代的，它并不将$A$映射为确定的某个对象。事实上，我们希望把它映射为皮亚诺范畴上的对象$(A, f, z)$。
-
-\item{我们可以为$\mathbf{NatF} Int \to Int$定义一个$\alpha$箭头，名叫$eval$：
-\[
-\begin{array}{l}
-eval : \mathbf{NatF} Int \to Int \\
-eval\ ZeroF = 0 \\
-eval\ (SuccF\ n) = n + 1 \\
-\end{array}
-\]
-如果迭代地将$A' = \mathbf{NatF} A$代入$\mathbf{NatF}$函子$n$次。我们把这样得到的函子记为$\mathbf{NatF}^n A$。试思考能否定义下面的$\alpha$箭头：
-\[
-\begin{array}{l}
-eval : \mathbf{NatF}^n Int \to Int \\
-\end{array}
-\]
-}
-
-\[
-\resizebox{\textwidth}{!}{\ensuremath{
-\begin{array}{rcll}
-eval & : &\mathbf{NatF}^n Int \to Int \\
-eval\ ZeroF & = & 0 & \text{$ZeroF$是$\mathbf{NatF}^n Int$的对象}\\
-eval\ (SuccF\ ZeroF) & = & 1 & \text{$ZeroF$是$\mathbf{NatF}^{n-1} Int$的对象}\\
-eval\ (SuccF\ (SuccF\ ZeroF)) & = & 2 & \text{$ZeroF$是$\mathbf{NatF}^{n-2} Int$的对象}\\
-... \\
-eval\ (SuccF^{n-1}\ ZeroF) & = & n - 1 & \text{$ZeroF$是$\mathbf{NatF} Int$的对象}\\
-eval\ (SuccF^n\ m) & = & m + n \\
-\end{array}
-}}
-\]
-
 \item{对二叉树函子$\mathbf{TreeF}\ A\ B$，固定$A$，利用不动点验证$(\mathbf{Tree}\ A, [nil, branch])$是初始代数。}
 
 令$B' = \mathbf{TreeF}\ A\ B$，然后不断递归地应用到自己，把此结果称为$\mathbf{Fix}\ (\mathbf{TreeF}\ A)$。
