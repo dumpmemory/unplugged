@@ -3713,21 +3713,20 @@ fibAt = fst \circ toFib \circ fromInt
 
 \subsubsection{代数数据类型}
 
-使用初始F-代数，我们可以定义更多的代数数据类型。本小节我们介绍列表和二叉树的例子。
+使用初始F-代数，我们可以定义更多的代数数据类型，如列表和二叉树。
 
 \begin{example}
 在第一章中，我们给出的列表定义为：
 
-\lstset{frame=none}
-\begin{lstlisting}
+\begin{Haskell}[frame = none]
 data List A = Nil | Cons A (List A)
-\end{lstlisting}
+\end{Haskell}
 
 而相应的非递归函子为：
 
-\begin{lstlisting}
+\begin{Haskell}[frame = none]
 data ListF A B = NilF | ConsF A B
-\end{lstlisting}
+\end{Haskell}
 
 实际上$\mathbf{List}$是函子$\mathbf{ListF}$的不动点。我们可以这样验证。令$B' = \mathbf{ListF}\ A\ B$，然后递归地应用到自己上无穷多次。把这个结果叫做$\mathbf{Fix}\ (\mathbf{ListF}\ A)$：
 
@@ -3771,42 +3770,41 @@ data ListF A B = NilF | ConsF A B
 
 如果我们有一个非递归的计算$f$，就可以利用向下态射构成针对递归列表的计算。
 
-\lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 cata :: (ListF a b -> b) -> (List a -> b)
 cata f Nil = f NilF
 cata f (Cons x xs) = f (ConsF x (cata f xs))
-\end{lstlisting}
+\end{Haskell}
 
 例如，可以定义计算列表长度的代数规则：
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 len :: (List a) -> Int
 len = cata lenAlg where
   lenAlg :: ListF a Int -> Int
   lenAlg NilF = 0
   lenAlg (ConsF _ n) = n + 1
-\end{lstlisting}
+\end{Haskell}
 
 这样$len\ Zero$会得到0，而$len\ (Cons\ 1\ (Cons\ 1\ Zero))$则得到2。可以定义一个辅助函数从中括弧简记法转换为$List$：
 
-\begin{lstlisting}
+\begin{Haskell}
 fromList :: [a] -> List a
 fromList [] = Nil
 fromList (x:xs) = Cons x (fromList xs)
-\end{lstlisting}
+\end{Haskell}
 
 这样就可以通过$len (fromList [1, 1, 2, 3, 5, 8])$计算列表的长度。
 
 通过改变代数规则$f$，还可以得到其它针对列表的计算。下面的例子把列表中所有的元素累加起来：
 
-\begin{lstlisting}
+\begin{Haskell}
 sum :: (Num a) => (List a) -> a
 sum = cata sumAlg where
   sumAlg :: (Num a) => ListF a a -> a
   sumAlg NilF = 0
   sumAlg (ConsF x y) = x + y
-\end{lstlisting}
+\end{Haskell}
 
 我们接下来利用列表的范畴图证明，列表的向下态射本质上就是叠加计算$foldr$。
 列表函子本质上是多项式函子。固定$A$，它将携带对象$B$映射为$\mathbf{ListF}\ A\ B = 1 + A \times B$；将箭头$h$映射为$(\mathbf{ListF}\ A)(h) = id + (id \times h)$。由于范畴图可交换，所以：
@@ -3851,9 +3849,9 @@ data Tree A = Nil | Br A (Tree A) (Tree A)
 
 所有类似二叉树的结构也可以通过F-代数来描述。首先定义函子：
 
-\begin{lstlisting}
+\begin{Haskell}[frame = none]
 data TreeF A B = NilF | BrF A B B
-\end{lstlisting}
+\end{Haskell}
 
 携带对象是$B$，而初始代数是$(\mathbf{Tree}\ A, [nil, branch])$。我们把证明作为本小节的练习。这样二叉树的向下态射表示为如下范畴图：
 
