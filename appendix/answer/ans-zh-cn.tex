@@ -34,35 +34,6 @@
 
 \shipoutAnswer
 
-\section{范畴}
-
-\begin{enumerate}
-
-\item{对二叉树函子$\mathbf{TreeF}\ A\ B$，固定$A$，利用不动点验证$(\mathbf{Tree}\ A, [nil, branch])$是初始代数。}
-
-令$B' = \mathbf{TreeF}\ A\ B$，然后不断递归地应用到自己，把此结果称为$\mathbf{Fix}\ (\mathbf{TreeF}\ A)$。
-
-\[
-\resizebox{\textwidth}{!}{\ensuremath{
-\begin{array}{rcll}
-\mathbf{Fix}\ (\mathbf{TreeF}\ A) & = & \mathbf{TreeF}\ A\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A)) & \text{不动点的定义} \\
- & = & \mathbf{TreeF}\ A\ (\mathbf{TreeF}\ A (...)) & \text{递归展开} \\
- & = & NilF | BrF\ A\ (\mathbf{TreeF}\ A\ (...))\ (\mathbf{TreeF}\ A\ (...)) & \text{二叉树函子的定义} \\
- & = & NilF | BrF\ A\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A))\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A)) & \text{反向用不动点} \\
-\end{array}
-}}
-\]
-
-比较$Tree A$的定义：
-
-\begin{lstlisting}
-data Tree A = Nil | Br A (Tree A) (Tree A)
-\end{lstlisting}
-
-故而：$\mathbf{Tree}\ A = \mathbf{Fix}\ (\mathbf{TreeF}\ A)$。初始代数为$(\mathbf{Tree}\ A, [nil, branch])$。
-
-\end{enumerate}
-
 \section{融合}
 
 \begin{enumerate}

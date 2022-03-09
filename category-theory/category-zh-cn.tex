@@ -3842,10 +3842,9 @@ sum = cata sumAlg where
 \begin{example}
 在第二章中，我们定义了二叉树的类型为：
 
-\lstset{frame=none}
-\begin{lstlisting}
+\begin{Haskell}[frame = none]
 data Tree A = Nil | Br A (Tree A) (Tree A)
-\end{lstlisting}
+\end{Haskell}
 
 所有类似二叉树的结构也可以通过F-代数来描述。首先定义函子：
 
@@ -3869,7 +3868,7 @@ data TreeF A B = NilF | BrF A B B
 \end{tikzpicture}
 \end{center}
 
-我们可以定义二叉树的向下态射函数。它接受一个F-代数的箭头$\mathbf{TreeF}\ A\ B \arrowto{f} B$，返回一个从$\mathbf{Tree}\ A \to B$的函数：
+我们可以定义二叉树的向下态射函数。它接受一个F-代数的箭头$\mathbf{TreeF}\ A\ B \arrowto{f} B$，返回一个类型为$\mathbf{Tree}\ A \to B$的函数：
 
 \[
 \begin{array}{l}
@@ -3894,7 +3893,7 @@ sum = cata \circ sumAlg \\
 \end{array}
 \]
 
-接下来，我们证明二叉树的向下态射就相当于二叉树的叠加操作$foldt$。固定对象$A$，二叉树的函子$\mathbf{TreeF}\ A\ B$是携带对象$B$的一个多项式函子。即：$\mathbf{TreeF}\ A\ B = 1 + (A \times B \times B)$，对于箭头$h$，为：$(\mathbf{TreeF}\ A)(h) = id + (id_A \times h \times h)$。
+接下来，我们证明二叉树的向下态射就相当于二叉树的叠加操作$foldt$。固定对象$A$，二叉树的函子$\mathbf{TreeF}\ A\ B$是携带对象$B$的一个多项式函子。即：$\mathbf{TreeF}\ A\ B = 1 + (A \times B \times B)$，对于箭头$h$为：$(\mathbf{TreeF}\ A)(h) = id + (id_A \times h \times h)$。
 
 由于上面的范畴图可交换，所以有：
 
@@ -3930,26 +3929,50 @@ foldt\ c\ h\ (Br\ k\ l\ r) = h(k, foldt\ c\ h\ l, foldt\ c\ h\ r) \\
 因此，累加二叉树中元素的运算可以用叠加表示为$foldt(0_B, (\bullet + \bullet + \bullet))$。
 \end{example}
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:bitree-algebra}
 \Question{对二叉树函子$\mathbf{TreeF}\ A\ B$，固定$A$，利用不动点验证$(\mathbf{Tree}\ A, [nil, branch])$是初始代数。}
 \end{Exercise}
+
+\begin{Answer}[ref = {ex:bitree-algebra}]
+\Question{对二叉树函子$\mathbf{TreeF}\ A\ B$，固定$A$，利用不动点验证$(\mathbf{Tree}\ A, [nil, branch])$是初始代数。
+
+令$B' = \mathbf{TreeF}\ A\ B$，然后不断递归地应用到自己，把此结果称为$\mathbf{Fix}\ (\mathbf{TreeF}\ A)$。
+
+\[
+\resizebox{\textwidth}{!}{\ensuremath{
+\begin{array}{rcll}
+\mathbf{Fix}\ (\mathbf{TreeF}\ A) & = & \mathbf{TreeF}\ A\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A)) & \text{不动点的定义} \\
+ & = & \mathbf{TreeF}\ A\ (\mathbf{TreeF}\ A (...)) & \text{递归展开} \\
+ & = & NilF | BrF\ A\ (\mathbf{TreeF}\ A\ (...))\ (\mathbf{TreeF}\ A\ (...)) & \text{二叉树函子的定义} \\
+ & = & NilF | BrF\ A\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A))\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A)) & \text{反向用不动点} \\
+\end{array}
+}}
+\]
+
+比较$Tree A$的定义：
+
+\begin{Haskell}[frame = none]
+data Tree A = Nil | Br A (Tree A) (Tree A)
+\end{Haskell}
+
+故而：$\mathbf{Tree}\ A = \mathbf{Fix}\ (\mathbf{TreeF}\ A)$。初始代数为$(\mathbf{Tree}\ A, [nil, branch])$。
+}
+\end{Answer}
 
 \section{小节}
 
 本章介绍了范畴论中最基本的概念，包括范畴、函子、自然变换。并且还介绍了积与和、起始对象和终止对象、幂以及F-代数这些工具来构造较为复杂的代数结构。作为本章的结尾，我们来解读一段用范畴语言实现的通用叠加操作\cite{Haskell-foldable}。通常我们认为列表的叠加操作可以这样写：
 
-\lstset{language=Haskell, frame=single}
- \begin{lstlisting}
+ \begin{Haskell}
 foldr f z [] = z
 foldr f z (x:xs) = f x (foldr f z xs)
-\end{lstlisting}
+\end{Haskell}
 
 但实际上，利用范畴语言可以这样写：
 
-\lstset{frame=single}
-\begin{lstlisting}
+\begin{Haskell}
 foldr f z t = appEndo (foldMap (Endo . f) t) z
-\end{lstlisting}
+\end{Haskell}
 
 所有的这一切的背后都是为了抽象，为了使得$foldr$能跳出列表。在传统的列表叠加定义中，$f$是一个二元操作，如果我们把它改写为$\oplus$，把$z$改写为单位元$e$，根据这个定义，$foldr\ (\oplus)\ e\ [a, b, c]$就可以展开成为：
 
@@ -3968,9 +3991,9 @@ concat_M = foldr\ (\oplus)\ e \\
 
 在某些编程环境中，这个函数的名字叫做\texttt{mconcat}。它的意思是说，对于任何幺半群$M$，$concat$可以将一个$M$中元素的列表，通过二元运算和单位元叠加计算到一起。例如字符串可以看作是幺半群，单位元是空串，而二元运算是连接。所以$concat_M$ \texttt{["Hello", "String" "Monoid"]}就得到：
 
-\begin{verbatim}
+\begin{Haskell}[frame = none]
 "Hello" ++ ("String" ++ ("Monoid" ++ "")) = "HelloStringMonoid"
-\end{verbatim}
+\end{Haskell}
 
 现在我们可以对任何幺半群元素进行累加了。但能否让它变得更通用呢？如果有一列元素，它们虽然不是幺半群中的元素，但是如果我们能将它们转换为幺半群，就仍然可以进行累加。将某一类型的列表映射为幺半群列表恰巧就是函子的行为，确切地说我们把箭头$A \arrowto{g} M$，通过列表函子“举”到$\mathbf{List}(g)$。然后再执行累加：
 
@@ -3998,10 +4021,9 @@ foldMap\ g = concat_M \circ fmap\ g
 
 可是美中不足的是，对于任何传入$foldr$的二元组合函数$f : A \to B \to B$，如果$B$不是幺半群，我们仍然无法进行叠加。现在考虑$f$的柯里化形式$f : A \to (B \to B)$，我们发现以箭头$B \to B$为对象，可以组成一个幺半群。其中单位元是恒等箭头$id$，而二元运算是函数组合。为此，我们把这种$B \to B$的箭头通过函子封装成一个类型（集合）：
 
-\lstset{frame=none}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame = none]
 newtype Endo B = Endo (B -> B)
-\end{lstlisting}
+\end{Haskell}
 
 我们给它起名叫“自函子”（endo），这是因为它从$B$出发指向$B$自身。此外，我们定义一个函数，从$\mathbf{Endo}B \arrowto{appEndo} B$：
 
@@ -4011,12 +4033,11 @@ appEndo(Endo\ a) = a
 
 然后我们规定$\mathbf{Endo}$是一个幺半群，单位元是$id$，二元运算是函数组合。这相当于以下定义：
 
-\lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 instance Monoid Endo where
     mempty = Endo id
     Endo f `mappend` Endo g = Endo (f . g)
-\end{lstlisting}
+\end{Haskell}
 
 现在任给一个二元组合函数$f$，我们都可以把它利用$foldMap$叠加到$Endo$幺半群上去了：
 
@@ -4072,62 +4093,61 @@ foldr\ f\ z\ xs
 
 函子的定义：
 
-\lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 class  Functor f  where
     fmap        :: (a -> b) -> f a -> f b
-\end{lstlisting}
+\end{Haskell}
 
 Maybe函子的定义：
 
-\begin{lstlisting}
+\begin{Haskell}
 instance  Functor Maybe  where
     fmap _ Nothing       = Nothing
     fmap f (Just a)      = Just (f a)
-\end{lstlisting}
+\end{Haskell}
 
 使用Maybe搜索二叉搜索树，并将结果转换成二进制：
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 lookup Nil _ = Nothing
 lookup (Node l k r) x | x < k = lookup l x
                       | x > k = lookup r x
                       | otherwise = Just k
 
 lookupBin = (fmap binary) . lookup
-\end{lstlisting}
+\end{Haskell}
 
 二元函子的定义：
 
-\begin{lstlisting}
+\begin{Haskell}
 class Bifunctor f where
   bimap :: (a -> c) -> (b -> d) -> f a b -> f c d
-\end{lstlisting}
+\end{Haskell}
 
 积函子与和函子的定义：
 
-\begin{lstlisting}
+\begin{Haskell}
 instance Bifunctor (,) where
   bimap f g (x, y) = (f x, g y)
 
 instance Bifunctor Either where
   bimap f _ (Left a) = Left (f a)
   bimap _ g (Right b) = Right (g b)
-\end{lstlisting}
+\end{Haskell}
 
 $curry$及其反向变换$uncurry$的定义：
 
-\begin{lstlisting}
+\begin{Haskell}
 curry       :: ((a, b) -> c) -> a -> b -> c
 curry f x y =  f (x, y)
 
 uncurry     :: (a -> b -> c) -> ((a, b) -> c)
 uncurry f (x, y) =  f x y
-\end{lstlisting}
+\end{Haskell}
 
 幺半群的定义：
 
-\begin{lstlisting}
+\begin{Haskell}
 class Semigroup a => Monoid a where
     mempty  :: a
 
@@ -4136,11 +4156,11 @@ class Semigroup a => Monoid a where
 
     mconcat :: [a] -> a
     mconcat = foldr mappend mempty
-\end{lstlisting}
+\end{Haskell}
 
 可叠加类型（Foldable）的定义：
 
-\begin{lstlisting}
+\begin{Haskell}
 newtype Endo a = Endo { appEndo :: a -> a }
 
 class Foldable t where
@@ -4149,7 +4169,7 @@ class Foldable t where
 
     foldMap :: Monoid m => (a -> m) -> t a -> m
     foldMap f = foldr (mappend . f) mempty
-\end{lstlisting}
+\end{Haskell}
 
 \ifx\wholebook\relax \else
 \section{参考答案}
