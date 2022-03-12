@@ -84,15 +84,13 @@
 
 \section{叠加——构建的融合}
 
-我们要举的第一个例子是叠加——构建的融合（foldr/build fusion law）。2015年Java在其1.8版本中加入了lambda表达式并且提供了一系列支持函数式编程的工具。但是有人很快发现，尽管一连串地函数调用表达能力很强，简洁优雅，但是性能会下降很多。原因之一就是这些串起来函数调用产生了大量中间结果。这些中间结果往往不是一两个简单的数值，而通常是列表、容器这样规模很大的结构。这些结构被下一个函数消费使用，然后就丢弃了。但是接下来会产生另一个同等规模的结构。这种产生——一次性消费——丢弃——再产生的过程，沿着函数调用链一环一环地重复，造成了计算的负担。
-
-例如\cite{GLPJ-1993}，我们想判断一个列表中的每个元素是否都满足某个条件。可以这样进行定义：
+我们要举的第一个例子是叠加——构建的融合（foldr/build fusion law）。2015年Java在其1.8版本中加入了lambda表达式并且提供了一系列支持函数式编程的工具。但是有人很快发现，尽管一连串地函数调用表达能力很强，简洁优雅，但是性能会下降很多。原因之一就是这些串起来函数调用产生了大量中间结果。这些中间结果往往不是一两个简单的数值，而通常是列表、容器这样规模很大的结构。这些结构被下一个函数消费使用，然后就丢弃了。但是接下来会产生另一个同等规模的结构。这种产生——一次性消费——丢弃——再产生的过程，沿着函数调用链一环一环地重复，造成了计算的负担。例如，我们想判断一个列表中的每个元素是否都满足某个条件。可以这样进行定义\cite{GLPJ-1993}：
 
 \[
 all(p, xs) = and(map(p, xs))
 \]
 
-传入$all(prime, [2, 3, 5, 7, 11, 13, 17, 19, ...])$就可以判断是否列表中都是素数。但是这个实现的效率却不高。首先$map(prime, xs)$会产生一个和$xs$同样长度的列表，列表中的每个元素是一个布尔值[True, True, ...]，每个布尔值表示对应的元素是不是素数。然后这个布尔值列表传入$and$函数，检查是否存在False。最后$xs$和布尔值列表都被丢弃，而仅仅返回一个布尔值作为最终结果。
+传入$all(prime, [2, 3, 5, 7, 11, 13, 17, 19, ...])$就可以判断列表中是否都是素数。但是这个实现的效率却不高。首先$map(prime, xs)$会产生一个和$xs$同样长度的列表，列表中的每个元素是一个布尔值[True, True, ...]，每个布尔值表示对应的元素是不是素数。然后这个布尔值列表传入$and$函数，检查是否存在False。最后$xs$和布尔值列表都被丢弃，而仅仅返回一个布尔值作为最终结果。
 
 下面是另一种定义，它能够避免产生中间的布尔值列表：
 
@@ -100,7 +98,7 @@ all(p, xs) = and(map(p, xs))
 \begin{array}{l}
 all(p, xs) = h(xs) \\
   \begin{cases}
-  h([]) = True \\
+  h([\ ]) = True \\
   h(x:xs) = p(x) \land h(xs) \\
   \end{cases}
 \end{array}
@@ -126,7 +124,7 @@ map\ f\ (map\ g\ xs) = map\ (f \circ g)\ xs
 
 \[
 \begin{array}{l}
-foldr\ \oplus\ z\ [] = z \\
+foldr\ \oplus\ z\ [\ ] = z \\
 foldr\ \oplus\ z\ (x:xs) = x\ \oplus\ (foldr\ \oplus\ z\ xs) \\
 \end{array}
 \]
@@ -137,7 +135,7 @@ foldr\ \oplus\ z\ (x:xs) = x\ \oplus\ (foldr\ \oplus\ z\ xs) \\
 foldr\ \oplus\ z\ [x_1, x_2, ..., x_n] = x_1 \oplus (x_2 \oplus (...(x_n \oplus z))...)
 \ee
 
-许多列表相关的操作都可以用叠加来定义。我们接下来给出一些典型的例子:
+许多列表相关的操作都可以用叠加来定义。以下是一些典型的例子：
 
 \begin{enumerate}
 \item 累加：
@@ -168,8 +166,8 @@ elem\ x\ xs\ = foldr\ (a\ b \mapsto (a = x) \lor b)\ False\ xs
 
 \[
 \begin{array}{rcl}
-map\ f\ xs & = & foldr\ (x\ ys \mapsto f(x) : ys)\ []\ xs \\
-           & = & foldr\ ((:) \circ f)\ []\ xs \\
+map\ f\ xs & = & foldr\ (x\ ys \mapsto f(x) : ys)\ [\ ]\ xs \\
+           & = & foldr\ ((:) \circ f)\ [\ ]\ xs \\
 \end{array}
 \]
 
@@ -177,11 +175,11 @@ map\ f\ xs & = & foldr\ (x\ ys \mapsto f(x) : ys)\ []\ xs \\
 
 \[
 \begin{array}{rl}
-filter\ f\ xs = foldr\ (x\ ys \mapsto
+filter\ p\ xs = foldr\ (x\ ys \mapsto
   \begin{cases}
-    f(x): & x:ys\ \\
+    p(x): & x:ys\ \\
     \text{否则}: & ys
-  \end{cases})\ []\ xs \\
+  \end{cases})\ [\ ]\ xs \\
 \end{array}
 \]
 
@@ -201,29 +199,29 @@ xs \doubleplus ys = foldr\ (:)\ ys\ xs
 \item 多个列表连接：
 
 \[
-concat\ xss = foldr\ \doubleplus\ []\ xss
+concat\ xss = foldr\ \doubleplus\ [\ ]\ xss
 \]
 
 \end{enumerate}
 
-叠加操作是如此基本（在上一章F-代数部分，我们证明了叠加是列表的初始代数），如果我们能把列表的叠加操作的化简规律找到，就找到了所有列表操作的化简规律。
+叠加操作是如此基本（上一章中，我们证明了叠加是列表的初始代数），如果我们能把列表的叠加操作的化简规律找到，就找到了所有列表操作的化简规律。
 
 \subsection{叠加——构建融合律}
-现在我们考虑，如果把空列表[]（即Nil）和连接操作“:”（即Cons）进行叠加会产生什么结果。
+现在我们考虑，如果把空列表[\ ]（即Nil）和连接操作“:”（即Cons）进行叠加会产生什么结果。
 
 \be
-foldr\ (:)\ []\ [x_1, x_2, ..., x_n] = x_1 : (x_2 : (...(x_n : []))...)
+foldr\ (:)\ [\ ]\ [x_1, x_2, ..., x_n] = x_1 : (x_2 : (...(x_n : [\ ]))...)
 \label{eq:foldr-fixed-point}
 \ee
 
-这回我们得到了列表本身。你也许想到了上一章介绍的不动点，我们稍后会回到这个话题。换言之，如果我们有一个运算$g$，它能够从一个起始值，例如[]，和一个二元组合运算，例如“:”，产生一个列表。我们可以定义这个列表构造过程$build$：
+这回我们得到了列表本身。你也许想到了上一章介绍的不动点，我们稍后会回到这个话题。换言之，如果我们有一个运算$g$，它能够从一个起始值，例如“[\:]”，和一个二元组合运算，例如“:”，产生一个列表。我们可以定义这个列表构造过程$build$：
 
 \be
-build(g) = g((:), [])
+build(g) = g((:), [\ ])
 \label{eq:build-definition}
 \ee
 
-接着，如果用另一个起始值$z$和二元组合运算$f$，对这一列表进行叠加，其结果就相当于用$z$替换[]，用“$f$”替换“(:)”，然后直接调用过程$g$。
+接着，如果用另一个起始值$z$和二元组合运算$f$，对这一列表进行叠加，其结果就相当于用$z$替换[\ ]，用“$f$”替换“(:)”，然后直接调用过程$g$。
 
 \be
 \pmb{foldr}(f, z, \pmb{build}(g)) = g(f, z)
@@ -244,18 +242,18 @@ build(g) = g((:), [])
 \[
 range(a, b) =
 \begin{cases}
-a > b: & [] \\
+a > b: & [\ ] \\
 \text{否则}: & a : range(a+1, b) \\
 \end{cases}
 \]
 
-这样$range(1, 5)$就产生列表[1, 2, 3, 4, 5]。现在我们只要把这个列表中的元素累加起来就得到答案了：
+这样$range(1, 5)$就产生列表[1, 2, 3, 4, 5]。接下来只要把这个列表中的元素累加起来就得到答案了：
 
 \[
 sum(range(a, b))
 \]
 
-接下来关键的一步，我们把$range$中的起始值[]和二元组合运算(:)抽出成为参数：
+接下来关键的一步，我们把$range$中的起始值[\ ]和二元组合运算(:)抽出成为参数：
 
 \[
 range'(a, b, \oplus, z) =
@@ -271,7 +269,7 @@ range'(a, b, \oplus, z) =
 range'\ a\ b = f\ c \mapsto
   \begin{cases}
   a > b: & c \\
-  \text{否则}: & f\ a\ (range' (a+1)\ b\ f\ c) \\
+  \text{否则}: & f\ a\ (range'\ (a+1)\ b\ f\ c) \\
   \end{cases}
 \]
 
@@ -291,34 +289,34 @@ sum(range(a, b)) & = & sum(build(range'(a, b))) & \text{代入} \\
 \end{array}
 \]
 
-这样就完成了化简，避免产生了中间列表。优化了算法。我们可以看一下最后算法的效果：
+这样就完成了化简，避免产生了中间列表，优化了算法。我们可以看一下最后的效果：
 
 \[
 range'\ a\ b\ (+)\ 0 =
   \begin{cases}
   a > b: & 0 \\
-  \text{否则}: & a + range'(a+1, b, (+), 0) \\
+  \text{否则}: & a + (range'\ (a+1)\ b\ (+)\ 0) \\
   \end{cases}
 \]
 
 \subsection{列表的构建形式}
 
-为了方便使用融合律，我们可以把常见的能够产生新列表操作都写为$build...foldr$的形式。这样当用叠加操作和这种形式的操作组合起来时，$\pmb{foldr}...(\pmb{build}...foldr)$，就可以使用融合律化简。
+为了方便使用融合律，我们可以把常见的列表生成操作写为$build...foldr$的形式。这样当用叠加操作和这种形式的操作组合起来时，$\pmb{foldr}...(\pmb{build}...foldr)$，就可以使用融合律化简。
 
 \begin{enumerate}
 \item 首先是最简单的操作——构造空列表：
 
 \[
-[] = build\ (f\ z \mapsto z)
+[\ ]= build\ (f\ z \mapsto z)
 \]
 
 我们可以代入$build$的定义(\ref{eq:build-definition})来验证这个定义：
 
 \begin{proof}
 \bre
-build\ (f\ z \mapsto z) & = & (f\ z \mapsto z)\ (:)\ [] & build\text{的定义} \\
-  & = & (:)\ [] \mapsto [] & \beta-\text{规约，参见第二章} \\
-  & = & [] & \\
+build\ (f\ z \mapsto z) & = & (f\ z \mapsto z)\ (:)\ [\ ] & build\text{的定义} \\
+  & = & (:)\ [\ ] \mapsto [\ ] & \beta-\text{规约，参见第二章} \\
+  & = & [\ ] & \\
 \ere
 \end{proof}
 
@@ -328,13 +326,11 @@ build\ (f\ z \mapsto z) & = & (f\ z \mapsto z)\ (:)\ [] & build\text{的定义} 
 x : xs = build\ (f\ z \mapsto f\ x\ (foldr\ f\ z\ xs))
 \]
 
-我们来验证一下：
-
 \begin{proof}
 \blre
   & build\ (f\ z \mapsto f\ x\ (foldr\ f\ z\ xs)) & \\
-= & (f\ z \mapsto f\ x\ (foldr\ f\ z\ xs))\ (:)\ [] & build\text{的定义} \\
-= & x : (foldr\ (:)\ []\ xs) & \beta-\text{规约} \\
+= & (f\ z \mapsto f\ x\ (foldr\ f\ z\ xs))\ (:)\ [\ ] & build\text{的定义} \\
+= & x : (foldr\ (:)\ [\ ]\ xs) & \beta-\text{规约} \\
 = & x : xs & \text{由(\ref{eq:foldr-fixed-point})，叠加的不动点} \\
 \elre
 \end{proof}
@@ -345,13 +341,11 @@ x : xs = build\ (f\ z \mapsto f\ x\ (foldr\ f\ z\ xs))
 xs \doubleplus ys = build\ (f\ z \mapsto foldr\ f\ (foldr\ f\ z\ ys)\ xs)
 \]
 
-证明如下：
-
 \begin{proof}
 \blre
   & build\ (f\ z \mapsto foldr\ f\ (foldr\ f\ z\ ys) xs) & \\
-= & (f\ z \mapsto foldr\ f\ (foldr\ f\ z\ ys)\ xs)\ (:)\ [] & build \text{的定义} \\
-= & foldr\ (:)\ (foldr\ (:)\ []\ ys)\ xs & \beta-\text{规约} \\
+= & (f\ z \mapsto foldr\ f\ (foldr\ f\ z\ ys)\ xs)\ (:)\ [\ ] & build \text{的定义} \\
+= & foldr\ (:)\ (foldr\ (:)\ [\ ]\ ys)\ xs & \beta-\text{规约} \\
 = & foldr\ (:)\ ys\ xs & \text{对内层用叠加的不动点} \\
 = & xs \doubleplus ys & \text{由(\ref{eq:binary-concat})，列表的连接} \\
 \elre
@@ -377,9 +371,9 @@ map\ f\ xs = build\ (\oplus\ z \mapsto foldr\ (y\ ys \mapsto (f\ y) \oplus ys)\ 
 \item 过滤元素产生新列表：
 
 \[
-filter\ f\ xs = build\ (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
+filter\ p\ xs = build\ (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
   \begin{cases}
-    f(x): & x \oplus xs' \\
+    p(x): & x \oplus xs' \\
     \text{否则}: & xs' \\
   \end{cases})\ z\ xs) \\
 \]
@@ -399,14 +393,15 @@ repeat\ x = build\ (\oplus\ z \mapsto let\ r = x \oplus r\ in\ r)
 \begin{example}
 我们把$and$改为叠加形式，把$map$改为构建形式就可以进行化简了。
 
-\bre
-all(p, xs) & = & and(map(p, xs)) & \text{原始定义} \\
-  & = & foldr\ \land\ True\ map(p, xs) & and\text{的叠加形式} \\
-  & = & \pmb{foldr}\ \land\ True\ \pmb{build}\ (\oplus\ z \mapsto & \\
-  &   & \quad \quad foldr\ (x\ ys \mapsto p(x) \oplus ys)\ z\ xs) & map\text{的构建形式} \\
-  & = & (\oplus\ z \mapsto foldr\ (x\ ys \mapsto p(x) \oplus ys)\ z\ xs)\ \land\ True & \text{融合律} \\
-  & = & foldr\ (x\ ys \mapsto p(x) \land ys)\ True\ xs & \beta-\text{规约} \\
-\ere
+\bea{cll}
+  & all(p, xs) \\
+= & and(map(p, xs)) & \text{原始定义} \\
+= & foldr\ \land\ True\ map(p, xs) & and\text{的叠加形式} \\
+= & \pmb{foldr}\ \land\ True\ \pmb{build}\ (\oplus\ z \mapsto & \\
+  & \quad \quad foldr\ (x\ ys \mapsto p(x) \oplus ys)\ z\ xs) & map\text{的构建形式} \\
+= & (\oplus\ z \mapsto foldr\ (x\ ys \mapsto p(x) \oplus ys)\ z\ xs)\ \land\ True & \text{融合律} \\
+= & foldr\ (x\ ys \mapsto p(x) \land ys)\ True\ xs & \beta-\text{规约} \\
+\eea
 
 如果定义一个$first$函数，它将一个函数$f$应用到一对值中的前一个上，即：
 
