@@ -459,17 +459,17 @@ join(ws) = concat(map(w \mapsto w \doubleplus ['\ '], ws))
   & \quad foldr\ (w\ b \mapsto \\
   & \quad \quad foldr\ (foldr\ f\ b\ ['\ '])\ w)\ z\ ws) \\
 
-  & \{\text{据$build$的定义，将$(:)$和$[]$代入}\} \\
-= & foldr\ (w\ b \mapsto foldr\ (:)\ \pmb{(foldr\ (:)\ b\ ['\ '])}\ w)\ []\ ws \\
+  & \{\text{据$build$的定义，将$(:)$和$[\ ]$代入}\} \\
+= & foldr\ (w\ b \mapsto foldr\ (:)\ \pmb{(foldr\ (:)\ b\ ['\ '])}\ w)\ [\ ]\ ws \\
 
   & \{\text{对黑体字部分求值}\} \\
-= & foldr\ (w\ b \mapsto foldr\ (:)\ ('\ ' : b)\ w)\ []\ ws \\
+= & foldr\ (w\ b \mapsto foldr\ (:)\ ('\ ' : b)\ w)\ [\ ]\ ws \\
 \end{array} \]
 
 因此最后化简的结果为：
 
 \[
-join(ws) = foldr\ (w\ b \mapsto foldr\ (:)\ ('\ ' : b)\ w)\ []\ ws
+join(ws) = foldr\ (w\ b \mapsto foldr\ (:)\ ('\ ' : b)\ w)\ [\ ]\ ws
 \]
 
 我们还可以据此把叠加操作展开，得到一个可读性和性能都好的定义：
@@ -477,11 +477,11 @@ join(ws) = foldr\ (w\ b \mapsto foldr\ (:)\ ('\ ' : b)\ w)\ []\ ws
 \[
 \begin{array}{l}
 \begin{cases}
-join\ [] = [] \\
+join\ [\ ] = [\ ] \\
 join\ (w:ws) = h\ w \\
 \end{cases} \\
 \text{其中}: \begin{cases}
-             h\ [] = '\ ' : join\ ws \\
+             h\ [\ ] = '\ ' : join\ ws \\
              h\ (x:xs) = x : h\ xs \\
              \end{cases} \\
 \end{array}
@@ -507,12 +507,12 @@ join\ (w:ws) = h\ w \\
 
 \blre
   & foldr\ f\ z\ (build\ (c\ n \mapsto [0])) & \\
-= & foldr\ f\ z\ ((c\ n \mapsto [0])\ (:)\ []) & build\text{的定义} \\
+= & foldr\ f\ z\ ((c\ n \mapsto [0])\ (:)\ [\ ]) & build\text{的定义} \\
 = & foldr\ f\ z\ [0] & \beta-\text{规约} \\
 = & f(0, z) & \text{叠加展开} \\
 \elre
 
-显然$f(0, z)$不等于$[0]$，连它们两个的类型都不同\footnote{除非极特殊情况$f = (:), z = []$。}。造成这一矛盾结果的原因是$(c\ n \mapsto [0])$不是一个真正用$c$和$n$构造结果的函数。为此我们需要对融合律$foldr\ f\ z\ (build\ g) = g\ f\ z$中$g$的类型做出限制。它的第一个参数既可以接受$c$，也可以接受$f$，换言之，它接受一个多态的二元运算$\forall A. \forall B.\ A \times B \to B$；同理它的第二个参数也是一个多态类型$B$的起始值，并产生一个类型为$B$的结果。我们把二元运算写为柯里化的形式就得到：
+显然$f(0, z)$不等于$[0]$，连它们两个的类型都不同\footnote{除非极特殊情况$f = (:), z = [\ ]$。}。造成这一矛盾结果的原因是$(c\ n \mapsto [0])$不是一个真正用$c$和$n$构造结果的函数。为此我们需要对融合律$foldr\ f\ z\ (build\ g) = g\ f\ z$中$g$的类型做出限制。它的第一个参数既可以接受$c$，也可以接受$f$，换言之，它接受一个多态的二元运算$\forall A. \forall B.\ A \times B \to B$；同理它的第二个参数也是一个多态类型$B$的起始值，并产生一个类型为$B$的结果。我们把二元运算写为柯里化的形式就得到：
 
 \[
 g : \forall A. (\forall B. (A \to B \to B) \to B \to B)
@@ -599,7 +599,7 @@ h \circ a = b \circ \mathbf{F}(h) \\
 \end{array}
 \ee
 
-初始代数的融合律意味这什么呢？在上一章中，我们发现向下态射可以将非递归的计算，转换成在递归结构上的叠加计算。例如，当函子$\mathbf{F}$是$\mathbf{ListF}A$（其中$A$是给定的对象）时，箭头$a = f + z$（加号表示和），而初始箭头$i = (:) + []$，向下态射$\lbb a \rbb = foldr(f, z)$。如果记$b = c + n$，则融合律可以写成：
+初始代数的融合律意味这什么呢？在上一章中，我们发现向下态射可以将非递归的计算，转换成在递归结构上的叠加计算。例如，当函子$\mathbf{F}$是$\mathbf{ListF}A$（其中$A$是给定的对象）时，箭头$a = f + z$（加号表示和），而初始箭头$i = (:) + [\ ]$，向下态射$\lbb a \rbb = foldr(f, z)$。如果记$b = c + n$，则融合律可以写成：
 
 \[
 h \circ foldr(f, z) = foldr(c, n)
