@@ -618,7 +618,7 @@ A \arrowto{h} B \quad \Rightarrow \quad h \circ g\ a = g\ b
 I \arrowto{\lbb a \rbb} A \quad \Rightarrow \quad \lbb a \rbb \circ g\ i = g\ a
 \ee
 
-具体到列表的例子，把$\lbb a \rbb$代换为$foldr(f, z)$；把初始代数$i$代换为列表的初始代数$(:) + []$；定义$build(g) = g\ (:)\ []$，并代入酸雨定律左侧，就得到了列表的叠加——构建融合律：
+具体到列表的例子，把$\lbb a \rbb$代换为$foldr(f, z)$；把初始代数$i$代换为列表的初始代数$(:) + [\ ]$；定义$build(g) = g\ (:)\ [\ ]$，并代入酸雨定律左侧，就得到了列表的叠加——构建融合律：
 
 \blre
 & \lbb a \rbb \circ g\ i = g\ a & \text{酸雨定律} \\
@@ -627,10 +627,10 @@ I \arrowto{\lbb a \rbb} A \quad \Rightarrow \quad \lbb a \rbb \circ g\ i = g\ a
 foldr\ f\ z\ (g\ i) = g\ a & \text{列表的向下态射是叠加} \\
 
 \Rightarrow &
-foldr\ f\ z\ (g\ (:)\ []) = g\ a & \text{列表的初始代数$i$是$(:), []$} \\
+foldr\ f\ z\ (g\ (:)\ [\ ]) = g\ a & \text{列表的初始代数$i$是$(:), [\ ]$} \\
 
 \Rightarrow &
-foldr\ f\ z\ (g\ (:)\ []) = g\ f\ z & \text{用$f, z$替换$a$} \\
+foldr\ f\ z\ (g\ (:)\ [\ ]) = g\ f\ z & \text{用$f, z$替换$a$} \\
 
 \Rightarrow &
 \pmb{foldr}\ f\ z\ (\pmb{build}\ g) = g\ f\ z & \text{反向用$build$的定义} \\
@@ -638,11 +638,76 @@ foldr\ f\ z\ (g\ (:)\ []) = g\ f\ z & \text{用$f, z$替换$a$} \\
 
 这样我们就用范畴论证明了叠加——构建融合律\cite{Hinze-Harper-James-2010}。
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:fusion-law}
 \Question{验证从左侧叠加也可以表示为$foldr$:
 \[
 foldl\ f\ z\ xs = foldr\ (b\ g\ a \mapsto g\ (f\ a\ b))\ id\ xs\ z
 \]}
+\Question{证明以下列表的构建——叠加形式：
+\[
+\resizebox{\linewidth}{!}{\ensuremath{
+\begin{array}{l}
+concat\ xss = build\ (f\ z \mapsto foldr\ (xs\ x \mapsto foldr\ f\ x\ xs)\ z\ xss) \\
+map\ f\ xs = build\ (\oplus\ z \mapsto foldr\ (y\ ys \mapsto (f\ y) \oplus ys)\ z\ xs) \\
+filter\ f\ xs = build\ (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
+  \begin{cases}
+     f(x): & x \oplus xs' \\
+    \text{否则}: & xs' \\
+  \end{cases})\ z\ xs) \\
+repeat\ x = build\ (\oplus\ z \mapsto let\ r = x \oplus r\ in\ r) \\
+\end{array}
+}}
+\]
+}
+\Question{化简快速排序算法：
+\[
+\resizebox{\linewidth}{!}{\ensuremath{
+\begin{cases}
+qsort\ [\ ] = [\ ] \\
+qsort\ (x:xs) = qsort\ [a | a \in xs, a \leq x] \doubleplus [x] \doubleplus qsort\ [a | a \in xs, x < a] \\
+\end{cases}
+}}
+\]
+提示：将ZF表达式\footnote{全称为“策梅罗——弗兰克尔表达式”。指集合论中$\{f(x) | x \in X, p(x), q(x), ...\}$这样的集合构建表达式。我们在下一章介绍无穷和集合论时会再次遇到它。}转换为$filter$。}
+\Question{利用范畴论验证融合律的类型限制。提示：考虑向下态射的类型。}
+\end{Exercise}
+
+\begin{Answer}[ref = {ex:fusion-law}]
+\Question{验证从左侧叠加也可以表示为$foldr$:
+\[
+foldl\ f\ z\ xs = foldr\ (b\ g\ a \mapsto g\ (f\ a\ b))\ id\ xs\ z
+\]
+
+为了方便理解，我们将其改写为：
+
+\[\begin{array}{l}
+foldl\ f\ z\ xs = foldr\ step\ id\ xs\ z \\
+\text{其中：} step\ x\ g\ a = g\ (f\ a\ x)
+\end{array}\]
+
+\[
+\resizebox{\linewidth}{!}{\ensuremath{
+\begin{array}{cll}
+  & foldl\ f\ z\ [x_1, x_2, ..., x_n] \\
+= & (foldr\ step\ id\ [x_1, x_2, ..., x_n])\ z \\
+= & (step\ x_1 (step\ x_2 ( ... (step\ x_n\ id))) ...)\ z \\
+= & (step\ x_1 (step\ x_2 ( ... (a_n \mapsto id\ (f\ a_n\ x_n)))) ...)\ z \\
+= & (step\ x_1 (step\ x_2 ( ...(a_{n-1} \mapsto (a_n \mapsto id\ (f\ a_n\ x_n))\ (f\ a_{n-1}\ x_{n-1}))))...)\ z \\
+= & (a_1 \mapsto (a_2 \mapsto ( ... (a_n \mapsto id\ (f\ a_n\ x_n))\ (f\ a_{n-1}\ x_{n-1})) ... (f\ a_2\ x_2)) (f\ a_1\ x_1))\ z \\
+= & (a_1 \mapsto (a_2 \mapsto ( ... (a_n \mapsto f\ a_n\ x_n)\ (f\ a_{n-1}\ x_{n-1})) ... )\ (f\ a_1\ x_1))\ z \\
+= & (a_1 \mapsto (a_2 \mapsto (... (a_{n-1} \mapsto f\ (f\ a_{n-1}\ x_{n-1})\ x_n)\ ...))\ (f\ a_1\ x_1))\ z \\
+= & (a_1 \mapsto f\ (f\ (...(f\ a_1\ x_1)\ x_2)\ ...)\ x_n)\ z \\
+= & f\ (f\ (...(f\ z\ x_1)\ x_2)\ ...)\ x_n
+\end{array}
+}}
+\]
+
+如果把$f$改写成$\oplus$，并写成中缀形式，就能看出$foldl$和$foldr$的区别：
+
+\[
+foldl\ \oplus\ f\ z = ((...(z \oplus x_1)\ \oplus x_2)...)\ \oplus x_n
+\]
+}
 \Question{证明以下列表的构建——叠加形式：
 \[
 \begin{array}{l}
@@ -656,16 +721,138 @@ filter\ f\ xs = build\ (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
 repeat\ x = build\ (\oplus\ z \mapsto let\ r = x \oplus r\ in\ r) \\
 \end{array}
 \]
+
+首先是多个列表的连接$concat$
+\begin{proof}
+\[
+\resizebox{\linewidth}{!}{\ensuremath{
+\begin{array}{cll}
+  & build\ (f\ z \mapsto foldr\ (xs\ x \mapsto foldr\ f\ x\ xs)\ z\ xss) \\
+= & (f\ z \mapsto foldr\ (xs\ x \mapsto foldr\ f\ x\ xs)\ z\ xss)\ (:)\ [\ ] & \text{$build$的定义} \\
+= & foldr\ (xs\ x \mapsto foldr\ (:)\ x\ xs)\ [\ ]\ xss & \text{$\beta$-规约} \\
+= & foldr\ \doubleplus [\ ]\ xss & \text{两个列表连接的定义} \\
+= & concat\ xss & \text{多列表连接的定义} \\
+\end{array}
+}}
+\]
+\end{proof}
+
+接着是逐一映射$map$
+\begin{proof}
+\blre
+  & build\ (\oplus\ z \mapsto foldr\ (y\ ys \mapsto (f\ y) \oplus ys)\ z\ xs) \\
+= & (\oplus\ z \mapsto foldr\ (y\ ys \mapsto (f\ y) \oplus ys)\ z\ xs)\ (:)\ [\ ] & \text{$build$的定义} \\
+= & foldr\ (y\ ys \mapsto f(y) : ys)\ [\ ]\ xs & \text{$\beta$-规约} \\
+= & foldr\ (x\ ys \mapsto f(x) : ys)\ [\ ]\ xs & \text{$\alpha$变换，改名字} \\
+= & map\ f\ xs & \text{逐一映射的定义} \\
+\elre
+\end{proof}
+
+接着是过滤操作$filter$
+
+\begin{proof}
+\[
+\resizebox{\linewidth}{!}{\ensuremath{
+\begin{array}{cll}
+  & build\ (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
+  \begin{cases}
+     f(x): & x \oplus xs' \\
+    \text{否则}: & xs' \\
+  \end{cases})\ z\ xs) \\
+= & (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
+  \begin{cases}
+     f(x): & x \oplus xs' \\
+    \text{否则}: & xs' \\
+  \end{cases})\ z\ xs)\ (:)\ [\ ] & \text{$build$的定义} \\
+= & foldr\ (x\ xs' \mapsto
+  \begin{cases}
+     f(x): & x : xs' \\
+    \text{否则}: & xs' \\
+  \end{cases})\ [\ ]\ xs & \text{$\beta$-规约} \\
+= & filter\ f\ xs & \text{过滤操作的定义} \\
+\end{array}
+}}
+\]
+\end{proof}
+
+最后是重复操作$repeat$
+
+\begin{proof}
+\blre
+  & build\ (\oplus\ z \mapsto let\ r = x \oplus r\ in\ r) \\
+= & (\oplus\ z \mapsto let\ r = x \oplus r\ in\ r)\ (:)\ [\ ] & \text{$build$的定义} \\
+= & (let\ r = x : r\ in\ r) & \text{$\beta$-规约} \\
+= & repeat\ x & \text{重复操作的定义} \\
+\elre
+\end{proof}
 }
 \Question{化简快速排序算法：
 \[
+\resizebox{\linewidth}{!}{\ensuremath{
 \begin{cases}
-qsort\ [] = [] \\
+qsort\ [\ ] = [\ ] \\
 qsort\ (x:xs) = qsort\ [a | a \in xs, a \leq x] \doubleplus [x] \doubleplus qsort\ [a | a \in xs, x < a] \\
-\end{cases}\]
-提示：将ZF表达式\footnote{全称为“策梅罗——弗兰克尔表达式”。指集合论中$\{f(x) | x \in X, p(x), q(x), ...\}$这样的集合构建表达式。我们在下一章介绍无穷和集合论时会再次遇到它。}转换为$filter$。}
-\Question{利用范畴论验证融合律的类型限制。提示：考虑向下态射的类型。}
-\end{Exercise}
+\end{cases}
+}}
+\]
+
+可以把ZF表达式变换成$filter$。显然这里处理了两遍列表，它们可以合成一次：
+
+\[
+\begin{cases}
+qsort\ [\ ] & = [\ ] \\
+qsort\ (x:xs) & = qsort\ as \doubleplus [x] \doubleplus qsort\ bs \\
+\end{cases}
+\]
+
+其中：
+\[\begin{array}{l}
+(as, bs) = foldr\ h\ ([\ ], [\ ])\ xs \\
+h\ y\ (as', bs') = \begin{cases}
+               y \leq x : & (y:as', bs') \\
+               \text{否则}: & (as', y:bs') \\
+\end{cases} \\
+\end{array}\]
+
+接下来我们可以把两个列表的连接操作化简：
+
+\blre
+  & qsort\ as \doubleplus [x] \doubleplus qsort\ bs \\
+= & qsort\ as \doubleplus (x : qsort\ bs) \\
+= & foldr (:)\ (x : qsort\ bs) (qsort\ as)
+\elre
+}
+\Question{利用范畴论验证融合律的类型限制。提示：考虑向下态射的类型。
+
+观察范畴图：
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     \mathbf{ListF} A\ \lbrack A \rbrack & \lbrack A \rbrack \\
+     \mathbf{ListF} A\ B\ & B \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$\mathbf{ListF} A(h)$} (m-2-1)
+    (m-1-2) edge node [right] {$h = \lbb \alpha \rbb$} (m-2-2)
+    (m-1-1) edge node [above] {$(:) + [\ ]$} (m-1-2)
+    (m-2-1) edge node [below] {$\alpha = f + z$} (m-2-2);
+\end{tikzpicture}
+\end{center}
+
+向下态射$\lbb \alpha \rbb$被抽象成从$\alpha$构造某种代数结构$g\ \alpha$。$g$接受一个$F$-代数的$\alpha$箭头，产生结果$B$。$\alpha$箭头是$f : A \to B \to B$和$z : 1 \to B$的和。故其类型为：
+
+\[
+g : \forall A. (\forall B. (A \to B \to B) \to B \to B)
+\]
+
+构造的定义是$build(g) = g\ (:)\ [\ ]$，它把$g$应用到初始代数的$\alpha$箭头上从而构造出初始代数中的对象，也就是列表$[A]$。因而：
+
+\[
+build : \forall A. (\forall B. (A \to B \to B) \to B \to B) \to \mathbf{List}\ A
+\]
+}
+\end{Answer}
 
 \section{巧算100}
 
@@ -681,36 +868,36 @@ qsort\ (x:xs) = qsort\ [a | a \in xs, a \leq x] \doubleplus [x] \doubleplus qsor
 
 \subsection{穷举法}
 
-我们先把一个由数字、加法、乘法组成的式子定义出来。考虑刚才的算式：
+我们先把一个由数字、加法、乘法组成的式子定义出来。考虑算式：
 
 \[
 12 + 34 + 5 \times 6 + 7 + 8 + 9
 \]
 
-由于先乘除后加减，我们可以把它看作由加号分割的若干子算式。所以上述算式等价于：
+由于先乘除后加减，我们可以把它看作由加号分割的若干子算式，即：
 
 \[
 sum [12, 34, 5 \times 6, 7, 8, 9]
 \]
 
-这样我们定义一个算式是由加号分割的若干子算式$t_1 + t_2 + ... + t_n$。即$expr = [t_1, t_2, ..., t_n]$：
+为此我们定义由加号分割的若干子算式$t_1 + t_2 + ... + t_n$为$expr = [t_1, t_2, ..., t_n]$：
 
-\lstset{frame = none}
-\begin{lstlisting}
+\lstset{frame = single}
+\begin{Haskell}
 type Expr = [Term]
-\end{lstlisting}
+\end{Haskell}
 
 具体到每个子算式，我们可以把它看作由乘号分割的若干因子，例如$5 \times 6 = product [5, 6]$。如果是单一的数，例如$34$，我们仍然可以把它看作$34 = product [34]$。这样我们就可以定义由因子组成的子算式$f_1 \times f_2 \times ... \times f_m$。即$term = [f_1, f_2, ..., f_m]$：
 
-\begin{lstlisting}
+\begin{Haskell}
 type Term = [Factor]
-\end{lstlisting}
+\end{Haskell}
 
-最终，每个因子都可以看作若干数字组成的整数，例如由两个数字组成的34，或仅有一个数字的5。也就是说$factor = [d_1, d_2, ..., d_k]$：
+最终，每个因子都可以看作若干数字组成的整数，例如由两个数字组成的34，或仅有一个数字的5。也就是说$\textit{factor} = [d_1, d_2, ..., d_k]$：
 
-\begin{lstlisting}
+\begin{Haskell}
 type Factor = [Int]
-\end{lstlisting}
+\end{Haskell}
 
 从若干数字求得整数是一个叠加的过程，例如$[1, 2, 3] \Rightarrow (((1 \times 10) + 2) \times 10) + 3$。我们可以将其定义为一个函数：
 
@@ -734,7 +921,7 @@ eval = foldr\ (t\ ts \mapsto (foldr\ ((\times) \circ fork(dec, id))\ 1\ t) + ts)
 
 \[
 \begin{cases}
-eval\ [] = 0 \\
+eval\ [\ ] = 0 \\
 eval (t:ts) = product\ (map\ dec\ t) + eval(ts) \\
 \end{cases}
 \]
@@ -745,7 +932,7 @@ eval (t:ts) = product\ (map\ dec\ t) + eval(ts) \\
 filter\ (e \mapsto eval(e) == 100)\ es
 \]
 
-其中$es$是所有从1到9能够组成的算式的集合。如何产生这个集合呢？我们从空集合开始，然后每次从1到9中取出一个数字，看看能扩展出哪些合法的算式。首先，从空集合和唯一的数字$d$只能构造出一个算式：$[[[d]]]$。最内层是由数字$d$构成的唯一因子$fact = [d]$；然后是由这个因子构成的子算式$term = [fact] = [[d]]$，这个唯一的子算式构成的完整算式是$[term] = [[fact]] = [[[d]]]$。我们可以把这一构造过程定义为：
+其中$es$是所有从1到9能够组成的算式的集合。如何产生这个集合呢？我们从空集开始，然后每次从1到9中取出一个数字，看看能扩展出哪些合法的算式。首先，从空集和唯一的数字$d$只能构造出一个算式：$[[[d]]]$。最内层是由数字$d$构成的唯一因子$fact = [d]$；然后是由这个因子构成的子算式$term = [fact] = [[d]]$，这个唯一的子算式构成的完整算式是$[term] = [[fact]] = [[[d]]]$。我们可以把这一构造过程定义为：
 
 \[
 expr(d) = [[[d]]]
@@ -761,19 +948,18 @@ expr(d) = [[[d]]]
 
 把这三种情形转换为定义就得到了下面的函数：
 
-\lstset{frame = none}
-\begin{lstlisting}
+\begin{Haskell}[frame = none]
 add d ((ds:fs):ts) = [((d:ds):fs):ts,
                       ([d]:ds:fs):ts,
                       [[d]]:(ds:fs):ts]
-\end{lstlisting}
+\end{Haskell}
 
-其中算式$e_i$被写成了$(ds:fs):ts$的形式，$e_i$中的第一个子算式是$ds:fs$，第一个子算式中的第一个因子是$ds$。这样，从每个已有的算式，我们都可以扩展出3个新算式。而对于算式列表$[e_1, e_2, ..., e_n]$，只要分别对每个算式扩展，然后将结果连接到一起就可以了。这恰恰就是上一节我们介绍过的$concatMap$：
+其中算式$e_i$被写成了$(ds:fs):ts$的形式，$e_i$中的第一个子算式是$ds:fs$，第一个子算式中的第一个因子是$ds$。这样，从每个已有的算式，我们都可以扩展出3个新算式。而对于算式列表$[e_1, e_2, ..., e_n]$，只要分别对每个算式扩展，然后将结果连接到一起就可以了。这恰恰就是上一节我们介绍过的\textit{concatMap}：
 
 \[
 \begin{cases}
-extend\ d\ [] = [expr(d)] \\
-extend\ d\ es = concatMap\ (add\ d)\ es
+extend\ d\ [\ ] = [expr(d)] \\
+extend\ d\ es = \textit{concatMap}\ (add\ d)\ es
 \end{cases}
 \]
 
@@ -852,16 +1038,18 @@ add & d\ (((ds:fs):ts), & (e, f, v_{fs}, v_{ts})) = \\
 对于每一对算式和四元组，我们利用$value$函数，将四元组的值求出，如果大于100就立即丢弃，停止对其继续扩展。然后将候选算式和四元组对连接成一个列表。根据这一思路，我们将之前定义的$extend$重新定义为：
 
 \be
+\resizebox{0.9\linewidth}{!}{\ensuremath{
 \begin{cases}
-expand\ d\ [] = [(expr(d), (10, d, 1, 0))] \\
-expand\ d\ evs = concatMap\ ((filter\ ((\leq 100) \circ value \circ snd)) \circ (add\ d))\ evs\\
+expand\ d\ [\ ] = [(expr(d), (10, d, 1, 0))] \\
+expand\ d\ evs = \textit{concatMap}\ ((filter\ ((\leq 100) \circ value \circ snd)) \circ (add\ d))\ evs\\
 \end{cases}
+}}
 \ee
 
 现在我们可以对$expand$进行叠加，从1到9扩展出所有小于等于100的候选算式和四元组。最后我们计算四元组的值，然后选出所有恰好等于100的算式。
 
 \be
-map\ fst \circ filter\ ((=100) \circ value \circ snd)\ (foldr\ expand\ []\ [1, 2, ..., 9])
+map\ fst \circ filter\ ((=100) \circ value \circ snd)\ (foldr\ expand\ [\ ]\ [1, 2, ..., 9])
 \ee
 
 在本章附录中，我们给出了根据这一定义编写的程序。下面列出了等于100的所有7个算式：
@@ -878,8 +1066,11 @@ map\ fst \circ filter\ ((=100) \circ value \circ snd)\ (foldr\ expand\ []\ [1, 2
 \end{array}
 \]
 
-\begin{Exercise}
-\Question{利用融合律化简算式求值的定义$eval = sum \circ map\ (product \circ (map\ dec))$。}
+\begin{Exercise}\label{ex:make-centry}
+\Question{利用融合律化简算式求值的定义
+\[
+eval = sum \circ map\ (product \circ (map\ dec))
+\]}
 \Question{如何从左侧扩展出所有的算式？}
 \Question{下面定义可以将算式翻译为字符串：
 \[
@@ -889,26 +1080,144 @@ str = (join\ \text{``+''}) \circ (map\ ((join\ \text{``} \times \text{''}) \circ
 }
 \end{Exercise}
 
+\begin{Answer}[ref = {ex:make-centry}]
+\Question{利用融合律化简算式求值的定义$eval = sum \circ map\ (product \circ (map\ dec))$。
+
+\[
+\resizebox{\linewidth}{!}{\ensuremath{
+\begin{array}{cll}
+  & eval\ es \\
+  & \{ \text{函数组合} \} \\
+= & sum (map\ (product \circ (map\ dec))\ es) \\
+  & \{ \text{$sum$展开为叠加形式，$map$展开为构建形式} \} \\
+= & \pmb{foldr}\ (+)\ 0\ (\pmb{build}\ (\oplus\ z\ \mapsto foldr\ (t\ ts \mapsto (f\ t) \oplus ts)\ z\ es)) \\
+  & \{ \text{令$f = product \circ (map\ dec)$，并用融合律} \}\\
+= & (\oplus\ z \mapsto foldr\ (t\ ts \mapsto (f\ t) \oplus ts)\ z\ es)\ (+)\ 0 \\
+  & \{ \text{$\beta$-规约} \} \\
+= & foldr\ (t\ ts \mapsto (f\ t) + ts)\ 0\ es \\
+\end{array}
+}}
+\]
+
+写成无参数形式就是：
+
+\[
+eval = foldr\ (t\ ts \mapsto (f\ t) + ts)\ 0
+\]
+
+接下来我们再化简$product \circ (map\ dec)$部分
+
+\[
+\resizebox{\linewidth}{!}{\ensuremath{
+\begin{array}{cll}
+  & (product \circ (map\ dec))\ t \\
+= & product\ (map\ dec\ t) & \text{函数组合} \\
+  & \{ \text{$product$展开为叠加形式，$map$展开为构建形式} \} \\
+= & \pmb{foldr}\ (\times)\ 1\ (\pmb{build}\ (\oplus\ z \mapsto foldr\ (d\ ds \mapsto (dec\ d) \oplus ds)\ z\ t)) \\
+= & (\oplus\ z \mapsto foldr (d\ ds \mapsto (dec\ d) \oplus ds)\ z\ t)\ (\times)\ 1 & \text{融合律} \\
+= & foldr\ (d\ ds \mapsto (dec\ d) \times ds)\ 1\ t & \text{$\beta$-规约} \\
+= & foldr\ ((\times) \circ fork\ (dec, id))\ 1\ t & \text{定义$fork(f, g)\ x = (f\ x, g\ x)$} \\
+\end{array}
+}}
+\]
+
+接着把这个结果代入之前的$f$，得到最终化简的结果：
+
+\[
+eval = foldr\ (t\ ts \mapsto (foldr\ ((\times) \circ fork\ (dec, id))\ 1\ t) + ts)\ 0
+\]
+}
+\Question{如何从左侧扩展出所有的算式？
+
+从左向右扩展时，针对每个数字$d$，有三种选择：
+
+\begin{enumerate}
+\item 什么都不插入意味着将数字$d$直接添加到$e_i$的最后一个子算式中的最后一个因子的后面。这样由$f_n \doubleplus [d]$组成一个新的因子。例如$e_i$是算式$1 + 2$，数字$d$是3，将3写在$1 + 2$的后面而什么符号都不插入，这样就得到新算式$1 + 23$；
+\item 插入乘号意味着用数字$d$构成一个因子$[d]$，然后将它添加到$e_i$中最后一个子算式的后面。这样由$t_m \doubleplus [[d]]$组成一个新的子算式。具体到$1 + 2$这个例子，我们把3写在它的后面，然后在2和3之间插入一个乘号，这样就得到新算式$1 + 2 \times 3$；
+\item 插入加号意味着用数字$d$构成一个子算式$[[d]]$，然后将将它添加到$e_i$的最后面，组成新的算式$e_i \doubleplus [[[d]]]$。具体到$1 + 2$这个例子，我们把3写在它的后面，然后在2和3之间插入一个加号，这样就得到新算式$1 + 2 + 3$。
+\end{enumerate}
+
+为了将一个元素加到序列的末尾，我们可以定义一个函数：
+
+\[
+append\ x = foldr\ (:)\ [x]
+\]
+
+然后我们定义一个函数$onLast(f)$，它把$f$应用到一个序列的最后一个元素上：
+
+\[\begin{array}{l}
+onLast\ f = foldr\ h\ [] \\
+\text{其中}: \begin{cases}
+  h\ x\ [] & = [(f\ x)] \\
+  h\ x\ xs & = x : xs \\
+\end{cases} \\
+\end{array}\]
+
+然后，我们就可以实现这3种情况的扩展：
+
+\begin{Haskell}[frame = none]
+add d exp = [((append d) `onLast`) `onLast` exp,
+             (append [d]) `onLast` exp,
+             (append [[d]]) exp]
+\end{Haskell}
+}
+\Question{下面定义可以将算式翻译为字符串：
+\[
+str = (join\ \text{``+''}) \circ (map\ ((join\ \text{``} \times \text{''}) \circ (map\ (show \circ dec))))
+\]
+其中$show$可以将数字转换为字符串。函数 $join(c, s)$ 将一组字符串$s$用$c$连接起来，例如 $join($``\#''$, [$``abc'', ``def''$]) = $``abc\#def'' 。利用融合律化简$str$的定义。
+
+第五章中，我们给出了$join(ws)$的结果，它实际上是用空格分割一组字符串。将空格作为参数，就得到了$join(c, s)$的定义：
+
+\[
+join\ c = foldr\ (w\ b \mapsto foldr\ (:)\ (c:b)\ w)\ []
+\]
+
+观察$str$的定义，它实际上是两重的$(join\ c) \circ (map\ f)$的形式，即：
+
+\[\begin{array}{l}
+str = (join\ c) \circ (map\ f) \\
+\text{其中}: f = (join\ d) \circ (map\ g) \\
+\end{array}\]
+
+这里$c =$ `+'，$d =$ `$\times$'，而$g = show \circ dec$。为此我们只要找出$(join\ c) \circ (map\ f)$的简化形式就可以了。
+
+\blre
+  & (join\ c) \circ (map\ f)\ es \\
+  & \{ \text{$join$展开为叠加，$map$展开为构建形式} \} \\
+= & \pmb{foldr}\ (w\ b \mapsto foldr\ (:) (c:b)\ w)\ []\ (\pmb{build}\ (\oplus\ z \mapsto foldr\ (y\ ys \mapsto (f\ y) \oplus ys)\ z\ es)) \\
+  & \{ \text{融合律} \} \\
+= & (\oplus\ z \mapsto foldr\ (y\ ys \mapsto (f\ y) \oplus ys)\ z\ es))\ (w\ b \mapsto foldr\ (:)\ (c:b)\ w)\ [] \\
+  & \{ \text{$\beta$-规约} \} \\
+= & foldr\ (y\ ys \mapsto foldr\ (:)\ (c:ys)\ (f\ y))\ []\ es \\
+\elre
+
+将之前的加号、乘号，以及$show \circ dec$代入，我们得到结果：
+
+\blre
+str & = & foldr\ (x\ xs \mapsto foldr\ (:)\ (`+':xs) ( \\
+    &   & \quad foldr (y\ ys \mapsto foldr\ (:)\ (`\times':ys)\ (show \circ dec\ y))\ [])\ [] \\
+\elre
+}
+\end{Answer}
+
 \section{小结和扩展阅读}
 
-程序推导是数学推导的一种特殊情况。通过这一手段，我们可以从直观的、未经化简或优化的定义出发，利用一套形式化的方法和定理，一步一步进行变换。从而最终得到简洁的、优化的结果。伯德在他的《函数式算法设计珠玑》\cite{Bird-2010}中给出了很多的例子。
-
-程序推导的正确性根植于数学。为此需要一套完整的理论，能够将计算机程序形式化、数学化，而不是仅仅依赖于人的直觉。抽象代数和范畴理论正是帮助我们对计算机编程进行形式化的强大工具。叠加——构建融合律就是这样的一个典型的例子。在1993年的论文\cite{GLPJ-1993}中，人们发现了系统化简程序的一个工具。随着范畴理论的引入，一系列融合律被发展出来\cite{Hinze-Harper-James-2010}，并应用于计算机程序的推导和优化。
+程序推导是数学推导的一种特殊情况。通过这一手段，我们可以从直观的、未经化简或优化的定义出发，利用一套形式化的方法和定理，一步一步进行变换。从而最终得到简洁的、优化的结果。伯德在他的《函数式算法设计珠玑》\cite{Bird-2010}中给出了很多的例子。程序推导的正确性根植于数学。为此需要一套完整的理论，能够将计算机程序形式化、数学化，而不是仅仅依赖于人的直觉。抽象代数和范畴理论正是帮助我们对计算机编程进行形式化的强大工具。叠加——构建融合律就是这样的一个典型的例子。在1993年的论文\cite{GLPJ-1993}中，人们发现了系统化简程序的一个工具。随着范畴理论的引入，一系列融合律被发展出来\cite{Hinze-Harper-James-2010}，并应用于计算机程序的推导和优化。
 
 \section{附录代码}
 
 Haskell中的\texttt{build}和\texttt{concatMap}定义：
 
-\lstset{frame=single}
-\begin{lstlisting}
+\begin{Haskell}
 build :: forall a. (forall b. (a -> b -> b) -> b -> b) -> [a]
 build g = g (:) []
 
 concatMap f xs = build (\c n -> foldr (\x b -> foldr c b (f x)) n xs)
-\end{lstlisting}
+\end{Haskell}
 
 用穷举法巧算100的基本定义：
-\begin{lstlisting}
+\begin{Haskell}
 type Expr = [Term]     -- | T1 + T2 + ... Tn
 type Term = [Factor]   -- | F1 * F2 * ... Fm
 type Factor = [Int]    -- | d1d2...dk
@@ -930,10 +1239,10 @@ extend d es = concatMap (add d) es where
                         [[d]]:(ds:fs):ts]
 
 sol = filter ((==100) . eval) . foldr extend []
-\end{lstlisting}
+\end{Haskell}
 
 用改进的穷举法解决巧算100问题：
-\begin{lstlisting}
+\begin{Haskell}
 value (_, f, fs, ts) = f * fs + ts
 
 expand d [] = [(expr d, (10, d, 1, 0))]
@@ -944,7 +1253,7 @@ expand d evs = concatMap ((filter ((<= 100) . value . snd)) . (add d)) evs where
      ([[d]]:(ds:fs):ts, (10, d, 1, f * vfs + vts))]
 
 sol = map fst . filter ((==100) . value . snd) . foldr expand []
-\end{lstlisting}
+\end{Haskell}
 
 \ifx\wholebook\relax \else
 \section{参考答案}
