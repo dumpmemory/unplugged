@@ -1111,12 +1111,16 @@ eval = foldr\ (t\ ts \mapsto (f\ t) + ts)\ 0
 \resizebox{\linewidth}{!}{\ensuremath{
 \begin{array}{cll}
   & (product \circ (map\ dec))\ t \\
-= & product\ (map\ dec\ t) & \text{函数组合} \\
+  & \{ \text{函数组合} \} \\
+= & product\ (map\ dec\ t) \\
   & \{ \text{$product$展开为叠加形式，$map$展开为构建形式} \} \\
 = & \pmb{foldr}\ (\times)\ 1\ (\pmb{build}\ (\oplus\ z \mapsto foldr\ (d\ ds \mapsto (dec\ d) \oplus ds)\ z\ t)) \\
-= & (\oplus\ z \mapsto foldr (d\ ds \mapsto (dec\ d) \oplus ds)\ z\ t)\ (\times)\ 1 & \text{融合律} \\
-= & foldr\ (d\ ds \mapsto (dec\ d) \times ds)\ 1\ t & \text{$\beta$-规约} \\
-= & foldr\ ((\times) \circ fork\ (dec, id))\ 1\ t & \text{定义$fork(f, g)\ x = (f\ x, g\ x)$} \\
+  & \{ \text{融合律} \} \\
+= & (\oplus\ z \mapsto foldr (d\ ds \mapsto (dec\ d) \oplus ds)\ z\ t)\ (\times)\ 1 \\
+  & \{ \text{$\beta$-规约} \} \\
+= & foldr\ (d\ ds \mapsto (dec\ d) \times ds)\ 1\ t \\
+  & \{ \text{定义$fork(f, g)\ x = (f\ x, g\ x)$} \} \\
+= & foldr\ ((\times) \circ fork\ (dec, id))\ 1\ t \\
 \end{array}
 }}
 \]
@@ -1146,9 +1150,9 @@ append\ x = foldr\ (:)\ [x]
 然后我们定义一个函数$onLast(f)$，它把$f$应用到一个序列的最后一个元素上：
 
 \[\begin{array}{l}
-onLast\ f = foldr\ h\ [] \\
+onLast\ f = foldr\ h\ [\ ] \\
 \text{其中}: \begin{cases}
-  h\ x\ [] & = [(f\ x)] \\
+  h\ x\ [\ ] & = [(f\ x)] \\
   h\ x\ xs & = x : xs \\
 \end{cases} \\
 \end{array}\]
@@ -1182,21 +1186,25 @@ str = (join\ c) \circ (map\ f) \\
 
 这里$c =$ `+'，$d =$ `$\times$'，而$g = show \circ dec$。为此我们只要找出$(join\ c) \circ (map\ f)$的简化形式就可以了。
 
-\blre
+\[
+\resizebox{\linewidth}{!}{\ensuremath{
+\begin{array}{cll}
   & (join\ c) \circ (map\ f)\ es \\
   & \{ \text{$join$展开为叠加，$map$展开为构建形式} \} \\
-= & \pmb{foldr}\ (w\ b \mapsto foldr\ (:) (c:b)\ w)\ []\ (\pmb{build}\ (\oplus\ z \mapsto foldr\ (y\ ys \mapsto (f\ y) \oplus ys)\ z\ es)) \\
+= & \pmb{foldr}\ (w\ b \mapsto foldr\ (:) (c:b)\ w)\ [\ ]\ (\pmb{build}\ (\oplus\ z \mapsto foldr\ (y\ ys \mapsto (f\ y) \oplus ys)\ z\ es)) \\
   & \{ \text{融合律} \} \\
-= & (\oplus\ z \mapsto foldr\ (y\ ys \mapsto (f\ y) \oplus ys)\ z\ es))\ (w\ b \mapsto foldr\ (:)\ (c:b)\ w)\ [] \\
+= & (\oplus\ z \mapsto foldr\ (y\ ys \mapsto (f\ y) \oplus ys)\ z\ es))\ (w\ b \mapsto foldr\ (:)\ (c:b)\ w)\ [\ ] \\
   & \{ \text{$\beta$-规约} \} \\
-= & foldr\ (y\ ys \mapsto foldr\ (:)\ (c:ys)\ (f\ y))\ []\ es \\
-\elre
+= & foldr\ (y\ ys \mapsto foldr\ (:)\ (c:ys)\ (f\ y))\ [\ ]\ es \\
+\end{array}
+}}
+\]
 
 将之前的加号、乘号，以及$show \circ dec$代入，我们得到结果：
 
 \blre
 str & = & foldr\ (x\ xs \mapsto foldr\ (:)\ (`+':xs) ( \\
-    &   & \quad foldr (y\ ys \mapsto foldr\ (:)\ (`\times':ys)\ (show \circ dec\ y))\ [])\ [] \\
+    &   & \quad foldr (y\ ys \mapsto foldr\ (:)\ (`\times':ys)\ (show \circ dec\ y))\ [\ ])\ [\ ] \\
 \elre
 }
 \end{Answer}
