@@ -253,7 +253,7 @@ a > b: & [\ ] \\
 sum(range(a, b))
 \]
 
-接下来关键的一步，我们把$range$中的起始值[\ ]和二元组合运算(:)抽出成为参数：
+接下来关键的一步，我们把$range$中的起始值[\ ]和二元组合运算(:)抽出成为参数，分别叫做$z$和$\oplus$：
 
 \[
 range'(a, b, \oplus, z) =
@@ -266,10 +266,10 @@ range'(a, b, \oplus, z) =
 我们甚至可以把$range'$的后两个参数柯里化：
 
 \[
-range'\ a\ b = f\ c \mapsto
+range'\ a\ b = \oplus\ z \mapsto
   \begin{cases}
-  a > b: & c \\
-  \text{否则}: & f\ a\ (range'\ (a+1)\ b\ f\ c) \\
+  a > b: & z \\
+  \text{否则}: & a\ \oplus\ (range'\ (a+1)\ b\ \oplus\ c) \\
   \end{cases}
 \]
 
