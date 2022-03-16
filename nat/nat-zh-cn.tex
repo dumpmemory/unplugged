@@ -143,10 +143,9 @@
 
 我们也模仿一下这样的过程，看看如何根据皮亚诺公理，用计算机程序定义自然数。在一个没有0、1、2、……这些数字的程序系统中，我们可以这样定义自然数\footnote{本书使用一种理想的计算机语言，并在每一章节的最后给出真实计算机语言的参考代码。}：
 
-\lstset{language=Haskell}
-\begin{verbatim}
+\begin{Haskell}
 data Nat = zero | succ Nat
-\end{verbatim}
+\end{Haskell}
 
 %% \[
 %% N \triangleq zero | succ(N)
@@ -156,10 +155,10 @@ data Nat = zero | succ Nat
 
 \index{自然数的加法}
 
-\begin{lstlisting}
+\begin{Haskell}
 a + zero = a
 a + (succ b) = succ (a + b)
-\end{lstlisting}
+\end{Haskell}
 
 加法定义包含两部分。首先任何自然数和零相加等于它本身；并且某个自然数和另一个数的后继相加，等于这两个数相加的后继。写成数学符号为：
 
@@ -172,13 +171,13 @@ a + b' = (a + b)'
 
 我们来验证一下2+3。自然数2为succ(succ zero)，而3为succ(succ(succ zero))。根据加法的定义2+3为：
 
-\begin{lstlisting}
+\begin{Haskell}
   succ(succ zero) + succ(succ(succ zero))
 = succ(succ(succ zero) + succ(succ zero))
 = succ(succ(succ(succ zero) + succ zero))
 = succ(succ(succ(succ(succ zero) + zero)))
 = succ(succ(succ(succ(succ zero))))
-\end{lstlisting}
+\end{Haskell}
 
 最终结果的确是零的五重后继，也就是5。从零开始一次一次地套用后继函数很麻烦。如果要表示100，这种记法要写很多行并且容易出错。为此，我们用下面的简单记法表示自然数$n$：
 
@@ -199,20 +198,20 @@ foldn(z, f, n') = f(foldn(z, f, n))
 
 $foldn$定义了在自然数上的一种操作，只要令$z$为$zero$，令$f$为$succ$就可以实现叠加后继若干次，从而获得某个特定的自然数。我们可以用前几个自然数验证一下：
 
-\begin{lstlisting}
+\begin{Haskell}
 foldn(zero, succ, 0) = zero
 foldn(zero, succ, 1) = succ(foldn(zero, succ, 0)) = succ zero
 foldn(zero, succ, 2) = succ(foldn(zero, succ, 1)) = succ(succ zero)
 ...
-\end{lstlisting}
+\end{Haskell}
 
 \index{自然数的乘法}
 定义好加法之后，我们再来定义自然数的乘法：
 
-\begin{lstlisting}
-a . zero = zero
-a . (succ b) = a . b + a
-\end{lstlisting}
+\begin{Haskell}
+a *'.'* zero = zero
+a *'.'* (succ b) = a *'.'* b + a
+\end{Haskell}
 
 这里使用了刚定义好的加法。这一定义写成数学符号为：
 
@@ -550,14 +549,13 @@ h (m, n) = (n, m + n)
 
 也许读者会好奇，真实的计算机程序能实现这样的定义么？这是不是太理想化了？下面是一段的Haskell语言的程序代码\footnote{2010年后，Haskell中不再允许使用n+k形式的模式匹配。}，执行\texttt{fib 10}会输出斐波那契数55\footnote{一行代码输出前100个斐波那契数的例子：\newline\texttt{take 100 \$ map fst \$ iterate ($\lambda$(m, n)->(n, m + n)) (0, 1)}}。
 
-\lstset{frame=single}
-\begin{lstlisting}
+\begin{Haskell}[frame = single]
 foldn z _ 0 = z
 foldn z f n = f (foldn z f (n - 1))
 
 fib = fst . foldn (0, 1) h where
   h (m, n) = (n, m + n)
-\end{lstlisting}
+\end{Haskell}
 
 \begin{Exercise}\label{ex:foldn}
 \Question{使用$foldn$定义平方$()^2$。}
@@ -674,10 +672,9 @@ fox\ m = foldn\ (1, m)\ h\ (m - 1) \\
 \index{链表}
 自然数不仅可以和自己的子集同构，例如奇偶数、平方数、斐波那契数，还可以和其它事物同构，包括计算机程序中的数据结构。下面是列表的定义：
 
-\lstset{frame=none}
-\begin{lstlisting}
+\begin{Haskell}
 data List A = nil | cons(A, List A)
-\end{lstlisting}
+\end{Haskell}
 
 用数据结构的观点来解释，一个类型为A的列表或者为空，记为nil；或者包含两部分：一个含有类型A数据的节点，和一个包含剩余部分的子列表。函数cons把一个类型为A的元素和另一个类型为A的列表“链接”起来\footnote{名称cons来自Lisp的命名传统。}。图\ref{fig:linked-list}描述了一个含有6个节点的列表。
 
@@ -695,11 +692,11 @@ data List A = nil | cons(A, List A)
 \end{figure}
 
 由于这种特点，列表也被称为“链表”。传统的计算机程序中，链表通常定义为一个结构\footnote{很多情况下，列表中保存的数据类型是相同的。但也有异构类型的列表，例如Lisp中的列表。}，例如：
-\begin{verbatim}
+\begin{lstlisting}
 Node of A:
     key: A
     next: Node of A
-\end{verbatim}
+\end{lstlisting}
 
 我们也可以用自然数的同构来解释列表。根据皮亚诺公理一，nil相当于零；根据皮亚诺公理二，对于任何列表，我们都可以用cons，在其左侧链接一个类型为A的新元素。因此cons相当于自然数中的succ。这里的变化有两点。其一是列表携带类型A的元素，因而\texttt{cons(1, cons(2, cons(3, nil)))}和\texttt{cons(2, cons(1, cons(3, nil)))}和\texttt{cons(1, cons(4, cons(9, nil)))}以及\texttt{cons('a', cons('b', cons('c', nil)))}都是不同的列表。其二是与直觉不同，新元素不是加入到列表的右侧末尾，而是加入到左侧的头部。增长的方向是向左，而非向右。
 
@@ -895,14 +892,13 @@ max_s & = & 1st \cdot foldr\ f\ (0, 0) \\
 
 下面的例子程序实现了这一解法：
 
-\lstset{frame=single}
-\begin{lstlisting}
+\begin{Haskell}[frame = single]
 maxSum :: (Ord a, Num a) => [a] -> a
 maxSum = fst . foldr f (0, 0) where
   f x (m, mSofar) = (m', mSofar') where
     mSofar' = max 0 (mSofar + x)
     m' = max mSofar' m
-\end{lstlisting}
+\end{Haskell}
 
 如果除了最大子序列和，还希望返回子序列，我们可以在fold过程中使用两对值$P_m$和$P$，每对值都包括子序列的和与子序列本身$(S, L)$。
 
@@ -942,8 +938,7 @@ e_{max}' = \begin{cases}
 
 下面的例子程序实现了这一解法。它返回最大长度和子串的右侧边界
 
-\lstset{frame=single}
-\begin{lstlisting}
+\begin{Haskell}[frame = single]
 longest :: String -> (Int, Int)
 longest xs = fst2 $ foldr f (0, n, n, Map.empty::(Map Char Int))
                       (zip [1..] xs) where
@@ -956,7 +951,7 @@ longest xs = fst2 $ foldr f (0, n, n, Map.empty::(Map Char Int))
       Nothing -> end
       Just j -> min end (j - 1)
     maxend' = if end' - i + 1 > maxlen then end' else maxend
-\end{lstlisting}
+\end{Haskell}
 
 由于$foldr$是从右侧开始，所以我们使用截止位置。而传统的编程使用起始位置，例如：
 
