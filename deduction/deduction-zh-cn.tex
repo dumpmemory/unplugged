@@ -359,7 +359,7 @@ xs \doubleplus ys = build\ (f\ z \mapsto foldr\ f\ (foldr\ f\ z\ ys)\ xs)
 \setcounter{enumi}{3}
 \item 多个列表的连接：
 \[
-concat\ xss = build\ (f\ z \mapsto foldr\ (xs\ x \mapsto foldr\ f\ x xs)\ xss)
+concat\ xss = build\ (f\ z \mapsto foldr\ (xs\ x \mapsto foldr\ f\ x\ xs)\ z\ xss)
 \]
 
 \item 一一映射产生新列表：
@@ -649,9 +649,9 @@ foldl\ f\ z\ xs = foldr\ (b\ g\ a \mapsto g\ (f\ a\ b))\ id\ xs\ z
 \begin{array}{l}
 concat\ xss = build\ (f\ z \mapsto foldr\ (xs\ x \mapsto foldr\ f\ x\ xs)\ z\ xss) \\
 map\ f\ xs = build\ (\oplus\ z \mapsto foldr\ (y\ ys \mapsto (f\ y) \oplus ys)\ z\ xs) \\
-filter\ f\ xs = build\ (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
+filter\ p\ xs = build\ (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
   \begin{cases}
-     f(x): & x \oplus xs' \\
+     p(x): & x \oplus xs' \\
     \text{否则}: & xs' \\
   \end{cases})\ z\ xs) \\
 repeat\ x = build\ (\oplus\ z \mapsto let\ r = x \oplus r\ in\ r) \\
@@ -713,9 +713,9 @@ foldl\ \oplus\ f\ z = ((...(z \oplus x_1)\ \oplus x_2)...)\ \oplus x_n
 \begin{array}{l}
 concat\ xss = build\ (f\ z \mapsto foldr\ (xs\ x \mapsto foldr\ f\ x\ xs)\ z\ xss) \\
 map\ f\ xs = build\ (\oplus\ z \mapsto foldr\ (y\ ys \mapsto (f\ y) \oplus ys)\ z\ xs) \\
-filter\ f\ xs = build\ (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
+filter\ p\ xs = build\ (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
   \begin{cases}
-     f(x): & x \oplus xs' \\
+     p(x): & x \oplus xs' \\
     \text{否则}: & xs' \\
   \end{cases})\ z\ xs) \\
 repeat\ x = build\ (\oplus\ z \mapsto let\ r = x \oplus r\ in\ r) \\
@@ -756,20 +756,20 @@ repeat\ x = build\ (\oplus\ z \mapsto let\ r = x \oplus r\ in\ r) \\
 \begin{array}{cll}
   & build\ (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
   \begin{cases}
-     f(x): & x \oplus xs' \\
+     p(x): & x \oplus xs' \\
     \text{否则}: & xs' \\
   \end{cases})\ z\ xs) \\
 = & (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
   \begin{cases}
-     f(x): & x \oplus xs' \\
+     p(x): & x \oplus xs' \\
     \text{否则}: & xs' \\
   \end{cases})\ z\ xs)\ (:)\ [\ ] & \text{$build$的定义} \\
 = & foldr\ (x\ xs' \mapsto
   \begin{cases}
-     f(x): & x : xs' \\
+     p(x): & x : xs' \\
     \text{否则}: & xs' \\
   \end{cases})\ [\ ]\ xs & \text{$\beta$-规约} \\
-= & filter\ f\ xs & \text{过滤操作的定义} \\
+= & filter\ p\ xs & \text{过滤操作的定义} \\
 \end{array}
 }}
 \]
