@@ -488,7 +488,7 @@ join\ (w:ws) = h\ w \\
 \]
 
 \index{concatMap} \index{flatMap}
-由于$concat \circ map(f)$十分常见，很多编程环境的标准库已经提供了这样的优化实现。\footnote{例如Haskell中的\texttt{concatMap}，Java和Scala中的\texttt{flatMap}。}
+未经简化的$join$定义中使用了$concat \circ map(f)$这种组合，它十分常见，很多编程环境的标准库已经提供了这样的优化实现。\footnote{例如Haskell中的\texttt{concatMap}，Java和Scala中的\texttt{flatMap}。}
 \end{example}
 
 第二个例子虽然展示了融合律的强大，但是也暴露出了一个问题。推导过程机械繁琐、容易出错。这恰恰是机器，而非人类擅长的事情。有些编程环境，例如Haskell已经把融合律实现在编译器内部\cite{GLPJ-1993}。这样只要我们把列表的常见操作用构建——叠加形式定义好，机器就可以替代我们利用融合律进行上述化简，从而得到优化的程序，避免中间结果和多余的递归\footnote{例如Haskell标准库已经用构建——叠加形式实现了大多数列表操作。}。随着时间的推移，更多的编译器会逐渐支持这一优化工具。
@@ -512,7 +512,7 @@ join\ (w:ws) = h\ w \\
 = & f(0, z) & \text{叠加展开} \\
 \elre
 
-显然$f(0, z)$不等于$[0]$，连它们两个的类型都不同\footnote{除非极特殊情况$f = (:), z = [\ ]$。}。造成这一矛盾结果的原因是$(c\ n \mapsto [0])$不是一个真正用$c$和$n$构造结果的函数。为此我们需要对融合律$foldr\ f\ z\ (build\ g) = g\ f\ z$中$g$的类型做出限制。它的第一个参数既可以接受$c$，也可以接受$f$，换言之，它接受一个多态的二元运算$\forall A. \forall B.\ A \times B \to B$；同理它的第二个参数也是一个多态类型$B$的起始值，并产生一个类型为$B$的结果。我们把二元运算写为柯里化的形式就得到：
+显然$f(0, z)$不等于$[0]$，连它们两个的类型都不同\footnote{除非特殊情况$f = (:), z = [\ ]$。}。造成这一矛盾结果的原因是$(c\ n \mapsto [0])$不是一个真正用$c$和$n$构造出结果的函数。为此我们需要对融合律$foldr\ f\ z\ (build\ g) = g\ f\ z$中$g$的类型做出限制。它的第一个参数既可以接受$c$，也可以接受$f$，换言之，它接受一个多态的二元运算$\forall A. \forall B.\ A \times B \to B$；同理它的第二个参数也是一个多态类型$B$的起始值，并产生一个类型为$B$的结果。我们把二元运算写为柯里化的形式就得到：
 
 \[
 g : \forall A. (\forall B. (A \to B \to B) \to B \to B)
