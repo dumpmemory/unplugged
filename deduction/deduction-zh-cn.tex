@@ -547,7 +547,7 @@ build : \forall A. (\forall B. (A \to B \to B) \to B \to B) \to \mathbf{List}\ A
 \end{tikzpicture}
 \end{center}
 
-从初始代数$(I, i)$到另一代数$(A, a)$的箭头可以通过向下态射$\lbb a \rbb$来表示。如果还存在一个不同的F-代数$(B, b)$对象，并且有从$A$到$B$的箭头$A \arrowto{h} B$，就可以在上面的范畴图下方把$(B, b)$也画出：
+从初始代数$(I, i)$到另一代数$(A, a)$的箭头可以通过向下态射$\lbb a \rbb$来表示。如果还存在一个不同的F-代数$(B, b)$对象，并且有从$A$到$B$的箭头$A \arrowto{h} B$，就可以在范畴图下方把$(B, b)$也画出：
 
 \begin{center}
 \begin{tikzpicture}
@@ -567,7 +567,7 @@ build : \forall A. (\forall B. (A \to B \to B) \to B \to B) \to \mathbf{List}\ A
 \end{tikzpicture}
 \end{center}
 
-但由于$(I, i)$是起始对象，所以它到$(B, b)$也必然存在唯一的箭头。由此可知，必然存在从$I$到$B$的箭头，可以用向下态射$\lbb b \rbb$表示出来。如下图：
+由于$(I, i)$是起始对象，所以它到$(B, b)$也必然存在唯一的箭头。由此可知，必然存在从$I$到$B$的箭头，可以用向下态射$\lbb b \rbb$表示出来。如下图：
 
 \begin{center}
 \begin{tikzpicture}
@@ -599,7 +599,7 @@ h \circ a = b \circ \mathbf{F}(h) \\
 \end{array}
 \ee
 
-初始代数的融合律意味这什么呢？在上一章中，我们发现向下态射可以将非递归的计算，转换成在递归结构上的叠加计算。例如，当函子$\mathbf{F}$是$\mathbf{ListF}A$（其中$A$是给定的对象）时，箭头$a = f + z$（加号表示和），而初始箭头$i = (:) + [\ ]$，向下态射$\lbb a \rbb = foldr(f, z)$。如果记$b = c + n$，则融合律可以写成：
+初始代数的融合律意味着什么呢？在上一章中，我们发现向下态射可以将非递归的计算，转换成在递归结构上的叠加计算。例如，当函子$\mathbf{F}$是$\mathbf{ListF}A$（其中$A$是给定的对象）时，箭头$a = f + z$，而初始箭头$i = (:) + [\ ]$，向下态射$\lbb a \rbb = foldr(f, z)$。如果记$b = c + n$，则融合律可以写成：
 
 \[
 h \circ foldr(f, z) = foldr(c, n)
@@ -639,7 +639,7 @@ foldr\ f\ z\ (g\ (:)\ [\ ]) = g\ f\ z & \text{用$f, z$替换$a$} \\
 这样我们就用范畴论证明了叠加——构建融合律\cite{Hinze-Harper-James-2010}。
 
 \begin{Exercise}\label{ex:fusion-law}
-\Question{验证从左侧叠加也可以表示为$foldr$:
+\Question{验证左侧叠加也可以表示为$foldr$:
 \[
 foldl\ f\ z\ xs = foldr\ (b\ g\ a \mapsto g\ (f\ a\ b))\ id\ xs\ z
 \]}
@@ -673,7 +673,7 @@ qsort\ (x:xs) = qsort\ [a | a \in xs, a \leq x] \doubleplus [x] \doubleplus qsor
 \end{Exercise}
 
 \begin{Answer}[ref = {ex:fusion-law}]
-\Question{验证从左侧叠加也可以表示为$foldr$:
+\Question{验证左侧叠加也可以表示为$foldr$:
 \[
 foldl\ f\ z\ xs = foldr\ (b\ g\ a \mapsto g\ (f\ a\ b))\ id\ xs\ z
 \]
@@ -864,7 +864,7 @@ build : \forall A. (\forall B. (A \to B \to B) \to B \to B) \to \mathbf{List}\ A
 12 + 34 + 5 \times 6 + 7 + 8 + 9 = 100
 \]
 
-这看起来像是一道小学生的数学竞赛题目。如果要求找到所有可能的解法，就是一道编程趣题。最简单直接的方法，就是利用计算机进行穷举，每两个数字间一共有三种选择：1）什么都不插入；2）插入加号；3）插入乘号。由于九个数字间一共有8个空，所以共有$3^8 = 6561$种方法。我们只要让计算机逐一检查这6561种方案，看看哪些最终得100就可以了。
+这看起来像是一道小学生的数学谜题。如果要求找到所有可能的解法，就是一道编程趣题。最简单直接的方法，就是利用计算机进行穷举，每两个数字间一共有三种选择：1）什么都不插入；2）插入加号；3）插入乘号。由于九个数字间一共有8个空，所以共有$3^8 = 6561$种方法。我们只要让计算机逐一检查这6561种方案，看看哪些最终得100就可以了。
 
 \subsection{穷举法}
 
@@ -877,17 +877,17 @@ build : \forall A. (\forall B. (A \to B \to B) \to B \to B) \to \mathbf{List}\ A
 由于先乘除后加减，我们可以把它看作由加号分割的若干子算式，即：
 
 \[
-sum [12, 34, 5 \times 6, 7, 8, 9]
+sum\ [12, 34, 5 \times 6, 7, 8, 9]
 \]
 
-为此我们定义由加号分割的若干子算式$t_1 + t_2 + ... + t_n$为$expr = [t_1, t_2, ..., t_n]$：
+我们定义由加号分割的若干子算式$t_1 + t_2 + ... + t_n$为$expr = [t_1, t_2, ..., t_n]$：
 
 \lstset{frame = single}
 \begin{Haskell}
 type Expr = [Term]
 \end{Haskell}
 
-具体到每个子算式，我们可以把它看作由乘号分割的若干因子，例如$5 \times 6 = product [5, 6]$。如果是单一的数，例如$34$，我们仍然可以把它看作$34 = product [34]$。这样我们就可以定义由因子组成的子算式$f_1 \times f_2 \times ... \times f_m$。即$term = [f_1, f_2, ..., f_m]$：
+具体到每个子算式，我们可以把它看作由乘号分割的若干因子，例如$5 \times 6 = product\ [5, 6]$。如果是单一的数，例如$34$，我们仍然可以把它看作$34 = product\ [34]$。这样我们就可以定义由因子组成的子算式$f_1 \times f_2 \times ... \times f_m$。即$term = [f_1, f_2, ..., f_m]$：
 
 \begin{Haskell}
 type Term = [Factor]
@@ -948,7 +948,7 @@ expr(d) = [[[d]]]
 
 把这三种情形转换为定义就得到了下面的函数：
 
-\begin{Haskell}[frame = none]
+\begin{Haskell}
 add d ((ds:fs):ts) = [((d:ds):fs):ts,
                       ([d]:ds:fs):ts,
                       [[d]]:(ds:fs):ts]
@@ -1159,7 +1159,7 @@ onLast\ f = foldr\ h\ [\ ] \\
 
 然后，我们就可以实现这3种情况的扩展：
 
-\begin{Haskell}[frame = none]
+\begin{Haskell}
 add d exp = [((append d) `onLast`) `onLast` exp,
              (append [d]) `onLast` exp,
              (append [[d]]) exp]
@@ -1211,7 +1211,7 @@ str & = & foldr\ (x\ xs \mapsto foldr\ (:)\ (`+':xs) ( \\
 
 \section{小结和扩展阅读}
 
-程序推导是数学推导的一种特殊情况。通过这一手段，我们可以从直观的、未经化简或优化的定义出发，利用一套形式化的方法和定理，一步一步进行变换。从而最终得到简洁的、优化的结果。伯德在他的《函数式算法设计珠玑》\cite{Bird-2010}中给出了很多的例子。程序推导的正确性根植于数学。为此需要一套完整的理论，能够将计算机程序形式化、数学化，而不是仅仅依赖于人的直觉。抽象代数和范畴理论正是帮助我们对计算机编程进行形式化的强大工具。叠加——构建融合律就是这样的一个典型的例子。在1993年的论文\cite{GLPJ-1993}中，人们发现了系统化简程序的一个工具。随着范畴理论的引入，一系列融合律被发展出来\cite{Hinze-Harper-James-2010}，并应用于计算机程序的推导和优化。
+程序推导是数学推导的一种特殊情况。通过这一手段，我们可以从直观的、未经化简或优化的定义出发，利用一套形式化的方法和定理，一步一步进行变换。从而最终得到简洁的、优化的结果。伯德在他的《函数式算法设计珠玑》\cite{Bird-2010}中给出了很多例子。程序推导的正确性根植于数学。为此需要一套完整的理论，能够将计算机程序形式化、数学化，而不是仅仅依赖于人的直觉。抽象代数和范畴理论正是帮助我们对计算机编程进行形式化的强大工具。叠加——构建融合律就是这样的一个典型的例子。在1993年的论文\cite{GLPJ-1993}中，人们发现了系统化简程序的一个工具。随着范畴理论的引入，一系列融合律被发展出来\cite{Hinze-Harper-James-2010}，并应用于计算机程序的推导和优化。
 
 \section{附录代码}
 
@@ -1225,15 +1225,15 @@ concatMap f xs = build (\c n -> foldr (\x b -> foldr c b (f x)) n xs)
 \end{Haskell}
 
 用穷举法巧算100的基本定义：
-\begin{Haskell}
-type Expr = [Term]     -- | T1 + T2 + ... Tn
-type Term = [Factor]   -- | F1 * F2 * ... Fm
-type Factor = [Int]    -- | d1d2...dk
+\begin{Haskell}[mathescape = true]
+type Expr = [Term]     -- $T_1 + T_2 + ... T_n$
+type Term = [Factor]   -- $F_1 \times F_2 \times ... F_m$
+type Factor = [Int]    -- $d_1 d_2 ...d_k$
 
 dec :: Factor -> Int
 dec = foldl (\n d -> n * 10 + d) 0
 
-expr d = [[[d]]]  -- | single digit expr
+expr d = [[[d]]]  -- single digit expr
 
 eval [] = 0
 eval (t:ts) = product (map dec t) + eval ts
