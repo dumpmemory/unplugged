@@ -405,16 +405,42 @@ next(cons(x, e)) = e()
 \[
 \begin{array}{l}
 take\ 0\ \_\ = [\ ] \\
-take\ n\ cons(x, e)\ = cons(x, take(n-1, e())) \\
+take\ m\ cons(x, e)\ = cons(x, take(m-1, e())) \\
 \end{array}
 \]
 
 例如$take\ 8\ N = [0, 1, 2, 3, 4, 5, 6, 7]$。本章附录给出了不同编程语言用流的方法定义自然数潜无穷的例子。
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:stream-iterate}
 \Question{第一章中，我们用叠加操作实现了斐波那契数列，如何用$iterate$定义斐波那契数列潜无穷？}
 \Question{用叠加操作定义$iterate$。}
 \end{Exercise}
+
+\begin{Answer}[ref = {ex:stream-iterate}]
+\Question{第一章中，我们用叠加操作实现了斐波那契数列，如何用$iterate$定义斐波那契数列潜无穷？
+
+\[
+F = (fst \circ unzip)\ (iterate\ ((m, n) \mapsto (n, m + n))\ (1, 1))
+\]
+
+例如$take\ 100\ F$
+}
+\Question{用叠加操作定义$iterate$。
+
+我们考虑潜无穷流$iterate\ f\ x$，如果将$f$再次应用到每个元素上，并且在最前面添加一个$x$，得到的仍然是这个无穷流。基于这点我们可以定义：
+
+\[
+iterate\ f\ x = x : foldr (y\ ys \mapsto (f\ y):ys)\ []\ (iterate\ f\ x)
+\]
+
+例如：
+
+\begin{Haskell}[frame = single]
+take 10 $ iter (+1) 0
+[0,1,2,3,4,5,6,7,8,9]
+\end{Haskell} %$
+}
+\end{Answer}
 
 \subsection{余代数和无穷流\texorpdfstring{$\bigstar$}{★}}
 
@@ -1382,6 +1408,9 @@ nup=2x2
 ]{img/bwv1079-canon-per-tonos.pdf}
 
 \ifx\wholebook\relax \else
+\section{参考答案}
+\shipoutAnswer
+
 \begin{thebibliography}{99}
 
 \bibitem{De-linfini-2018}
