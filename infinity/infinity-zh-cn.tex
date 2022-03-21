@@ -590,7 +590,7 @@ take 0 _ = []
 take n (Stream e s) = e : take (n - 1) s
 \end{Haskell}
 
-接下来再展示一个用埃拉托斯特尼筛法产生全体素数无穷流的例子。我们使用去掉1的自然数无穷列表作为携带对象2, 3, 4, ...从这个种子开始，我们接下来把2的所有倍数去掉就获得了下一个种子，它是从3开始的列表3, 5, 7, ...接下来，我们再把3的倍数都去掉，并不断重复。把这一过程写成余代数就是下面的定义：
+接下来再展示一个用埃拉托斯特尼筛法产生素数无穷流的例子。我们使用去掉1的自然数无穷列表作为携带对象2, 3, 4, ...从这个种子开始，我们接下来把2的所有倍数去掉就获得了下一个种子，它是从3开始的列表3, 5, 7, ...接下来，我们再把3的倍数都去掉，并不断重复。把这一过程写成余代数就是下面的定义：
 
 \[
 \begin{array}{l}
@@ -607,11 +607,73 @@ primes = ana era [2...]
 
 特别地，对于列表的向上态射被称为展开（反折叠unfold）。向上态射和向下态射是互逆的。我们可以用向下态射把无穷流重新转换为列表。
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:F-coalg}
 \Question{利用第四章中介绍的不动点定义，证明$Stream$是$StreamF$的不动点。}
 \Question{试定义反折叠$unfold$}
 \Question{数论中的算术基本定理说：任何一个大于1的整数都可以唯一地表示成若干素数的乘积。有一道编程趣题，要求判断一段文字$T$中，是否包含一个字符串$W$的某种排列。试利用算术基本定理，和素数流解决这道题目。}
 \end{Exercise}
+
+\begin{Answer}[ref = {ex:F-coalg}]
+\Question{利用第四章中介绍的不动点定义，证明$Stream$是$StreamF$的不动点。
+
+令$A' = \mathbf{StreamF}\ E\ A$，然后不断递归地应用到自己，把此结果称为$\mathbf{Fix}\ (\mathbf{StreamF}\ E)$
+
+\[
+\resizebox{\linewidth}{!}{\ensuremath{
+\begin{array}{rcll}
+\mathbf{Fix}\ (\mathbf{StreamF}\ E) & = &
+    \mathbf{StreamF}\ E\ (\mathbf{Fix}\ (\mathbf{StreamF}\ E)) & \text{不动点的定义} \\
+ & = & \mathbf{StreamF}\ E\ (\mathbf{StreamF}\ E\ (...)) & \text{递归展开} \\
+ & = & \mathbf{Stream}\ E\ (\mathbf{Stream}\ E\ (...)) & \text{替换名称} \\
+ & = & \mathbf{Stream}\ E & \text{反向用$Stream$的定义} \\
+\end{array}
+}}
+\]
+
+故$Stream$是$StreamF$的不动点。
+}
+\Question{试定义反折叠$unfold$
+
+在实现时，通常使用$Maybe$来定义出一个结束条件：
+\begin{Haskell}[frame = single]
+unfold :: (b -> Maybe (a, b)) -> (b -> [a])
+unfold f b = case f b of
+                Just (a, b') -> a : unfold f b'
+                Nothing -> []
+\end{Haskell}
+}
+\Question{数论中的算术基本定理说：任何一个大于1的整数都可以唯一地表示成若干素数的乘积。有一道编程趣题，要求判断一段文字$T$中，是否包含一个字符串$W$的某种排列。试利用算术基本定理，和素数流解决这道题目。
+
+我们的思路是，将每一个不同字符对应到一个素数上去，a对应2，b对应3，c对应5……。这样任意给定一个字符串$W$，不管它是否包含重复的字符，我们都可以把它表示为素数的乘积：
+
+\[
+F = \prod p_c , c \in W
+\]
+
+我们称其为字符串$W$的数论指纹$F$。如果$W$是空串，我们规定它的指纹等于1。根据整数乘法的交换律，我们知道无论$W$怎样排列，其数论指纹都不变，并且根据算术基本定理，这个数论指纹是唯一的。现在我们就得到了一个特别简洁的解法：我们首先计算出$W$的数论指纹$F$，然后用一个长度为$|W|$的窗口沿着$T$从左向右滑动。一开始我们需要计算$T$在这个窗口内的数论指纹，并和$F$比较，如果相等就说明$T$包含$W$的某种排列。如果不等我们将这个窗口向右滑动一个字符。此时我们可以非常容易地计算新窗口内的数论指纹：只要把滑出的字符对应的素数除掉，再把滑入的字符对应的素数乘上就可以了。任何时候如果新窗口内的数论指纹等于$F$，就说明找到了一个排列。当然为了获得每个不同字符对应的素数，我们还要利用埃拉托斯特尼筛法产生一串素数。下面是一段示例算法：
+
+\begin{algorithmic}[1]
+\Function{contains?}{$W, T$}
+  \State $P \gets ana \ era \ [2, 3, ...]$ \Comment{素数序列}
+  \If{$W = \phi$}
+    \State \Return True
+  \EndIf
+  \If{$|T| < |W|$}
+    \State \Return False
+  \EndIf
+  \State $\displaystyle m \gets \prod P_c, c \in W$
+  \State $\displaystyle m' \gets \prod P_c, c \in T[1...|W|]$
+  \For{$i \gets |W| + 1$ to $|T|$}
+    \If{$m = m'$}
+      \State \Return True
+    \EndIf
+    \State $m' \gets m' \times P_{T_i} / P_{T_{i - |W|}} $
+  \EndFor
+  \State \Return $m = m'$
+\EndFunction
+\end{algorithmic}
+}
+\end{Answer}
 
 \section{实无穷的思考}
 亚里士多德的影响是深远的。在两千多年的时间里，数学家和哲学家们不断思考无穷的本质，大多数人能够接受潜无穷的观念。但是对于实无穷，却产生了严重的分歧。在很长一段时间，人们认为实无穷就是无所不能的上帝，或者只有上帝才能掌握实无穷。一些对实无穷的尝试带来的是令人困惑的矛盾结果。例如，假设全体自然数是一个实无穷。由于自然数从头开始，间隔着一个偶数一个奇数，人们自然认为全体偶数是全体自然数的一半。可是任何自然数乘以2，就得到了一个偶数，反之，任何偶数除以2，也对应这个一个自然数。这样看来全体自然数和全体偶数存在一一对应关系。于是这两个实无穷是同样多的。究竟是自然数多还是偶数多呢？
