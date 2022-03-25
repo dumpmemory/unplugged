@@ -39,7 +39,7 @@
 \begin{figure}[htbp]
 %\begin{wrapfigure}{R}{0.5\textwidth}
  \centering
- \includegraphics[scale=0.3]{img/circle-limit-IV-1960}
+ \includegraphics[scale=0.25]{img/circle-limit-IV-1960}
  \captionsetup{labelformat=empty}
  \caption{埃舍尔《圆极限$\cdot$4》（又名天使与恶魔）1960}
  \label{fig:Circle-Limit-IV}
@@ -55,7 +55,7 @@
 \begin{figure}[htbp]
 %\begin{wrapfigure}{R}{0.4\textwidth}
  \centering
- \includegraphics[scale=0.5]{img/Archimedes.png}
+ \includegraphics[scale=0.33]{img/Archimedes}
  \captionsetup{labelformat=empty}
  \caption{《数沙者》，封面的阿基米德像是意大利画家多米尼克$\cdot$费蒂1620年创作的。}
  \label{fig:Archimedes}
@@ -131,7 +131,7 @@ tredecillion  & $10^{42}$ & seprvigintillion & $10^{84}$ & & \\
 \begin{figure}[htbp]
 %\begin{wrapfigure}{R}{0.3\textwidth}
  \centering
- \includegraphics[scale=0.4]{img/Achilles-paradox.png}
+ \includegraphics[scale=0.4]{img/Achilles-paradox}
  %\captionsetup{labelformat=empty}
  \caption{阿基里斯与乌龟悖论}
  \label{fig:Achilles-paradox}
@@ -145,7 +145,7 @@ tredecillion  & $10^{42}$ & seprvigintillion & $10^{84}$ & & \\
 \begin{figure}[htbp]
 %\begin{wrapfigure}{R}{0.3\textwidth}
  \centering
- \includegraphics[scale=0.4]{img/Dichotomy-paradox.png}
+ \includegraphics[scale=0.4]{img/Dichotomy-paradox}
  %\captionsetup{labelformat=empty}
  \caption{二分悖论}
  \label{fig:Dichotomy-paradox}
@@ -158,7 +158,7 @@ tredecillion  & $10^{42}$ & seprvigintillion & $10^{84}$ & & \\
 %\begin{wrapfigure}{R}{0.3\textwidth}
  \centering
  %\subcaptionbox{飞失不动悖论}[0.3\linewidth]{\includegraphics[scale=0.4]{img/Arrow-paradox.eps}}
- \includegraphics[scale=0.4]{img/Arrow-paradox.png}
+ \includegraphics[scale=0.4]{img/Arrow-paradox}
  \caption{飞失不动悖论}
  \label{fig:Arrow-paradox}
 \end{figure}
@@ -168,7 +168,7 @@ tredecillion  & $10^{42}$ & seprvigintillion & $10^{84}$ & & \\
 \begin{figure}[htbp]
  \centering
  %\subcaptionbox{运动场悖论}[0.7\linewidth]{\includegraphics[scale=0.3]{img/Moving-rows-paradox.eps}}
- \includegraphics[scale=0.3]{img/Moving-rows-paradox.png}
+ \includegraphics[scale=0.3]{img/Moving-rows-paradox}
  \caption{运动场悖论}
  %\captionsetup{labelformat=empty}
  \label{fig:Moving-rows-paradox}
@@ -266,9 +266,9 @@ p_1 p_2 ... p_n + 1
 %\begin{figure}[htbp]
 \begin{wrapfigure}{R}{0.4\textwidth}
  \centering
- \includegraphics[scale=0.6]{img/Archimedes-book.png}
+ \includegraphics[scale=0.1]{img/FieldsMedal}
  \captionsetup{labelformat=empty}
- \caption{小儿书《阿基米德》的封面}
+ \caption{菲尔兹奖章上的阿基米德像}
  \label{fig:Archimedes-book}
 \end{wrapfigure}
 %\end{figure}
@@ -785,17 +785,82 @@ F = \prod p_c , c \in W
 
 现在我们按照这个顺序安排入住：第0号团的第0号客人入住0号房间，第0号团的第1号客人入住1号房间，第1号团的第0号客人入住第2号房间，第2号团的第0号客人入住3号房间，第1号团的第1号客人入住4号房间……这样按照图中往返画“之”字形，就可以逐一、并且毫无遗漏地安排每个客人入住。我们在无穷个旅游团的每个客人和无穷个房间之间建立了一一映射。希尔伯特的旅馆神奇地容纳了“二维”的无穷\footnote{传统解法使用了欧几里得证明的素数有无穷多的结论。将酒店中每个奇数房间$i$的客人安排到$2^i$房间去。然后将第一个旅游团的每个客人安排到$3^n$房间去，将第二个旅游团的每个客人安排到$5^n$的房间，...第$k$个旅游观的每个客人安排到$p^n$房间去，其中$p$是第$k$个素数。这一解法的缺点是有些空房间，例如15号，没有客人入住。}。
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:grand-hotel}
 \Question{我们用图\ref{fig:NNtoN}建立了房间和任意旅游团的客人间的一一映射。第$i$号旅游团的第$j$号客人应该入住几号房间？第$k$个房间里住了哪号旅游团的哪位客人？}
 \Question{希尔伯特旅馆第三天的故事的解法并不唯一，图\ref{fig:PWW-NNtoN}是《无需语言的证明》一书的封面。试根据此图给出另一种编号方案？
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.18]{img/PWW.jpg}
+ \includegraphics[scale=0.18]{img/PWW}
  \caption{《无需语言的证明》封面局部}
  \label{fig:PWW-NNtoN}
 \end{figure}
 }
 \end{Exercise}
+
+\begin{Answer}[ref = {ex:grand-hotel}]
+\Question{我们用图\ref{fig:NNtoN}建立了房间和任意旅游团的客人间的一一映射。第$i$号旅游团的第$j$号客人应该入住几号房间？第$k$个房间里住了哪号旅游团的哪位客人？
+
+按照本章约定，从0开始计数。用数偶$(i, j)$表示第$i$号旅游图的第$j$号客人。我们列出前面的几个客人和房间的对应关系
+
+\vspace{3mm}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c}
+$(i, j)$ & (0, 0) & (0, 1) & (1, 0) & (2, 0) & (1, 1) & (0, 2) & (0, 3) & (1, 2) & (2, 1) & (3, 0) & ... \\
+\hline
+$k$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & ... \\
+\hline
+$i + j$ & 0 & 1 & 1 & 2 & 2 & 2 & 3 & 3 & 3 & 3 & ... \\
+\end{tabular}
+\end{adjustbox}
+\vspace{3mm}
+
+如果同时写下$i+j$的值，我们发现规律是很明显的。共有1个0，2个1，3个2，4个3……这些恰恰是毕达哥拉斯发现的三角形数。记$m = i + j$，对于图中任意格点，它表明在这个点的左下方所有斜线上格点的数目为：$\dfrac{m(m + 1)}{2}$。
+
+在这个点所在的斜线上，如果$m$是奇数则向左上前进，$i$增加、$j$减小；如果是偶数则向右下前进。综合起来，我们得到结果：
+
+\[
+k = \dfrac{m(m + 1)}{2} + \begin{cases} m - j: \text{$m$是奇数} \\
+j: \text{$m$是偶数} \\
+\end{cases}
+\]
+
+进一步，我们可以通过$(-1)^m$来简化这个结果：
+
+\[
+k = \dfrac{m(m + 2) + (-1)^m (2j - m)}{2}
+\]
+}
+\Question{希尔伯特旅馆第三天的故事的解法并不唯一，图\ref{fig:PWW-NNtoN}是《无需语言的证明》一书的封面。试根据此图给出另一种编号方案？
+\begin{center}
+ \includegraphics[scale=0.18]{img/PWW}
+ \captionof{figure}{《无需语言的证明》封面局部}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}
+  \draw[step=1, very thin, gray] (0, 0) grid (5, 5);
+  \draw[->] (-0.25, 0) -- (6, 0) coordinate (x axis);
+  \draw[->] (0, -0.25) -- (0, 6) coordinate (y axis);
+  \foreach \x in {0, 1, 2, 3, 4, 5}
+    \path (\x, -0.25) node[left] {\x};
+  \foreach \y in {1, 2, 3, 4, 5}
+    \path (-0.25, \y) node[below] {\y};
+  \foreach \i / \x / \y in {0/0/0, 1/1/0, 2/1/1, 3/0/1, 4/0/2, 5/1/2, 6/2/2, 7/2/1, 8/2/0, 9/3/0, 10/3/1}{
+    \path (\x, \y) coordinate (N\i);
+    \fill (N\i) circle (1pt) node[above right=3pt of N\i] {\i};
+  }
+  \foreach \i in {0,...,9} {
+    \pgfmathsetmacro{\j}{\i+1}
+    \draw[-latex, thick] (N\i) to (N\j);
+  }
+\end{tikzpicture}
+\captionof{figure}{对无穷个无穷的另一种编号方案}
+\label{fig:NNtoN2}
+\end{center}
+
+如图\ref{fig:NNtoN2}所示，每次沿着折尺形前进，每个折尺上有奇数个点。
+}
+\end{Answer}
 
 \subsection{一一对应与无穷集合}
 
@@ -1298,7 +1363,7 @@ y = 0.01 & 7 & 06 & 8 & 04 & ... \\
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.3]{img/Flammarion.jpg}
+ \includegraphics[scale=0.25]{img/Flammarion.jpg}
  \captionsetup{labelformat=empty}
  \caption{1888年在巴黎出版的《弗拉马利翁》木刻版画，第163页，作者为无名氏}
  \label{fig:Flamarion-woodcut}
@@ -1326,7 +1391,7 @@ y = 0.01 & 7 & 06 & 8 & 04 & ... \\
 %\begin{wrapfigure}{L}{0.4\textwidth}
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=1.0]{img/circle-limit-III-1959.jpg}
+ \includegraphics[scale=.8]{img/circle-limit-III-1959}
  \captionsetup{labelformat=empty}
  \caption{埃舍尔《圆极限$\cdot$3》1959}
  \label{fig:circle-limit-3}
@@ -1337,19 +1402,21 @@ y = 0.01 & 7 & 06 & 8 & 04 & ... \\
 
 荷兰画家埃舍尔受到庞加莱的启发，创作了多个艺术作品来描述这种有限但无穷的世界。这一系列作品被命名为圆极限系列。不管是天使、魔鬼、还是游动的鱼，都在接近圆盘的边缘时变小，从而永远无法到达这个有界但无穷的边沿。
 
-不仅是艺术，在音乐中也有对无穷的思索和表现。1747年5月，巴赫访问了波茨坦宫廷圣苏西宫。巴赫到了圣苏西宫后，腓特烈大帝向他展示了刚刚引进的吉尔博曼钢琴。宫廷音乐会上腓特烈大帝给了巴赫一个音乐主题，老巴赫当场即兴对其进行了一个三声部的赋格变奏。这是事前毫无演练的即兴演奏。这不仅使大帝十分满意，在场众人也无不瞠目结舌。巴赫本人觉得这首曲子的主题非常美丽，于是打算将来写成一首赋格曲，以供出版。回到莱比锡后，巴赫重新对国王主题进行变奏创作，将整个曲子按两首赋格曲，四乐章三重奏鸣曲和十首卡农的构成完成了整个曲子。巴赫在献词上所署名的时间正好是7月7日。这就是巴赫的经典名作《音乐的奉献》，乐曲编号BWV1079。在其中有一首极不寻常的卡农，只标着“Canon per Tonos”这三个词。翻译过来的意思是经由种种调性的卡农。后人称之为“无穷升高的卡农”。侯世达在《哥德尔、埃舍尔、巴赫——集异璧之大成》一书中写到：
-
 \begin{figure}[htbp]
 %\begin{wrapfigure}{R}{0.4\textwidth}
  \centering
- \includegraphics[scale=0.3]{img/canon-endless.png}
+ \includegraphics[scale=0.3]{img/canon-endless}
  \captionsetup{labelformat=empty}
  \caption{巴赫创作的无穷升高的卡农的曲谱局部}
  \label{fig:canon-endless}
 %\end{wrapfigure}
 \end{figure}
 
+不仅是艺术，在音乐中也有对无穷的思索和表现。1747年5月，巴赫访问了波茨坦宫廷圣苏西宫。巴赫到了圣苏西宫后，腓特烈大帝向他展示了刚刚引进的吉尔博曼钢琴。宫廷音乐会上腓特烈大帝给了巴赫一个音乐主题，老巴赫当场即兴对其进行了一个三声部的赋格变奏。这是事前毫无演练的即兴演奏。这不仅使大帝十分满意，在场众人也无不瞠目结舌。巴赫本人觉得这首曲子的主题非常美丽，于是打算将来写成一首赋格曲，以供出版。回到莱比锡后，巴赫重新对国王主题进行变奏创作，将整个曲子按两首赋格曲，四乐章三重奏鸣曲和十首卡农的构成完成了整个曲子。巴赫在献词上所署名的时间正好是7月7日。这就是巴赫的经典名作《音乐的奉献》，乐曲编号BWV1079。在其中有一首极不寻常的卡农，只标着“Canon per Tonos”这三个词。翻译过来的意思是经由种种调性的卡农。后人称之为“无穷升高的卡农”。侯世达在《哥德尔、埃舍尔、巴赫——集异璧之大成》一书中写到：
+
+\begin{quotation}
 它有三个声部，最高声部是国王主题的一个变奏，下面两个声部则提供了一个建立在第二主题之上的卡农化的和声。这两个声部中较低的那个声部用C小调奏出主题，而较高的那个则在差五度之上奏出同一主题。特殊之处在于，当它结束时——或者不如说似乎要结束时——已不再是C小调而是D小调了。巴赫在听众的鼻子底下转了调。而且这一结构使得这一“结尾”很通顺地与开头联接起来。这样可以重复这一过程并在E调上回到开头。这些连续的变调带着听众不断上升到越来越远的调区，因此听了几段之后，听众会以为他要无休止地远离开始的调子了。然而在整整六次这样的变调之后，原来的C小调又魔术般地恢复了！所有的声音都恰好比原来高八度。在这里整部曲子可以以符合音乐规则的方式终止。人们猜想，这里就是巴赫的意图。但巴赫很明确地留下了一个暗示，说这一过程可以无休止地进行下去。也许这就是为什么他在边上写下了“转调升高，国王的荣耀也升高。”\cite{GEB}
+\end{quotation}
 
 \begin{Exercise}
 \Question{在两个镜子中间点燃一支蜡烛，你看到了什么？这是潜无穷还是实无穷？}
