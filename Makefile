@@ -1,6 +1,8 @@
 # force build:
-#   latexmk -cd -xelatex unplugged-zh-cn.tex
-#   latexmk -cd -xelatex unplugged-en.tex
+force-cn:
+	latexmk -cd -xelatex unplugged-zh-cn.tex
+force-en:
+	latexmk -cd -xelatex unplugged-en.tex
 
 all: cn en
 
