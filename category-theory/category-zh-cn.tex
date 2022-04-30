@@ -914,14 +914,15 @@ fmap\ f = foldr\ f\ Nil
 然后是箭头组合：
 
 \[
-\resizebox{\textwidth}{!}{\ensuremath{
-\begin{array}{rcll}
-(\mathbf{Maybe} \circ \mathbf{List})\ (f \circ g) & = & \mathbf{Maybe} (\mathbf{List}\ (f \circ g)) & \text{函子的组合} \\
- & = & \mathbf{Maybe} ((\mathbf{List}\ f) \circ (\mathbf{List}\ g)) & \text{列表函子的箭头组合性质} \\
- & = & (\mathbf{Maybe}\ (\mathbf{List}\ f)) \circ (\mathbf{Maybe}\ (\mathbf{List}\ g)) & \text{可能函子的箭头组合性质} \\
- & = & ((\mathbf{Maybe} \circ \mathbf{List})\ f) \circ ((\mathbf{Maybe} \circ \mathbf{List})\ g) & \text{函子的组合} \\
+%\resizebox{\linewidth}{!}{\ensuremath{
+\begin{array}{cll}
+  & (\mathbf{Maybe} \circ \mathbf{List})\ (f \circ g) & \\
+= & \mathbf{Maybe} (\mathbf{List}\ (f \circ g)) & \text{函子的组合} \\
+= & \mathbf{Maybe} ((\mathbf{List}\ f) \circ (\mathbf{List}\ g)) & \text{列表函子的箭头组合性质} \\
+= & (\mathbf{Maybe}\ (\mathbf{List}\ f)) \circ (\mathbf{Maybe}\ (\mathbf{List}\ g)) & \text{可能函子的箭头组合性质} \\
+= & ((\mathbf{Maybe} \circ \mathbf{List})\ f) \circ ((\mathbf{Maybe} \circ \mathbf{List})\ g) & \text{函子的组合} \\
 \end{array}
-}}
+%}}
 \]
 }
 \Question{证明任意函子的组合$\mathbf{G} \circ \mathbf{F}$仍然是函子。
@@ -3410,7 +3411,7 @@ eval : \mathbf{NatF}^n Int \to Int \\
 \]
 
 \[
-\resizebox{\textwidth}{!}{\ensuremath{
+\resizebox{\linewidth}{!}{\ensuremath{
 \begin{array}{rcll}
 eval & : &\mathbf{NatF}^n Int \to Int \\
 eval\ ZeroF & = & 0 & \text{$ZeroF$是$\mathbf{NatF}^n Int$的对象}\\
@@ -3935,14 +3936,15 @@ foldt\ c\ h\ (Br\ k\ l\ r) = h(k, foldt\ c\ h\ l, foldt\ c\ h\ r) \\
 令$B' = \mathbf{TreeF}\ A\ B$，然后不断递归地应用到自己，把此结果称为$\mathbf{Fix}\ (\mathbf{TreeF}\ A)$。
 
 \[
-\resizebox{\textwidth}{!}{\ensuremath{
-\begin{array}{rcll}
-\mathbf{Fix}\ (\mathbf{TreeF}\ A) & = & \mathbf{TreeF}\ A\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A)) & \text{不动点的定义} \\
- & = & \mathbf{TreeF}\ A\ (\mathbf{TreeF}\ A (...)) & \text{递归展开} \\
- & = & NilF | BrF\ A\ (\mathbf{TreeF}\ A\ (...))\ (\mathbf{TreeF}\ A\ (...)) & \text{二叉树函子的定义} \\
- & = & NilF | BrF\ A\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A))\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A)) & \text{反向用不动点} \\
+%\resizebox{\linewidth}{!}{\ensuremath{
+\begin{array}{cll}
+  & \mathbf{Fix}\ (\mathbf{TreeF}\ A) & \\
+= & \mathbf{TreeF}\ A\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A)) & \text{不动点的定义} \\
+= & \mathbf{TreeF}\ A\ (\mathbf{TreeF}\ A (...)) & \text{递归展开} \\
+= & NilF | BrF\ A\ (\mathbf{TreeF}\ A\ (...))\ (\mathbf{TreeF}\ A\ (...)) & \text{二叉树函子的定义} \\
+= & NilF | BrF\ A\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A))\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A)) & \text{反向用不动点} \\
 \end{array}
-}}
+%}}
 \]
 
 比较$Tree A$的定义：
