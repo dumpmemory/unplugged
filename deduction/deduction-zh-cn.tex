@@ -1084,7 +1084,7 @@ str = (join\ \text{``+''}) \circ (map\ ((join\ \text{``} \times \text{''}) \circ
 \Question{利用融合律化简算式求值的定义$eval = sum \circ map\ (product \circ (map\ dec))$。
 
 \[
-\resizebox{\linewidth}{!}{\ensuremath{
+%\resizebox{\linewidth}{!}{\ensuremath{
 \begin{array}{cll}
   & eval\ es \\
   & \{ \text{函数组合} \} \\
@@ -1096,7 +1096,7 @@ str = (join\ \text{``+''}) \circ (map\ ((join\ \text{``} \times \text{''}) \circ
   & \{ \text{$\beta$-规约} \} \\
 = & foldr\ (t\ ts \mapsto (f\ t) + ts)\ 0\ es \\
 \end{array}
-}}
+%}}
 \]
 
 写成无参数形式就是：
@@ -1108,7 +1108,7 @@ eval = foldr\ (t\ ts \mapsto (f\ t) + ts)\ 0
 接下来我们再化简$product \circ (map\ dec)$部分
 
 \[
-\resizebox{\linewidth}{!}{\ensuremath{
+%\resizebox{\linewidth}{!}{\ensuremath{
 \begin{array}{cll}
   & (product \circ (map\ dec))\ t \\
   & \{ \text{函数组合} \} \\
@@ -1122,7 +1122,7 @@ eval = foldr\ (t\ ts \mapsto (f\ t) + ts)\ 0
   & \{ \text{定义$fork(f, g)\ x = (f\ x, g\ x)$} \} \\
 = & foldr\ ((\times) \circ fork\ (dec, id))\ 1\ t \\
 \end{array}
-}}
+%}}
 \]
 
 接着把这个结果代入之前的$f$，得到最终化简的结果：

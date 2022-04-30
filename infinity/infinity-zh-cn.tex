@@ -430,7 +430,7 @@ F = (fst \circ unzip)\ (iterate\ ((m, n) \mapsto (n, m + n))\ (1, 1))
 我们考虑潜无穷流$iterate\ f\ x$，如果将$f$再次应用到每个元素上，并且在最前面添加一个$x$，得到的仍然是这个无穷流。基于这点我们可以定义：
 
 \[
-iterate\ f\ x = x : foldr (y\ ys \mapsto (f\ y):ys)\ []\ (iterate\ f\ x)
+iterate\ f\ x = x : foldr (y\ ys \mapsto (f\ y):ys)\ [\ ]\ (iterate\ f\ x)
 \]
 
 例如：
