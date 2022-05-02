@@ -21,4 +21,7 @@ chapters: chapters-cn chapters-en
 chapters-cn: $(CHAPTERS-CN:.tex=.pdf)
 chapters-en: $(CHAPTERS-EN:.tex=.pdf)
 
+# clean:
+#	git clean -fdx
+
 .PHONY: all cn en chapters chapters-cn chapters-en
