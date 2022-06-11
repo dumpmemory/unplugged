@@ -1,6 +1,6 @@
 \ifx\wholebook\relax \else
 
-\documentclass[UTF8]{article}
+\documentclass[b5paper]{article}
 \usepackage[nomarginpar
   %, margin=.5in
 ]{geometry}
@@ -36,14 +36,14 @@
 
 \section{The history of number}
 
-\begin{wrapfigure}{R}{0.3\textwidth}
-%\begin{figure}[htbp]
+%\begin{wrapfigure}{R}{0.3\textwidth}
+\begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.36]{img/clay-envelope.jpg}
+ \includegraphics[scale=0.36]{img/clay-envelope}
  \caption{The envelop of tokens in Uruk period from Susa. Louvre Museum}
  \label{fig:clay-token}
-%\end{figure}
-\end{wrapfigure}
+\end{figure}
+%\end{wrapfigure}
 
 The number emerged with human evolution. Some people believe that language was inspired by numbers. Our ancestors learned the numbers from the gathering and hunting activities. People needed to count the gathered fruits. As trading developed, people needed numeral tools to handle bigger numbers than previously encountered.
 
@@ -57,9 +57,9 @@ The next big step happened around 3100 BC. The abstract numbers dissociated from
 \begin{figure}[htbp]
  \centering
  \subcaptionbox{Babylonian numerals\cite{wiki-babylonian-num}}[0.45\linewidth]{
-   \includegraphics[scale=0.36]{img/Babylonian_numerals.jpg}} \quad \quad
+   \includegraphics[scale=0.36]{img/Babylonian_numerals}} \quad \quad
  \subcaptionbox{The abstract three}[0.45\linewidth]{
-   \includegraphics[scale=0.21]{img/abstract-num.png}}
+   \includegraphics[scale=0.21]{img/abstract-num}}
  \captionsetup{labelformat=empty}
  \label{fig:babylonian-num}
  \label{fig:abstract-num}
@@ -76,11 +76,11 @@ Starting from the numbers, people developed add, subtraction, then the more powe
 Euclid's {\em Element} is the first work introduced the axiomatic methods. From five axioms and postulates, Euclid developed the laws one by one elaborately. Every result is only based on the axioms and the theorems proved before. With this approach, he built the great building of geometry. However, there was no axiomatic formal system for natural numbers for long time. People considered natural numbers were straightforward and the related facts were obvious. The axioms of natural number was setup by Italian mathematician Peano till 1889. known as Peano Axioms nowadays. It's interesting that there are also five axioms.
 
 \begin{enumerate}
-\item 0 is a natural number. Expressed as $\exists 0 \in N$;
-\item For every natural number, there is a successor natural number. Expressed as $\forall n \in N, \exists n' = succ(n) \in N$;
+\item 0 is a natural number. Expressed as $0 \in N$;
+\item For every natural number, there is a successor natural number. Expressed as $n' = succ(n)$;
 \end{enumerate}
 
-It seems that we can define the infinite natural numbers only with these two axioms. From 0, the next is 1, then the next is 2, then 3, ..., then $n$, and then $n+1$, ... However, there is a counter example. Consider a set with only two numbers $\{0, 1\}$. Where the successor of 1 is defined as 0, while the successor of 0 is defined as 1. It satisfies the above two axioms well although they are not as we expected. In order to avoid this situation, we need the third Peano axiom.
+It seems that we can define the infinite natural numbers only with these two axioms. From 0, the next is 1, then 2, 3, ..., $n$, and $n+1$, ... However, there is a counter example. Consider a set with only two numbers $\{0, 1\}$. Where the successor of 1 is defined as 0, while the successor of 0 is defined as 1. It satisfies the above two axioms well although they are not as we expected. In order to avoid this situation, we need the third Peano axiom.
 
 \begin{enumerate}
   \setcounter{enumi}{2}
@@ -91,14 +91,14 @@ Are these three axioms enough? We can still find another counter example. Consid
 
 \begin{enumerate}
   \setcounter{enumi}{3}
-  \item Different natural numbers have different successors. In other words, if two natural numbers have the same successor, then they are same. It can be formally expressed as $\forall n, m \in N: n' = m' \Rightarrow n = m$;
+  \item Different natural numbers have different successors. In other words, if two natural numbers have the same successor, then they are same. Expressed as $n, m \in N$ if $n' = m'$ then $n = m$;
 \end{enumerate}
 
 However, it is still not enough. We can still find another example. For set $\{0, 0.5, 1, 1.5, 2, 2.5, ...\}$. Define 1 is the successor of 0, 2 is the successor of 1, ...; 1.5 is the successor of 0.5, 2.5 is the successor of 1.5, ...; But 0.5 is not the successor of any other numbers. In order to exclude such `unreachable' elements, we need the last Peano axiom.
 
 \begin{enumerate}
   \setcounter{enumi}{4}
-  \item If some subset of natural numbers contains 0, and every element in it has a successor, then this subset is same as the whole natural numbers. It can be expressed as $\forall S \subset N: (0 \in S \land \forall n \in S \Rightarrow n' \in S) \Rightarrow S = N$.
+  \item If some subset of natural numbers contains 0, and every element in it has a successor, then this subset is same as the whole natural numbers. Expressed as if $S \subset N: 0 \in S$ and $\forall n \in S$ if $n' \in S$ then $S = N$.
 \end{enumerate}
 
 Why does the fifth axiom exclude the above counter example? For $\{$0, 0.5, 1, 1.5, 2, 2.5, ...$\}$, consider the subset of $\{0, 1, 2, ...\}$. 0 belongs to it, and every element has a successor. But it is not identical to the original set. As 1.5, 2.5, ... are not in this subset, it does not satisfy the fifth Peano axiom. This last axiom as also known as `Axiom of induction'. It can be equally stated as the following.
@@ -113,7 +113,7 @@ This the complete statement of the five Peano axioms. They can build the first-o
 %\begin{wrapfigure}{R}{0.4\textwidth}
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.2]{img/Peano.jpg}
+ \includegraphics[scale=0.2]{img/Peano}
  \caption{Giuseppe Peano (1858-1932)}
  \label{fig:Peano}
 \end{figure}
@@ -121,9 +121,7 @@ This the complete statement of the five Peano axioms. They can build the first-o
 
 Giuseppe Peano was an Italian mathematician, logician, and linguist. Peano was born and raised on a farm at Spinetta, a hamlet now belonging to Cuneo, Italy. He enrolled at the University of Turin in 1876, graduating in 1880 with high honors, after which the University employed him to teach calculus course. In 1887, Peano married Carola Crosio. In 1886, he began teaching concurrently at the Royal Military Academy. From 1880s, Peano started to study mathematical logic. He published the Peano axioms, a formal foundation for the natural numbers. Peano started the Formulario Project. It was to be an ``Encyclopedia of Mathematics'', containing all known formulae and theorems of mathematical science. In 1900, the Second International Congress of Mathematicians was held in Paris. At the conference Peano met Bertrand Russell and gave him a copy of Formulario. Russell was so struck by Peano's innovative logical symbols that he left the conference and returned home to study Peano's text\cite{M-Kline-2007}.
 
-When Russell and Whitehead wrote {\em Principia Mathematica}, they were deeply influenced by Peano. Peano played a key role in the axiomatization of mathematics and was a leading pioneer in the development of mathematical logic and set theory. As part of this effort, he made key contributions to the modern rigorous and systematic treatment of the method of mathematical induction. He spent most of his career teaching mathematics at the University of Turin. He also wrote an international auxiliary language, Latino sine flexione ("Latin without inflections", later called Interlingua), which is a simplified version of Classical Latin. Most of his books and papers are in Latino sine flexione. Although Peano put a lot of effort to rewrite his works in the new language, few people read it. On the other hand, his early works in French influnced many mathematicians, especially to the Bourbaki group, which came out many top mathematicians like André Weil, Jean Dieudonné, Henri Cartan, Schwartz, Serre, Grothendieck and so on.
-
-Giuseppe Peano died on April, 20th, 1932 when he suffered a fatal heart attack.
+When Russell and Whitehead wrote {\em Principia Mathematica}, they were deeply influenced by Peano. Peano played a key role in the axiomatization of mathematics and was a leading pioneer in the development of mathematical logic and set theory. As part of this effort, he made key contributions to the modern rigorous and systematic treatment of the method of mathematical induction. He spent most of his career teaching mathematics at the University of Turin. He also wrote an international auxiliary language, Latino sine flexione ("Latin without inflections", later called Interlingua), which is a simplified version of Classical Latin. Most of his books and papers are in Latino sine flexione. Although Peano put a lot of effort to rewrite his works in the new language, few people read it. On the other hand, his early works in French influnced many mathematicians, especially to the Bourbaki group, which came out many top mathematicians like André Weil, Jean Dieudonné, Henri Cartan, Schwartz, Serre, Grothendieck and so on. Giuseppe Peano died on April, 20th, 1932 when he suffered a fatal heart attack.
 
 \section{Natural numbers and programming}
 
@@ -131,10 +129,9 @@ People make amazing achievement with the modern computer systems. We didn't esta
 
 We'll emulate it. From the Peano axioms, define the natural numbers with computer programs. In a computer system without familiar numbers like 0, 1, 2, ..., we can define the natural numbers as below\footnote{We use a virtual, ideal programming language in this book. Some real programs are given at the end of each chapter for reference.}:
 
-\lstset{language=Haskell}
-\begin{lstlisting}
+\begin{Haskell}
 data Nat = zero | succ Nat
-\end{lstlisting}
+\end{Haskell}
 
 %% \[
 %% N \triangleq zero | succ(N)
@@ -142,10 +139,10 @@ data Nat = zero | succ Nat
 
 A natural number is either zero, or the successor of another natural number. Symbol `|' is mutual exclusive, it implicates the axiom that zero is not the successor of any natural number. We can further define the addition for natural numbers.
 
-\begin{lstlisting}
+\begin{Haskell}
 a + zero = a
 a + (succ b) = succ (a + b)
-\end{lstlisting}
+\end{Haskell}
 
 There are two rules for addition. First, any natural number adds zero gives that number itself; second, a natural number adds to a successor of some natural number equals to the successor of the sum of the two. In mathematic expression:
 
@@ -158,13 +155,13 @@ a + b' = (a + b)'
 
 Let's use 2+3 as the example. natural number 2 is succ(succ zero), and 3 is succ(succ(succ zero)). According to the definition of addition:
 
-\begin{lstlisting}
+\begin{Haskell}
   succ(succ zero) + succ(succ(succ zero))
 = succ(succ(succ zero) + succ(succ zero))
 = succ(succ(succ(succ zero) + succ zero))
 = succ(succ(succ(succ(succ zero) + zero)))
 = succ(succ(succ(succ(succ zero))))
-\end{lstlisting}
+\end{Haskell}
 
 The result is the 5th successor of zero. It's not practical to apply succeed function again and again for big numbers like 100. Let's introduce a simplified notation for natural number $n$.
 
@@ -184,19 +181,19 @@ foldn(z, f, n') = f(foldn(z, f, n))
 
 Function $foldn$ defines some operation on natural number. When $z$ is $zero$, and $f$ is the $succ$ function, then it can apply the succeed operation multiple times to get a specific natural number. We can verify it with the first several numbers.
 
-\begin{lstlisting}
+\begin{Haskell}
 foldn(zero, succ, 0) = zero
 foldn(zero, succ, 1) = succ(foldn(zero, succ, 0)) = succ zero
 foldn(zero, succ, 2) = succ(foldn(zero, succ, 1)) = succ(succ zero)
 ...
-\end{lstlisting}
+\end{Haskell}
 
 Multiplication for natural number can be defined on top of addition.
 
-\begin{lstlisting}
-a . zero = zero
-a . (succ b) = a . b + a
-\end{lstlisting}
+\begin{Haskell}
+a *'.'* zero = zero
+a *'.'* (succ b) = a *'.'* b + a
+\end{Haskell}
 
 The multiplication can be expressed in mathematic symbols as below.
 
@@ -257,15 +254,105 @@ Hence proves the associative law for addition. However, it is a bit complex to p
 \end{figure}
 %\end{wrapfigure}
 
-\begin{Exercise}
-\begin{enumerate}
-\item Define 1 as the successor of 0, prove $a \cdot 1 = a$ holds for all natural numbers;
-\item Prove the distributive law for multiplication;
-\item Prove the associative and commutative laws for multiplication.
-\item How to verify 3 + 147 = 150 with Peano axioms?
-\item Give the geometric explanation for distributive, associative, and commutative laws of multiplication.
-\end{enumerate}
+\begin{Exercise}\label{ex:Peano-axiom}
+\Question{Define 1 as the successor of 0, prove $a \cdot 1 = a$ holds for all natural numbers;}
+\Question{Prove the distributive law for multiplication;}
+\Question{Prove the associative and commutative laws for multiplication.}
+\Question{How to verify 3 + 147 = 150 with Peano axioms?}
+\Question{Give the geometric explanation for distributive, associative, and commutative laws of multiplication.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:Peano-axiom}]
+\Question{Define 1 as the successor of 0, prove $a \cdot 1 = a$ holds for all natural numbers;
+
+We first use mathematical induction to prove $0 + a = a$ (refer to {\em Appendix - Proof of commutative law of addition}). Then:
+
+\[
+\begin{array}{rlr}
+a' \cdot 1 & = a' \cdot 0' & \text{1 as the successor of 0} \\
+           & = a' \cdot 0 + a' & \text{2nd rule of multiplication} \\
+           & = 0 + a' & \text{1st rule of multiplication} \\
+           & = a' & \text{proved previously}
+\end{array}
+\]
+}
+
+\Question{Prove the distributive law for multiplication;
+
+\begin{proof}
+We can prove the left side distribution law $c(a + b) = ca + cb$ by mathematical induction. First when $b = 0$:
+
+\bre
+c(a + 0) & = & ca & \text{1st rule of addition} \\
+         & = & ca + 0 & \text{reverse of 1st rule of addition} \\
+         & = & ca + c0 & \text{reverse of 1st rule of multiplication} \\
+\ere
+
+Next suppose $c(a + b) = ca + cb$ holds, we need prove $c(a + b') = ca + cb'$
+
+\bre
+c(a + b') & = & c(a + b)' & \text{2nd rule of addition} \\
+          & = & c(a + b) + c & \text{2nd rule of multiplication} \\
+          & = & ca + cb + c & \text{induction hypothesis} \\
+          & = & ca + (cb + c) & \text{associative law of addition} \\
+          & = & ca + cb' & \text{reverse of 2nd rule of multiplication} \\
+\ere
+\end{proof}
+}
+
+\Question{Prove the associative and commutative laws for multiplication.
+
+We only prove the associative law for multiplication $(ab)c = a(bc)$. For the commutative law, we provide a proof outline.
+
+Using mathematical induction, when $c = 0$:
+
+\bre
+(ab)0 & = & 0 & \text{1st rule of multiplication} \\
+      & = & a0 & \text{reverse of 1st rule of multiplication} \\
+      & = & a(b0) & \text{reverse of 1st rule of multiplication} \\
+\ere
+
+Next suppose $(ab)c = a(bc)$, we need prove $(ab)c' = a(bc')$
+
+\bre
+(ab)c' & = & (ab)c + ab & \text{2nd rule of multiplication} \\
+       & = & a(bc) + ab & \text{induction hypothesis} \\
+       & = & a(bc + b) & \text{distribution law proven above} \\
+       & = & a(bc') & \text{reverse of 2nd rule of multiplication} \\
+\ere
+
+To prove the commutative law of multiplication, we take three steps, all with mathematical induction. First we prove $1a = a$, then prove the right side distribution law $(a + b)c = ac + bc$, finally, prove the commutative law.
+}
+
+\Question{How to verify 3 + 147 = 150 with Peano axioms?
+
+Let us first see the classic proof of 2 + 2 = 4:
+
+\bre
+2 + 2 & = & 0'' + 0'' & \text{2 is the successor of successor of 0} \\
+      & = & (0'' + 0')' & \text{2nd rule of addition} \\
+      & = & ((0'' + 0)')' & \text{2nd rule of addition} \\
+      & = & ((0'')')' & \text{1st rule of addition} \\
+      & = & 0'''' = 4 & \text{4 times successor of 0} \\
+\ere
+
+It will be too long to prove 3 + 147 = 150 in this way. One method is to apply the commutative law of addition, then prove 147 + 3 = 150; another method is to use the mathematical induction to prove $3 + a = a'''$
+}
+
+\Question{Give the geometric explanation for distributive, associative, and commutative laws of multiplication.
+
+See figure \ref{fig:geometric-arithmetic}
+
+%\begin{figure}[htbp]
+\begin{center}
+ \includegraphics[scale=0.4]{../appendix/answer/img/geometric-arithmetic}
+  % \captionsetup{labelformat=empty}
+ \captionof{figure}{Geometric explanation for arithmetic laws}
+ \label{fig:geometric-arithmetic}
+\end{center}
+%\end{figure}
+}
+\end{Answer}
 
 \section{Structure of natural numbers}
 
@@ -410,6 +497,14 @@ fact = 2nd \cdot foldn(c, h) \\
 
 Here we use the symbol `$\cdot$' to `connect' the $2nd$ function and the $foldn(c, h)$ function. We call it {\em function composition}. $f\cdot g$ means firstly apply $g$ to the variable, then apply $f$ on top of the result. That is $(f\cdot g)(x) = f(g(x))$.
 
+\index{Fibonacci}
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.35]{img/Fibonacci}
+ \caption{Leonardo Pisano, Fibonacci (1175-1250)}
+ \label{fig:Fibonacci}
+\end{figure}
+
 Let's see another example powered by this abstract tool, Fibonacci sequence. It's named after the medieval mathematician Leonardo Pisano. Fibonacci originates from `filius Bonacci' in Latin. It means the son of (the) Bonacci. Fibonacci's father was a wealthy Italian merchant
  often did trading around North Africa and the Mediterranean coast. Fibonacci traveled with him as a young boy. It was in Bugia (now Béjaïa, Algeria) that he learned about the Hindu–Arabic numeral system. Fibonacci realized many advantage of this numeral system. He introduced it to Europe through his book, the {\em Liber Abaci} (Book of Abacus or Book of Calculation, 1202). European people were using Roman numeral system before that. We can still see Roman numbers in clock plat today. The Roman number for year 2018 is MMXVIII. Where M stands for 1000, so two M letters mean 2000; X represents 10, V stands for 5, the three I mean 3. Sum them up, we get 2018. The Hindu-Arabic numeral system introduced by Fibonacci is a positional decimal numeral system. We are using it almost everywhere today. It uses the zero invented by Indian mathematicians. Numbers at different position mean different value. This advanced numeral system were widely used in business, for example converting different currencies, calculating profit and interest, which were important to the growing banking industry. It influenced the mathematics in Europe greatly.
 
@@ -419,20 +514,17 @@ When start, there is a pair in the first month. In the second month, there is a 
 
 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, ...
 
-
-%\begin{wrapfigure}{R}{0.35\textwidth}
 \begin{figure}[htbp]
  \centering
  \subcaptionbox{The length of the squares give a Fibonacci sequence}[0.45\linewidth]{
-     \includegraphics[scale=0.4]{img/fibonacci_spiral.jpg}}
- \subcaptionbox{Leonardo Pisano, Fibonacci (1175-1250)}[0.45\linewidth]{
-     \includegraphics[scale=0.35]{img/Fibonacci.jpg}}
- \captionsetup{labelformat=empty}
- \caption{}
+     \includegraphics[scale=0.35]{img/fibonacci_spiral}}
+ \subcaptionbox{Dark: mature, Light: new born}[0.45\linewidth]{
+     \includegraphics[scale=0.3]{img/Fibonacci-rabbits}}
+ %\captionsetup{labelformat=empty}
+ \caption{Expansion of Fibonacci numbers}
  \label{fig:fibonacci_spiral}
- \label{fig:Fibonacci}
+ \label{fig:Fibonacci-rabbits}
 \end{figure}
-%\end{wrapfigure}
 
 It's easy to find the pattern of this sequence. From the third number, every number is the sum of the previous two. We can understand the reason behind it like this. Let there be $m$ pairs of rabbits in the previous month, and $n$ pairs in this month. As the new additional $n - m$ pairs are all new born, the rest $m$ pairs are mature. In the next month, the $n - m$ pairs grow mature; while the $m$ pairs of big rabbits produce another $m$ pairs of baby rabbits. The total pairs in the next month is the sum of big and baby rabbits, which is $(n - m) + m + m = n + m$. With this deduction, we can give the recursive definition of Fibonacci numbers.
 
@@ -453,16 +545,15 @@ h (m, n) = (n, m + n)
 \end{array}
 \ee
 
-Can this definition be realized in the computer programs in real world? Is it too idealistic? Below is a real piece of Haskell program implements Fibonacci numbers\footnote{After 2010, the n+k pattern matching is not supported any more in Haskell. We can modify it as: \newline\texttt{foldn z f n = f (foldn z f (n-1))}}. Run command \texttt{fib 10} outputs the 10th Fibonacci number, 55\footnote{One line code to produce the first 100 Fibonacci numbers: \newline\texttt{take 100 \$ map fst \$ iterate ($\lambda$(m, n)->(n, m + n)) (0, 1)}}.
+Can this definition be realized in the computer programs in real world? Is it too idealistic? Below is a real piece of Haskell program implements Fibonacci numbers\footnote{After 2010, the n+k pattern matching is not supported any more in Haskell.}. Run command \texttt{fib 10} outputs the 10th Fibonacci number, 55\footnote{One line code to produce the first 100 Fibonacci numbers: \newline\texttt{take 100 \$ map fst \$ iterate ($\lambda$(m, n)->(n, m + n)) (0, 1)}}.
 
-\lstset{frame=single}
-\begin{lstlisting}
+\begin{Haskell}[frame=single]
 foldn z _ 0 = z
-foldn z f (n + 1) = f (foldn z f n)
+foldn z f n = f (foldn z f (n - 1))
 
 fib = fst . foldn (0, 1) h where
   h (m, n) = (n, m + n)
-\end{lstlisting}
+\end{Haskell}
 
 \begin{Exercise}
 \begin{enumerate}
@@ -476,7 +567,7 @@ fib = fst . foldn (0, 1) h where
 %\begin{wrapfigure}{R}{0.3\textwidth}
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.2]{img/PWW.jpg}
+ \includegraphics[scale=0.2]{img/PWW}
  \caption{Cover of PWW (Proof Without Words), part}
  \label{fig:PWW}
 \end{figure}
@@ -486,10 +577,9 @@ fib = fst . foldn (0, 1) h where
 
 We've seen the examples that natural numbers can be isomorphic to its subsets, like odd and even numbers, squares, and Fibonacci numbers. Natural numbers can also be isomorphic to other things. One interesting example is the list in the computer programs. Here is the definition of list.
 
-\lstset{frame=none}
-\begin{lstlisting}
+\begin{Haskell}
 data List A = nil | cons(A, List A)
-\end{lstlisting}
+\end{Haskell}
 
 As a data structure, a list of type A is either empty, represented as nil; or contains two parts: one node with data of type A, and the rest sub-list. Function \texttt{cons} links an element of type A to another list\footnote{The name \texttt{cons} comes from the Lisp naming convention.}. Figure\ref{fig:linked-list} shows a list of 6 nodes.
 
@@ -654,7 +744,7 @@ We call the operation that applies a function to the first value in a pair as `$
 %\begin{wrapfigure}{R}{0.3\textwidth}
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.26]{img/the-school-of-athens.jpg}
+ \includegraphics[scale=0.26]{img/the-school-of-athens}
  \caption{Raphael, School of Athens (part)}
  \label{fig:the-school-of-athens}
 \end{figure}
@@ -678,6 +768,9 @@ Write a program to compute the power of 2-order square matrix, and use it to giv
 \end{Exercise}
 
 \ifx\wholebook\relax \else
+\section{Answer}
+\shipoutAnswer
+
 \begin{thebibliography}{99}
 
 \bibitem{wiki-number}
