@@ -1,6 +1,6 @@
 \ifx\wholebook\relax \else
 
-\documentclass[UTF8]{article}
+\documentclass[b5paper]{article}
 
 \usepackage[nomarginpar
   %, margin=.5in
@@ -32,139 +32,7 @@
 \phantomsection  % so hyperref creates bookmarks
 \addcontentsline{toc}{chapter}{Answers}
 
-\section{Preface}
-
-\begin{enumerate}
-\item{Implementing a tick-tack-toe game is a classic programming exercise. It's trivial to test if the sum of three numbers is 15. Please use this point to implement a simplified tick-tack-toe program that never loses a game.}
-
-We use Lo Shu square to model tick-tack-toe game as they are isomorphic. We setup two sets $X, O$ to represent the cells each player has occupied. For the game in the preface, it starts with $X = \phi$, $O = \phi$, and ends with $X = \{ 2, 5, 7, 1 \}$，$O = \{ 4, 3, 8, 6 \}$. To determine if either player wins, we write a program to check if there are any 3 elements add up to 15.
-
-There are two methods to do this checking. One is to list all the rows, columns, and diagonals. There 8 tuples in total as: $\{ \{4, 9, 2\}, \{3, 5, 7\}, ..., \{2, 5, 8\} \}$. Then check if anyone is the subset of the cells occupied by the player. The other method is interesting. Suppose a player covers cells $ X = \{x_1, x_2, ..., x_n\}$, sorted in ascending order as they appear in the Lo Shu square. We can first pick $x_1$, then use two pointers $l, r$ point to the next element and the last element. If the sum of three numbers $s = x_1 + x_l + x_r$ equals to 15, it means the player lines up and win. If it is less than 15, because the elements are in ascending order, we can increase the left pointer $l$ by 1 and examine again. otherwise, if it is greater than 15, then we decrease the right pointer $r$ by 1. When the left and right pointers meet, then no tuple add up to 15 when fixing $x_1$. We next pick $x_2$ and do the similar things. In worst case, after $(n - 2)+ (n - 3) + ... + 1$ checks, we know whether a player wins or not.
-
-\lstset{language=Python
-    , frame=single
-}
-\begin{lstlisting}
-def win(s):
-    n = len(s)
-    if n < 3:
-        return False
-    s = sorted(s)
-    for i in range(n - 2):
-        l = i + 1
-        r = n - 1
-        while l < r:
-            total = s[i] + s[l] + s[r]
-            if total == 15:
-                return True
-            elif total < 15:
-                l = l + 1
-            else:
-                r = r - 1
-    return False
-\end{lstlisting}
-
-Given $X$ and $O$, we can test if the game is in end state -- either a player wins or draw with all 9 cells being occupied. Next we use the classic \texttt{min-max} method in AI to realize the game. For each state, we evaluate its score. One player tries to maximize the score, while the opponent tries to minimize it. For a draw state, we evaluate the score as zero; if player $X$ wins, we give it score 10; and player $O$ wins, we give it a negative score -10. These numbers are arbitrary. They can be any other values without impact the correctness.
-
-\begin{lstlisting}
-WIN = 10
-INF = 1000
-
-# Lo Shu magic square
-MAGIC_SQUARE = [4, 9, 2,
-                3, 5, 7,
-                8, 1, 6]
-
-def eval(x, o):
-    if win(x):
-        return WIN
-    if win(o):
-        return -WIN
-    return 0
-
-def finished(x, o):
-    return len(x) + len(o) >= 9
-\end{lstlisting}
-
-For any game state, we let the program explore ahead till an end state (one side wins, or draw). The explore method, is to exhaustive cover all unoccupied cells, then turn to the opponent player, consider what is the best move to beat the other. For all candidate moves, select the highest score for player $X$, or select the lowest score for player $O$.
-
-\begin{lstlisting}
-def findbest(x, o, maximize):
-    best = -INF if maximize else INF
-    move = 0
-    for i in MAGIC_SQUARE:
-        if (i not in x) and (i not in o):
-            if maximize:
-                val = minmax([i] + x, o, 0, not maximize)
-                if val > best:
-                    best = val
-                    move = i
-            else:
-                val = minmax(x, [i] + o, 0, not maximize)
-                if val < best:
-                    best = val
-                    move = i
-    return move
-\end{lstlisting}
-
-The \texttt{min-max} search is recursive. In order to win fast, we take the number of steps into account on top of the state score. For payer $X$, we deduce the score from the recursion depth; while for player $O$, we add the depth to the score.
-
-\begin{lstlisting}
-def minmax(x, o, depth, maximize):
-    score = eval(x, o)
-    if score == WIN:
-        return score - depth
-    if score == -WIN:
-        return score + depth
-    if finished(x, o):
-        return 0  # draw
-    best = -INF if maximize else INF
-    for i in MAGIC_SQUARE:
-        if (i not in x) and (i not in o):
-            if maximize:
-                best = max(best, minmax([i] + x, o, depth + 1, not maximize))
-            else:
-                best = min(best, minmax(x, [i] + o, depth + 1, not maximize))
-    return best
-\end{lstlisting}
-
-We obtain a program that will never lose to human player. It uses the Lo Shu square on the back end essentially.
-
-\begin{lstlisting}
-def board(x, o):
-    for r in range(3):
-        print "-----------"
-        for c in range(3):
-            p = MAGIC_SQUARE[r*3 + c]
-            if p in x:
-                print "|X",
-            elif p in o:
-                print "|O",
-            else:
-                print "| ",
-        print "|"
-    print "-----------"
-
-def play():
-    x = []
-    o = []
-    while not (win(x) or win(o) or finished(x, o)):
-        board(x, o)
-        while True:
-            i = int(input("[1..9]==>"))
-            if i not in MAGIC_SQUARE or MAGIC_SQUARE[i-1] in x or \
-               MAGIC_SQUARE[i-1] in o:
-                print "invalid move"
-            else:
-                x = [MAGIC_SQUARE[i-1]] + x
-                break
-        o = [findbest(x, o, False)] + o
-    board(x, o)
-\end{lstlisting}
-
-\end{enumerate}
-
-\section{Natural Numbers}
+\shipoutAnswer
 
 \section{Recursion}
 
