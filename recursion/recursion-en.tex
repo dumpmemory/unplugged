@@ -474,7 +474,7 @@ For example, we can't get 5 gallons of water with two jars of 4 gallons and 6 ga
 
 Although we can tell that the puzzle is solvable when $g$ measures $c$, we still don't know the detailed steps to pour water. Actually, the steps can be decuded as far as we can find two integers $x$ and $y$, satisfying $ax + by = c$. If $x > 0, y < 0$, it means we need fill jar $A$ $x$ times, and empty jar $B$ $y$ times; Else if $x < 0, y > 0$, we need empty jar $A$ $x$ times, and fill jar $B$ $y$ times.
 
-For instance, let the capacity of the big jar $a = 5$ gallons, the small jar $b = 3$ gallons. We want to get $c=4$ gallons of water. As $4 = 3 \times 3 - 5$, so $x = -1, y = 3$. We can arrange the steps as below table.
+For instance, let the capacity of the big jar $a = 5$ gallons, the small jar $b = 3$ gallons. We want to get $c=4$ gallons of water. As $4 = 3 \times 3 - 5$, so $x = -1, y = 3$. We can arrange the steps as in table \ref{tab:designed-jugs-ops}.
 
 \begin{table}[htbp]
 \centering
@@ -550,39 +550,31 @@ Euclidean algorithm was developed to find the the greatest common divisor for tw
 
 The Euclidean algorithm is the most famous recursive algorithm. German mathematician, Dirichlet, the founder of analytic number theory, commented in his {\em Lectures on Number Theory}\footnote{Lejeune Dirichlet, J.P.G.; Richard Dedekind (1863). {\em Vorlesungen über Zahlentheorie}. F. Vieweg und sohn.}, The structure of the whole number theory is based on the same foundation, which is the greatest common divisor algorithm. The modern RSA cryptosystem\footnote{RSA is the world first public-key asymmetric crypto algorithm developed by Ron Rivest, Adi Schamir, and Leonard Adelman in MIT, 1977. The acronym RSA is made of the initial letters of their surnames.} utilizes the extended Euclidean algorithm directly. We demonstrated how to figure out the integer solutions for binary linear Diophantine equation $ax + by = c$. Find the greatest common measure $g$. There's no integer solution if $g$ does not divide $c$. Otherwise, for the $x_0, y_0$ satisfying Bézout identity, duplicate them $c/g$ times to get a special solution $x_1, y_1$, then define the common solution of $x = x_1 - k b / g$, and $y = y_1 + k a / g$.
 
-\begin{wrapfigure}{R}{0.32\textwidth}
-%\begin{figure}[htbp]
+%\begin{wrapfigure}{R}{0.32\textwidth}
+\begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.25]{img/Hippasus.jpg}
+ \includegraphics[scale=0.25]{img/Hippasus}
  \captionsetup{labelformat=empty}
  \caption{Hippasus of Metapontum, about 5th Centry, BC.}
  \label{fig:Hippasus}
-%\end{figure}
-\end{wrapfigure}
+\end{figure}
+%\end{wrapfigure}
 
+\index{Hippasus of Metapontum}
 The Euclid algorithm is a double-edges sword. The powerful recursive method can be applied to attack the corner stone of the concept that all things are made of numbers. The Pythagoreans believed any two numbers must have common measurement, because all things and phenomenon are essentially ratio of integer to integer. About 470AC, Hippasus, a student in Pythagorean school attempted to find the common measure for the side and diagonal of a square. However, no matter how small magnitude being used, he could not measure them. It surprised the people, and led to a crisis for the foundation of Pythagoreans. There is also saying that, Hippasus was inspired by the mysterious pentagram logo of Pythagorean school. The Pythagoreans use pentagram as the school's badge and liaison symbol. There was a story about a school member met difficulty in a foreign land, poor and sick. The landlord helped to take care of him. He drew a pentagram on the door before dead. A few years later, someone in Pythagorean school saw the sign. He asked about the past, paid the landlord a lot of money then left\cite{HanXueTao16}. In the Walt Disney's film {\em Donald in Mathmagic Land} in 1959, Duck Donald met Pythagoras and his friends, they discovered the principles of music scale together. After shaking hands with Pythagoras, who then vanishes, Donald found on his hand a pentagram, the symbol of the secret Pythagorean society. As shown in figure \ref{fig:pentagram}, there is another story said that Hippasus also found segment AC and AG couldn't be commensurable.
 
 %\begin{wrapfigure}{L}{0.4\textwidth}
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.5]{img/pentagram.png}
- %\captionsetup{labelformat=empty}
- \caption{The recursive pentagram}
+ \subcaptionbox{The recursive pentagram}[0.45\linewidth]{\includegraphics[scale=0.5]{img/pentagram}}
+ \subcaptionbox{The side and the diagonal of the square.}[0.45\linewidth]{\includegraphics[scale=1.5]{img/irrational}}
+ \captionsetup{labelformat=empty}
  \label{fig:pentagram}
+ \label{fig:irrational}
 \end{figure}
 %\end{wrapfigure}
 
 The Scottish mathematician George Chrystal reconstructed Hippasus's proof in the 19th Century. Using reduction to absurdity, suppose there exists a segment $c$ that measures both the side and diagonal of the square. From the definition of the common measurement, let the side be $nc$, and the diagonal be $mc$, where both $m, n$ are integers. As shown in figure \ref{fig:irrational}, taking the side as radius, we draw an arc with $A$ as the center, which intersects the diagonal $AC$ at point $E$. Then draw a line from $E$ that is perpendicular to the diagonal, and intersects side $BC$ at point $F$.
-
-%\begin{wrapfigure}{L}{0.4\textwidth}
-\begin{figure}[htbp]
- \centering
- \includegraphics[scale=2]{img/irrational.jpg}
- %\captionsetup{labelformat=empty}
- \caption{The side and the diagonal of the square.}
- \label{fig:irrational}
-\end{figure}
-%\end{wrapfigure}
 
 As it is an arc, the length of $AE$ equals to the square side. Thus the length of segment $AE$ is $(m - n)c$. Because $EF$ is perpendicular to $AC$, while angle $\angle ECF$ spans $45\degree$, therefore the triangle $ECF$ is the isosceles right triangle. Since the isosceles triangle has two sides of equal length, we have $|EC| = |EF|$ holds. Observe two right triangles $\triangle AEF$ and $\triangle ABF$. Side $AE$ equals $AB$, and $AF$ is the shared side, they congruent. Then we have $|EF| = |FB|$. As the result, the three segments $|EC| = |EF| = |FB|$. Therefore the length of $FB$ is also $(m - n)c$, while segment $CF$ can be get by deducing $FB$ from $CB$, which is $nc - (m - n)c = (2n - m)c$. We list all the results as below.
 
