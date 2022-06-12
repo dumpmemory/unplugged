@@ -832,9 +832,10 @@ Recursion would not be a problem if performed by human. As the intelligent being
 %\begin{wrapfigure}{L}{0.35\textwidth}
 \begin{figure}[htbp]
  \centering
- \subcaptionbox{Alan Mathison Turing, 1912 - 1954}[0.45\linewidth]{\includegraphics[scale=0.2]{img/Turing.jpg}} \quad
- \subcaptionbox{Alonzo Church, 1903 - 1995}[0.45\linewidth]{\includegraphics[scale=0.65]{img/Church.jpg}}
- \captionsetup{labelformat=empty}
+ \subcaptionbox{Alan Mathison Turing, 1912 - 1954}[0.45\linewidth]{\includegraphics[scale=0.2]{img/Turing}} \quad
+ \subcaptionbox{Alonzo Church, 1903 - 1995}[0.45\linewidth]{\includegraphics[scale=0.65]{img/Church}}
+ %\captionsetup{labelformat=empty}
+ \caption{Turing and Church}
  \label{fig:Turing}
  \label{fig:Church}
 \end{figure}
@@ -1080,7 +1081,7 @@ All these conversions can be applied in both directions, left to right or revers
 \begin{wrapfigure}{R}{0.3\textwidth}
 %\begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.3]{img/Church-Rosser.png}
+ \includegraphics[scale=0.3]{img/Church-Rosser}
  %\captionsetup{labelformat=empty}
  \caption{Church-Rosser confluence}
  \label{fig:Church-Rosser-confluence}
@@ -1247,7 +1248,7 @@ head\ (cons\ p\ q) & = & (c \mapsto c\ (a \mapsto b \mapsto a))\ (cons\ p\ q) \\
 
 It tells us that the composite data structure needn't be built-in realized. We can use $\lambda$ to define them. The exercise of this chapter demands you to consider how to define the natural numbers in Peano Axioms, the Boolean values, and the logic operators with $\lambda$ calculus.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:lambda-calculus}
 \Question{Use $\lambda$ conversion rules to verify $tail\ (cons\ p\ q) = q$。}
 \Question{We can define numbers with $\lambda$ calculus. The following definition is called Church numbers:
 
@@ -1277,6 +1278,91 @@ Define the addition and multiplication operators for the Church numbers with wha
 where \textbf{false} is defined as same as the Church number 0. Use the $\lambda$ conversion rules to prove that: \textbf{and}\ \textbf{true}\ \textbf{false} = \textbf{false}. Please give the definition of if ... then ... else ... expression with the $\lambda$ calculus.
 }
 \end{Exercise}
+
+\begin{Answer}[ref={ex:lambda-calculus}]
+\Question{Use $\lambda$ conversion rules to verify $tail\ (cons\ p\ q) = q$。
+
+The $\lambda$ expressions for $cons$ and $tail$ are:
+
+\[
+\begin{array}{rcl}
+cons & = & a \mapsto b \mapsto f \mapsto f\ a\ b \\
+tail & = & c \mapsto c\ (a \mapsto b \mapsto b)
+\end{array}
+\]
+
+From the two definitions, we can verify $tail\ (cons\ p\ q) = q$ holds.
+
+\[
+\begin{array}{rcl}
+tail\ (cons\ p\ q) & = & (c \mapsto c\ (a \mapsto b \mapsto b))\ (cons\ p\ q) \\
+                   & \xrightarrow{\beta} & (cons\ p\ q)\ (a \mapsto b \mapsto b) \\
+                   & = & ((a \mapsto b \mapsto f \mapsto f\ a\ b)\ p\ q)\ (a \mapsto b \mapsto b) \\
+                   & \xrightarrow{\beta} & ((b \mapsto f \mapsto f\ p\ b)\ q)\ (a \mapsto b \mapsto b) \\
+                   & \xrightarrow{\beta} & (f \mapsto f\ p\ q)\ (a \mapsto b \mapsto b) \\
+                   & \xrightarrow{\beta} & (a \mapsto b \mapsto b)\ p\ q \\
+                   & \xrightarrow{\beta} & (b \mapsto b)\ q \\
+                   & \xrightarrow{\beta} & q
+\end{array}
+\]
+}
+\Question{We can define numbers with $\lambda$ calculus. The following definition is called Church numbers:
+
+\[
+\begin{array}{r@{\quad:\quad}l}
+0 & \lambda f . \lambda x . x \\
+1 & \lambda f . \lambda x . f\ x \\
+2 & \lambda f . \lambda x . f\ (f\ x) \\
+3 & \lambda f . \lambda x . f\ (f\ (f\ x)) \\
+  & ...
+\end{array}
+\]
+Define the addition and multiplication operators for the Church numbers with what we introduced in chapter 1.
+
+For natural number $n$, the meaning as a Church number is to apply function $f$ to $x$ by $n$ times. Let's define successor function first:
+
+\[
+succ = \lambda n . \lambda f . \lambda x . f\ (n\ f\ x)
+\]
+
+It means $f^{n+1}(x)) = f(f^n(x))$. Then we can define addition as:
+
+\[
+plus = \lambda m . \lambda n . \lambda f . \lambda x . m\ f\ (n\ f\ x)
+\]
+
+Which means $f^{m + n}(x) = f^m(f^n(x))$. While the multiplication is defined as:
+
+\[
+mul = \lambda m . \lambda n . \lambda f . \lambda x . m\ (n\ f)\ x
+\]
+
+It means $f^{m n} = (f^n)^m(x)$.
+}
+\Question{The following defines the Church Boolean values, and the relative logic operators:
+
+\[
+\begin{array}{r@{\quad:\quad}l}
+\textbf{true} & \lambda x . \lambda y . x \\
+\textbf{false} & \lambda x . \lambda y . y \\
+\textbf{and} & \lambda p . \lambda q . p\ q\ p \\
+\textbf{or} & \lambda p . \lambda q . p\ p\ q \\
+\textbf{not} & \lambda p . p\ \textbf{false}\ \textbf{true}
+\end{array}
+\]
+
+where \textbf{false} is defined as same as the Church number 0. Use the $\lambda$ conversion rules to prove that: \textbf{and}\ \textbf{true}\ \textbf{false} = \textbf{false}. Please give the definition of if ... then ... else ... expression with the $\lambda$ calculus.
+
+\blre
+and\ true\ false & = & (\lambda p . \lambda q . p\ q\ p)\ true\ false \\
+ & \xrightarrow{\beta} & true\ false\ true \\
+ & = & (\lambda x . \lambda y . x)\ false\ true \\
+ & \xrightarrow{\beta} & false \\
+\elre
+
+if ... then ... else ... expression can be defined as: $\lambda p . \lambda a . \lambda b . p\ a\ b$
+}
+\end{Answer}
 
 \section{More recursive structures}
 
@@ -1326,7 +1412,7 @@ h(t, z) = foldm(f, g, z, t)
 \end{array}
 \ee
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:recursive-trees}
 \Question{Define the abstract $mapt$ for binary trees without of using $foldt$.}
 \Question{Define a function $depth$, which counts for the maximum depth of a binary tree.}
 \Question{Someone thought the abstract fold operation for binary tree $foldt$, should be defined as the following:
@@ -1341,6 +1427,62 @@ That is to say $g : (B \times B) \to B$ is a binary operation like add. Can we u
 \Question{Can we define the mapping operation for multi-trees with folding? If not, how should we modify the folding operation?}
 \end{Exercise}
 
+\begin{Answer}[ref={ex:recursive-trees}]
+\Question{Define the abstract $mapt$ for binary trees without of using $foldt$.
+
+\[ \begin{cases}
+mapt(f, nil) & = nil \\
+mapt(f, node(l, x, r)) & = node(mapt(f, l), f(x), mapt(f, r)) \\
+\end{cases}\]
+}
+\Question{Define a function $depth$, which counts for the maximum depth of a binary tree.
+
+\[
+depth = foldt(one, x, y \mapsto 1 + max(x, y), 0)
+\]
+
+Where $one$ is a constant function. It always returns 1. i.e. $one = x \mapsto 1$.
+}
+\Question{Someone thought the abstract fold operation for binary tree $foldt$, should be defined as the following:
+\[
+\begin{array}{l}
+foldt(f, g, c, nil) = c \\
+foldt(f, g, c, node(l, x, r)) = foldt(f, g, g(foldt(f, g, c, l), f(x)), r)
+\end{array}
+\]
+That is to say $g : (B \times B) \to B$ is a binary operation like add. Can we use this $foldt$ to define $mapt$?
+
+This $foldt$ cannot define tree mapping. A tree should be mapped to another tree with the same structure. Each value in the tree is sent to another value. Note the type of $f$ is $f : A \to B$, it send the element of type $A$ in the tree to type $B$. While the type of $g$ is $g : (B \times B) \to B$, it only maps values of $B$, but cannot preserve the tree structure.
+}
+\Question{The binary search tree (BST) is a special tree that the type A is comparable. For any none empty $node(l, k, r)$, all elements in the left sub-tree $l$ are less than $K$, and all elements in the right sub-tree $r$ are greater than $k$. Define function $insert(x, t) : (A \times Tree\ A) \to Tree\ A$ that inserts an element into the tree.
+
+\[ \begin{cases}
+insert(x, nil) = node(nil, x, nil) \\
+insert(x, node(l, k, r)) = \begin{cases}
+  x < k: & node(insert(x, l), k, r) \\
+  \text{otherwise}: & node(l, k, insert(x, r)) \\
+\end{cases} \\
+\end{cases}\]
+}
+\Question{Can we define the mapping operation for multi-trees with folding? If not, how should we modify the folding operation?
+
+Similar to above exercise, we need modify the folding definition for multi-tree to preserve the tree structure:
+
+\[
+\begin{cases}
+foldm(f, g, c, nil) & = c \\
+foldm(f, g, c, node(x, ts)) & = g(f(x), map(foldm(f, g, c), ts)) \\
+\end{cases}
+\]
+
+Where $map$ applies to list. With this tree folding tool, we can define multi-tree map as below:
+
+\[
+mapm(f) = foldm(f, node, nil)
+\]
+}
+\end{Answer}
+
 \section{The recursive pattern and structure}
 
 Recursion exists both in the ancient Euclidean algorithm and in modern computer systems. The fascinating recursive pattern and structure also appear in various of arts in human civilizations. For example in Islamic mosaic arts, shown in figure \ref{fig:Ceramic-Tile-Tessellations-Marrakech}.
@@ -1348,7 +1490,7 @@ Recursion exists both in the ancient Euclidean algorithm and in modern computer 
 %\begin{wrapfigure}{R}{0.3\textwidth}
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=1]{img/Marrakech.jpg}
+ \includegraphics[scale=1]{img/Marrakech}
  %\captionsetup{labelformat=empty}
  \caption{Zellige terracotta tiles in Marrakech (a city of the Kingdom of Morocco)}
  \label{fig:Ceramic-Tile-Tessellations-Marrakech}
@@ -1360,8 +1502,8 @@ We can see the polygon patterns in the mosaic recursively contain smaller polygo
 %\begin{wrapfigure}{R}{0.3\textwidth}
 \begin{figure}[htbp]
  \centering
- \subcaptionbox{A sketch of Leonardo da Vinci}[0.3\linewidth]{\includegraphics[scale=0.20]{img/ldv_flower.jpg}} \quad
- \subcaptionbox{Chinese katydid cages}[0.5\linewidth]{\includegraphics[scale=0.36]{img/cage.jpg}}
+ \subcaptionbox{A sketch of Leonardo da Vinci}[0.3\linewidth]{\includegraphics[scale=0.20]{img/ldv_flower}} \quad
+ \subcaptionbox{Chinese katydid cages}[0.5\linewidth]{\includegraphics[scale=0.36]{img/cage}}
  %\captionsetup{labelformat=empty}
  \caption{The recursive pattern in art and artifact.}
  \label{fig:flower}
@@ -1373,7 +1515,7 @@ Not only in art, recursion also appears in music. For example, the polyphonic mu
 %\begin{wrapfigure}{L}{0.45\textwidth}
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.8]{img/Haydn-OP-76.png}
+ \includegraphics[scale=0.8]{img/Haydn-OP-76}
  %\captionsetup{labelformat=empty}
  \caption{Minuet of Haydn's String Quartet in D Minor, Op. 76, No. 2}
  \label{fig:Haydn-OP-76}
@@ -1383,7 +1525,7 @@ Not only in art, recursion also appears in music. For example, the polyphonic mu
 %\begin{wrapfigure}{L}{0.45\textwidth}
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.6]{img/Drawing-Hands-1948.jpg}
+ \includegraphics[scale=0.6]{img/Drawing-Hands-1948}
  %\captionsetup{labelformat=empty}
  \caption{M.C. Escher, Drawing Hands, 1948}
  \label{fig:Drawing-Hands}
@@ -1399,8 +1541,8 @@ The perfect combination of mathematical recursion and art is fractal. Kock snowf
 %\begin{wrapfigure}{R}{0.3\textwidth}
 \begin{figure}[htbp]
  \centering
- \subcaptionbox{Recursive generate rules for Kock snowflake}[0.4\linewidth]{\includegraphics[scale=0.25]{img/KochFlake.png}}
- \subcaptionbox{Sierpinski triangle}[0.4\linewidth]{\includegraphics[scale=0.1]{img/Sierpinski-triangle.png}}
+ \subcaptionbox{Recursive generate rules for Kock snowflake}[0.4\linewidth]{\includegraphics[scale=0.25]{img/KochFlake}}
+ \subcaptionbox{Sierpinski triangle}[0.4\linewidth]{\includegraphics[scale=0.1]{img/Sierpinski-triangle}}
  %\captionsetup{labelformat=empty}
  \caption{Recursive generated fractal patterns.}
  \label{fig:fractal}
@@ -1411,8 +1553,8 @@ We show another two fractal patterns as the close of this chapter. One is the fr
 
 \begin{figure}[htbp]
  \centering
- \subcaptionbox{Julia set fractal}[0.45\linewidth]{\includegraphics[scale=0.18]{img/Julia_set.png}}
- \subcaptionbox{Broccoli fractal}[0.45\linewidth]{\includegraphics[scale=0.2]{img/Broccoli.jpg}}
+ \subcaptionbox{Julia set fractal}[0.45\linewidth]{\includegraphics[scale=0.18]{img/Julia_set}}
+ \subcaptionbox{Broccoli fractal}[0.45\linewidth]{\includegraphics[scale=0.2]{img/Broccoli}}
  %\captionsetup{labelformat=empty}
  %\caption{人类思维和自然界产生的分形}
  \label{fig:more-fractal}
