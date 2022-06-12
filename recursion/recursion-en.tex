@@ -568,9 +568,10 @@ The Euclid algorithm is a double-edges sword. The powerful recursive method can 
  \centering
  \subcaptionbox{The recursive pentagram}[0.45\linewidth]{\includegraphics[scale=0.5]{img/pentagram}}
  \subcaptionbox{The side and the diagonal of the square.}[0.45\linewidth]{\includegraphics[scale=1.5]{img/irrational}}
- \captionsetup{labelformat=empty}
- \label{fig:pentagram}
+ %\captionsetup{labelformat=empty}
+ \caption{Irrational magnitude}
  \label{fig:irrational}
+ \label{fig:pentagram}
 \end{figure}
 %\end{wrapfigure}
 
@@ -603,13 +604,226 @@ If, when the less of two unequal magnitudes is continually subtracted in turn fr
 
 It's interesting that the incommensurable is defined by checking whether the Euclidean algorithm terminates or not. Because Euclidean algorithm is recursive, it means the condition is essentially whether recursion terminates or not. It brings our attention to the nature of recursion, what's recursion? How to represent recursion in a formal way?
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:euclid-algorithm}
 \Question{The Euclidean algorithm described in this section is in recursive manner. Try to eliminate recursion, implement it and the extended Euclidean algorithm only with loop.}
 \Question{Most programming environments require integers for modular operation. However, the length of segment isn't necessarily integer. Implement a modular operation that manipulates segments. What's about its efficiency?}
 \Question{In the proof of Euclidean algorithm, we mentioned ``Remainders are always less than the divisor. We have $b > r_0 > r_1 > r_2 > ... > 0$. As the remainder can not less than zero, and the initial magnitude is finite, the algorithm must terminate.'' Can $r_{n}$ infinitely approximate zero, but not be zero? Does the algorithm always terminate? What does the precondition that $a$ and $b$ are commensurable ensure?}
 \Question{For the binary linear Diophantine equation $ax + by = c$, let $x_1, y_1$ and $x_2, y_2$ be two pairs of solution. Proof that the minimum of $|x_1 - x_2|$ is $b/\gcm(a, b)$, and the minimum of $|y_1 - y_2|$ is $a/\gcm(a, b)$}
 \Question{For the regular pentagon with side of 1, how long is the diagonal? Proof that in the pentagram shown in figure \ref{fig:pentagram}, the segment $AC$ and $AG$ are incommensurable. What's their ratio in real number?}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:euclid-algorithm}]
+\Question{The Euclidean algorithm described in this section is in recursive manner. Try to eliminate recursion, implement it and the extended Euclidean algorithm only with loop.
+
+The classic Euclidean algorithm is tail recursive, it can be convert to loop easily:
+
+\begin{algorithmic}
+\Function{GCM}{$a, b$}
+\While{$b \neq 0$}
+  \State $a, b \gets b, a \bmod b$
+\EndWhile
+\State \Return $a$
+\EndFunction
+\end{algorithmic}
+
+However, it's a bit hard to convert the extended Euclidean algorithm. Let us see three sequences $r, s, t$:
+
+\[\begin{array}{l}
+r_0 = a, r_1 = b \\
+s_0 = 1, s_1 = 0 \\
+t_0 = 0, t_1 = 1 \\
+ ...  ... \\
+r_{i+1} = r_{i-1} - q_{i} r_{i}, \text{where}: q_{i} = \lfloor r_{i} / r_{i-1} \rfloor \\
+s_{i+1} = s_{i-1} - q_{i} s_{i} \\
+t_{i+1} = t_{i-1} - q_{i} t_{i} \\
+... ...\\
+\end{array}\]
+
+Obviously, when $r_{k+1} = 0$, the sequences terminate. We also know from Euclidean algorithm that at this time:
+
+\[
+gcm(a, b) = gcm(r_{k-1}, r_{k}) = gcm(r_k, 0) = r_{k}
+\]
+
+The more important fact is that, at this time, the following Bézout's identity holds:
+
+\[
+gcm(a, b) = r_{k} = a s_{k} + b t_{k}
+\]
+
+\begin{proof}
+We prove it with mathematical induction. First for 0 and 1:
+
+\blre
+0: & r_0 = a & a s_0 + b t_0 = a \cdot 1 + b \cdot 0 = a \\
+1: & r_1 = b & a s_1 + b t_1 = a \cdot 0 + b \cdot 1 = b \\
+\elre
+
+Next suppose $r_{i-1} = a s_{i-1} + b t_{i-1}$ and $r_{i} = a s_{i} + b t_{i}$ hold, for $i + 1$ case:
+
+\bre
+r_{i+1} & = & r_{i-1} - q_{i} r_{i} & \text{sequence definition} \\
+       & = & (a s_{i-1} + b t_{i-1}) - q_{i} (a s_{i} + b t_{i}) & \text{induction hypothesis} \\
+       & = & a (s_{i-1} - q_{i} s_{i}) + b (t_{i-1} - q_{i} t_{i}) & \text{rearrange} \\
+       & = & a s_{i+1} + b t_{i+1} & \text{sequence definition} \\
+\ere
+
+Hence the sequences satisfy Bézout's identity at any time.
+\end{proof}
+
+With this fact, we can obtain the non-recursive extended Euclidean algorithm:
+
+\begin{algorithmic}
+\Function{Ext-GCM}{$a, b$}
+  \State $s', s \gets 0, 1$
+  \State $t', t \gets 1, 0$
+  \While{$b \neq 0$}
+    \State $q, r \gets \lfloor a / b \rfloor, a \bmod b$
+    \State $s', s \gets s - q s', s'$
+    \State $t', t \gets t - q t', t'$
+    \State $a, b \gets b, r$
+  \EndWhile
+  \State \Return $(a, s, t)$
+\EndFunction
+\end{algorithmic}
+}
+\Question{Most programming environments require integers for modular operation. However, the length of segment isn't necessarily integer. Implement a modular operation that manipulates segments. What's about its efficiency?
+
+Consider the compass and straightedge construction, we can use compass to intercept segment to obtain the modular result.
+
+\begin{algorithmic}
+\Function{mod}{$a, b$}
+  \While{$b < a$}
+    \State $a \gets a - b$
+  \EndWhile
+  \State \Return $a$
+\EndFunction
+\end{algorithmic}
+
+It's efficiency is linear obviously. To optimize it, we introduce a lemma:
+
+\begin{lemma}[Recursive remainder lemma] % recursive remainder lemma
+If $r = a \bmod 2b$, then:
+\[
+a \bmod b = \begin{cases}
+r \leq b: & r \\
+r > b: & r - b \\
+\end{cases}
+\]
+\end{lemma}
+
+With this lemma, we can speed up the modular operation to logarithmic:
+
+\[
+a \bmod b \begin{cases}
+a \leq b: & a \\
+a - b \leq b: & a - b \\
+\text{otherwise}: & \begin{cases}
+  a' \leq b: & a', \text{where} a' = a \bmod (b + b) \\
+  a' > b: & a' - b \\
+  \end{cases} \\
+\end{cases}
+\]
+
+Inspired by Fibonacci numbers, Robot Floyd, and Donald Knuth managed to eliminate the recursion in this algorithm, hence obtained a purely iterative modular operation:
+
+\begin{algorithmic}
+\Function{mod}{$a, b$}
+  \If{$a < b$}
+    \State \Return $a$
+  \EndIf
+  \State $c \gets b$
+  \While{$c \leq a$}
+    \State $c, b \gets (b + c, c)$ \Comment{Increase $c$ like Fibonacci numbers}
+  \EndWhile
+  \While{$b \neq c$}
+    \State $c, b \gets (b, c - b)$ \Comment{Decrease $c$ back}
+    \If{$c <= a$}
+      \State $a \gets a - c$
+    \EndIf
+  \EndWhile
+  \State \Return $a$
+\EndFunction
+\end{algorithmic}
+}
+\Question{In the proof of Euclidean algorithm, we mentioned ``Remainders are always less than the divisor. We have $b > r_0 > r_1 > r_2 > ... > 0$. As the remainder can not less than zero, and the initial magnitude is finite, the algorithm must terminate.'' Can $r_{n}$ infinitely approximate zero, but not be zero? Does the algorithm always terminate? What does the precondition that $a$ and $b$ are commensurable ensure?
+
+For the commensurable magnitudes, we can use the {\em Well-ordering principle} to show that the Euclidean algorithm must terminate. According to the well-ordering principle, every none empty set of natural numbers has the minimum number. This property can be extended to set of integers, rationals, or even to the finite, none empty sub-set of real numbers. From the definition of commensurable, we know the remainders form a finite set.
+}
+\Question{For the binary linear Diophantine equation $ax + by = c$, let $x_1, y_1$ and $x_2, y_2$ be two pairs of solution. Proof that the minimum of $|x_1 - x_2|$ is $b/gcm(a, b)$, and the minimum of $|y_1 - y_2|$ is $a/gcm(a, b)$
+
+Let the greatest common divisor of $a$ and $b$ be $g = gcm(a, b)$. If $x_0, y_0$ is a pair of solution to the Diophantine equation $ax + by = c$, then the following $x, y$ also form a pair of solution:
+
+\[
+\begin{dcases}
+  x = x_0 - k \dfrac{b}{g} \\
+  y = y_0 + k \dfrac{a}{g}
+\end{dcases}
+\]
+
+It's easy to verify this fact:
+
+\blre
+ax + by & = & a (x_0 - k \dfrac{b}{g}) + b (y_0 - k \dfrac{a}{g}) \\
+        & = & a x_0 + b y_0 - a k \dfrac{b}{g} + b k \dfrac{a}{g} \\
+        & = & c - 0 = c
+\elre
+
+We next prove that, every solution can be expressed in this form. Let $x, y$ be an arbitrary pair of solution, we have $ax + by = c$ and $a x_0 + b y_0 = c$ both hold, therefore:
+
+\[
+a (x - x_0) + b (y - y_0) = c - c = 0
+\]
+
+Divide both sides with the greatest common divisor of $a$ and $b$. It gives:
+
+\[
+\dfrac{a}{g} (x - x_0) + \dfrac{b}{g} (y - y_0) = 0
+\]
+
+\[
+\dfrac{b}{g} (y - y_0)  = - \dfrac{a}{g} (x - x_0)
+\]
+
+Note that the left side can be divided by $\dfrac{b}{g}$, hence it must divide the right side too. But since $(\dfrac{a}{g}, \dfrac{b}{g}) = 1$, they are co-prime, hence $\dfrac{b}{g}$ must divide $(x - x_0)$. Let
+
+\[
+x - x_0 = k \dfrac{b}{g}, \text{for some}\ k \in \pmb{Z}
+\]
+
+Therefore
+
+\[
+x = x_0 + k \dfrac{b}{g}
+\]
+
+Substitute it back to above equation, we obtain:
+
+\[
+y = y_0 - k \dfrac{a}{g}
+\]
+
+Hence proved every pair of solution is in this form. Obviously, for any two such pairs, the minimized difference is obtained when $k = 1$. It means the minimum of $|x_1 - x_2|$ is $b/gcm(a, b)$, and the minimum of $|y_1 - y_2|$ is $a/gcm(a, b)$.
+}
+\Question{For the regular pentagon with side of 1, how long is the diagonal? Proof that in the pentagram shown in this chapter, the segment $AC$ and $AG$ are incommensurable. What's their ratio in real number?
+
+Paul Lockhart gives a beautiful method in his {\em Measurement}\cite{Lockhart2012}. As shown in figure \ref{fig:pentagram-unit}, we can divide the regular pentagon into three triangles. It's easy to show that triangle $A$ and $B$ are congruent, and they are similar to triangle $C$ (can you prove it?). If the length of the pentagon side is 1, let the diagonal length be $d$, then the base of triangle $C$ is 1, and its two hypotenuses both are $d - 1$. From the similar triangles, we have:
+
+\[
+  1 / d = (d - 1) / a
+\]
+
+Solving this quadratic equation gives $d = \dfrac{\sqrt{5} + 1}{2}$. We drop the other solution $d = \dfrac{\sqrt{5} - 1}{2}$ as it is shorter than the side (in fact, it is the length of the hypotenuse of the smaller triangle $C$).
+
+For the segment AC and AG in the figure, according to the 3 triangles we divided, they are actually the side and the diagonal of the pentagon. Suppose they are commensurable, then the base and hypotenuse of the smaller triangle are commensurable. Hence in the recursive inner pentagram star, the side and diagonal are also commensurable. We can repeat this process infinitely without end. Therefore, our assumption cannot hold. The side and diagonal are incommensurable. Written in decimals, it is about 0.6180339887498949...
+
+\begin{center}
+ \includegraphics[scale=0.35]{../appendix/answer/img/pentagram-unit}
+ \captionof{figure}{The unit regular pentagon}
+ \label{fig:pentagram-unit}
+\end{center}
+}
+\end{Answer}
 
 \section{The \texorpdfstring{$\lambda$}{λ} calculus}
 
@@ -1239,6 +1453,9 @@ are output as below:
 \end{verbatim}
 
 \ifx\wholebook\relax \else
+\section{Answer}
+\shipoutAnswer
+
 \begin{thebibliography}{99}
 
 \bibitem{HanXueTao16}
@@ -1273,6 +1490,9 @@ Simon L. Peyton Jones. ``The implementation of functional programming language''
 
 \bibitem{GEB}
 Douglas R. Hofstadter ``Gödel, Escher, Bach: An Eternal Golden Braid ''. Basic Books; Anniversary edition (February 5, 1999) ISBN-13: 978-0465026562
+
+\bibitem{Lockhart2012}
+Paul Lockhart. ``Measurement''. Belknap Press: An Imprint of Harvard University Press; Reprint edition 2014, ISBN: 978-0674284388
 
 \end{thebibliography}
 
