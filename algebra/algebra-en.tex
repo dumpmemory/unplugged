@@ -481,7 +481,7 @@ x^n = \left .
 \begin{Exercise}\label{ex:monoid-semigroup}
 \Question{The set of Boolean values \{True, False\} forms a monoid under the logic or operator $\lor$. It is called `Any' logic monoid. What is the identity element for this monoid?}
 \Question{The set of Boolean values \{True, False\} forms a monoid under the logic and operator $\land$. It is called `All' logic monoid. What is the identity element for this monoid?}
-\Question{For the comparable type, when compare two elements, there can be three different results. We abstract them as $\{<, =, >\}$\footnote{Some programming languages, such as C, C++, Java use negative number, zero, and positive number to represent these three results. In Haskell, they are GT, EQ, and LE respectively.}. For this set, we can define a binary operation to make it a monoid. What is the identity element for this monoid?}
+\Question{For the comparable type, when compare two elements, there can be four different results. We abstract them as $\{<, =, >, ?\}$. The first three are deterministic\footnote{Some programming languages, such as C, C++, Java use negative number, zero, and positive number to represent them. In Haskell, they are GT, EQ, and LE respectively.}, the last '?' means undetermined. For this set, we can define a binary operation to make it a monoid. What is the identity element for this monoid?}
 \Question{Prove that the power operation for group, monoid, and semigroup is commutative: $x^mx^n = x^nx^m$}
 \end{Exercise}
 
@@ -494,17 +494,20 @@ False
 
 True
 }
-\Question{For the comparable type, when compare two elements, there can be three different results. We abstract them as $\{<, =, >\}$\footnote{Some programming languages, such as C, C++, Java use negative number, zero, and positive number to represent these three results. In Haskell, they are GT, EQ, and LE respectively.}. For this set, we can define a binary operation to make it a monoid. What is the identity element for this monoid?
+\Question{For the comparable type, when compare two elements, there can be four different results. We abstract them as $\{<, =, >, ?\}$. The first three are deterministic\footnote{Some programming languages, such as C, C++, Java use negative number, zero, and positive number to represent them. In Haskell, they are GT, EQ, and LE respectively.}, the last '?' means undetermined. For this set, we can define a binary operation to make it a monoid. What is the identity element for this monoid?
 
-Define the binary operation as:
+Define the binary operation Cayley table as:
 
-\blre
-< \circ\ x & = & < \\
-= \circ\ x & = & x \\
-> \circ\ x & = & > \\
-\elre
+\btab{c|cccc}
+$\circ$  & < & = & > & ? \\
+\hline
+< & < & < & ? & ? \\
+= & < & = & > & ? \\
+> & ? & > & > & ? \\
+? & ? & ? & ? & ? \\
+\etab
 
-Where $x$ is any element among the three. These three relations form a monoid. The unit is $=$.
+These four relations form a monoid. The unit is $=$.
 }
 \Question{Prove that the power operation for group, monoid, and semigroup is commutative: $x^mx^n = x^nx^m$
 
