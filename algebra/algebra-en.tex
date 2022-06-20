@@ -292,30 +292,26 @@ While the following examples are not groups:
 
 \item For the same reason, remainders of modulo 5 $\{0, 1, 2, 3, 4\}$, together with multiplication modulo 5 do not form a group. However, when exclude all multiples of 5, then the set $\{1, 2, 3, 4\}$ and multiplication modulo 5 form a group. We can see this fact from the following Cayley ``multiplication table'' modulo 5:
 
-\vspace{5mm}
-  \begin{tabular}{c|cccc}
+  \btab{c|cccc}
     & 1 & 2 & 3 & 4 \\
   \hline
   1 & \textbf{1} & 2 & 3 & 4 \\
   2 & 2 & 4 & \textbf{1} & 3 \\
   3 & 3 & \textbf{1} & 4 & 2 \\
   4 & 4 & 3 & 2 & \textbf{1}
-  \end{tabular}
-\vspace{5mm}
+  \etab
 
 Therefore, 1 is the identity element, it is also the inverse element of itself; 2 and 3 are inverse elements for each other; the inverse element for 4 is 4 again;
 
 \item Although all the none zero remainders modulo 5 form a group under modulo multiplication, the none zero remainders modulo 4 do not form a group. Observe the Cayley multiplication table modulo 4:
 
-\vspace{5mm}
-  \begin{tabular}{c|cccc}
+  \btab{c|cccc}
     & 1 & 2 & 3 \\
   \hline
   1 & 1 & 2 & 3 \\
   2 & 2 & \textbf{0} & 2 \\
   3 & 3 & 2 & 1 \\
-  \end{tabular}
-\vspace{5mm}
+  \etab
 
 Note that $(2 \times 2) \bmod 4 = 0$, which is not in set $\{1, 2, 3\}$. Only the remainders that are coprime to $n$ form a group under the multiplication modulo $n$. This kind of groups are called multiplicative group of integers modulo $n$. For any prime number $p$, set $\{1, 2, ..., p-1\}$ forms a multiplicative group modulo $p$.
 
@@ -482,12 +478,87 @@ x^n = \left .
 \right .
 \]
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:monoid-semigroup}
 \Question{The set of Boolean values \{True, False\} forms a monoid under the logic or operator $\lor$. It is called `Any' logic monoid. What is the identity element for this monoid?}
 \Question{The set of Boolean values \{True, False\} forms a monoid under the logic and operator $\land$. It is called `All' logic monoid. What is the identity element for this monoid?}
 \Question{For the comparable type, when compare two elements, there can be three different results. We abstract them as $\{<, =, >\}$\footnote{Some programming languages, such as C, C++, Java use negative number, zero, and positive number to represent these three results. In Haskell, they are GT, EQ, and LE respectively.}. For this set, we can define a binary operation to make it a monoid. What is the identity element for this monoid?}
 \Question{Prove that the power operation for group, monoid, and semigroup is commutative: $x^mx^n = x^nx^m$}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:monoid-semigroup}]
+\Question{The set of Boolean values \{True, False\} forms a monoid under the logic or operator $\lor$. It is called `Any' logic monoid. What is the identity element for this monoid?
+
+False
+}
+\Question{The set of Boolean values \{True, False\} forms a monoid under the logic and operator $\land$. It is called `All' logic monoid. What is the identity element for this monoid?
+
+True
+}
+\Question{For the comparable type, when compare two elements, there can be three different results. We abstract them as $\{<, =, >\}$\footnote{Some programming languages, such as C, C++, Java use negative number, zero, and positive number to represent these three results. In Haskell, they are GT, EQ, and LE respectively.}. For this set, we can define a binary operation to make it a monoid. What is the identity element for this monoid?
+
+Define the binary operation as:
+
+\blre
+< \circ\ x & = & < \\
+= \circ\ x & = & x \\
+> \circ\ x & = & > \\
+\elre
+
+Where $x$ is any element among the three. These three relations form a monoid. The unit is $=$.
+}
+\Question{Prove that the power operation for group, monoid, and semigroup is commutative: $x^mx^n = x^nx^m$
+
+In order to prove the commutative law, we first use mathematical induction to prove a lemma: $x^n x = x x^n$. For group and monoid, when $n = 0$:
+
+\[
+x^0 x = e x = x = x e = x x^0
+\]
+
+As there is no unit in semigroup, we start from $n = 1$:
+
+\[
+x^1 x = x x = x x^1
+\]
+
+Suppose for $n$, $x^n x = x x^n$ holds, then for $n + 1$:
+
+\bre
+x^{n + 1} x & = & (x x^n) x & \text{recursive definition of power} \\
+  & = & x (x^n x) & \text{associative} \\
+  & = & x (x x^n) & \text{induction hypothesis} \\
+  & = & x x^{n + 1} & \text{recursive definition of power} \\
+\ere
+
+With this lemma, we use mathematical induction again to prove the commutativity for power operation. For group and monoid, when $n = 0$, we have:
+
+\bre
+x^m x ^ 0 & = & x^m e & \text{definition of 0-th power} \\
+  & = & x^m & \text{definition of unit} \\
+  & = & e x^m & \text{definition of unit} \\
+  & = & x^0 x^m & \text{definition of 0-th power} \\
+\ere
+
+Because semigroup does not have unit, we start from $n = 1$:
+
+\bre
+x^m x ^ 1 & = & x^m x & \text{definition of 1-st power} \\
+  & = & x x^m & \text{the lemma} \\
+  & = & x^1 x^m & \text{definition of 1-st power} \\
+\ere
+
+Suppose the commutativity law $x^mx^n = x^nx^m$ holds for $n$, then for $n + 1$:
+
+\bre
+x^m x^{n+1} & = & x^m (x x^n) & \text{recursive definition of power} \\
+  & = & (x^m x) x^n & \text{associative law for multiplication} \\
+  & = & x x^m x^n & \text{the lemma} \\
+  & = & x (x^m x^n) & \text{associative law for multiplication} \\
+  & = & x (x^n x^m) & \text{induction hypothesis} \\
+  & = & (x x^n) x^m & \text{associative law for multiplication} \\
+  & = & x^{n+1} x^m & \text{recursive definition of power} \\
+\ere
+}
+\end{Answer}
 
 \subsection{Properties of group}
 
