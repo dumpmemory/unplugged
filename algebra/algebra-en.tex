@@ -236,9 +236,9 @@ In 1870, French mathematician Camille Jordan wrote the book {\em Traité des sub
 \subsection{Group}
 \index{Group}
 
-Let us start the journey from group to understand what Galois landed for abstract algebra.
+The $S_2$ and $S_3$ that define the symmetry for segment and triangle are actually two examples of group. Below are the definition of group.
 
-\begin{definition} A group is a set $G$ equipped with a binary operation ``$\cdot$'', which satisfied four axioms:
+\begin{definition} A group is a set $G$ equipped with a binary operation ``$\cdot$'', which satisfies four axioms:
 
 \begin{enumerate}
 \item \textbf{Closure}: For all $a, b \in G$, the result of the operation $a \cdot b \in G$;
@@ -271,7 +271,7 @@ let us see some examples to understand the definition of groups.
 %\end{wrapfigure}
 \end{figure}
 
-It's helpful to think about symmetry through the Rubik cube group. In original state, all 6 sides have the same color for each. Let a kid play it with a series of random rotations. The player need to figure out a way, restore the Rubik cube to its original state, the all sides are back to the unified color. If we record the kid's rotations with a camera as $\{t_0, t_1, ..., t_m\}$, and the restore process as $\{r_0, r_1, ..., r_n\}$. Then the whole process to solve the Rubik cube puzzle means:
+In original state of the Rubik cube, all 6 sides have the same color for each. Let a kid play it with a series of random rotations. The player need to figure out a way, restore the Rubik cube to its original state, the all sides are back to the unified color. If we record the kid's rotations with a camera as $\{t_0, t_1, ..., t_m\}$, and the restore process as $\{r_0, r_1, ..., r_n\}$. Then the whole process to solve the Rubik cube puzzle means:
 
 \[
   (r_n \cdot r_{n-1} ... \cdot r_0) \cdot (t_m \cdot t_{m-1} ... \cdot t_0) = e
@@ -290,7 +290,7 @@ While the following examples are not groups:
 \begin{enumerate}
 \item All the integers except 0, together with multiplication do not form a group. We can't use 1 as the identity element, otherwise there will be no inverse element for 3 for example (1/3 is not an integer);
 
-\item For the same reason, remainders of modulo 5 $\{0, 1, 2, 3, 4\}$, together with multiplication modulo 5 do not form a group. However, when exclude all multiples of 5, then the set $\{1, 2, 3, 4\}$ and multiplication modulo 5 form a group. We can see this fact from the following ``multiplication table'' modulo 5:
+\item For the same reason, remainders of modulo 5 $\{0, 1, 2, 3, 4\}$, together with multiplication modulo 5 do not form a group. However, when exclude all multiples of 5, then the set $\{1, 2, 3, 4\}$ and multiplication modulo 5 form a group. We can see this fact from the following Cayley ``multiplication table'' modulo 5:
 
 \vspace{5mm}
   \begin{tabular}{c|cccc}
@@ -305,7 +305,7 @@ While the following examples are not groups:
 
 Therefore, 1 is the identity element, it is also the inverse element of itself; 2 and 3 are inverse elements for each other; the inverse element for 4 is 4 again;
 
-\item Although all the none zero remainders modulo 5 form a group under modulo multiplication, the none zero remainders modulo 4 do not form a group. Observe the multiplication table modulo 4:
+\item Although all the none zero remainders modulo 5 form a group under modulo multiplication, the none zero remainders modulo 4 do not form a group. Observe the Cayley multiplication table modulo 4:
 
 \vspace{5mm}
   \begin{tabular}{c|cccc}
@@ -317,12 +317,12 @@ Therefore, 1 is the identity element, it is also the inverse element of itself; 
   \end{tabular}
 \vspace{5mm}
 
-Note that $(2 \times 2) \bmod 4 = 0$, which is not in set $\{1, 2, 3\}$. This negative example shows that, only the remainders that are coprime to $n$ form a group under the multiplication modulo $n$. This kind of groups are called multiplicative group of integers modulo $n$. For any prime number $p$, set $\{1, 2, ..., p-1\}$ forms a multiplicative group modulo $p$.
+Note that $(2 \times 2) \bmod 4 = 0$, which is not in set $\{1, 2, 3\}$. Only the remainders that are coprime to $n$ form a group under the multiplication modulo $n$. This kind of groups are called multiplicative group of integers modulo $n$. For any prime number $p$, set $\{1, 2, ..., p-1\}$ forms a multiplicative group modulo $p$.
 
 \item All the rational numbers together with multiplication do not form a group. Although all rational number with form $p/q$ has a inverse element $q/p$, but there is no inverse element for 0. All the rational number exclude 0 form a group under multiplication.
 \end{enumerate}
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:grp-definition}
 \Question{Do all the even numbers form a group under addition?}
 \Question{Can we find a subset of integers, that can form a group under multiplication?}
 \Question{Do all the positive real numbers form a group under multiplication?}
@@ -330,6 +330,33 @@ Note that $(2 \times 2) \bmod 4 = 0$, which is not in set $\{1, 2, 3\}$. This ne
 \Question{Find an example of group with only two elements.}
 \Question{What is the identity element for Rubik cube group? What is the inverse element for $F$?}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:grp-definition}]
+\Question{Do all the even numbers form a group under addition?
+
+Yes, even numbers form a group under addition. Even number add even number, the result is still even. Add is associative. The unit is zero. The inverse of a number is its negate.
+}
+\Question{Can we find a subset of integers, that can form a group under multiplication?
+
+The subset $\{ -1, 1 \}$ form a group under multiplication. The unit is 1. Every element is the reverse of itself.
+}
+\Question{Do all the positive real numbers form a group under multiplication?
+
+Yes. Positive real numbers are close under multiplication. The unit is 1. For each number $r$, the reverse is $1/r$.
+}
+\Question{Do integers form a group under subtraction?
+
+No, integers cannot form a group under subtraction. This is because subtraction is not associative. for e.g. (3 - 2) - 1 = 0, while 3 - (2 - 1) = 2.
+}
+\Question{Find an example of group with only two elements.
+
+As shown in previous exercise, set $\{-1, 1\}$ forms a group under multiplication. Another example is Boolean values $\{T, F\}$, they form a group under logic exclusive or (xor). The logic exclusive or is closed and associative. The unit is $F$, because every element exclusive or $F$ gives itself. And every element is the reverse of itself.
+}
+\Question{What is the identity element for Rubik cube group? What is the inverse element for $F$?
+
+The unit for the Rubik cube group is the identity transform, which keeps any state unchanged. The reverse of $F$ is $F'$, which rotate the face side 90 degree counterclockwise.
+}
+\end{Answer}
 
 \subsection{Monoid and semi-group}
 
