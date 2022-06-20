@@ -676,43 +676,43 @@ We say $f$ is a \textbf{homomorphism} from $A$ to $B$. If $f$ is a surjection, k
 \index{automorphism}
 If $f$ is not only a surjection, but also a injection (there are no any two different elements map to the same image), then it's one-to-one mapping. We call $f$ is the \textbf{isomorphism} from $A$ to $B$. Denote as $A \cong B$. Isomorphism is a very powerful relationship. Besides group, isomorphism is also applicable to semigroups, monoids and other algebraic structures. As shown in figure \ref{fig:isomorphism}. If $A$ is isomorphic to $B$, from the abstracted view, they are essentially the same thing with different names. If there is a algebraic property in $A$, then there is exactly a same property in $B$ (\cite{ZhangHeRui1978} pp.25). The special isomorphism from $A$ to $A$ is called \textbf{automorphism} of $A$. For example, the group of integers with addition has a automorphism under the negate operation.
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}
-\path (0, 0) node[below] {cat}
-      (0, 2) node[above] {sheep}
-      (-2, 2) node[above] {dog}
-      (-2, 0) node[below] {cow};
-\filldraw (0, 0) circle (4pt) node (cat) {} --
-   (0, 2) circle (4pt) node (sheep) {} --
-   (-2, 2) circle (4pt) node (dog) {} --
-   (-2, 0) circle (4pt) node (cow) {};
-\draw (dog) -- (cat) -- (cow);
+%% \begin{figure}[htbp]
+%% \centering
+%% \begin{tikzpicture}
+%% \path (0, 0) node[below] {cat}
+%%       (0, 2) node[above] {sheep}
+%%       (-2, 2) node[above] {dog}
+%%       (-2, 0) node[below] {cow};
+%% \filldraw (0, 0) circle (4pt) node (cat) {} --
+%%    (0, 2) circle (4pt) node (sheep) {} --
+%%    (-2, 2) circle (4pt) node (dog) {} --
+%%    (-2, 0) circle (4pt) node (cow) {};
+%% \draw (dog) -- (cat) -- (cow);
 
-\filldraw[fill=gray, draw=black, pattern=north west lines]
-    (3, 0) circle (4pt) node (collar) {} --
-    (5.6, 0) circle (4pt) node (bell) {} --
-    (4.3, 2.3) circle (4pt) node (milk) {} -- (collar) --
-    (4.3, 1) circle (4pt) node (wool) {} -- (bell);
-\path (3, 0) node[below] {collar}
-      (5.6, 0) node[below] {bell}
-      (4.3, 2.3) node[above] {milk}
-      (4.3, 1) node[below] {wool};
+%% \filldraw[fill=gray, draw=black, pattern=north west lines]
+%%     (3, 0) circle (4pt) node (collar) {} --
+%%     (5.6, 0) circle (4pt) node (bell) {} --
+%%     (4.3, 2.3) circle (4pt) node (milk) {} -- (collar) --
+%%     (4.3, 1) circle (4pt) node (wool) {} -- (bell);
+%% \path (3, 0) node[below] {collar}
+%%       (5.6, 0) node[below] {bell}
+%%       (4.3, 2.3) node[above] {milk}
+%%       (4.3, 1) node[below] {wool};
 
-\draw[dashed, ->] (dog) .. controls (-2.5, 1.5) .. (collar)
-    (sheep) to[bend left] (wool)
-    (cat) to[bend right] (bell)
-    (cow) .. controls (-3, 3) ..(milk);
-\end{tikzpicture}
-\[
-\begin{array}{rl}
-f(dog) = collar & f(cat) = bell \\
-f(sheep) = wool & f(cow) = milk
-\end{array}
-\]
-\caption{Graph isomorphism. The two different graphs have the same structure.}
-\label{fig:graph-isomorphism}
-\end{figure}
+%% \draw[dashed, ->] (dog) .. controls (-2.5, 1.5) .. (collar)
+%%     (sheep) to[bend left] (wool)
+%%     (cat) to[bend right] (bell)
+%%     (cow) .. controls (-3, 3) ..(milk);
+%% \end{tikzpicture}
+%% \[
+%% \begin{array}{rl}
+%% f(dog) = collar & f(cat) = bell \\
+%% f(sheep) = wool & f(cow) = milk
+%% \end{array}
+%% \]
+%% \caption{Graph isomorphism. The two different graphs have the same structure.}
+%% \label{fig:graph-isomorphism}
+%% \end{figure}
 
 People often use the familiar concrete, example to help understanding abstract algebraic structure. For groups, most time, we think about integers with addition. How those concepts, properties of group will be for integers? But this approach may give us illusion that the element of group is kind of entity, like numbers; and the binary operation is more like the common addition or multiplication that is commutative. We'll introduce an `exceptional' example, the transformation group. On one hand, it is not abelian, the binary operation is not commutative; on the other hand, its group elements are not numbers, but transformations.
 
@@ -830,15 +830,69 @@ Every group is isomorphic to a transformation group.
 % TODO：附录
 We skip the proof. This theorem tells us, for any abstract group, we can find a concrete instance as a transformation group. In other words, we needn't concern about finding an abstract group in the future, which is totally a castle in the air(\cite{ZhangHeRui1978} pp49).
 
-\begin{Exercise}
-\Question{Is the odd-even test function homomorphic between the integer addition group $(Z，+)$ and the Boolean logic-and group $(Bool, \land)$? What about the group of integers without zero under multiplication?}
+\begin{Exercise}\label{ex:group-rules}
+\Question{Is the odd-even test function homomorphic between the integer addition group $(\pmb{Z}, +)$ and the Boolean logic-and group $(Bool, \land)$? What about the group of integers without zero under multiplication?}
 \Question{Suppose two groups $G$ and $G'$ are homomorphic. In $G$, the element $a \to a'$. Is the order of $a$ same as the order of $a'$?}
 \Question{Prove that the identity element for transformation group must be identity transformation.}
 \end{Exercise}
 
+\begin{Answer}[ref={ex:group-rules}]
+\Question{Is the odd-even test function homomorphic between the integer addition group $(\pmb{Z}, +)$ and the Boolean logic-and group $(Bool, \land)$? What about the group of integers without zero under multiplication?
+
+odd-even test function maps every integer to Boolean value true or false. To test homomorphic, we need verify whether $f(a) f (b) = f(a \cdot b)$ holds. However, there is a negative case:
+
+$a, b$ are all odd, i.e. $odd(a) = odd(b) = True$. Their sum is even, $odd(a + b) = False$. However, the logic and result is $odd(a) \land odd(b) = True \neq odd(a + b) = False$.
+
+Hence they are not homomorphic.
+
+While the multiplicative group of integers without zero is homomorphic with the logic and group. We can verify all the three cases:
+
+  \begin{itemize}
+  \item $a, b$ are all odd, i.e. $odd(a) = odd(b) = True$. Their product $ab$ is still odd: $odd(ab) = True$. Hence, $odd(a) \land odd(b) = odd(ab)$;
+  \item $a, b$ are all even, i.e. $odd(a) = odd(b) = False$. Their product $ab$ is still even: $odd(ab) = False$. Hence, $odd(a) \land odd(b) = odd(ab)$;
+  \item $a, b$ are old and even respectively. Let $odd(a) = True, odd(b) = False$. Their product $ab$ is even: $odd(ab) = False$. Hence, $odd(a) \land odd(b) = odd(ab)$.
+  \end{itemize}
+
+Therefore, they are homomorphic.
+}
+\Question{Suppose two groups $G$ and $G'$ are homomorphic. In $G$, the element $a \to a'$. Is the order of $a$ same as the order of $a'$?
+
+Their orders are same. To prove it, let the image of unit $e$ be $e'$, the homomorphism is $f$. Denote the order of $a$ is $n$, i.e. $a^n = e$.
+
+On one hand:
+\[
+f(a^n) = f(e) = e'
+\]
+
+On the other hand, according to the definition of homomorphism:
+
+\bre
+f(a^n) & = & f(a) f(a) ... f(a) & \text{total $n$} \\
+  & = & a' a' ... a' & \text{total $n$} \\
+  & = & (a')^n
+\ere
+
+Summarize the above two results, we have $(a')^n = e'$. Hence the order of $a$ and $a'$ are same.
+}
+\Question{Prove that the identity element for transformation group must be identity transformation.
+
+Suppose the unit transformation is $\epsilon': a \to a^{\epsilon'} = \epsilon'(a)$. According to the definition of unit, for any transformation $\tau$, $\epsilon' \tau = \tau$ holds, i.e.
+
+\[
+\begin{array}{l}
+\tau: a \to a^\tau \\
+\epsilon' \tau: a \to (a^{\epsilon'})^\tau \\
+\end{array}
+\]
+
+Therefore, $a^{\epsilon'} = a = \epsilon'(a)$, $\epsilon'$ is identity transformation.
+}
+\end{Answer}
+
 \subsection{Permutation group}
 \label{permutation group}
 \label{symmetric group}
+\index{permutation group} \index{symmetric group}
 
 In this section, we introduce permutation group. It is the permutation group that Galois used to determine if a given equation is radical solvable. Permutation group is a special transformation group. Let's first define what is permutation. A \textbf{permutation} is a one to one transformation for a finite set. The permutations of a finite set form a \textbf{permutation group} under the composite operation. As the name indicates, it permutes elements in the set. Further, the group of {\em all} permutations of a set with $n$ elements is the \textbf{symmetric group} of degree $n$, denoted as $S_n$.
 
