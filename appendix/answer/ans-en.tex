@@ -37,56 +37,6 @@
 \section{Symmetry}
 
 \begin{enumerate}
-\item {Is the odd-even test function homomorphic between the integer addition group $(Z，+)$ and the Boolean logic-and group $(Bool, \land)$? What about the group of integers without zero under multiplication?}
-
-odd-even test function maps every integer to Boolean value true or false. To test homomorphic, we need verify whether $f(a) f (b) = f(a \cdot b)$ holds. However, there is a negative case:
-
-$a, b$ are all odd, i.e. $odd(a) = odd(b) = True$. Their sum is even, $odd(a + b) = False$. However, the logic and result is $odd(a) \land odd(b) = True \neq odd(a + b) = False$.
-
-Hence they are not homomorphic.
-
-While the multiplicative group of integers without zero is homomorphic with the logic and group. We can verify all the three cases:
-
-  \begin{itemize}
-  \item $a, b$ are all odd, i.e. $odd(a) = odd(b) = True$. Their product $ab$ is still odd: $odd(ab) = True$. Hence, $odd(a) \land odd(b) = odd(ab)$;
-  \item $a, b$ are all even, i.e. $odd(a) = odd(b) = False$. Their product $ab$ is still even: $odd(ab) = False$. Hence, $odd(a) \land odd(b) = odd(ab)$;
-  \item $a, b$ are old and even respectively. Let $odd(a) = True, odd(b) = False$. Their product $ab$ is even: $odd(ab) = False$. Hence, $odd(a) \land odd(b) = odd(ab)$.
-  \end{itemize}
-
-Therefore, they are homomorphic.
-
-\item {Suppose two groups $G$ and $G'$ are homomorphic. In $G$, the element $a \to a'$. Is the order of $a$ same as the order of $a'$?}
-
-Their orders are same. To prove it, let the image of unit $e$ be $e'$, the homomorphism is $f$. Denote the order of $a$ is $n$, i.e. $a^n = e$.
-
-On one hand:
-\[
-f(a^n) = f(e) = e'
-\]
-
-On the other hand, according to the definition of homomorphism:
-
-\bre
-f(a^n) & = & f(a) f(a) ... f(a) & \text{total $n$} \\
-  & = & a' a' ... a' & \text{total $n$} \\
-  & = & (a')^n
-\ere
-
-Summarize the above two results, we have $(a')^n = e'$. Hence the order of $a$ and $a'$ are same.
-
-\item {Prove that the identity element for transformation group must be identity transformation.}
-
-Suppose the unit transformation is $\epsilon': a \to a^{\epsilon'} = \epsilon'(a)$. According to the definition of unit, for any transformation $\tau$, $\epsilon' \tau = \tau$ holds, i.e.
-
-\[
-\begin{array}{l}
-\tau: a \to a^\tau \\
-\epsilon' \tau: a \to (a^{\epsilon'})^\tau \\
-\end{array}
-\]
-
-Therefore, $a^{\epsilon'} = a = \epsilon'(a)$, $\epsilon'$ is identity transformation.
-
 \item{List all the elements in $S_4$.}
 
 (1);
