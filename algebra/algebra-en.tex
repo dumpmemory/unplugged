@@ -929,22 +929,12 @@ When do the multiplication, which is composition essentially, we can determine t
 \end{array}
 \]
 
-They are different results. $S_3$ is not abelian. Actually, it is the smallest finite none abelian group. A finite none abelian group contains at least 6 elements. Observe the permutation for 5 elements $(2, 3, 1, 4, 5)$, only the first three ones change, while the rest two keep same. The changes for the first three elements have a pattern: $2 \to 1$, $3 \to 2$, $1 \to 3$, which is cyclic.
+They are different results. $S_3$ is not abelian. Actually, it is the smallest finite none abelian group. A finite none abelian group contains at least 6 elements. Observe the permutation for 5 elements $(2, 3, 1, 4, 5)$, only the first three ones change, while the rest two keep same. The changes for the first three elements have a pattern, as shown n \ref{fig:cycle-permutation}, it is cyclic.
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1]
-\path (0, 0) node[circle, draw] (1) {1}
-      (2, 0) node[circle, draw] (2) {2}
-      (4, 0) node[circle, draw] (3) {3};
-\draw[<-] (1) edge (2)
-          (2) edge (3)
-          (3) .. controls (2, 2) .. (1);
-\path (0, -0.5) node[below] {2}
-      (2, -0.5) node[below] {3}
-      (4, -0.5) node[below] {1};
-\end{tikzpicture}
-\caption{Permutation $(2\ 3\ 1)$ is cyclic}
+\includegraphics[scale=0.6]{img/3-cycle}
+\caption{3-cycle permutation $(1\ 2\ 3)$}
 \label{fig:cycle-permutation}
 \end{figure}
 
