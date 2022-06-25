@@ -37,45 +37,6 @@
 \section{Symmetry}
 
 \begin{enumerate}
-\item{List all the elements in $S_4$.}
-
-(1);
-
-(12), (34), (13), (24), (14), (23);
-
-(123), (132), (134), (143), (124), (142), (234), (243);
-
-(1234), (1243), (1324), (1342), (1423), (1432);
-
-(12)(34), (13)(24), (14)(23)。
-
-There are total $4! = 24$ elements.
-
-\item {Express all the elements in $S_3$ as the product of cyclic forms.}
-
-\btab{c|c|c|c|c|c|c}
-permutation & 123 & 213  & 132  & 321  & 231   &  312\\
-\hline
-cyclic notation & (1) & (12) & (23) & (13) & (123) & (132)\\
-\etab
-
-\item{Write a program to convert the product of $k$-cycles back to permutation.}
-
-\begin{algorithmic}
-\Function{Permute}{$C, n$}
-  \State $\pi \gets [1, 2, ..., n]$
-  \For{$c \in C$}
-    \State $j \gets c[1]$
-    \State $m \gets |c|$
-    \For{$i \gets 2$ to $m$}
-      \State $\pi[j] \gets c[i]$
-      \State $j \gets c[i]$
-    \EndFor
-    \State $\pi[c[m]] \gets c[1]$
-  \EndFor
-  \State \Return $\pi$
-\EndFunction
-\end{algorithmic}
 
 \item{What symmetries for what shape are defined by the symmetric group $S_4$?}
 
