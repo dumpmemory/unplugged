@@ -38,38 +38,6 @@
 
 \begin{enumerate}
 
-\item{What symmetries for what shape are defined by the symmetric group $S_4$?}
-
-It defines the symmetry of a tetrahedron. A tetrahedron has four vertex corners, each has an axis. Rotation around such axis by $120\degree$ and $240\degree$ is symmetric. Connect the middle point of every two opposite edges also gives an axis. There are total 3 such axes, each one is reflective symmetric. Include the identity transformation, there are total $2 \times 4 + 3 + 1 = 12$ symmetries. They form a group called $A_4$, which is a alternating group.
-
-\begin{figure}[htbp]
- \centering
- \includegraphics[scale=0.3]{img/tetrahedron.png}
- %\captionsetup{labelformat=empty}
- \caption{The rotation and reflection axes}
- \label{fig:tetrahedron}
-\end{figure}
-
-For the tetrahedron 1234 in figure \ref{fig:S4}, elements in group $A_4$ transform it to:
-
-3124, 2314, 1423, 1342, 4213, 3241, 4132, 2431, 2143, 3412, 4321, 1234
-
-These 12 transformations are all proper congruences. Besides, there are also improper congruences. As shown in figure \ref{fig:S4}, when rotated by $120\degree$ against the axis, the tetrahedron transforms to 3124 on the right, this is a proper congruence. Then reflect it against surface $O13$, we get the bottom-right tetrahedron 3142. This is an improper congruence.
-
-\begin{figure}[htbp]
- \centering
- \includegraphics[scale=0.4]{img/S4.png}
- %\captionsetup{labelformat=empty}
- \caption{Improper congruence}
- \label{fig:S4}
-\end{figure}
-
-For every element in $A_4$, there is such a improper congruence by reflection. In total 12:
-
-3142, 2341, 1432, 1324, 4231, 3214, 4123, 2413, 2134, 3421, 4312, 1243
-
-Although there are other 2 reflection surfaces, they don't generate new transformations, as there are $4! = 24$ permutations for 4 points. All the 24 transformations of proper and improper congruences are corresponding to the elements in $S_4$.
-
 \item {Proof that cyclic groups are abelian.}
 
 Let the generator be $a$. For any two elements, express them as the power of $a$, i.e. $a^p, a^q$ respectively. Because:
