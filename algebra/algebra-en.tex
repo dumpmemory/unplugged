@@ -1256,16 +1256,149 @@ Because of this, we sometimes write $C_n$ as $\mathbb{Z}/n\mathbb{Z}$. From the 
 % https://en.wikipedia.org/wiki/Wilson_Bentley
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.3]{img/snowflakes.jpg}
+ \includegraphics[scale=0.3]{img/snowflakes}
  \caption{Snowflake crystal photos by Wilson Bentley, 1902}
  \label{fig:snowflakes}
 \end{figure}
 
 Now we are ready to explain the rotational symmetry of snowflake. The hexagon shaped snowflake has rotational symmetry, that can be exactly defined by $C_6$. A snowflake aligns with itself after rotate 60\degree, 120\degree, 180\degree, 240\degree, 300\degree, and $360\degree$ around its centre. Each rotation is corresponding to an element of $C_6$. Generic speaking, the cyclic group of order $n$ defines the rotational symmetry of regular $n$-polygon. It also defines the rotational symmetry of the cross section of a regular polygonal prism. The famous photographer Wilson Bentley in US (1865 - 1931) took over 5000 photographs of snowflake crystal. He donated his collection, the crystal of science and art, to the Buffalo Museum of Science. From these photos, Bentley came to the conclusion that every child today knows: each snowflake is unique.
 
-\begin{Exercise}
+\subsubsection{Cyclotomic equation}
+
+We lay the regular hexagon, the abstracted snowflake, to the complex plane, scale it to inscribe the unit circle. The six vertexes represent the roots for equation $x^6 - 1 = 0$, as shown in figure \ref{fig:cyclotomic-6}. Obviously $x = \pm 1$ are two roots, the rest roots can be given by de Moivre's formula learnt in high school:
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=2]{img/cyclotomic-6}
+ \caption{roots of $x^6 - 1 = 0$}
+ \label{fig:cyclotomic-6}
+\end{figure}
+
+\be
+e^{i n \theta} = \cos n \theta + i \sin n \theta = (\cos \theta + i \sin \theta)^n
+\ee
+
+The six roots are $\zeta_0 = 1, \zeta_1 = e^{i\frac{\pi}{3}}, \zeta_2 = e^{i\frac{2\pi}{3}}, \zeta_3 = e^{i\pi}, \zeta_4 = e^{i\frac{4\pi}{3}}, \zeta_5 = e^{i\frac{5\pi}{3}}$. They equally divide the unit circle into six parts. For this reason, we call $x^n - 1 = 0$ the {\em cyclotomic equation} (cycle = circle, tom = division or part). Among the $n$ roots, everyone can be written as $\zeta_k = e^{i\frac{2k\pi}{n}}$. However, they are not algebraic solution of the cyclotomic equation, we neither know if can draw a regular $n$-polygon with compass and straightedge.We start to solve cyclotomic equation in radicals when $n$ is 2, 3, 4, 6, and 12 for examples.
+
+When $n = 2$, we can factor the cyclotomic polynomial $x^2 - 1 = (x + 1)(x - 1)$. The two roots are $\pm 1$. When $n=3$, we know $x = 1$ is a root, hence $x - 1$ divides $x^3 - 1$. Using polynomial long division, we obtain: $x^3 - 1 = (x - 1)(x^2 + x + 1)$. Next solve the quadratic equation $x^2 + x + 1 = 0$, gives all the three roots: 1, $\dfrac{-1 \pm i \sqrt{3}}{2}$. We often name $\omega = \dfrac{-1 + i \sqrt{3}}{2}$, the three roots can be written as: $1, \omega, \omega^2$.
+
+\begin{center}
+\polylongdiv{x^3-1}{x-1}
+\end{center}
+
+When $n = 4$, factor $x^4 - 1 = (x^2 - 1)(x^2 + 1) = (x - 1)(x + 1)(x - i)(x + i)$. The four roots are $\pm 1, \pm i$.
+
+%% $n = 5$，由于$x - 1$是因子，我们再次用多项式除法$x^5 - 1 = (x - 1)(x^4 + x^3 + x^2 + x + 1)$。为了解方程$x^4 + x^3 + x^2 + x + 1 = 0$，令$y = x + 1/x$，这样就转化为解一元二次方程$y^2 + y - 1 = 0$。得到两个解：$y = \dfrac{-1 \pm \sqrt{5}}{2}$。代回方程$x^2 - yx + 1 = 0$，得到全部五个解：
+
+%% \[
+%% 1, \dfrac{\sqrt{5} - 1 \pm \sqrt{-2 \sqrt{5} - 10}}{4},
+%%    \dfrac{-\sqrt{5} - 1 \pm \sqrt{2 \sqrt{5} - 10}}{4}
+%% \]
+
+When $n = 6$, factor $x^6 - 1 = (x^3 - 1)(x^3 + 1)$. Therefore all the roots for cubic cyclotomic equation are also the roots for $n = 6$. Obviously, $x = -1$ is another root, hence $(x + 1)$ divides $x^3 + 1$. Using polynomial long division, gives $x^3 + 1 = (x + 1)(x^2 - x + 1)$. Next solve the quadratic equation $x^2 - x + 1 = 0$, we obtain all the six roots: $\pm 1, \dfrac{\pm 1 \pm i \sqrt{3}}{2}$, as shown in figure \ref{fig:cyclotomic-6}.
+
+%% \begin{center}
+%% \polylongdiv{x^3+1}{x+1}
+%% \end{center}
+
+It's not by chance that the roots for 6 degree cyclotomic equation contain all the roots for cubic cyclotomic equation. The roots for quartic cyclotomic equation contain all roots for quadratic cyclotomic equation, and the roots for 6 degree also contain roots for quadratic. As such, we need differentiate two things:
+
+\begin{enumerate}
+\item $n$-th root of unity: the number that $n$-th power is 1, i.e. $x^n = 1$;
+\item $n$-th primitive root of unity: an $n$-th root of unity is said to be primitive if it is not an $m$-th root of unity for some smaller $m$, that is if $x^n = 1$, and for every $m = 1, 2, ..., n - 1$, $x^m \neq 1$.
+\end{enumerate}
+
+比如$-1$是2次本原单位根，尽管它也是4次单位根，但它不是4次本原单位根。观察我们对$x^n - 1$分解因式的过程，例如$x^3 - 1 = (x - 1)(x^2 + x + 1)$。这两个因式都不可继续分解了，其中$x - 1$的根是1次本原单位根，而$x^2 + x + 1$的根（两个）是3次本原单位根。我们称它们为分圆多项式。$k$次本原单位根对应的分圆多项式记为$\Phi_k(x)$。分圆方程和分圆多项式之间有一个重要的结论：
+
+\be
+x^n - 1 = \displaystyle \prod_{d | n} \Phi_d(x)
+\ee
+
+也就是说，整数$n$有哪些因子，$x^n - 1$就可以因式分解为这些因子对应分圆多项式。分圆方程和循环群之间存在有趣的联系：所有$n$次单位根在乘法下构成一个循环群$C_n$，而$n$次本原单位根$\zeta_k$是这个群的生成元，即$C_n = (\zeta_k)$。
+
+\btab{|c|c|c|c|c|c|}
+\hline
+$n$ & 分圆方程 & 根 & 本原单位根 & 分圆多项式$\Phi_n(x)$ & 循环群 \\
+\hline
+1 & $x - 1 = 0$ & 1 & 1 & $x - 1$ & $C_1$ \\
+\hline
+2 & $x^2 - 1 = 0$ & $\pm 1$ & -1 & $x + 1$ & $C_2$ \\
+\hline
+3 & $x^3 - 1 = 0$ & $1, \omega, \omega^2$ & $\omega, \omega^2$ & $x^2 + x + 1$ & $C_3$ \\
+\hline
+4 & $x^4 - 1 = 0$ & $\pm 1, \pm i$ & $\pm i$ & $x^2 + 1$ & $C_4$ \\
+\hline
+6 & $x^6 - 1 = 0$ & $\pm 1, \dfrac{\pm 1 \pm i \sqrt{3}}{2}$ & $\dfrac{1 \pm i \sqrt{3}}{2}$ & $x^2 - x + 1$ & $C_6$ \\
+\hline
+\etab
+
+\begin{Exercise}\label{ex:cyclic-group}
 \Question{Proof that cyclic groups are abelian.}
+\Question{编程实现多项式长除法。}
+\Question{将$x^{12} - 1$分解为分圆多项式。}
+\Question{试求5次分圆方程的代数解。提示：分圆多项式$x^4 + x^3 + x^2 + x + 1 = 0$除以$x^2$后是对称的：$x^2 + x + 1 + x^{-1} + x^{-2} = 0$。}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:cyclic-group}]
+\Question{Proof that cyclic groups are abelian.
+
+Let the generator be $a$. For any two elements, express them as the power of $a$, i.e. $a^p, a^q$ respectively. Because:
+
+\[
+a^p a^q = a^{p + q} = a^{q + p} = a^q a^p
+\]
+
+Hence it is abelian.
+}
+\Question{编程实现多项式长除法。
+
+我们用系数列表来代表多项式。$a(x) = a_0 x^n + a_1 x^{n-1} + ... =a_n x + a_{n+1}$的系数列表为$[a_0, a_1, ..., a_{n+1}]$表示，其中$a_0 \neq 0$，缺项用0补充。若系数都为整数，多项式除法可以表示为：
+\[
+a(x) = q(x)b(x) + r(x)
+\]
+
+其中$q(x)$是商，$r(x)$是余项，$r(x)$的次数小于等于$b(x)$的次数。我们约定$a(x)$的次数大于等于$b(x)$的次数。下面是Haskell例子程序：
+
+\lstset{frame = single}
+\begin{Haskell}
+polyndiv as bs = pdiv as (length as - length bs) [] where
+  pdiv as i qs = if i == 0 then (reverse (q:qs), as')
+                 else pdiv as' (i - 1) (q:qs) where
+    q = head as `div` head bs
+    as' = dropWhile (== 0) [a - b*q | (a, b) <- zip as (bs ++ [0, 0..])]
+\end{Haskell}
+}
+\Question{将$x^{12} - 1$分解为分圆多项式。
+
+\bea*{rcl}
+x^{12} - 1 & = & \Phi_1(x)\Phi_2(x)\Phi_3(x)\Phi_4(x)\Phi_6(x)\Phi_{12}(x) \\
+          & = & (x - 1)(x + 1)(x^2 + x + 1)(x^2 + 1)(x^2 - x + 1)(x^4 - x + 1) \\
+\eea*
+}
+\Question{试求5次分圆方程的代数解。提示：分圆多项式$x^4 + x^3 + x^2 + x + 1 = 0$除以$x^2$后是对称的：$x^2 + x + 1 + x^{-1} + x^{-2} = 0$。
+
+% let y = x + 1/x => y^2 + y - 1 = 0
+% from: https://crypto.stanford.edu/pbc/notes/numbertheory/cyclo.html
+令$ y = x + \dfrac{1}{x}$，则上述方程转化成
+
+\[
+y^2 + y - 1 = 0
+\]
+
+解此二次方程得到
+
+\[
+y = \dfrac{-1 \pm \sqrt{5}}{2}
+\]
+
+进一步解出$x$的二次方程得到：
+
+\[
+x = \dfrac{\sqrt{5} - 1 \pm \sqrt{-2\sqrt{5} - 10}}{4},
+    \dfrac{-\sqrt{5} - 1 \pm \sqrt{2\sqrt{5} - 10}}{4}
+\]
+}
+\end{Answer}
 
 \subsection{Subgroup}
 \index{subgroup}
