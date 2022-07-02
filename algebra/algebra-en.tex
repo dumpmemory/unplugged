@@ -1350,14 +1350,15 @@ a^p a^q = a^{p + q} = a^{q + p} = a^q a^p
 
 Hence it is abelian.
 }
-\Question{编程实现多项式长除法。
+\Question{Write a program for polynomial long division.
 
-我们用系数列表来代表多项式。$a(x) = a_0 x^n + a_1 x^{n-1} + ... =a_n x + a_{n+1}$的系数列表为$[a_0, a_1, ..., a_{n+1}]$表示，其中$a_0 \neq 0$，缺项用0补充。若系数都为整数，多项式除法可以表示为：
+We represent a polynomial as a list of coefficients. The polynomial $a(x) = a_0 x^n + a_1 x^{n-1} + ... =a_n x + a_{n+1}$ is represented as the list $[a_0, a_1, ..., a_{n+1}]$, where $a_0 \neq 0$, and we pad 0 for the missing coefficient if necessary. For integer coefficients, the polynomial division can be expressed as:
+
 \[
 a(x) = q(x)b(x) + r(x)
 \]
 
-其中$q(x)$是商，$r(x)$是余项，$r(x)$的次数小于等于$b(x)$的次数。我们约定$a(x)$的次数大于等于$b(x)$的次数。下面是Haskell例子程序：
+Where $q(x)$ is the quotient, $r(x)$ is the remainder, and the degree of $r(x)$ is less than the degree of $b(x)$. Assume the degree of $a(x)$ is greater than the degree of $b(x)$. Below is the example program in Haskell:
 
 \lstset{frame = single}
 \begin{Haskell}
@@ -1368,30 +1369,30 @@ polyndiv as bs = pdiv as (length as - length bs) [] where
     as' = dropWhile (== 0) [a - b*q | (a, b) <- zip as (bs ++ [0, 0..])]
 \end{Haskell}
 }
-\Question{将$x^{12} - 1$分解为分圆多项式。
+\Question{Factor $x^{12} - 1$ to cyclotomic polynomials.
 
 \bea*{rcl}
 x^{12} - 1 & = & \Phi_1(x)\Phi_2(x)\Phi_3(x)\Phi_4(x)\Phi_6(x)\Phi_{12}(x) \\
           & = & (x - 1)(x + 1)(x^2 + x + 1)(x^2 + 1)(x^2 - x + 1)(x^4 - x + 1) \\
 \eea*
 }
-\Question{试求5次分圆方程的代数解。提示：分圆多项式$x^4 + x^3 + x^2 + x + 1 = 0$除以$x^2$后是对称的：$x^2 + x + 1 + x^{-1} + x^{-2} = 0$。
+\Question{Solve the quintic cyclotomic equation in radicals. hint: the equation $x^4 + x^3 + x^2 + x + 1 = 0$ changes to symmetric after being divided by $x^2$ as $x^2 + x + 1 + x^{-1} + x^{-2} = 0$.
 
 % let y = x + 1/x => y^2 + y - 1 = 0
 % from: https://crypto.stanford.edu/pbc/notes/numbertheory/cyclo.html
-令$ y = x + \dfrac{1}{x}$，则上述方程转化成
+Let $y = x + \dfrac{1}{x}$, the original equation converts to:
 
 \[
 y^2 + y - 1 = 0
 \]
 
-解此二次方程得到
+Solve this quadratic equation gives:
 
 \[
 y = \dfrac{-1 \pm \sqrt{5}}{2}
 \]
 
-进一步解出$x$的二次方程得到：
+Then solve the quadratic equation of $x$:
 
 \[
 x = \dfrac{\sqrt{5} - 1 \pm \sqrt{-2\sqrt{5} - 10}}{4},
