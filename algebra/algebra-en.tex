@@ -1513,50 +1513,46 @@ Ha = \{ha | h \in H\}
 
 As shown in figure \ref{fig:right-cosets-Z3}, $Z$ is the additive group of integers. Set $H$ contains all multiples of 3, includes $0, \pm 3, \pm 6, ...$. It forms a subgroup under the addition. We add 0 in $Z$ from right\footnote{As the additive group of integers is abelian, the addition is commutative, therefore, the left and right cosets are same.} to every element in $H$, which gives $H0$. Obviously, $H0$ equals to $H$. It contains all the remainders of 0 modulo 3, denoted as [0]. Adding 1 in $Z$ from right to every element in $H$ gives $H1$. It contains all remainders of 1 modulo 3, denoted as [1]; Adding 2 in $Z$ from right to every element in $H$ gives $H2$. It contains all remainders of 2 modulo 3, denoted as [2]. If add 3 to every element in $H$, the result is as same as $H0$. In fact, whatever element $a$ we choose from $H0$ to generate a right coset $Ha$, it is always as same as $H0$; whatever element $b$ we choose from $H1$ to generate a right coset $Hb$, it is always as same as $H1$; whatever element $c$ we choose from $H2$ to generate a right coset $Hc$, it is always as same as $H2$. Put the three right cosets $H0$, $H1$, and $H2$ together, the result is exactly all the integers $Z$. It is a partition of $Z$: [0], [1], [2].
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=0.6]
-\draw (0, 3) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H) {$H$ \\ $(1), (1\ 2)$}
-      (-5.5, 0) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H1) {$H(1)$ \\ $(1), (1\ 2)$}
-      (0, 0) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H13) {$H(1\ 3)$ \\ $(1\ 3), (1\ 2\ 3)$}
-      (5.5, 0) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H23) {$H(2\ 3)$ \\ $(2\ 3), (1\ 3\ 2)$};
-\draw[->] (H) edge (H1)
-          (H) edge (H13)
-          (H) edge (H23);
-\end{tikzpicture}
-\caption{right cosets of a finite non-abelian group.}
-\label{fig:right-cosets-S3}
-\end{figure}
+%% \begin{figure}[htbp]
+%% \centering
+%% \begin{tikzpicture}[scale=0.6]
+%% \draw (0, 3) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H) {$H$ \\ $(1), (1\ 2)$}
+%%       (-5.5, 0) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H1) {$H(1)$ \\ $(1), (1\ 2)$}
+%%       (0, 0) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H13) {$H(1\ 3)$ \\ $(1\ 3), (1\ 2\ 3)$}
+%%       (5.5, 0) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H23) {$H(2\ 3)$ \\ $(2\ 3), (1\ 3\ 2)$};
+%% \draw[->] (H) edge (H1)
+%%           (H) edge (H13)
+%%           (H) edge (H23);
+%% \end{tikzpicture}
+%% \caption{right cosets of a finite non-abelian group.}
+%% \label{fig:right-cosets-S3}
+%% \end{figure}
 
-Let's see another example about finite non-abelian group. Consider a permutation group with degree 3.
+Let's see another example about finite non-abelian group. Consider the symmetry group $S_3$.
 
-$G = S_3 = \{(1), (1\ 2), (1\ 3), (2\ 3), (1\ 2\ 3), (1\ 3\ 2)\}$，
+$S_3 = \{(1), (1\ 2), (1\ 3), (2\ 3), (1\ 2\ 3), (1\ 3\ 2)\}$
 
-It has a subgroup $H = \{(1), (1\ 2)\}$. We use the identity permutation $(1)$ and another two permutations $(1\ 3)$, $(2\ 3)$ to multiply $H$ from right. It gives 3 right cosets:
+Its subgroup $C_{2a} = \{(1), (1\ 2)\}$ is isomorphic to the cyclic group of order 2. We use the identity permutation $(1)$ and another two permutations $(1\ 3)$, $(2\ 3)$ to multiply $H$ from right. It gives 3 right cosets:
 
 \[
 \begin{array}{rcl}
-H(1) & = & \{(1), (1\ 2)\} \\
-H(1\ 3) & = & \{(1\ 3), (1\ 2\ 3)\} \\
-H(2\ 3) & = & \{(2\ 3), (1\ 3\ 2)\}
+C_{2a} (1) & = & \{(1), (1\ 2)\} \\
+C_{2a} (1\ 3) & = & \{(1\ 3), (1\ 2\ 3)\} \\
+C_{2a} (2\ 3) & = & \{(2\ 3), (1\ 3\ 2)\}
 \end{array}
 \]
 
-We can use another three different elements to form the right cosets:
-
-$H(1\ 2)$、$H(1\ 2\ 3)$、$H(1\ 3\ 2)$
-
-Because $(1\ 2) \in H(1)$, $(1\ 2\ 3) \in H(1\ 3)$, $(1\ 3\ 2) \in H(2\ 3)$, therefore we have:
+We can use another three elements to form the right cosets: $C_{2a} (1\ 2)$, $C_{2a} (1\ 2\ 3)$, $C_{2a} (1\ 3\ 2)$. Because $(1\ 2) \in C_{2a} (1)$, $(1\ 2\ 3) \in C_{2a} (1\ 3)$, $(1\ 3\ 2) \in C_{2a} (2\ 3)$, therefore:
 
 \[
 \begin{array}{l}
-H(1) = H(1\ 2) \\
-H(1\ 3) = H(1\ 2\ 3) \\
-H(2\ 3) = H(1\ 3\ 2)
+C_{2a} (1) = C_{2a} (1\ 2) \\
+C_{2a} (1\ 3) = C_{2a} (1\ 2\ 3) \\
+C_{2a} (2\ 3) = C_{2a} (1\ 3\ 2)
 \end{array}
 \]
 
-The subgroup $H$ partitions the group $G = S_3$ into three disjoint right cosets $H(1)$,$H(1\ 3)$, and $H(2\ 3)$. Putting these three right cosets together gets exactly $G$. They form a partition of $G$.
+The subgroup $C_{2a}$ partitions the group $G = S_3$ into three disjoint right cosets $C_{2a} (1)$,$C_{2a} (1\ 3)$, and $C_{2a} (2\ 3)$. Putting these three right cosets together gets exactly $G$. They form a partition of $G$.
 
 \index{left coset}
 Symmetric to right coset, we can also define left coset. Define the symmetric equivalence relation $\sim'$ as:
@@ -1576,7 +1572,46 @@ To prove this theorem, we can construct a map from the left coset to the right c
 \index{index of subgroup}
 With this theorem, we can use the number of the cosets (left or right) for a subgroup $H$ to define the \textbf{index} of $H$ in $G$.
 
-In common cases, the right coset $Ha$ does not equal to the left coset $aH$. If they are same, such subgroup is called normal subgroup. It was Galois, who first introduced normal subgroups to analyze if equations are solvable in radicals.
+上述$S_3$的例子中，我们用了子群$C_{2a} = \{(1), (1\ 2)\}$作为等价关系，实现了对$S_3$中元素的分类。$S_3$还有另外一个子群$C_3 = \{(1), (1\ 2\ 3), (1\ 3\ 2)\}$，即三阶循环群。我们也可以用它作为等价关系对$S_3$中的置换进行分类。
+
+\[
+\begin{array}{l}
+C_3 (1) = C_3 \\
+C_3 (1\ 2) = \{(1\ 2), (1\ 3), (2\ 3)\}
+\end{array}
+\]
+
+这两种不同的分类如图\ref{fig:S3-Cayley}和\ref{fig:S3-Cayley-aH}所示。它们存在一个重要的不同点。子群$C_3$产生的左右陪集是相同的，而$C_{2a}$产生的左右陪集是不同的。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.4]{img/S3-Cayley}
+ \caption{用$S_3$的不同子群产生的右陪集}
+ \label{fig:S3-Cayley}
+\end{figure}
+
+\btab{|c|c|c|}
+\hline
+子群 & $C_3$ & $C_{2a}$ \\
+\hline
+左陪集 & $C_3 + \{(1\ 2), (1\ 3), (2\ 3)\}$ & $C_{2a} + \{(1\ 3), (1\ 3\ 2)\} + \{(2\ 3), (1\ 2\ 3)\}$ \\
+\hline
+右陪集 & $C_3 + \{(1\ 2), (1\ 3), (2\ 3)\}$ & $C_{2a} + \{(1\ 3), (1\ 2\ 3)\} + \{(2\ 3), (1\ 3\ 2)\}$ \\
+\hline
+\etab
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.4]{img/S3-Cayley-aH}
+ \caption{用$S_3$的不同子群产生的左陪集}
+ \label{fig:S3-Cayley-aH}
+\end{figure}
+
+In common cases, the right coset $Ha$ does not equal to the left coset $aH$. If they are same, such subgroup is called normal subgroup. It was Galois, who first introduced normal subgroups to analyze if equations are solvable in radicals. Galois called them `invariant subgroups' because they give two invariant partitions of $G$:
+
+\[
+G = H a_1 + H a_2 + ... = a_1 H + a_2 H + ...
+\]
 
 \index{normal subgroup} \index{invariant subgroup}
 \begin{definition}
