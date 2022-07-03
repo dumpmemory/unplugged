@@ -1691,9 +1691,9 @@ Lagrange's theorem greatly demonstrates the power of abstract algebra. We can re
 \begin{wrapfigure}{R}{0.4\textwidth}
  %\raggedright
  \centering
- \includegraphics[scale=1.5]{img/lagrange.jpg}
+ \includegraphics[scale=1.5]{img/lagrange}
  \captionsetup{labelformat=empty}
- \caption{Stamp of Joseph-Louise Lagrange}
+ \caption{Joseph-Louise Lagrange}
  \label{fig:Lagrange}
 \end{wrapfigure}
 %\end{figure}
@@ -1749,7 +1749,7 @@ First, we know that $G$ can be fully partitioned by the cosets of $H$; From the 
 \]
 \end{proof}
 
-Note that there is a conversed question to Lagrange's theorem, whether every divisor of the order of a group is the order of some subgroup? This does not hold in general. Later we'll see such negative example in figure \ref{fig:group-graph} (c). The order of alternative group $A_4$ is 12, but it has no subgroup of order 6. We can deduce many interesting results from Lagrange's theorem.
+Note that there is a conversed question to Lagrange's theorem, whether every divisor of the order of a group is the order of some subgroup? This does not hold in general. For example, the order of alternative group $A_4$ is 12, but it has no subgroup of order 6. We can deduce many interesting results from Lagrange's theorem.
 
 \begin{corollary}
 If $G$ is a finite group, the order of every element $a$ is a divisor of the order of $G$.
@@ -1829,8 +1829,8 @@ If we link the head and tail for every pearl string to make a necklace, some dif
 
 \begin{figure}[htbp]
   \centering
-  \subcaptionbox{A necklace in 3 colors represents 7 different strings: \texttt{ABCBAAC}, \texttt{BCBAACA}, \texttt{CBAACAB}, \texttt{BAACABC}, \texttt{AACABCB}, \texttt{ACABCBA}, \texttt{CABCBAA}}[0.45\linewidth]{\includegraphics[scale=0.2]{img/bracelet-rotate.png}} \quad
-  \subcaptionbox{The necklace in same color only represent one string: \texttt{AAAAAAA}}[0.45\linewidth]{\includegraphics[scale=0.2]{img/bracelet-identical.png}}
+  \subcaptionbox{A necklace in 3 colors represents 7 different strings: \texttt{ABCBAAC}, \texttt{BCBAACA}, \texttt{CBAACAB}, \texttt{BAACABC}, \texttt{AACABCB}, \texttt{ACABCBA}, \texttt{CABCBAA}}[0.45\linewidth]{\includegraphics[scale=0.2]{img/bracelet-rotate}} \quad
+  \subcaptionbox{The necklace in same color only represent one string: \texttt{AAAAAAA}}[0.45\linewidth]{\includegraphics[scale=0.2]{img/bracelet-identical}}
   \caption{Partition strings through necklace}
   \label{fig:bracelet}
 \end{figure}
@@ -1864,7 +1864,7 @@ The proof by counting necklaces might be the most straightforward method people 
 %\begin{figure}[htbp]
 \begin{wrapfigure}{L}{0.35\textwidth}
   \centering %\raggedleft
- \includegraphics[scale=0.4]{img/Fermat.jpg}
+ \includegraphics[scale=0.4]{img/Fermat}
  \captionsetup{labelformat=empty}
  \caption{Pierre de Fermat, 1601-1665}
  \label{fig:Fermat}
@@ -1890,7 +1890,7 @@ Fermat published nearly nothing in his lifetime, although it is unbelievable fro
 \begin{wrapfigure}{R}{0.33\textwidth}
 %\begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.4]{img/Arithmetica.jpg}
+ \includegraphics[scale=0.4]{img/Arithmetica}
  \captionsetup{labelformat=empty}
  \caption{The 1670 edition of the {\em Arithmetica of Diophantus}, with Fermat's annotation.}
  \label{fig:Arithmetica}
@@ -1938,7 +1938,7 @@ Let us see an example. Below is the multiplication table for all the none zero r
   & \textbf{1} & 2 & \textbf{3} & 4 & 5 & 6 & \textbf{7} & 8 & \textbf{9} \\
 \hline
 \rowcolor{Gray}
-\textbf{1} & \cellcolor{gray} \underline{1} & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 8 \\
+\textbf{1} & \cellcolor{gray} \underline{1} & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
 \hline
 2 & 2 & 4 & 6 & 8 & 0 & 2 & 4 & 6 & 8 \\
 \hline
@@ -2028,7 +2028,7 @@ Interestingly, Fermat's little theorem provides a way for fast primality test. F
 
 The {\em Fermat primality test} algorithm (also known as Fermat test) based on this idea can be described as below:
 
-\begin{algorithmic}
+\begin{algorithmic}[1]
 \Function{primality}{$n$}
   \State Random select a positive integer $a < n$
   \If{$a^{n-1} \equiv 1 \mod n$}
@@ -2129,20 +2129,169 @@ We summarized the relations for group, semigroup, monoid introduced so far as th
 \label{fig:groups}
 \end{figure}
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:Lagrange-theorem}
 \Question{Today is Sunday, what day it will be after $2^{100}$ days?}
 \Question{Given two strings (character string or list), write a program to test if they form the same necklace.}
 \Question{Write a program to realize Eratosthenes sieve algorithm.}
 \Question{Extend the idea of Eratosthenes sieve algorithm, write a program to generate Euler $\upphi$ function values for all numbers from 2 to 100.}
+\Question{From Euler's theorem, how many $n$-th primitive of unit roots are there?}
 \Question{Write a program to realize fast modular multiplication, and Fermat's primality test.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:Lagrange-theorem}]
+\Question{Today is Sunday, what day it will be after $2^{100}$ days?
+
+There are 7 days in a week. According to the Fermat's little theorem, $2^{7-1} \equiv 1 \mod 7$. We have:
+
+\blre
+2^{100} = 2^{16 \times 6 + 4} & \equiv & 1 \times 2^4 \mod 7 \\
+  & \equiv & 16 \mod 7 \\
+  & \equiv & 2 \mod 7 \\
+\elre
+
+Therefore, it will be Tuesday.
+}
+\Question{Given two strings (character string or list), write a program to test if they form the same necklace.
+
+Given two strings $S_1, S_2$ with the same length, we can duplicate $S_1$ and append it after itself, then examine whether $S_2$ is the sub-string of $S_1S_1$. If yes, then they can form the same necklace.
+
+\[
+eqiv(S_1, S_2) = S_2 \subset (S_1 \doubleplus S_1)
+\]
+}
+\Question{Write a program to realize Eratosthenes sieve algorithm.
+
+For all natural numbers from 2, pick the next as a prime, then remove all its multiplicands. Then do this repeatedly. Here is an example Haskell program:
+
+\lstset{language=Haskell, frame=single}
+\begin{lstlisting}
+primes = sieve [2..] where
+    sieve (x:xs) = x : sieve [y | y <- xs, y `mod` x > 0]
+\end{lstlisting}
+
+The following are the example Python and Java programs.
+
+\lstset{language=Python}
+\begin{lstlisting}
+def odds():
+    i = 3
+    while True:
+        yield i
+        i = i + 2
+
+class prime_filter(object):
+    def __init__(self, p):
+        self.p = p
+        self.curr = p
+
+    def __call__(self, x):
+        while x > self.curr:
+            self.curr += self.p
+        return self.curr != x
+
+def sieve():
+    yield 2
+    iter = odds()
+    while True:
+        p = next(iter)
+        yield p
+        iter = filter(prime_filter(p), iter)
+
+list(islice(sieve(), 100))
+\end{lstlisting}
+
+\lstset{language=Java}
+\begin{lstlisting}
+public class Prime {
+    private static LongPredicate sieves = x -> true; // initialize sieve as id
+    public final static long[] PRIMES = LongStream
+        .iterate(2, i -> i + 1)
+        .filter(i -> sieves.test(i))
+        .peek(i -> sieves = sieves.and(v -> v % i != 0)) // update, chain the sieve
+        .limit(100)                 // take first 100
+        .toArray();
+}
+\end{lstlisting}
+}
+\Question{Extend the idea of Eratosthenes sieve algorithm, write a program to generate Euler $\upphi$ function values for all numbers from 2 to 100.
+
+When generate prime numbers within $n$ with the sieve of Eratosthenes, we can update the Euler $\upphi$ function list by every prime numbers found so far. The list is initialized with all elements start from 1. For every prime number $p$, the corresponding $\upphi(p) = p(1 - \dfrac{1}{p}) = p - 1$. All the multiplicands of $p$ need multiply with this value. However, it is not enough as $\upphi(p^2) = p^2(1 - \dfrac{1}{p}) = p \upphi(p)$. Next we need multiply all the Euler function value for multiplicands of $p^2$ by $p$, and repeat for multiplicands of $p^3$ and so on until $p^m$ exceeds $n$. Below is the algorithm of this idea.
+
+\begin{algorithmic}[1]
+\Function{Euler-Totient}{$n$}
+  \State $\upphi \gets \{1, 1, ..., 1\}$ \Comment{1 to $n$}
+  \State $P \gets \{2, 3, ..., n\}$ \Comment{sieve input}
+  \While{$P \neq \varnothing$}
+    \State $p \gets P[0]$
+    \State $P \gets \{x | x \in P[1...], x \bmod p \neq 0\}$
+    \State $p' \gets p$
+    \Repeat
+      \For{$i \gets$ from $p'$ to $n$ step $p'$}
+        \If{$p' = p$}
+          \State $\upphi[i] \gets \upphi[i] \times (p - 1)$
+        \Else
+          \State $\upphi[i] \gets \upphi[i] \times p$
+        \EndIf
+      \EndFor
+      \State $p' \gets p' \times p$
+    \Until{$p' > n$}
+  \EndWhile
+  \State \Return $\upphi$
+\EndFunction
+\end{algorithmic}
+}
+\Question{From Euler's theorem, how many $n$-th primitive of unit roots are there?
+
+$\upphi(n)$, if $n$ is prime, then all the roots except 1 are primitive.}
+\Question{Write a program to realize fast modular multiplication, and Fermat's primality test.
+
+Our idea is to realize the fast modular multiplication with the similar approach when calculate power.
+
+\[
+x^y =
+\begin{cases}
+y \text{ is even}: & x^{\lfloor y / 2 \rfloor} \\
+y \text{ is odd}: & x \cdot x^{\lfloor y / 2 \rfloor} \\
+\end{cases}
+\]
+
+Based on this, we can change it to modular multiplication as below:
+
+\begin{algorithmic}[1]
+\Function{Mod-Exp}{$x, y, n$}
+  \If{$y = 0$}
+    \State \Return 1
+  \EndIf
+  \State $z \gets$ \Call{Mod-Exp}{$x, \lfloor y /2 \rfloor, n$}
+  \If{$y$ is even}
+    \State \Return $z^2 \bmod n$
+  \Else
+    \State \Return $x \cdot z^2 \bmod n$
+  \EndIf
+\EndFunction
+\end{algorithmic}
+
+With Fermat's little theorem, we can realize the primality test with some selected 'witnesses':
+
+\begin{algorithmic}[1]
+\Function{primality}{$n$}
+  \State random select $k$ positive numbers $a_1, a_2, ..., a_k < n$
+  \If{$a_i^{n-1} \equiv 1 \mod n$, for all $i = 1, 2, ..., k$}
+    \State \Return prime
+  \Else
+    \State \Return composite
+  \EndIf
+\EndFunction
+\end{algorithmic}
+}
+\end{Answer}
 
 \section{Ring and Field}
 
 \begin{wrapfigure}{R}{0.3\textwidth}
 %\begin{figure}[htbp]
  \centering
- \includegraphics[scale=1]{img/Noether.jpg}
+ \includegraphics[scale=1]{img/Noether}
  \captionsetup{labelformat=empty}
  \caption{Emmy Noether, 1882-1935}
  \label{fig:Noether}
