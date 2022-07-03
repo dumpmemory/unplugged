@@ -1572,7 +1572,7 @@ To prove this theorem, we can construct a map from the left coset to the right c
 \index{index of subgroup}
 With this theorem, we can use the number of the cosets (left or right) for a subgroup $H$ to define the \textbf{index} of $H$ in $G$.
 
-上述$S_3$的例子中，我们用了子群$C_{2a} = \{(1), (1\ 2)\}$作为等价关系，实现了对$S_3$中元素的分类。$S_3$还有另外一个子群$C_3 = \{(1), (1\ 2\ 3), (1\ 3\ 2)\}$，即三阶循环群。我们也可以用它作为等价关系对$S_3$中的置换进行分类。
+In above example of $S_3$, we use the subgroup $C_{2a} = \{(1), (1\ 2)\}$ as the equivalence relation to partition $S_3$. There is another subgroup $C_3 = \{(1), (1\ 2\ 3), (1\ 3\ 2)\}$ of $S_3$ which is cyclic of order 3. We can also use it as the equivalence relation to partition $S_3$.
 
 \[
 \begin{array}{l}
@@ -1581,29 +1581,29 @@ C_3 (1\ 2) = \{(1\ 2), (1\ 3), (2\ 3)\}
 \end{array}
 \]
 
-这两种不同的分类如图\ref{fig:S3-Cayley}和\ref{fig:S3-Cayley-aH}所示。它们存在一个重要的不同点。子群$C_3$产生的左右陪集是相同的，而$C_{2a}$产生的左右陪集是不同的。
+Figure \ref{fig:S3-Cayley} and \ref{fig:S3-Cayley-aH} show the two partitions. They have major difference, subgroup $C_3$ generates the same left and right cosets, while $C_{2a}$ generates the different left and right cosets.
 
 \begin{figure}[htbp]
  \centering
  \includegraphics[scale=0.4]{img/S3-Cayley}
- \caption{用$S_3$的不同子群产生的右陪集}
+ \caption{The right cosets generated with different subgroups of $S_3$.}
  \label{fig:S3-Cayley}
 \end{figure}
 
 \btab{|c|c|c|}
 \hline
-子群 & $C_3$ & $C_{2a}$ \\
+subgroup & $C_3$ & $C_{2a}$ \\
 \hline
-左陪集 & $C_3 + \{(1\ 2), (1\ 3), (2\ 3)\}$ & $C_{2a} + \{(1\ 3), (1\ 3\ 2)\} + \{(2\ 3), (1\ 2\ 3)\}$ \\
+left cosets & $C_3 + \{(1\ 2), (1\ 3), (2\ 3)\}$ & $C_{2a} + \{(1\ 3), (1\ 3\ 2)\} + \{(2\ 3), (1\ 2\ 3)\}$ \\
 \hline
-右陪集 & $C_3 + \{(1\ 2), (1\ 3), (2\ 3)\}$ & $C_{2a} + \{(1\ 3), (1\ 2\ 3)\} + \{(2\ 3), (1\ 3\ 2)\}$ \\
+right cosets & $C_3 + \{(1\ 2), (1\ 3), (2\ 3)\}$ & $C_{2a} + \{(1\ 3), (1\ 2\ 3)\} + \{(2\ 3), (1\ 3\ 2)\}$ \\
 \hline
 \etab
 
 \begin{figure}[htbp]
  \centering
  \includegraphics[scale=0.4]{img/S3-Cayley-aH}
- \caption{用$S_3$的不同子群产生的左陪集}
+ \caption{The left cosets generated wth different subgroups of $S_3$.}
  \label{fig:S3-Cayley-aH}
 \end{figure}
 
@@ -1621,7 +1621,7 @@ For a group $G$, the subgroup $N$ is called \textbf{normal subgroup} (or invaria
 Na = aN
 \]
 
-holds. The left (or right) coset for a normal group is called \textbf{coset} of $N$.
+holds. Denoted as: $N \lhd G$ or $G \rhd N$. The left (or right) coset for a normal group is called \textbf{coset} of $N$.
 \label{normal-subgroup}
 \end{definition}
 
@@ -1663,10 +1663,24 @@ If $f$ is a surjective homomorphism from group $G$ to another group $G'$, consid
 
 We have the following theorem. If $G$ is homomorphic to $G'$, then the kernal $N$ of the homomorphism is the normal subgroup of $G$. And the quotient group $G/N \cong G'$. A group is homomorphic to every of its quotient group, and from the abstract point of view, $G$ can only be homomorphic to its quotient groups. Sometimes, we find $G$ is homomorphic to $G'$, and we don't know well about the properties of $G'$. However, we are sure to be able to find a normal subgroup $N$ of $G$, that the properties of $G'$ are essentially identical to the quotient group $G/N$. We can see the importance of the normal subgroup and the quotient group. Galois did use this idea to figure out the way to define the equation group is solvable or not.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:subgroup}
 \Question{Proof theorem \ref{theorem:subgroup}, which determines if a subset forms a subgroup.}
-\Question{List the left cosets for $H$ in figure \ref{fig:right-cosets-S3}.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:subgroup}]
+\Question{Proof theorem that determines if a none empty subset $H$ of group $G$ forms a subgroup, if and only if:
+  \begin{enumerate}[i]
+  \item For all $a, b \in H$, the product $ab \in H$;
+  \item For all element $a \in H$, its reverse $a^{-1} \in H$.
+  \end{enumerate}
+
+First prove the sufficiency. Condition i ensures $H$ is closed on multiplication. The associativity holds for multiplication in $G$, hence also holds in $H$. Because $H$ is not empty, there exists an element $a$, based on condition ii, the corresponding $a^{-1}$ is also in $H$. And from condition i, $aa^{-1} = e \in H$ holds. Therefore $H$ is a subgroup.
+
+Next prove the necessity. If $H$ forms a subgroup, then condition i is true obviously. For condition ii, since $H$ is a group, there exits the unit element $e'$, such that for every element $a$ in $H$, equation $e'a = a$ holds. As both $e'$ and $a$ are in $G$, we say $e'$ is a solution to equation $ya = a$ in $G$. However, there is only one solution in $G$ for this equation, which is the unit $e$ of $G$, hence $e' = e \in H$.
+
+As $H$ is a group, equation $ya = e$ has solution $a'$ in $H$. While $a'$ is also the solution of this equation in $G$. However, the unique solution to this equation in $G$ is $a^{-1}$. Therefore, $a' = a^{-1} \in H$.
+}
+\end{Answer}
 
 \subsection{Lagrange's theorem}
 \index{Lagrange}
