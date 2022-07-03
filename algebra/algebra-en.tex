@@ -2330,23 +2330,27 @@ Noether is best remembered for her contributions to abstract algebra. Nathan Jac
 
 \subsection{Ring}
 \index{ring}
-Let us see how ring is defined.
+Group is a system defined with an operation (set and multiplication), ring is a system defined with two operations. Given a set $R$ of elements $a, b, ...$, define add $a + b$ and multiply $ab$, their results still in the set. Where the add and multiply satisfy the following rules.
 
-\begin{definition}
-A ring is a set $R$ that satisfies below \textbf{ring axioms}:
 \begin{enumerate}
-\item $R$ is an additive group, it means $R$ forms an abelian group under the addition operation defined on it;
-\item There is multiplication defined for $R$, and $R$ is close under this multiplication operation;
-\item The multiplication is associative. For all $a, b, c$, equation $(ab)c = a(bc)$ holds;
-\item Multiplication is distributive with respect to addition, meaning that, for all $a, b, c$, we have:
-\[
-\begin{array}{l}
-a(b + c) = ab + ac \\
-(b + c)a = ba + ca
-\end{array}
-\]
+\item Rules for add:
+  \begin{enumerate}
+  \item associative: $a + (b + c) = (a + b) + c$
+  \item commutative: $a + b = b + a$
+  \item exist the unique unity, and every element has unique inverse.
+  \end{enumerate}
+\item Rules for multiple:
+  \begin{enumerate}
+  \item associative: $a(bc) = (ab)c$
+  \end{enumerate}
+\item distributive:
+  \begin{enumerate}
+  \item $a(b + c) = ab + ac$
+  \item $(b + c)a = ba + ca$
+  \end{enumerate}
 \end{enumerate}
-\end{definition}
+
+The ring consists of an additive group and a multiplicative semigroup. The additive group is abelian because it's commutative; the multiplication is closed and associative.
 
 \index{commutative ring}
 Obviously, all integers form a ring under the addition and multiplication. Other examples are polynomials and matrix form ring under the addition and multiplication. The ring definition only requires the addition operation is commutative, thus the ring is an abelian group under addition. It does not have such requirement for multiplication. When the ring multiplication is also commutative, we call it \textbf{commutative ring}. In commutative ring, for positive integer $n$ and any two elements, the following equation holds:
@@ -2361,7 +2365,7 @@ The ring definition does not require an identity element for the multiplication 
 ea = ae = a
 \]
 
-We call $e$ the \textbf{unity} (multiplicative identity element) of the ring. A ring may not necessarily have unity\footnote{More people define a ring to have a multiplicative identity nowadays, and use symbol $rng$ for a ring without multiplicative identity.}. Traditionally, we use 1 to represent the unity. It is just a symbol, but not means the actual number 1. With unity, we can also define inverse element. If $ab = ba = 1$, we say $b$ is the inverse element of $a$. According to the group property, we know that if the ring has an identity element for multiplication, it is unique. If an element is invertible, the inverse element is also unique. While it is not necessary that all elements are invertible. For example, the integer ring has unity, but except for $\pm 1$, all other integers are not invertible. We call the invertible element a \textbf{unit}.
+We call $e$ the \textbf{unity} (multiplicative identity element) of the ring. A ring may not necessarily have unity\footnote{More people define a ring to have a multiplicative identity nowadays, and use symbol $rng$ for a ring without multiplicative identity.}. Traditionally, we use 1 to represent the unity for multiplication, and use 0 as the unity for add. They are just symbols, but not means the actual number 1 or 0. With unity, we can also define inverse element. If $ab = ba = 1$, we say $b$ is the inverse element of $a$. According to the group property, we know that if the ring has an identity element for multiplication, it is unique. If an element is invertible, the inverse element is also unique. While it is not necessary that all elements are invertible. For example, the integer ring has unity, but except for $\pm 1$, all other integers are not invertible. We call the invertible element a \textbf{unit}.
 
 From the distributive axiom, we have:
 
@@ -2385,8 +2389,8 @@ In a ring, if there exists $a \neq 0, b \neq 0$, but $ab = 0$, we call $a$ is a 
 \begin{theorem}
 For a ring without zero divisor, the following two cancellation rules hold.
 \begin{itemize}
-\item If $a \neq 0$, and $ab = ac$, then $b = c$;
-\item If $a \neq 0$, and $ba = ca$, then $b = c$.
+\item If $a \neq 0$, and $ab = ac$, then $b = c$
+\item If $a \neq 0$, and $ba = ca$, then $b = c$
 \end{itemize}
 \end{theorem}
 
@@ -2415,10 +2419,70 @@ a(b + c) = ab + ac \\
 \end{definition}
 Natural numbers $N$ is an example of semiring. The Boolean operations form a semiring with two elements.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:ring}
 \Question{Prove the theorem that the two cancellation rules hold in a nonzero ring (ring without zero divisor).}
 \Question{Prove that, all real numbers in the form of $a + b \sqrt{2}$, where $a, b$ are integers form a integral domain under the normal addition and multiplication.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:ring}]
+\Question{Prove the theorem that the two cancellation rules hold in a nonzero ring (ring without zero divisor).
+
+\begin{proof}
+Suppose there is no zero divisor in $R$. Because
+\[
+  ab = ac \Rightarrow a(b - c) = 0
+\]
+
+as no zero divisor, hence:
+
+\[
+  a \neq 0, ab = ac \Rightarrow b - c = 0 \Rightarrow b = c
+\]
+
+Similarly,
+
+\[
+  a \neq 0, ba = ca \Rightarrow b = c
+\]
+
+Therefore, both cancellation rules hold in $R$. Reversely, suppose the first cancellation rule hold in $R$. Because:
+
+\[
+  ab = 0 \Rightarrow ab = a0
+\]
+
+Based on the assumption,
+
+\[
+  a \neq 0, ab = 0 \Rightarrow b = 0
+\]
+
+Hence $R$ does not have zero divisor. We can make the similar prove when the second cancellation rule holds.
+\end{proof}
+}
+\Question{Prove that, all real numbers in the form of $a + b \sqrt{2}$, where $a, b$ are integers form a integral domain under the normal addition and multiplication.
+
+\begin{proof}
+We need verify three things:
+
+  \begin{enumerate}[i]
+  \item The commutative law for multiplication holds.
+    \bre
+      (a + b \sqrt{2})(c + d \sqrt{2}) & = & ac + 2bd + (ad + bc)\sqrt{2} \\
+        & = & (c + d \sqrt{2})(a + b \sqrt{2})
+    \ere
+  \item There is unit 1 for multiplication.
+    \[
+      1 (a + b \sqrt{2}) = (a + b \sqrt{2}) 1 = a + b \sqrt{2}
+    \]
+  \item No zero divisor
+    \[
+    (a + b \sqrt{2})(c + d \sqrt{2}) = 0 \Rightarrow a = b = 0\ \text{or}\ c = d = 0
+    \]
+  \end{enumerate}
+\end{proof}
+}
+\end{Answer}
 
 \subsection{Division ring and field}
 
@@ -2436,10 +2500,10 @@ A ring $R$ is a \textbf{division ring} if it satisfies the following conditions:
 
 \index{field}
 \begin{definition}
-A commutative division ring is a \textbf{field域}.
+A commutative division ring is a \textbf{field}.
 \end{definition}
 
-According to this definition, all rational numbers form a field. Similarly, all real numbers and all complex numbers form fields under the addition and multiplication\footnote{We'll see in later chapter, rational number field is countable, while real number field and complex number field are not countable.}. There are some interesting properties for division ring and field. There is no zero divisor in a division ring. This is because if $a \neq 0$, and $ab = 0$, then we multiply the inverse element of $a$ from left to both sides:
+According to this definition, all rational numbers form a field. Similarly, all real numbers and all complex numbers form fields under the addition and multiplication\footnote{We'll see in chapter 6, rational number field is countable, while real number field and complex number field are not countable.}. There are some interesting properties for division ring and field. There is no zero divisor in a division ring. This is because if $a \neq 0$, and $ab = 0$, then we multiply the inverse element of $a$ from left to both sides:
 
 \[
 a^{-1}ab = b = 0
@@ -2492,7 +2556,7 @@ We skipped some important algebraic structure here like subring, ideal, principa
 
 Galois theory provides connection between group and field. Using Galois theory, certain problems in field theory can be reduced to group theory, which is in some sense simpler and easier to understand. A field can contain infinite many elements with adding, subtracting, multiplying, and dividing. It's a complex mathematical object. Galois theory can simplify the problems in field to a corresponding problem in finite group with only one operation. This is the key idea of Galois theory.
 
-Galois theory is famous for its difficulty and hard to understand. Compare to its original form, the modern Galois theory is no longer ambiguous, and much clearer and elegant. This is because more than two dozens of masters greatly developed and improved it in the past. The most important contributors are Jordan, Dedekind, and Emil Artin. Jordan and Dedekind first systematically developed Galois theory in France and Germany. The definition of Galois group we are using today was given by Dedekind. The modern form of Galois theory is made by Artin\cite{ZhangPu2013}. We adopted a gentle explanation that is friendly to beginners\cite{Stillwell1994} in this short section. It's quite common that we can't understand it in the first time reading. It's always helpful to read the masters. Our life is not linear. I recommend the way to revisit what we learned before, find more great books to read. Our understanding changes along the time, and there must be aha moment in the future.
+Galois theory is famous for its difficulty and hard to understand. Compare to its original form, the modern Galois theory is no longer ambiguous, and much clearer and elegant. This is because more than two dozens of masters greatly developed and improved it in the past. The most important contributors are Jordan, Dedekind, and Emil Artin. Jordan and Dedekind first systematically developed Galois theory in France and Germany. The definition of Galois group we are using today was given by Dedekind. The modern form of Galois theory is made by Artin\cite{ZhangPu2013}. We adopted a gentle explanation that is friendly to beginners\cite{FengChengTian2019} in this short section. It's quite common that we can't understand it in the first time reading. It's always helpful to read the masters. Our life is not linear. I recommend the way to revisit what we learned before, find more great books to read. Our understanding changes along the time, and there must be aha moment in the future.
 
 \subsection{Field extension}
 \index{field extension}
@@ -2536,28 +2600,61 @@ Thus the splitting field of equation $x^2 -2 = 0$ is $Q[\sqrt{2}]$. Why is it na
 
 For a given polynomial equation, if we can start from the basic rational number field, with a series of field extension, reach to its splitting field, then this equation is radical solvable.
 
-We've seen the example of square root. There are more complex cases. Cubic equation may need cubic root, some equation even requires imaginary unit $i$. From the high school math, we know that for the simplest equation $x^p-1=0$, there are $p$ roots of $1, \zeta, \zeta^2, ..., \zeta^{p-1}$, where $\zeta \neq 1$ is a complex root in the unit circle. We need a strict description of field extension to cover these cases.
+We've seen the example of square root. There are more complex cases. For the cyclotomic equation $x^p-1=0$, there are $p$ roots of $1, \zeta, \zeta^2, ..., \zeta^{p-1}$ in the unit circle in complex plane. We need a strict description of field extension to cover these cases.
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=3]
- \draw[step=.5cm, gray, very thin] (-1.2,-1.2) grid (1.2,1.2);
- \draw[->] (-1.25,0) -- (1.25,0) coordinate (x axis);
- \draw[->] (0,-1.25) -- (0,1.25) coordinate (y axis);
- \draw (0,0) circle (1cm);
- \draw[->, very thick] (0, 0) edge node[below=2pt,fill=white] {$\zeta^0 = \zeta^3 = 1$} (1, 0)
-     (0, 0) edge node[above] {$\zeta = \dfrac{-1 + i\sqrt{3}}{2}$} (120:1cm)
-     (0, 0) edge node[below] {$\zeta^2 = \dfrac{-1 - i\sqrt{3}}{2}$} (-120:1cm);
-\end{tikzpicture}
-\caption{Unit root of $x^3 - 1 = 0$}
-\label{fig:root-of-unity}
-\end{figure}
+\index{Normal extension}
+If the integer power of $\alpha$ is some element $b$ in field $F$, i.e. $\alpha^m = b \in F$, such $\alpha$ can be written as the radical form of $b$ as $\alpha = \sqrt[m]{b}$. For simplification, assume the $\alpha_i$ in every extension $F[\alpha_i]$ is a $p$-th root for some prime $p$. For example, instead extend like $\sqrt[6]{\alpha}$, we break it into two extensions of $\sqrt{\alpha} = \beta$ and $\sqrt[3]{\beta}$. There is another problem. Consider equation $x^3 - 2 = 0$, it's insufficient to only add $\sqrt[3]{2}$ to the field. The other two roots $\omega\sqrt[3]{2}, \omega^2\sqrt[3]{2}$ are not in field extension $Q[\sqrt[3]{2}]$. Hence we need add $\sqrt[3]{2}$ and $\omega = \dfrac{-1 + i\sqrt{3}}{2}$ to extend the field to $Q[\sqrt[3]{2}, \omega]$. Such field extension contains {\em all} roots of the polynomial, which is called normal extension.
 
-If the integer power of $\alpha$ is some element $b$ in field $F$, which means $\alpha^m = b \in F$, such $\alpha$ can be obtained through radical form of $b$ as $\alpha = \sqrt[m]{b}$. We can extend the field with a series of such radical forms to $F[\alpha_1][\alpha_2]...[\alpha_k]$. If each $\alpha_i$ is radical form, we call the field extension $F[\alpha_1, \alpha_2, ..., \alpha_k]$ as radical extension of $F$. Let the equation roots be $x_1, x_2, ..., x_n$ (Note $x_i$ may not be radical form), if the splitting field $E = Q[x_1, x_2, ..., x_n]$ is radical extension, then the equation is radical solvable.
+\index{Radical extension}
+We can extend the field with a series of such radical forms to $F[\alpha_1][\alpha_2]...[\alpha_k]$. If each $\alpha_i$ is radical form, we call the field extension $F[\alpha_1, \alpha_2, ..., \alpha_k]$ as radical extension of $F$. Let the equation roots be $x_1, x_2, ..., x_n$ (Note $x_i$ may not be radical form), if the splitting field $E = Q[x_1, x_2, ..., x_n]$ is radical extension, then the equation is radical solvable.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:field}
 \Question{Prove that $Q[a, b] = Q[a][b]$, where $Q[a, b]$ contains all the expressions combined with $a$ and $b$, such as $2ab, a + a^2b$ etc.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:field}]
+\Question{Prove that $Q[a, b] = Q[a][b]$, where $Q[a, b]$ contains all the expressions combined with $a$ and $b$, such as $2ab, a + a^2b$ etc.
+
+Let us see an example first:
+
+\[
+ Q[\sqrt{2}, \sqrt{3}] = \{a + b \sqrt{2} + c \sqrt{3} + d \sqrt{6}, \text{where } a, b, c, d \in Q\}
+\]
+
+\bre
+Q[\sqrt{2}][\sqrt{3}] & = & \{a + b \sqrt{3}, \text{where } a, b \in Q[\sqrt{2}]\} \\
+  & = & \{a' + b' \sqrt{2} + (c + d \sqrt{2}) \sqrt{3}, \text{where } a', b', c, d \in Q\} \\
+  & = & \{a' + (b' + d) \sqrt{2} + c \sqrt{3} + d \sqrt{6}, \text{where } a', b', c, d \in Q\}
+\ere
+
+\begin{proof}
+\[
+Q[a][b] = \{x_0 + x_1 b + x_2 b^2 + ... + x_n b^n, \text{where } x_i \in Q[a]\}
+\]
+$n$ is the minimum integer that polynomial $p(b) = 0$ exists. Substitute $x_i$ with the expressions in field $Q[a]$.
+
+\bre
+Q[a][b] & = & \{ y_{0,0} + y_{0,1} a + y_{0,2} a^2 + ... + y_{0,m} a^m\ + \\
+        &   &   (y_{1,0} + y_{1,1} a + y_{1,2} a^2 + ... + y_{1,m} a^m) b\ + \\
+        &   &   ... \\
+        &   &   + (y_{n,0} + y_{n,1} a + y_{n,2} a^2 + ... + y_{n,m} a^m) b^n \}
+\ere
+
+Where $y_{i,j} \in Q$, $m$ is the minimum integer that polynomial $p(a) = 0$ exists.
+
+Without loss of generality, we assume $m < n$ (otherwise, we let $m' = min(m, n), n' = max(m, n)$). We can further convert it as:
+
+\bre
+Q[a][b] & = & \{ y_{0,0} + y_{0,1} a + y_{1,0} b + y_{0,2} a^2 + y_{1,1} ab + y_{2,0} b^2 + ... \\
+        &   &    + y_{0,m} a^m + y_{1,m-1} a^{m-1} b + ... + y_{m, 0} b^m + \\
+        &   &    y_{1,m} a^m b + y_{2, m-1} a^{m-1} b^2 + ... + y_{m, 1} b^{m+1} + ... \\
+        &   &    + y_{n, m} a^m b^n \}
+\ere
+
+This field is formed with all the expressions of $a, b$.
+\end{proof}
+}
+\end{Answer}
 
 \subsection{Automorphism and Galois group}
 
