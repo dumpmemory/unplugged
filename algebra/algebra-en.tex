@@ -2664,13 +2664,13 @@ The great ideas were advanced by all mankind in history. The Galois theory was n
 \index{symmetric polynomials}
 Newton is famous for his great discoveries including differential and integral calculus, binomial theorem, classic mechanics, and etc. He made great contribution in pure mathematics as well. He studied more symmetric polynomials after Viète, a portion of his work was published in Newton's {\em Arithmetica Universals} in 1707. Gauss referenced it as `Newton's theorem'. It's hard for people nowadays to understand why Newton did not announce his findings or publish the {\em Mathematical Principles of Natural Philosophy} unless Halley kept encouraging and pushing him. Similar things happened to Newton's theorem, we found below result in his notebook when he was 23 years old (in 1665 or 1666).
 
-令三次方程$x^3 + bx^2 + cx + d = 0$的3个根为$r, s, t$，等式
+Let the 3 roots for cubic equation $x^3 + bx^2 + cx + d = 0$ be $r, s, t$, then
 
 \[
 x^3 + bx^2 + cx + d = (x - r)(x - s)(x -t)
 \]
 
-成立，并且：
+hold, and:
 
 \bea*{rcl}
 r + s + t & = & -b \\
@@ -2682,14 +2682,14 @@ r^2s + s^2t + t^2r + r^2t + t^2s + s^2r = -bc + 3d \\
 r^3s^3t^3 = -d^3
 \eea*
 
-牛顿列出了19个对称多项式的结果，他还把方程的次数增加到8次$x^8 + px^7 + qx^6 + rx^5 + sx^4 + tx^3 + vx^2 + yx + z = 0$进行类似的计算。牛顿发现这些对称多项式中，有一些是基本的。推广到$n$次方程的$n$个根：
+Newton list 19 symmetric polynomials. He even extended the degree to 8 and calculated result for equation $x^8 + px^7 + qx^6 + rx^5 + sx^4 + tx^3 + vx^2 + yx + z = 0$. Among these symmetric polynomials, Newton found some were elementary. Generalize to the equation of degree $n$, there are $n$ roots.
 
 \[
 x^n + b_1 x^{n-1} + b_2 x^{n-2} + ... + b_n = (x - r_1)(x - r_2)...(x - r_n)
 \]
 
-这些基本对称多项式为：
-\index{基本对称多项式}
+The elementary polynomials are:
+\index{elementary polynomial}
 
 \bea{rcccl}
 \sigma_1 & = & r_1 + r_2 + ... + r_n & = & -b_1 \\
@@ -2699,17 +2699,17 @@ x^n + b_1 x^{n-1} + b_2 x^{n-2} + ... + b_n = (x - r_1)(x - r_2)...(x - r_n)
 \sigma_n & = & r_1r_2...r_n & = & (-1)^nb_n \\
 \eea
 
-为什么说它们是基本对称多项式呢？因为牛顿发现任何对称多项式都可以变换基本对称多项式的组合。例如：$(a - b)$并不是对称的（交换$a，b$值的正负会改变），平方后$(a - b)^2$是对称多项式，它可以变换为：
+Why are they elementary symmetric polynomials? Because Newton found they were basic building blocks, in other words, any symmetric polynomial can be expressed as a combination of the elementary ones. For example, $(a - b)$ is not symmetric (the positive/negative signal changes when exchange $a$ and $b$), but its square is. $(a - b)^2$ can be expressed as:
 
 \bre
-(a - b)^2 & = & (a + b)^2 - 4ab & \text{变成两个对称多项式相减} \\
-          & = & \sigma_1^2 - 4\sigma_2 & \text{二次方程基本对称多项式} \\
+(a - b)^2 & = & (a + b)^2 - 4ab & \text{in two symmetric polynomials} \\
+          & = & \sigma_1^2 - 4\sigma_2 & \text{quadratic elementary symmetric} \\
 \ere
 
 \begin{theorem}
-\textbf{牛顿定理}：任何关于$r_1, r_2, ..., r_n$的对称多项式都可用基本对称多项式$\sigma_1, \sigma_2, ..., \sigma_n$来表示。
+\textbf{Newton's theorem}: Any polynomial of $r_1, r_2, ..., r_n$ can be expressed with the elementary symmetric polynomials of $\sigma_1, \sigma_2, ..., \sigma_n$.
 \end{theorem}
-\index{牛顿定理}
+\index{Newton's theorem}
 
 \subsubsection{拉格朗日预解式}
 \index{拉格朗日预解式}
