@@ -2656,7 +2656,368 @@ This field is formed with all the expressions of $a, b$.
 }
 \end{Answer}
 
-\subsection{Automorphism and Galois group}
+\subsection{From Newton, Lagrange to Galois}
+
+The great ideas were advanced by all mankind in history. The Galois theory was not a pearl appeared after one night. Tracing backwards, there were a series of great steps taken by Viète, Newton, Vandermonde, Lagrange, and Gauss. Galois took the torch. Let's look back to understand how Galois developed his idea.
+
+\subsubsection{Symmetric polynomials and Newton's theorem}
+\index{symmetric polynomials}
+Newton is famous for his great discoveries including differential and integral calculus, binomial theorem, classic mechanics, and etc. He made great contribution in pure mathematics as well. He studied more symmetric polynomials after Viète, a portion of his work was published in Newton's {\em Arithmetica Universals} in 1707.
+
+人们熟悉牛顿那些最伟大的发现，包括微积分、二项式定理、经典力学。他其实在很多领域都取得了惊人的成果。韦达之后，牛顿深入思考了更多的对称多项式，他的结果发表在1707的著作《普遍算数》中。高斯称之为“牛顿定理”。牛顿的性格很难被今天的人们所理解，他迟迟不肯发表自己的发现。如果不是哈雷的鼓动和催促，他根本不愿意出版《自然哲学的数学原理》。牛顿定理也是如此，人们在他23岁（1665或1666）时的笔记中发现了这些结果：
+
+令三次方程$x^3 + bx^2 + cx + d = 0$的3个根为$r, s, t$，等式
+
+\[
+x^3 + bx^2 + cx + d = (x - r)(x - s)(x -t)
+\]
+
+成立，并且：
+
+\bea*{rcl}
+r + s + t & = & -b \\
+r^2 + s^2 + t^2 & = & b^2 - 2c \\
+r^3 + s^3 + t^3 & = & -b^3 + 3bc - 3d \\
+rs + st + rt & = & c \\
+r^2s + s^2t + t^2r + r^2t + t^2s + s^2r = -bc + 3d \\
+... & & ... \\
+r^3s^3t^3 = -d^3
+\eea*
+
+牛顿列出了19个对称多项式的结果，他还把方程的次数增加到8次$x^8 + px^7 + qx^6 + rx^5 + sx^4 + tx^3 + vx^2 + yx + z = 0$进行类似的计算。牛顿发现这些对称多项式中，有一些是基本的。推广到$n$次方程的$n$个根：
+
+\[
+x^n + b_1 x^{n-1} + b_2 x^{n-2} + ... + b_n = (x - r_1)(x - r_2)...(x - r_n)
+\]
+
+这些基本对称多项式为：
+\index{基本对称多项式}
+
+\bea{rcccl}
+\sigma_1 & = & r_1 + r_2 + ... + r_n & = & -b_1 \\
+\sigma_2 & = & r_1r_2 + r_2r_3 + ... + r_{n-1}r_n & = & b_2 \\
+\sigma_3 & = & r_1r_2r_3 + r_1r_2r_4 + ... + r_{n-2}r_{n-1}r_n & = & -b_3 \\
+& & ... & & \\
+\sigma_n & = & r_1r_2...r_n & = & (-1)^nb_n \\
+\eea
+
+为什么说它们是基本对称多项式呢？因为牛顿发现任何对称多项式都可以变换基本对称多项式的组合。例如：$(a - b)$并不是对称的（交换$a，b$值的正负会改变），平方后$(a - b)^2$是对称多项式，它可以变换为：
+
+\bre
+(a - b)^2 & = & (a + b)^2 - 4ab & \text{变成两个对称多项式相减} \\
+          & = & \sigma_1^2 - 4\sigma_2 & \text{二次方程基本对称多项式} \\
+\ere
+
+\begin{theorem}
+\textbf{牛顿定理}：任何关于$r_1, r_2, ..., r_n$的对称多项式都可用基本对称多项式$\sigma_1, \sigma_2, ..., \sigma_n$来表示。
+\end{theorem}
+\index{牛顿定理}
+
+\subsubsection{拉格朗日预解式}
+\index{拉格朗日预解式}
+我们略去了牛顿定理的证明。沿着牛顿对称多项式的思路继续向前迈进的是法国数学家范德蒙德和拉格朗日。他们两个各自进行独立研究。拉格朗日并不了解范德蒙德的工作，但是他解决三次方程的方法本质上和范德蒙德是一致的。拉格朗日的论文长达220页，我们只能简单总结一下他的结果（正是伽罗瓦15岁时研读并掌握的那篇《关于方程代数解的思考》\footnote{1770年的论文Réflexions sur la résolution algébrique des équations}）。首先一般三次方程$ay^3 + by^2 + cy + d = 0$，可以进行变量替换，令$y = x - b / 3a$，将其转换为$x^3 + px + q = 0$的形式。如果它的三个根为$r_1, r_2, r_3$，拉格朗日把3次本原单位根$\omega = \dfrac{-1 + i \sqrt{3}}{2}$也考虑进来。根据分圆方程的结果，我们有$\omega^3 = 1, 1 + \omega + \omega^2 = 0$。拉格朗日引进了一个关键概念——预解式（resolvent），令：
+
+\be
+t = r_1 + \omega r_2 + \omega^2 r_3
+\ee
+
+拉格朗日对三个根进行置换（重新排列），他发现了一个有趣的现象，尽管总共有6种置换，但是预解式$t$的立方却只有两个值。1770年还没有群的概念，我们今天知道，拉格朗日发现的，本质上是在群$S_3$的6个置换下，预解式$t^3$只有2个值：
+
+\[
+\begin{cases}
+t_1^3 = (r_1 + \omega r_2 + \omega^2 r_3)^3 = L^3 & (1) \\
+t_2^3 = (\omega r_1 + \omega^2 r_2 + r_3)^3 = (\omega L)^3 = L^3 & (132) \\
+t_3^3 = (\omega^2 r_1 + r_2 + \omega r_3)^3 = (\omega^2 L)^3 = L^3 & (123) \\
+\end{cases}
+\]
+
+其中左边是预解式的值，右边是$S_3$中的置换。因为$\omega^3 = 1$，以上面第二行为例：$r_3 \omega^3 = r_3$。可以看出这一组是同时置换3个根，对应着不变子群$C_3$中的置换$\{(1), (132), (123)\}$，
+
+\[
+\begin{cases}
+t_4^3 = (r_1 + \omega^2 r_2 + \omega r_3)^3 = R^3 & (23) \\
+t_5^3 = (\omega r_1 + r_2 + \omega^2 r_3)^3 = (\omega R)^3 = R^3 & (12) \\
+t_6^3 = (\omega^2 r_1 + \omega r_2 + r_3)^3 = (\omega^2 R)^3 = R^3 & (13) \\
+\end{cases}
+\]
+
+这一组的特点是固定一个根而交换另外两个根，对应着陪集中的置换$\{(23), (12), (13)\}$。拉格朗日接着引入了预解式方程：
+
+\be
+(X - t_1)(X - t_2)(X - t_3)(X - t_4)(X - t_5)(X - t_6) = 0
+\ee
+
+这个看似复杂的6次方程实际上可以化为2次方程。前三个因式一组，后三个因式一组。其中$(X - t_1)(X - t_2)(X - t_3) = (X - L)(X - \omega L) (X - \omega^2 L) = X^3 - L^3$，同样后三个因式化简为$X^3 - R^3$，这样预解式方程就变成了$(X^3 - L)(X^3 - R) = 0$。进一步展开得：
+
+\be
+X^6 - (L^3 + R^3)X^3 + L^3R^3 = 0
+\ee
+
+将$X^3$替换为$Y$，就变成了二次方程$Y^2 -(L^3 + R^3)Y + L^3R^3 = 0$。预解式的立方和与积能用原方程的系数表示：
+
+\be
+\begin{cases}
+L^3 + R^3 = -27q \\
+L^3R^3 = -27p^3 \\
+\end{cases}
+\label{eq:LR-pq}
+\ee
+
+代入$p, q$，解关于$Y$的二次方程就可以求出$L, R$了。回顾方程$x^3 + px + q = 0$，由于2次项为0，所以根据韦达定理。我们有$r_1 + r_2 + r_3 = 0$。这样我们可以联立出3个方程：
+
+\be
+\begin{cases}
+r_1 + \omega r_2 + \omega r_3 = L \\
+r_1 + \omega^2 r_2 + \omega r_3 = R \\
+r_1 + r_2 + r_3 = 0 \\
+\end{cases}
+\ee
+
+解方程组就得到了用拉格朗日预解式表达的3个根：
+
+\be
+\begin{cases}
+r_1 = \dfrac{\omega^2 L + \omega R}{3} \\
+r_2 = \dfrac{\omega L + \omega^2 R}{3} \\
+r_3 = \dfrac{L + R}{3} \\
+\end{cases}
+\ee
+
+再代入求出的$L, R$就解出了3次方程的根。拉格朗日的方法具有重要的启示。以4次方程为例，结合4次单位根$\pm 1, \pm i$，定义预解式：
+
+\be
+t = r_1 + i r_2 - r_3 - i r_4
+\ee
+
+在4阶对称群$S_4$的$4! = 24$个置换下，下面预解式方程是不变的：
+
+\be
+\Phi(X) = (X - t_1)(X - t_2)...(X - t_{24})
+\ee
+
+根据牛顿定理，它的所有系数已知。拉格朗日成功地把这个24次方程，简化为3次方程，然后加以解决。然而拉格朗日被5次方程卡住了。此时预解式$\Phi(X) = (X - r_1)(X - r_2) ... (X - r_{120})$达到了$5! = 120$次。拉格朗日把它转换成了低次的5次方程，但这相当于转了一圈又回到了5次方程的问题。接下来的关键一步需要等到伽罗瓦迈出。
+
+\subsubsection{伽罗瓦的遗稿}
+\index{不可约多项式} \index{最小多项式}
+
+我们把时光倒转到1832年5月29日深夜，尝试理解这篇沉重的论文。我们略去了证明，通过一些验证性的例子展示伽罗瓦的主要思路。伽罗瓦首先定义了什么是不可约多项式：多项式$f(x)$的系数域\footnote{当时还没有域的概念，后来德国数学家戴德金定义了域。}为$F$，如果$f(x)$可以在域$F$内因式分解，称其为可约的，否则叫做不可约多项式。例如$x^2 + 1$在有理数域$Q$内是不可约的，但是在复数域$C$内可以因式分解为$(x + i)(x - i)$。再例如$x^2 - 2$在有理数域$Q$内是不可约的，但是在扩域$Q[\sqrt{2}]$内可分解为$(x + \sqrt{2})(x - \sqrt{2})$。域$F$上以某个值为根，最高次系数为1（简称“首1”），并且次数最低的不可约多项式叫做最小多项式。例如$x^2 - 2$就是有理数域上，以$\sqrt{2}$为根的最小多项式。伽罗瓦接着定义什么是已知的数，从有理数域开始，通过向其中添加指定的数，并通过有理式（也就是四则运算）得到的数叫做已知的。我们今天知道，这相当于扩域的概念。
+
+伽罗瓦接下来引入了置换群的概念。这是对若干元素重新排列的群。他第一个给出了法文groupe这个词，并且指出两个置换组合起来的结果也是一个置换。在今天看来，伽罗瓦使用的是置换群$S_n$及其子群。有了置换群，伽罗瓦就可以对方程根组成的有理式进行置换。例如有理式$x_1 x_2 + x_3$，使用$\sigma = (123)$进行置换后得到：
+
+\[
+\sigma(x_1 x_2 + x_3) = x_2 x_3 + x_1
+\]
+
+接下来伽罗瓦给出了不可约多项式的性质：
+
+\begin{lemma}不可约多项式的性质：设$f(x)$为域$F$上的多项式，$p(x)$为域$F$上的不可约多项式。如果$f(x)$和$p(x)$有共同的根，则$f(x)$可以被$p(x)$整除。
+\end{lemma}
+
+我们可以类比这个性质和整数的整除性质：多项式相当于整数，不可约多项式相当于素数。有共同的根相当于含有相同的素因子。例如多项式$f(x) = x^3 - 1$，在有理数域上$p(x) = x^2 + x + 1$是不可约多项式。它们两个有共同的根$\omega = \dfrac{-1 + i\sqrt{3}}{2}$：
+
+\[
+\omega^3 - 1 = \omega^2 + \omega + 1 = 0
+\]
+
+$f(x)$的确可以被$p(x)$整除：$x^3 - 1 = (x - 1)(x^2 + x + 1)$。
+
+伽罗瓦接下来的思路，看起来像是拉格朗日预解式的延伸，他定义了“伽罗瓦预解式”。
+
+\begin{lemma}伽罗瓦预解式$t$：设$f(x)$是域$F$上的多项式，它的根为$x_1, x_2, ..., x_n$。存在根的某个有理式$t = \varphi(x_1, x_2, ..., x_n)$，在根的不同排列下取不同的值。
+\end{lemma}
+
+也就是说，置换$n$个根产生的不同排列，导致各种不同的$t$值。例如，有理数域上的多项式$f(x) = x^2 + 1$有两个根$x_1 = i, x_2 = -i$。我们可以找到一个有理式：
+
+\[
+t = x_1 - x_2
+\]
+
+在$S_2$的两个置换(1)和(12)下$t$取不同的值：
+
+\[
+\begin{cases}
+t_1 = x_1 - x_2 = 2i & \text{对应置换} (1) \\
+t_2 = x_2 - x_1 = -2i & \text{对应置换} (12) \\
+\end{cases}
+\]
+
+这两个值不相等。伽罗瓦只是说存在$t$。他说可以通过根的整系数线性组合构造$t = k_1x_1 + k_2x_2 + ... + k_nx_n$，但是没有给出证明。伽罗瓦还排除了重根的情况，因为重根不管怎么排列都是一样的。回忆拉格朗日的方法是用预解式不同的值表达方程的根，伽罗瓦也延续这个思路。
+
+\begin{lemma}用伽罗瓦预解式$t$表示根：域$F$上存在有理式$\varphi_1(x), \varphi_2(x), ..., \varphi_n(x)$, 使得多项式$f(x)$的根$x_1, x_2, ..., x_n$可以用伽罗瓦预解式$t$表示为：
+\[
+x_1 = \varphi_1(t), x_2 = \varphi_2(t), ..., x_n = \varphi_n(t)
+\]
+\end{lemma}
+
+还用上面的例子，$f(x) = x^2 + 1$，两个根是$x_1 = i, x_2 = -i$，预解式$t = x_1 - x_2 = 2i$，我们可以找到$\varphi_1(x) = \dfrac{x}{2}, \varphi_2(x) = -\dfrac{x}{2}$，用$t$表示两个根如下：
+
+\[
+x_1 = \dfrac{t}{2}, x_2 = -\dfrac{t}{2}
+\]
+
+这样伽罗瓦就把方程个根域$F[x_1, x_2, ..., x_n]$和扩域$F[t]$联系了起来。置换$n$个根的时候，伽罗瓦预解式$t$会产生不同的值。延续拉格朗日的思路，$t$是另外一个预解方程$f_t(X) = 0$的某个根（一个方程可能有多个根）。
+
+\begin{lemma}
+在域$F$内构造一个以$t$为根的最小多项式$f_t(X)$，设$f_t(X)$的根为$t_1, t_2, ..., t_m$，此时
+\[
+\varphi_1(t_k), \varphi_2(t_k), ..., \varphi_n(t_k)
+\]
+是原方程$f(x) = 0$根的某种排列（$k = 1, 2, ..., m$）。
+\end{lemma}
+
+注意这里的区别$f(x) = 0$是原方程，而$f_t(X) = 0$是构造出的方程。其中$f_t(X)$是以$t$为其中一个根的最小多项式。原方程有$n$个根$x_1, ..., x_n$，预解式方程有$m$个根$t_1, t_2, ..., t_m$
+
+\[
+(X - t_1)(X - t_2)...(X - t_m) = 0
+\]
+
+它们彼此的关系是: $t = \varphi(x_1, ..., x_n)$，而$x_i = \varphi_i(t)$。作为例子，考虑方程$x^3 - x^2 - 2x + 2 = 0$，它有3个根$1, \pm \sqrt{2}$。第一步构造伽罗瓦预解式：$t = \varphi(x_1, x_2, x_3) = x_1 + 2x_2 + 4x_3$。它在$S_3$下的取6个不同的值：
+
+\btab{c|c|l}
+置换 & $\varphi(x_1, x_2, x_3)$ & $t$ \\
+\hline
+(1, 2, 3) & $x_1 + 2x_2 + 4x_3$ & $1 - 2\sqrt{2}$ \\
+(1, 3, 2) & $x_1 + 2x_4 + 4x_2$ & $1 + 2\sqrt{2}$ \\
+(2, 1, 3) & $x_2 + 2x_1 + 4x_3$ & $2 - 3\sqrt{2}$ \\
+(2, 3, 1) & $x_2 + 2x_3 + 4x_1$ & $4 - \sqrt{2}$ \\
+(3, 1, 2) & $x_3 + 2x_1 + 4x_2$ & $2 + 3\sqrt{2}$ \\
+(3, 2, 1) & $x_3 + 2x_2 + 4x_1$ & $4 + \sqrt{2}$ \\
+\etab
+
+第二步，取$t = 1 - 2\sqrt{2}$和前三行，可以联立出方程组：
+
+\[
+\begin{cases}
+x_1 + 2x_2 + 4x_3 & = 2t \\
+x_1 +  x_3 + 4x_2 & = 2 - t \\
+x_2 + 2x_1 + 4x_3 & = \dfrac{3t + 1}{2}
+\end{cases}
+\]
+
+解方程组得到用$t$表示的三个根：
+
+\[
+\begin{cases}
+x_1 = \varphi_1(t) = 1 \\
+x_2 = \varphi_2(t) = \dfrac{1-t}{2} \\
+x_3 = \varphi_3(t) = \dfrac{t-1}{2} \\
+\end{cases}
+\]
+
+第三步，构造以$t = 1 - 2\sqrt{2}$为根的最小多项式：$f_t(X) = X^2 - 2X - 7$。它有两个根：$t_{1,2} = 1 \pm 2\sqrt{2}$。代入$\varphi_1(t), \varphi_2(t), \varphi_3(t)$得到根的两个置换：
+
+\btab{c|c|c}
+$t_i$ & $\varphi_1(t_i), \varphi_2(t_i), \varphi_3(t_i)$ & $S_3$中的置换 \\
+\hline
+$t_1$ & $1, \sqrt{2}, -\sqrt{2}$ & (1) \\
+$t_2$ & $1, -\sqrt{2}, \sqrt{2}$ & (23) \\
+\etab
+
+我们可以看到拉格朗日思想的影响。但伽罗瓦预解式不是特定构造出的，而是某种“存在性”定义。他的预解式方程也是用最小多项式给出的“存在性”定义。这里有一个和拉格朗日方法的不同点，$m$并不一定等于$n!$。伽罗瓦看出并非$S_n$中的所有置换都是等同的，有些特殊的置换反映了方程的对称性。为此他引入了伽罗瓦群。
+\index{伽罗瓦群}
+
+\begin{definition}
+方程的伽罗瓦群：用域$F$上多项式$f(x)$的根构成的有理式$r$，如果$r$的值属于域$F$，$r$就是\textbf{已知}的（$r \in F$）。如果对根进行某种置换$\sigma$时$r$的值不发生改变，则称$r$是\textbf{不变}的（$\sigma(r) = r$）。对所有这样的$r$，存在满足下面性质的群$G$：
+
+\begin{center}
+有理式$r$的值在群$G$的所有置换下不变 $\iff$ 有理式$r$的值是已知的。
+\end{center}
+
+这个置换群$G$就是方程$f(x) = 0$在域$F$上的伽罗瓦群。
+\end{definition}
+
+这个性质可以用两句话来概括：“如果不变则已知，如果已知则不变。”\cite{JieChengHao2021}这里有几个关键的概念：首先有理式不是有理数，有理式是对一组变量进行加减乘除的式子，系数都在$F$中。例如$r = \dfrac{3a^2 + 2b + 1}{a^2 - 2b}$，系数都在有理数域$Q$中。这组变量取某些特定值时，这个有理式的值对于域$F$来说，可能在$F$中，称为已知的；也可能不在$F$中，称为未知的。例如，令$a = \sqrt{2}, b = -1$，有理式$r$的值等于$5/4 \in Q$，是已知的；但如果令$a = 1, b = \sqrt{2}$，则$r = -\dfrac{12}{7} - \dfrac{10\sqrt{2}}{7}$，对于有理数域$Q$是未知的。但对于扩域$Q[\sqrt{2}]$是已知的。
+
+例如方程$x^2 - 2x - 1 = 0$的两个根为$1 \pm \sqrt{2}$。方程在有理数域上的伽罗瓦群是$S_2 = \{(1), (12)\}$，包括恒等置换$e = (1)$和对换$(12)$。任何有理式在恒等置换下的值不变，所以我们只需要考虑对换(12)。如果有理式$r$对换变量值不变，它一定是对称多项式。根据牛顿定理，可以由基本对称多项式$x_1x_2 = -1$和$x_1 + x_2 = 2$表达，因而仍然是有理数，所以是已知的。回顾前面的例子，方程$x^3 - x^2 - 2x + 2 = 0$的伽罗瓦群恰恰就是$\{(1), (23)\}$，包括恒等置换，以及固定第一个根，交换后两个根$\pm \sqrt{2}$的置换。它是$S_3$的一个子群。
+
+\begin{Exercise}\label{ex:resolvent-and-galois-group}
+\Question{推导式(\ref{eq:LR-pq})给出的拉格朗日预解式和原方程系数间的关系。提示：考虑$(L + R)(L + \omega R)(L + \omega^2 R)$}
+\Question{验证方程$x^3 - x^2 - 2x + 2 = 0$的伽罗瓦群是$\{(1), (23)\}$。提示：验证“已知则不变，不变则已知”。}
+\end{Exercise}
+
+\begin{Answer}[ref={ex:resolvent-and-galois-group}]
+\Question{推导式(\ref{eq:LR-pq})给出的拉格朗日预解式和原方程系数间的关系。提示：考虑$(L + R)(L + \omega R)(L + \omega^2 R)$
+
+展开$(L + R)(L + \omega R)(L + \omega^2 R)$，并利用$1 + \omega + \omega^2 = 0$，可以得到：
+
+\[
+(L + R)(L + \omega R)(L + \omega^2 R) = L^3 + R^3
+\]
+
+利用$L, R$表示的三个根$r_1, r_2, r_3$的关系，有：
+
+\[
+\begin{cases}
+L + R & = 3r_3 \\
+L + \omega R & = 3 \omega^2 r_2 \\
+L + \omega^2 R & = 3 \omega r_1 \\
+\end{cases}
+\]
+代入上式，并利用$\omega^3 = 1$得：
+
+\bea*{rcll}
+L^3 + R^3 & = & 27 r_1 r_2 r_3 & \text{代入}r_1, r_2, r_3 \\
+          & = & -27q & \text{韦达定理}
+\eea*
+
+接下来求$LR$：
+\bea*{rcll}
+LR & = & (r_1 + \omega r_2 + \omega^2 r_3)(r_1 + \omega^2 r_2 + \omega r_3) & L, R\text{的定义} \\
+   & = & (r_1^2 + r_2^2 + r_3^2) + (\omega + \omega^2)(r_1r_2 + r_2r_3 + r_1r_3) & \text{展开} \\
+   & = & (r_1^2 + r_2^2 + r_3^2) - (r_1r_2 + r_2r_3 + r_1r_3) & 1 + \omega + \omega^2 = 0 \\
+   & = & -2p - p & \text{牛顿笔记} \\
+   & = & -3p
+\eea*
+因此$L^3R^3 = -27p^3$。
+}
+\Question{验证方程$x^3 - x^2 - 2x + 2 = 0$的伽罗瓦群是$\{(1), (23)\}$。提示：验证“已知则不变，不变则已知”。
+
+我们不用验证单位元$(1)$，只需验证$(23)$。本节中给出了这个方程的三个根$1, \pm \sqrt{2}$，它可以分解为$(x - 1)(x^2 - 2) = 0$。根据扩域一节的结论，由这3个根组成有理式具有形式$r = a + b\sqrt{2}$。如果$r$已知，则$b = 0$。即$r \in Q[\pm 1, \pm 2]$，可以由方程的系数组成。而方程的系数是基本对称多项式。所有对称多项式在置换$(23)$时不变。
+
+反之，置换$(23)$相当于交换$\pm \sqrt{2}$，它反转$a + b\sqrt{2}$中$\sqrt{2}$的正负号。如果不变，则$a + b \sqrt{2} = a - b \sqrt{2}$，因此$b = 0$。有理数$a$是已知的。
+}
+\end{Answer}
+
+\subsection{自同构和伽罗瓦群}
+\index{阿廷(Emil Artin)}
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.4]{img/emil-artin}
+ %\captionsetup{labelformat=empty}
+ \caption{埃米尔$\cdot$阿廷 1898-1962}
+ \label{fig:Emil-Artin}
+\end{figure}
+% https://milwaukeearmenians.com/2015/12/19/emil-artin/
+
+1938年，德国数学家埃米尔$\cdot$阿廷对伽罗瓦的思想重新整理，他给出了伽罗瓦群的现代形式。对比阿廷的定义和伽罗瓦最初的定义，我们看出伽罗瓦的思想是如何一步一步走向清晰、简洁、成熟的。例如方程$x^2 - 2 = 0$有一对根$\pm \sqrt{2}$。显然用$-\sqrt{2}$去代替$\sqrt{2}$，方程仍然成立。除此之外，将等式$\sqrt{2}^2 + \sqrt{2} + 1 = 3 + \sqrt{2}$中的$\sqrt{2}$替换成$-\sqrt{2}$也是成立的。也就是说，这对根$\pm \sqrt{2}$，对于关系$\alpha^2 + \alpha + 1 = 3 + \alpha$是对称的。进一步说，对于任何仅仅对$\sqrt{2}$进行乘法和加法的表达式，这对根都可以进行互换。今天我们知道，描述对称的有力武器是群。这就是伽罗瓦当初引入置换群来研究方程的原因。阿廷看出了伽罗瓦群和域上的自同构的关系。考虑扩域$Q[\sqrt{2}]$，如果定义一个从$Q[\sqrt{2}]$到它自身的函数$f: Q[\sqrt{2}] \to Q[\sqrt{2}]$。它将$\sqrt{2}$的符号反转：
+\[
+f(a + b \sqrt{2}) = a - b \sqrt{2}
+\]
+
+则$f$就是一个域上的自同构。
+
+\index{自同构}
+\begin{definition}
+\textbf{域的自同构}是一个可逆函数$f$，它将域映射到自身，并满足$f(x + y) = f(x) + f(y)$，$f(ax) = f(a) f(x)$，$f(1/x) = 1/f(x)$。
+\end{definition}
+
+我们可以验证，前面那个例子$f(a + b \sqrt{2}) = a - b \sqrt{2}$满足这三个条件。并且有趣的是反转正负号等效于置换方程的一对根$x_{1,2} = \pm \sqrt{2}$。域的自同构背后的思想是，我们可以重新调换域中的元素，而完全不影响域的结构。
+
+\begin{definition}
+$F$-自同构：进一步，如果$E$是$F$的扩域，并且在域$E$的自同构$f$的基础上还满足一条额外的性质：对$F$中的任何元素$x$都有$f(x) = x$，则称为$E$上的$F$-自同构。
+\end{definition}
+
+这样就非常精确地定义了根的对称性。$F$-自同构对$F$中的所有元素都原样保持不动，而仅仅调换扩域$E$中新元素。这个定义恰恰是伽罗瓦“如果已知则不变，如果不变则已知”的完美解释：元素是已知的，即$x \in F$，当且仅当在自同构下不变，即$f(x) = x$。对域中的元素进行调换恰好是置换的思想，置换后保持不变恰好是对称的概念。对于$Q[\sqrt{2}]$这个例子，只有两个$Q$-自同构：一个是恒等变换$e(x) = x$，另外一个就是$f(a + b\sqrt{2}) = a - b\sqrt{2}$。它们组成一个群$\{e, f\}$。这个群同构于循环群$C_2$和对称群$S_2$。它可以写成$\{f, f^2\}$，这是因为$f^2 = f \cdot f = e$。也可写成置换群的形式$\{(1), (1\ 2)\}$，其中(1)是保持两个根不变，(1 2)是对调两个根。
+
+我们再给一个例子，方程$x^4 - 5x^2 + 6 = 0$的分裂域是$Q[\sqrt{2}, \sqrt{3}]$。我们有调换$\pm \sqrt{2}$的自同构$f$，也可以定义一个调换$\pm \sqrt{3}$的自同构$g(a + b\sqrt{3}) = a - b\sqrt{3}$。但是不存在能够调换$\sqrt{2}$和$\sqrt{3}$的$Q$-自同构。否则假设存在$h(\sqrt{2}) = \sqrt{3}$，则$h(\sqrt{2})^2 = h(\sqrt{2}^2) = h(2) = 2$。这是因为$f$保持乘法结构并且根据自同构的定义，对于有理数$x$有$h(x) = x$。但同时既然$h(\sqrt{2}) = \sqrt{3}$，则$h(\sqrt{2})^2 = \sqrt{3}^2 = 3$。于是推出$2 = 3$这样的矛盾。这说明并非$S_4$中的所有置换都反映了方程的对称性。这个方程的自同构有4个：$\{e, f, g, f \cdot g\}$，分别对应着恒等置换，对换$\pm \sqrt{2}$的$f$，对换$\pm \sqrt{3}$的$g$，和同时调换两对根的复合置换$f \cdot g$。它们构成一个群。
+
+至此，我们已经把扩域和自同构联系了起来。把所有的自同构做成一个集合，这些自同构间的二元运算是复合变换，恒等变换是单位元，阿廷指出，这个群就是伽罗瓦群。
+
+\index{伽罗瓦群}
+\begin{definition}
+\textbf{伽罗瓦群}的现代定义：对于$F$的扩域$E$，我们有一组$E$的$F$-自同构的集合$G$。对任意$G$中的两个$F$-自同构$f, g$，定义二元运算$(f \cdot g)(x) = f(g(x))$。我们称$G$为扩域$E/F$的伽罗瓦群。记为$Gal(E/F)$。
+\end{definition}
 
 Our thought so far is to start from the rational number field, where the coefficients of the equation belong to, then move forward to the splitting field step by step through a series of radical extensions. How to further simplify the problem to find the answer? At this stage, Galois changed his mind to another direction. He turned to consider the symmetry among the roots of the equation. For example, There is a pair of roots for equation $x^2 - 2 = 0$, which are $\pm \sqrt{2}$. Obviously, if replace $\sqrt{2}$ with $-\sqrt{2}$, the equation still holds. Besides that, replacing $\sqrt{2}$ in equation $\sqrt{2}^2 + \sqrt{2} + 1 = 3 + \sqrt{2}$ with $-\sqrt{2}$, then the equation holds too. It means, the pair of roots $\pm \sqrt{2}$ is symmetric to the relation $\alpha^2 + \alpha + 1 = 3 + \alpha$. We can further say, for any expressions that only consist of addition and multiplication of $\sqrt{2}$, the pair of roots can be exchanged with each other. We know that the most powerful tool to describe symmetry is group, in particular, the symmetric group (we just introduced it in section \ref{symmetric group}). To connect field extension and group, Galois introduced an important concept of field automorphism.
 
