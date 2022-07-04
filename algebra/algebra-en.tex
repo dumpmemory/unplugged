@@ -2306,7 +2306,7 @@ This was an unconventional decision. Two years earlier, the Academic Senate of t
 
 During the 1903–1904 winter semester, she studied at the University of Göttingen, attending lectures given by astronomer Karl Schwarzschild and mathematicians Hermann Minkowski, Otto Blumenthal, Felix Klein, and David Hilbert. Noether returned to Erlangen. She officially reentered the university in October 1904, and declared her intention to focus solely on mathematics. Under the supervision of Paul Gordan she wrote her dissertation. For the next seven years (1908–1915) she taught at the University of Erlangen's Mathematical Institute without pay only because she was a woman.
 
-The mathematician Ernst Fischer was an important influencer on Noether, in particular by introducing her to the work of David Hilbert. From 1913 to 1916 Noether published several papers extending and applying Hilbert's methods to mathematical objects such as fields of rational functions and the invariants of finite groups. This phase marks the beginning of her engagement with abstract algebra, the field of mathematics to which she would make groundbreaking contributions.
+The mathematician Ernst Fischer was an important influencer on Noether, in particular by introducing her to the work of David Hilbert. From 1913 to 1916 Noether published several papers extending and applying Hilbert's methods to mathematical objects such as fields of rational functions and the invariant of finite groups. This phase marks the beginning of her engagement with abstract algebra, the field of mathematics to which she would make groundbreaking contributions.
 
 In the spring of 1915, Noether was invited to return to the University of Göttingen by David Hilbert and Felix Klein. Their effort to recruit her, however, was blocked by the philologists and historians among the philosophical faculty: Women, they insisted, should not become privatdozenten. Hilbert responded with indignation, stating, ``I do not see that the sex of the candidate is an argument against her admission as privatdozent. After all, we are a university, not a bath house.''
 
@@ -2722,15 +2722,16 @@ Why are they elementary symmetric polynomials? Because Newton found they were ba
 \end{theorem}
 \index{Newton's theorem}
 
-\subsubsection{拉格朗日预解式}
-\index{拉格朗日预解式}
-我们略去了牛顿定理的证明。沿着牛顿对称多项式的思路继续向前迈进的是法国数学家范德蒙德和拉格朗日。他们两个各自进行独立研究。拉格朗日并不了解范德蒙德的工作，但是他解决三次方程的方法本质上和范德蒙德是一致的。拉格朗日的论文长达220页，我们只能简单总结一下他的结果（正是伽罗瓦15岁时研读并掌握的那篇《关于方程代数解的思考》\footnote{1770年的论文Réflexions sur la résolution algébrique des équations}）。首先一般三次方程$ay^3 + by^2 + cy + d = 0$，可以进行变量替换，令$y = x - b / 3a$，将其转换为$x^3 + px + q = 0$的形式。如果它的三个根为$r_1, r_2, r_3$，拉格朗日把3次本原单位根$\omega = \dfrac{-1 + i \sqrt{3}}{2}$也考虑进来。根据分圆方程的结果，我们有$\omega^3 = 1, 1 + \omega + \omega^2 = 0$。拉格朗日引进了一个关键概念——预解式（resolvent），令：
+\subsubsection{Lagrange resolvent}
+\index{Lagrange resolvent}
+
+We skip the proof of Newton's theorem. Following this direction, the French mathematician Vandermonde and Lagrange studied independently. Lagrange did not know Vandermonde's work, but his method to solve cubic equation was essentially as same as Vandermonde's. His influential paper has 220 pages, we can only introduce a short summary (Galois read this paper\footnote{Réflexions sur la résolution algébrique des équations, published in 1770} at his age of 15). For generic cubic equation $ay^3 + by^2 + cy + d = 0$, let $y = x - b / 3a$ to convert it to $x^3 + px + q = 0$. Its three roots are $r_1, r_2, r_3$. Lagrange also considered the 3rd primitive unity of root $\omega = \dfrac{-1 + i \sqrt{3}}{2}$. From the cyclotomic equation, $\omega^3 = 1, 1 + \omega + \omega^2 = 0$. Lagrange introduced a key concept, {\em resolvent}:
 
 \be
 t = r_1 + \omega r_2 + \omega^2 r_3
 \ee
 
-拉格朗日对三个根进行置换（重新排列），他发现了一个有趣的现象，尽管总共有6种置换，但是预解式$t$的立方却只有两个值。1770年还没有群的概念，我们今天知道，拉格朗日发现的，本质上是在群$S_3$的6个置换下，预解式$t^3$只有2个值：
+Lagrange permuted the three roots, and got an interesting finding: although there are 6 permutations, the cubic of $t$ has only two values. The concept of group was not known in 1770, we now know what Lagrange found, is the cubic resolvent $t^3$ has two values under the 6 permutations of group $S_3$:
 
 \[
 \begin{cases}
@@ -2740,7 +2741,7 @@ t_3^3 = (\omega^2 r_1 + r_2 + \omega r_3)^3 = (\omega^2 L)^3 = L^3 & (123) \\
 \end{cases}
 \]
 
-其中左边是预解式的值，右边是$S_3$中的置换。因为$\omega^3 = 1$，以上面第二行为例：$r_3 \omega^3 = r_3$。可以看出这一组是同时置换3个根，对应着不变子群$C_3$中的置换$\{(1), (132), (123)\}$，
+Where the left side is the cubic value of the resolvent, the right side is the permutation in $S_3$. Because $\omega^3 = 1$, for the second row for example: $r_3 \omega^3 = r_3$. It changes all the three roots, corresponding to the permutations $\{(1), (132), (123)\}$ in the invariant (normal) subgroup $C_3$.
 
 \[
 \begin{cases}
@@ -2750,19 +2751,19 @@ t_6^3 = (\omega^2 r_1 + \omega r_2 + r_3)^3 = (\omega^2 R)^3 = R^3 & (13) \\
 \end{cases}
 \]
 
-这一组的特点是固定一个根而交换另外两个根，对应着陪集中的置换$\{(23), (12), (13)\}$。拉格朗日接着引入了预解式方程：
+This group of permutations fixes a root, and exchange the other two, corresponding to the permutations $\{(23), (12), (13)\}$ in the coset. Lagrange next introduced the resolvent equation:
 
 \be
 (X - t_1)(X - t_2)(X - t_3)(X - t_4)(X - t_5)(X - t_6) = 0
 \ee
 
-这个看似复杂的6次方程实际上可以化为2次方程。前三个因式一组，后三个因式一组。其中$(X - t_1)(X - t_2)(X - t_3) = (X - L)(X - \omega L) (X - \omega^2 L) = X^3 - L^3$，同样后三个因式化简为$X^3 - R^3$，这样预解式方程就变成了$(X^3 - L)(X^3 - R) = 0$。进一步展开得：
+The 6-degree equation looks complex, actually it can be converted to a quadratic equation. Group the first 3 factors together, and leave the rest three in another group. Where $(X - t_1)(X - t_2)(X - t_3) = (X - L)(X - \omega L) (X - \omega^2 L) = X^3 - L^3$; similarly, the rest three factors can be simplified to $X^3 - R^3$. As such, the resolvent equation changes to $(X^3 - L)(X^3 - R) = 0$. Expand it to:
 
 \be
 X^6 - (L^3 + R^3)X^3 + L^3R^3 = 0
 \ee
 
-将$X^3$替换为$Y$，就变成了二次方程$Y^2 -(L^3 + R^3)Y + L^3R^3 = 0$。预解式的立方和与积能用原方程的系数表示：
+Substitute $X^3$ as $Y$, we obtain a quadratic equation $Y^2 -(L^3 + R^3)Y + L^3R^3 = 0$. The sum of the resolvent cubic can be expressed with the coefficients of the original equation:
 
 \be
 \begin{cases}
@@ -2772,7 +2773,7 @@ L^3R^3 = -27p^3 \\
 \label{eq:LR-pq}
 \ee
 
-代入$p, q$，解关于$Y$的二次方程就可以求出$L, R$了。回顾方程$x^3 + px + q = 0$，由于2次项为0，所以根据韦达定理。我们有$r_1 + r_2 + r_3 = 0$。这样我们可以联立出3个方程：
+Substitute $p, q$ in, we can solve the $L, R$ from the quadratic equation of $Y$. Revisit the equation $x^3 + px + q = 0$. The coefficient of the quadratic item is 0, from Viète's formula, $r_1 + r_2 + r_3 = 0$. As such, we list three equations:
 
 \be
 \begin{cases}
@@ -2782,7 +2783,7 @@ r_1 + r_2 + r_3 = 0 \\
 \end{cases}
 \ee
 
-解方程组就得到了用拉格朗日预解式表达的3个根：
+Solving the equations gives the three roots expressed in Lagrange's resolvent:
 
 \be
 \begin{cases}
@@ -2792,22 +2793,22 @@ r_3 = \dfrac{L + R}{3} \\
 \end{cases}
 \ee
 
-再代入求出的$L, R$就解出了3次方程的根。拉格朗日的方法具有重要的启示。以4次方程为例，结合4次单位根$\pm 1, \pm i$，定义预解式：
+Substitute $L, R$, solve the cubic equation finally. Lagrange's method is significant. Use the quartic equation for example, define the resolvent with the 4-th primitive roots of unity $\pm 1, \pm i$:
 
 \be
 t = r_1 + i r_2 - r_3 - i r_4
 \ee
 
-在4阶对称群$S_4$的$4! = 24$个置换下，下面预解式方程是不变的：
+Below resolvent equation is invariant under the $4! = 24$ permutations in the symmetric group $S_4$:
 
 \be
 \Phi(X) = (X - t_1)(X - t_2)...(X - t_{24})
 \ee
 
-根据牛顿定理，它的所有系数已知。拉格朗日成功地把这个24次方程，简化为3次方程，然后加以解决。然而拉格朗日被5次方程卡住了。此时预解式$\Phi(X) = (X - r_1)(X - r_2) ... (X - r_{120})$达到了$5! = 120$次。拉格朗日把它转换成了低次的5次方程，但这相当于转了一圈又回到了5次方程的问题。接下来的关键一步需要等到伽罗瓦迈出。
+According to Newton's theorem, all its coefficients are known. Lagrange successfully simplified this equation of degree 24 to a cubic equation, and solved the quartic equation. However, Lagrange was stuck when applying his method to the quintic equation. The resolvent equation $\Phi(X) = (X - r_1)(X - r_2) ... (X - r_{120})$ has the degree of $5! = 120$. Lagrange simplified it to lower degree, another quintic equation. But it looped back to the same problem: quintic equation. The next critical step was taken by Galois.
 
-\subsubsection{伽罗瓦的遗稿}
-\index{不可约多项式} \index{最小多项式}
+\subsubsection{Galois' memoir}
+\index{irreducible polynomial} \index{minimal polynomial}
 
 我们把时光倒转到1832年5月29日深夜，尝试理解这篇沉重的论文。我们略去了证明，通过一些验证性的例子展示伽罗瓦的主要思路。伽罗瓦首先定义了什么是不可约多项式：多项式$f(x)$的系数域\footnote{当时还没有域的概念，后来德国数学家戴德金定义了域。}为$F$，如果$f(x)$可以在域$F$内因式分解，称其为可约的，否则叫做不可约多项式。例如$x^2 + 1$在有理数域$Q$内是不可约的，但是在复数域$C$内可以因式分解为$(x + i)(x - i)$。再例如$x^2 - 2$在有理数域$Q$内是不可约的，但是在扩域$Q[\sqrt{2}]$内可分解为$(x + \sqrt{2})(x - \sqrt{2})$。域$F$上以某个值为根，最高次系数为1（简称“首1”），并且次数最低的不可约多项式叫做最小多项式。例如$x^2 - 2$就是有理数域上，以$\sqrt{2}$为根的最小多项式。伽罗瓦接着定义什么是已知的数，从有理数域开始，通过向其中添加指定的数，并通过有理式（也就是四则运算）得到的数叫做已知的。我们今天知道，这相当于扩域的概念。
 
