@@ -2818,48 +2818,49 @@ Galois next introduced the concept of group, particularly, he referred to the pe
 \sigma(x_1 x_2 + x_3) = x_2 x_3 + x_1
 \]
 
-接下来伽罗瓦给出了不可约多项式的性质：
+Galois next gave an important fact for irreducible polynomial:
 
-\begin{lemma}不可约多项式的性质：设$f(x)$为域$F$上的多项式，$p(x)$为域$F$上的不可约多项式。如果$f(x)$和$p(x)$有共同的根，则$f(x)$可以被$p(x)$整除。
+\begin{lemma} Property of the irreducible polynomial: Let $f(x)$ be a polynomial in field $F$, $p(x)$ is an irreducible polynomial in $F$. If there is common root of $f(x)$ and $p(x)$, then $p(x)$ divides $f(x)$.
 \end{lemma}
 
-我们可以类比这个性质和整数的整除性质：多项式相当于整数，不可约多项式相当于素数。有共同的根相当于含有相同的素因子。例如多项式$f(x) = x^3 - 1$，在有理数域上$p(x) = x^2 + x + 1$是不可约多项式。它们两个有共同的根$\omega = \dfrac{-1 + i\sqrt{3}}{2}$：
+We can compare this to the integer division: consider the polynomials as integers, the irreducible polynomials as prime numbers. The common root is like the common prime factor. For example, $f(x) = x^3 - 1$ and $p(x) = x^2 + x + 1$, where $p(x)$ is irreducible in rational field. They have two common roots $\omega = \dfrac{-1 + i\sqrt{3}}{2}$:
 
 \[
 \omega^3 - 1 = \omega^2 + \omega + 1 = 0
 \]
 
-$f(x)$的确可以被$p(x)$整除：$x^3 - 1 = (x - 1)(x^2 + x + 1)$。
+$p(x)$ divides $f(x)$ because $x^3 - 1 = (x - 1)(x^2 + x + 1)$.
 
-伽罗瓦接下来的思路，看起来像是拉格朗日预解式的延伸，他定义了“伽罗瓦预解式”。
+What Galois next did looked like an extension to Lagrange resolvent, he defined `Galois resolvent'.
 
-\begin{lemma}伽罗瓦预解式$t$：设$f(x)$是域$F$上的多项式，它的根为$x_1, x_2, ..., x_n$。存在根的某个有理式$t = \varphi(x_1, x_2, ..., x_n)$，在根的不同排列下取不同的值。
+\begin{lemma} Galois resolvent $t$: let $f(x)$ is a polynomial in field $F$. Its roots are $x_1, x_2, ..., x_n$. There exists some rational expression of the roots $t = \varphi(x_1, x_2, ..., x_n)$, its value changes under different root permutations.
 \end{lemma}
 
-也就是说，置换$n$个根产生的不同排列，导致各种不同的$t$值。例如，有理数域上的多项式$f(x) = x^2 + 1$有两个根$x_1 = i, x_2 = -i$。我们可以找到一个有理式：
+In other words, the permutation of $n$ roots leads to different values of $t$. For example, $f(x) = x^2 + 1$ in rational field has two roots $x_1 = i, x_2 = -i$, we can find a rational expression:
 
 \[
 t = x_1 - x_2
 \]
 
-在$S_2$的两个置换(1)和(12)下$t$取不同的值：
+It takes different values under the two permutation (1) and (12) in $S_2$:
 
 \[
 \begin{cases}
-t_1 = x_1 - x_2 = 2i & \text{对应置换} (1) \\
-t_2 = x_2 - x_1 = -2i & \text{对应置换} (12) \\
+t_1 = x_1 - x_2 = 2i & \text{permutation} (1) \\
+t_2 = x_2 - x_1 = -2i & \text{permutation} (12) \\
 \end{cases}
 \]
 
-这两个值不相等。伽罗瓦只是说存在$t$。他说可以通过根的整系数线性组合构造$t = k_1x_1 + k_2x_2 + ... + k_nx_n$，但是没有给出证明。伽罗瓦还排除了重根的情况，因为重根不管怎么排列都是一样的。回忆拉格朗日的方法是用预解式不同的值表达方程的根，伽罗瓦也延续这个思路。
+The two values are different. Galois only said there existed $t$, he also gave the method to construct it through linear combination $t = k_1x_1 + k_2x_2 + ... + k_nx_n$, but did not prove it. Galois excluded the case of duplicated roots, as the value won't change under permutation for duplicated roots. Lagrange expressed the roots with different resolvent values, Galois applied the similar idea.
 
-\begin{lemma}用伽罗瓦预解式$t$表示根：域$F$上存在有理式$\varphi_1(x), \varphi_2(x), ..., \varphi_n(x)$, 使得多项式$f(x)$的根$x_1, x_2, ..., x_n$可以用伽罗瓦预解式$t$表示为：
+\begin{lemma} Express root with Galois resolvent $t$: There exists rational expression $\varphi_1(x), \varphi_2(x), ..., \varphi_n(x)$ in field $F$, where the roots $x_1, x_2, ..., x_n$ of polynomial $f(x)$ can be expressed with Galois resolvent $t$:
+
 \[
 x_1 = \varphi_1(t), x_2 = \varphi_2(t), ..., x_n = \varphi_n(t)
 \]
 \end{lemma}
 
-还用上面的例子，$f(x) = x^2 + 1$，两个根是$x_1 = i, x_2 = -i$，预解式$t = x_1 - x_2 = 2i$，我们可以找到$\varphi_1(x) = \dfrac{x}{2}, \varphi_2(x) = -\dfrac{x}{2}$，用$t$表示两个根如下：
+Use the same example, the two roots of $f(x) = x^2 + 1$ are $x_1 = i, x_2 = -i$, the resolvent $t = x_1 - x_2 = 2i$, we can find $\varphi_1(x) = \dfrac{x}{2}, \varphi_2(x) = -\dfrac{x}{2}$, such that the two roots can be expressed with $t$ as:
 
 \[
 x_1 = \dfrac{t}{2}, x_2 = -\dfrac{t}{2}
