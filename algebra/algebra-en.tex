@@ -2866,26 +2866,28 @@ Use the same example, the two roots of $f(x) = x^2 + 1$ are $x_1 = i, x_2 = -i$,
 x_1 = \dfrac{t}{2}, x_2 = -\dfrac{t}{2}
 \]
 
-这样伽罗瓦就把方程个根域$F[x_1, x_2, ..., x_n]$和扩域$F[t]$联系了起来。置换$n$个根的时候，伽罗瓦预解式$t$会产生不同的值。延续拉格朗日的思路，$t$是另外一个预解方程$f_t(X) = 0$的某个根（一个方程可能有多个根）。
+As such, Galois linked the root field (splitting field) $F[x_1, x_2, ..., x_n]$ of the equation to the field extension $F[t]$. When permute $n$ roots, Galois resolvent $t$ gets different values. Following Lagrange's idea, $t$ is some root of another resolvent equation $f_t(X) = 0$ (which has many roots).
 
 \begin{lemma}
-在域$F$内构造一个以$t$为根的最小多项式$f_t(X)$，设$f_t(X)$的根为$t_1, t_2, ..., t_m$，此时
+In field $F$, construct a minimal polynomial $f_t(X)$ with $t$ as a root, let the roots of $f_t(X)$ be $t_1, t_2, ..., t_m$. Then
+
 \[
 \varphi_1(t_k), \varphi_2(t_k), ..., \varphi_n(t_k)
 \]
-是原方程$f(x) = 0$根的某种排列（$k = 1, 2, ..., m$）。
+
+is some permutation of the roots of the original equation $f(x) = 0$, where $k = 1, 2, ..., m$.
 \end{lemma}
 
-注意这里的区别$f(x) = 0$是原方程，而$f_t(X) = 0$是构造出的方程。其中$f_t(X)$是以$t$为其中一个根的最小多项式。原方程有$n$个根$x_1, ..., x_n$，预解式方程有$m$个根$t_1, t_2, ..., t_m$
+Note the difference of the two equations: $f(x) = 0$ is the original equation, while $f_t(X) = 0$ is the constructed equation. Where $f_t(X)$ is the minimal polynomial with $t$ as a root. The original equation has $n$ roots $x_1, ..., x_n$, while the resolvent equation has $m$ roots $t_1, t_2, ..., t_m$
 
 \[
 (X - t_1)(X - t_2)...(X - t_m) = 0
 \]
 
-它们彼此的关系是: $t = \varphi(x_1, ..., x_n)$，而$x_i = \varphi_i(t)$。作为例子，考虑方程$x^3 - x^2 - 2x + 2 = 0$，它有3个根$1, \pm \sqrt{2}$。第一步构造伽罗瓦预解式：$t = \varphi(x_1, x_2, x_3) = x_1 + 2x_2 + 4x_3$。它在$S_3$下的取6个不同的值：
+The relationship between them is: $t = \varphi(x_1, ..., x_n)$, and $x_i = \varphi_i(t)$. Consider equation $x^3 - x^2 - 2x + 2 = 0$ for example, there are three roots $1, \pm \sqrt{2}$. As the first step, construct the Galois resolvent $t = \varphi(x_1, x_2, x_3) = x_1 + 2x_2 + 4x_3$. It has 6 different values when apply $S_3$:
 
 \btab{c|c|l}
-置换 & $\varphi(x_1, x_2, x_3)$ & $t$ \\
+permutation & $\varphi(x_1, x_2, x_3)$ & $t$ \\
 \hline
 (1, 2, 3) & $x_1 + 2x_2 + 4x_3$ & $1 - 2\sqrt{2}$ \\
 (1, 3, 2) & $x_1 + 2x_4 + 4x_2$ & $1 + 2\sqrt{2}$ \\
@@ -2895,7 +2897,7 @@ x_1 = \dfrac{t}{2}, x_2 = -\dfrac{t}{2}
 (3, 2, 1) & $x_3 + 2x_2 + 4x_1$ & $4 + \sqrt{2}$ \\
 \etab
 
-第二步，取$t = 1 - 2\sqrt{2}$和前三行，可以联立出方程组：
+Step two: select $t = 1 - 2\sqrt{2}$ and the first three rows to form equations:
 
 \[
 \begin{cases}
@@ -2905,7 +2907,7 @@ x_2 + 2x_1 + 4x_3 & = \dfrac{3t + 1}{2}
 \end{cases}
 \]
 
-解方程组得到用$t$表示的三个根：
+Solve the equations and use $t$ to express 3 roots:
 
 \[
 \begin{cases}
@@ -2915,19 +2917,20 @@ x_3 = \varphi_3(t) = \dfrac{t-1}{2} \\
 \end{cases}
 \]
 
-第三步，构造以$t = 1 - 2\sqrt{2}$为根的最小多项式：$f_t(X) = X^2 - 2X - 7$。它有两个根：$t_{1,2} = 1 \pm 2\sqrt{2}$。代入$\varphi_1(t), \varphi_2(t), \varphi_3(t)$得到根的两个置换：
+Step three: use $t = 1 - 2\sqrt{2}$ as a root to construct a minimal polynomial $f_t(X) = X^2 - 2X - 7$. It has two  roots: $t_{1,2} = 1 \pm 2\sqrt{2}$. Substitute $\varphi_1(t), \varphi_2(t), \varphi_3(t)$ to generate two permutations:
 
 \btab{c|c|c}
-$t_i$ & $\varphi_1(t_i), \varphi_2(t_i), \varphi_3(t_i)$ & $S_3$中的置换 \\
+$t_i$ & $\varphi_1(t_i), \varphi_2(t_i), \varphi_3(t_i)$ & permutation in $S_3$ \\
 \hline
 $t_1$ & $1, \sqrt{2}, -\sqrt{2}$ & (1) \\
 $t_2$ & $1, -\sqrt{2}, \sqrt{2}$ & (23) \\
 \etab
 
-我们可以看到拉格朗日思想的影响。但伽罗瓦预解式不是特定构造出的，而是某种“存在性”定义。他的预解式方程也是用最小多项式给出的“存在性”定义。这里有一个和拉格朗日方法的不同点，$m$并不一定等于$n!$。伽罗瓦看出并非$S_n$中的所有置换都是等同的，有些特殊的置换反映了方程的对称性。为此他引入了伽罗瓦群。
-\index{伽罗瓦群}
+We can see the influence from Lagrange. However, Galois resolvent is not given in a fixed way, Galois only said it existed. The resolvent equation was also defined with its existence by the minimal polynomial. There is another difference from Lagrange's method, $m$ does not necessarily equal to $n!$. Galois realized not all permutations in $S_n$ acting equally, some special permutation reflected the symmetry of the equation, as such he introduced Galois group.
+\index{Galois group}
 
 \begin{definition}
+Galois group of a equation:
 方程的伽罗瓦群：用域$F$上多项式$f(x)$的根构成的有理式$r$，如果$r$的值属于域$F$，$r$就是\textbf{已知}的（$r \in F$）。如果对根进行某种置换$\sigma$时$r$的值不发生改变，则称$r$是\textbf{不变}的（$\sigma(r) = r$）。对所有这样的$r$，存在满足下面性质的群$G$：
 
 \begin{center}
