@@ -2939,25 +2939,26 @@ $r$ value is unchanged under all permutations in $G$ $\iff$ $r$ value is known.
 The permutation group $G$ is the Galois group of the equation $f(x) = 0$ in field $F$.
 \end{definition}
 
-这个性质可以用两句话来概括：“如果不变则已知，如果已知则不变。”\cite{JieChengHao2021}这里有几个关键的概念：首先有理式不是有理数，有理式是对一组变量进行加减乘除的式子，系数都在$F$中。例如$r = \dfrac{3a^2 + 2b + 1}{a^2 - 2b}$，系数都在有理数域$Q$中。这组变量取某些特定值时，这个有理式的值对于域$F$来说，可能在$F$中，称为已知的；也可能不在$F$中，称为未知的。例如，令$a = \sqrt{2}, b = -1$，有理式$r$的值等于$5/4 \in Q$，是已知的；但如果令$a = 1, b = \sqrt{2}$，则$r = -\dfrac{12}{7} - \dfrac{10\sqrt{2}}{7}$，对于有理数域$Q$是未知的。但对于扩域$Q[\sqrt{2}]$是已知的。
+It can be summarized as `If invariant, then known; if known then invariant.' \cite{JieChengHao2021} There are several key points: first, $r$ is a rational expression, but not a rational number. It applies $+, -, \times, /$ to variables, with all coefficients in $F$. For example, $r = \dfrac{3a^2 + 2b + 1}{a^2 - 2b}$. All coefficients are in $Q$. When assign values to these variables, the value of $r$ may be in $F$, then it's known; the value may not be in $F$, then it's unknown. For example,  let $a = 1, b = \sqrt{2}$, then $r = -\dfrac{12}{7} - \dfrac{10\sqrt{2}}{7}$, it's unknown in field $Q$, but it's known in field extension $Q[\sqrt{2}]$.
 
-例如方程$x^2 - 2x - 1 = 0$的两个根为$1 \pm \sqrt{2}$。方程在有理数域上的伽罗瓦群是$S_2 = \{(1), (12)\}$，包括恒等置换$e = (1)$和对换$(12)$。任何有理式在恒等置换下的值不变，所以我们只需要考虑对换(12)。如果有理式$r$对换变量值不变，它一定是对称多项式。根据牛顿定理，可以由基本对称多项式$x_1x_2 = -1$和$x_1 + x_2 = 2$表达，因而仍然是有理数，所以是已知的。回顾前面的例子，方程$x^3 - x^2 - 2x + 2 = 0$的伽罗瓦群恰恰就是$\{(1), (23)\}$，包括恒等置换，以及固定第一个根，交换后两个根$\pm \sqrt{2}$的置换。它是$S_3$的一个子群。
+Consider equation $x^2 - 2x - 1 = 0$ for example, the two roots are $1 \pm \sqrt{2}$. The Galois group in rational field $Q$ is $S_2 = \{(1), (12)\}$, including the identity $e = (1)$ and transpose $(12)$. As any rational expression is unchanged under identity permutation, we only focus on the transpose permutation (12). If a rational expression $r$ is unchanged when swap the two variables, it must be symmetric polynomial. From Newton's theorem, it can be expressed with the primitive symmetric polynomials $x_1x_2 = -1$ and $x_1 + x_2 = 2$, hence is rational number, and known value. Revisit the previous example, the Galois group of equation $x^3 - x^2 - 2x + 2 = 0$ is $\{(1), (23)\}$, including the identity permutation, and another one that fixes the first root, and exchange the other two roots: $\pm \sqrt{2}$. It's a subgroup of $S_3$.
 
 \begin{Exercise}\label{ex:resolvent-and-galois-group}
-\Question{推导式(\ref{eq:LR-pq})给出的拉格朗日预解式和原方程系数间的关系。提示：考虑$(L + R)(L + \omega R)(L + \omega^2 R)$}
-\Question{验证方程$x^3 - x^2 - 2x + 2 = 0$的伽罗瓦群是$\{(1), (23)\}$。提示：验证“已知则不变，不变则已知”。}
+\Question{Deduce (\ref{eq:LR-pq}), give the relation between Lagrange resolvent and the coefficients of the original equation. Hint: consider the fact $(L + R)(L + \omega R)(L + \omega^2 R)$.}
+
+\Question{Verify the Galois group of the equation $x^3 - x^2 - 2x + 2 = 0$ is $\{(1), (23)\}$. Hint: verify `if known, then invariant, if invariant then known'.}
 \end{Exercise}
 
 \begin{Answer}[ref={ex:resolvent-and-galois-group}]
-\Question{推导式(\ref{eq:LR-pq})给出的拉格朗日预解式和原方程系数间的关系。提示：考虑$(L + R)(L + \omega R)(L + \omega^2 R)$
+\Question{Deduce (\ref{eq:LR-pq}), give the relation between Lagrange resolvent and the coefficients of the original equation. Hint: consider the fact $(L + R)(L + \omega R)(L + \omega^2 R)$.
 
-展开$(L + R)(L + \omega R)(L + \omega^2 R)$，并利用$1 + \omega + \omega^2 = 0$，可以得到：
+Expand $(L + R)(L + \omega R)(L + \omega^2 R)$, and consider $1 + \omega + \omega^2 = 0$, we have:
 
 \[
 (L + R)(L + \omega R)(L + \omega^2 R) = L^3 + R^3
 \]
 
-利用$L, R$表示的三个根$r_1, r_2, r_3$的关系，有：
+Use $L, R$ to express the three roots $r_1, r_2, r_3$, we have:
 
 \[
 \begin{cases}
@@ -2966,39 +2967,40 @@ L + \omega R & = 3 \omega^2 r_2 \\
 L + \omega^2 R & = 3 \omega r_1 \\
 \end{cases}
 \]
-代入上式，并利用$\omega^3 = 1$得：
+Substitute in above equation, and use $\omega^3 = 1$, we have:
 
 \bea*{rcll}
 L^3 + R^3 & = & 27 r_1 r_2 r_3 & \text{代入}r_1, r_2, r_3 \\
-          & = & -27q & \text{韦达定理}
+          & = & -27q & \text{Vieta's theorem}
 \eea*
 
-接下来求$LR$：
+Next evaluate $LR$:
 \bea*{rcll}
-LR & = & (r_1 + \omega r_2 + \omega^2 r_3)(r_1 + \omega^2 r_2 + \omega r_3) & L, R\text{的定义} \\
-   & = & (r_1^2 + r_2^2 + r_3^2) + (\omega + \omega^2)(r_1r_2 + r_2r_3 + r_1r_3) & \text{展开} \\
+LR & = & (r_1 + \omega r_2 + \omega^2 r_3)(r_1 + \omega^2 r_2 + \omega r_3) & \text{definition of} L, R \\
+   & = & (r_1^2 + r_2^2 + r_3^2) + (\omega + \omega^2)(r_1r_2 + r_2r_3 + r_1r_3) & \text{expand} \\
    & = & (r_1^2 + r_2^2 + r_3^2) - (r_1r_2 + r_2r_3 + r_1r_3) & 1 + \omega + \omega^2 = 0 \\
-   & = & -2p - p & \text{牛顿笔记} \\
+   & = & -2p - p & \text{Newton's notes} \\
    & = & -3p
 \eea*
-因此$L^3R^3 = -27p^3$。
+Therefore: $L^3R^3 = -27p^3$.
 }
-\Question{验证方程$x^3 - x^2 - 2x + 2 = 0$的伽罗瓦群是$\{(1), (23)\}$。提示：验证“已知则不变，不变则已知”。
 
-我们不用验证单位元$(1)$，只需验证$(23)$。本节中给出了这个方程的三个根$1, \pm \sqrt{2}$，它可以分解为$(x - 1)(x^2 - 2) = 0$。根据扩域一节的结论，由这3个根组成有理式具有形式$r = a + b\sqrt{2}$。如果$r$已知，则$b = 0$。即$r \in Q[\pm 1, \pm 2]$，可以由方程的系数组成。而方程的系数是基本对称多项式。所有对称多项式在置换$(23)$时不变。
+\Question{Verify the Galois group of the equation $x^3 - x^2 - 2x + 2 = 0$ is $\{(1), (23)\}$. Hint: verify `if known, then invariant, if invariant then known'.
 
-反之，置换$(23)$相当于交换$\pm \sqrt{2}$，它反转$a + b\sqrt{2}$中$\sqrt{2}$的正负号。如果不变，则$a + b \sqrt{2} = a - b \sqrt{2}$，因此$b = 0$。有理数$a$是已知的。
+We skip the identity $(1)$, only verify permutation $(23)$. We know the three roots are $1, \pm \sqrt{2}$. The equation can be factored as $(x - 1)(x^2 - 2) = 0$. From the section of field extension, all rational expressions of the three roots are in the form of $r = a + b\sqrt{2}$. If $r$ is known,  then $b = 0$. In other words $r \in Q[\pm 1, \pm 2]$ can be expressed with the coefficients of the equation. While the coefficients are primitive symmetric polynomials, they are unchanged under the transpose $(23)$.
+
+Conversely, permutation $(23)$ swaps $\pm \sqrt{2}$, it flip the sign of $\sqrt{2}$ in expression $a + b\sqrt{2}$. If unchanged, then $a + b \sqrt{2} = a - b \sqrt{2}$, hence $b = 0$. The rational number $a$ is known.
 }
 \end{Answer}
 
-\subsection{自同构和伽罗瓦群}
-\index{阿廷(Emil Artin)}
+\subsection{Automorphism and Galois group}
+\index{Emil Artin}
 
 \begin{figure}[htbp]
  \centering
  \includegraphics[scale=0.4]{img/emil-artin}
  %\captionsetup{labelformat=empty}
- \caption{埃米尔$\cdot$阿廷 1898-1962}
+ \caption{Emil Artin 1898 - 1962}
  \label{fig:Emil-Artin}
 \end{figure}
 % https://milwaukeearmenians.com/2015/12/19/emil-artin/
