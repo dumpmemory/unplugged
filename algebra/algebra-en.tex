@@ -3013,18 +3013,18 @@ f(a + b \sqrt{2}) = a - b \sqrt{2}
 
 Then $f$ is a field automorphism.
 
-\index{自同构}
+\index{automorphism}
 \begin{definition}
-\textbf{域的自同构}是一个可逆函数$f$，它将域映射到自身，并满足$f(x + y) = f(x) + f(y)$，$f(ax) = f(a) f(x)$，$f(1/x) = 1/f(x)$。
+\textbf{Field Automorphism} is a invertible function $f$, that maps the field to itself. It satisfies $f(x + y) = f(x) + f(y)$，$f(ax) = f(a) f(x)$，$f(1/x) = 1/f(x)$.
 \end{definition}
 
-我们可以验证，前面那个例子$f(a + b \sqrt{2}) = a - b \sqrt{2}$满足这三个条件。并且有趣的是反转正负号等效于置换方程的一对根$x_{1,2} = \pm \sqrt{2}$。域的自同构背后的思想是，我们可以重新调换域中的元素，而完全不影响域的结构。
+We can verify the example function $f(a + b \sqrt{2}) = a - b \sqrt{2}$ satisfies all the three conditions. Flipping the sign is equivalent to permute the roots $x_{1,2} = \pm \sqrt{2}$. The idea behind field automorphism is that, we can permute some elements in the field without any impact to the field structure.
 
 \begin{definition}
-$F$-自同构：进一步，如果$E$是$F$的扩域，并且在域$E$的自同构$f$的基础上还满足一条额外的性质：对$F$中的任何元素$x$都有$f(x) = x$，则称为$E$上的$F$-自同构。
+$F$-Automorphism: If $E$ is field extension of $F$, the automorphism $f$ of field $E$ also satisfy an extra condition, that for any element in $F$, equation $f(x) = x$ holds, then it is called $F$-automorphism of $E$.
 \end{definition}
 
-这样就非常精确地定义了根的对称性。$F$-自同构对$F$中的所有元素都原样保持不动，而仅仅调换扩域$E$中新元素。这个定义恰恰是伽罗瓦“如果已知则不变，如果不变则已知”的完美解释：元素是已知的，即$x \in F$，当且仅当在自同构下不变，即$f(x) = x$。对域中的元素进行调换恰好是置换的思想，置换后保持不变恰好是对称的概念。对于$Q[\sqrt{2}]$这个例子，只有两个$Q$-自同构：一个是恒等变换$e(x) = x$，另外一个就是$f(a + b\sqrt{2}) = a - b\sqrt{2}$。它们组成一个群$\{e, f\}$。这个群同构于循环群$C_2$和对称群$S_2$。它可以写成$\{f, f^2\}$，这是因为$f^2 = f \cdot f = e$。也可写成置换群的形式$\{(1), (1\ 2)\}$，其中(1)是保持两个根不变，(1 2)是对调两个根。
+The symmetry of roots is precisely defined under the $F$-automorphism. All the elements in $F$ keep unchanged, while all the new elements, and only these new elements in filed extension $E$ are changed. It well explains `If known then invariant; if invariant then known' found by Galois. An element is known, i.e. $x \in F$ if and only if it is unchanged under automorphism, i.e. $f(x) = x$. The changing among the elements in the field exactly means permutation, while the relations keep unchanged after permutation exactly means symmetry. For the example of $Q[\sqrt{2}]$, there are only two $Q$-automorphisms: one is the identity function $e(x) = x$, the other is $f(a + b\sqrt{2}) = a - b\sqrt{2}$. They form a group $\{e, f\}$, which is isomorphic to cyclic group $C_2$ and symmetric group $S_2$. We can write it as $\{f, f^2\}$ because $f^2 = f \cdot f = e$; we can also write it as permutations $\{(1), (1\ 2)\}$, where (1) keeps the two roots unchanged, and (12) transpose them.
 
 我们再给一个例子，方程$x^4 - 5x^2 + 6 = 0$的分裂域是$Q[\sqrt{2}, \sqrt{3}]$。我们有调换$\pm \sqrt{2}$的自同构$f$，也可以定义一个调换$\pm \sqrt{3}$的自同构$g(a + b\sqrt{3}) = a - b\sqrt{3}$。但是不存在能够调换$\sqrt{2}$和$\sqrt{3}$的$Q$-自同构。否则假设存在$h(\sqrt{2}) = \sqrt{3}$，则$h(\sqrt{2})^2 = h(\sqrt{2}^2) = h(2) = 2$。这是因为$f$保持乘法结构并且根据自同构的定义，对于有理数$x$有$h(x) = x$。但同时既然$h(\sqrt{2}) = \sqrt{3}$，则$h(\sqrt{2})^2 = \sqrt{3}^2 = 3$。于是推出$2 = 3$这样的矛盾。这说明并非$S_4$中的所有置换都反映了方程的对称性。这个方程的自同构有4个：$\{e, f, g, f \cdot g\}$，分别对应着恒等置换，对换$\pm \sqrt{2}$的$f$，对换$\pm \sqrt{3}$的$g$，和同时调换两对根的复合置换$f \cdot g$。它们构成一个群。
 
@@ -3037,26 +3037,7 @@ $F$-自同构：进一步，如果$E$是$F$的扩域，并且在域$E$的自同�
 
 Our thought so far is to start from the rational number field, where the coefficients of the equation belong to, then move forward to the splitting field step by step through a series of radical extensions. How to further simplify the problem to find the answer? At this stage, Galois changed his mind to another direction. He turned to consider the symmetry among the roots of the equation. For example, There is a pair of roots for equation $x^2 - 2 = 0$, which are $\pm \sqrt{2}$. Obviously, if replace $\sqrt{2}$ with $-\sqrt{2}$, the equation still holds. Besides that, replacing $\sqrt{2}$ in equation $\sqrt{2}^2 + \sqrt{2} + 1 = 3 + \sqrt{2}$ with $-\sqrt{2}$, then the equation holds too. It means, the pair of roots $\pm \sqrt{2}$ is symmetric to the relation $\alpha^2 + \alpha + 1 = 3 + \alpha$. We can further say, for any expressions that only consist of addition and multiplication of $\sqrt{2}$, the pair of roots can be exchanged with each other. We know that the most powerful tool to describe symmetry is group, in particular, the symmetric group (we just introduced it in section \ref{symmetric group}). To connect field extension and group, Galois introduced an important concept of field automorphism.
 
-Using the same example of $Q[\sqrt{2}]$, we can define a function from $Q[\sqrt{2}]$ to $Q[\sqrt{2}]$ with type $f: Q[\sqrt{2}] \to Q[\sqrt{2}]$. The definition is as this:
-
-\[
-f(a + b \sqrt{2}) = a - b \sqrt{2}
-\]
-
-Then $f$ is a field automorphism.
-
-\index{automorphism}
-\begin{definition}
-\textbf{Field Automorphism} is a invertible function $f$, that maps the field to itself. It satisfies $f(x + y) = f(x) + f(y)$，$f(ax) = f(a) f(x)$，$f(1/x) = 1/f(x)$.
-\end{definition}
-
-We can verify the example function $f(a + b \sqrt{2}) = a - b \sqrt{2}$ satisfies all the three conditions. The idea behind field automorphism is that, we can permute some elements in the field without any impact to the field structure.
-
-\begin{definition}
-$F$-Automorphism: If $E$ is field extension of $F$, the automorphism $f$ of field $E$ also satisfy an extra condition, that for any element in $F$, equation $f(x) = x$ holds, then it is called $F$-automorphism of $E$.
-\end{definition}
-
-The symmetry among roots is precisely defined under the $F$-automorphism. All the elements in $F$ keep unchanged, while all the new elements, and only these new elements in filed extension $E$ are changed. The changing among the elements in the field exactly means permutation, while the relations keep unchanged after permutation exactly means symmetry. For the example of $Q[\sqrt{2}]$, there are only two functions in $Q$-automorphism: one is the identity function $g(x) = x$, the other is $f$ we defined above.
+%%%%%%%%%%%%
 
 Let us summarize the result we obtained so far with the example $p(x) = x^2 - 2$:
 
