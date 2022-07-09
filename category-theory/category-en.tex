@@ -1,6 +1,6 @@
 \ifx\wholebook\relax \else
 
-\documentclass{article}
+\documentclass[b5paper]{article}
 \usepackage[nomarginpar
   %, margin=.5in
 ]{geometry}
@@ -38,7 +38,7 @@
 
 \begin{wrapfigure}{R}{0.4\textwidth}
  \centering
- \includegraphics[scale=0.5]{img/dewdrop.jpg}
+ \includegraphics[scale=0.5]{img/dewdrop}
  \captionsetup{labelformat=empty}
  \caption{Escher, Dewdrop, 1948}
  \label{fig:Escher-Dewdrop-1948}
@@ -47,13 +47,11 @@
 Welcome to the world of category! We just see the wounderful scence about abstract algebra in previous chapter. Congratulation to enter the door to the new kingdom of abstraction. The road to this kingdom is developed by may talent minds. In the first stage, people abstracted the concept of number and shape from the concrete things; in the second stage, we removed the meaning of numbers, shapes, and concrete arithmatics, abstract them to algebraic structures (for example group) and relations (for example isomorphism); category theory can be considered as the third stage.
 
 What is category? Why does it matter? Any relationship between category and programming? Category theory was a `side product' when mathematicians studied homological algebra in 1940s. In recent decades, category theory has been widely used in varies of areas. Because of the powerful abstraction capability, it is applicable to many problems. It may also be used as an axiomatic foundation for mathematics, as an alternative to set theory and other proposed foundations. Category theory has practical applications in programming language theory. More and more mainstream programming languages adopted category concepts. The usage of monads is relized in more than 20 languages\cite{Monad-Haskell-Wiki}. Speaking in language of category, a monad is a monoid in the category of endofunctors. Most of the foundamental computations have been abstracted in this way nowadays\footnote{For example, the traditional generic folding from right: \\
-\texttt{foldr \_ z {[} {]} = z} \\
-\texttt{foldr f z (x:xs) = f x (foldr f z xs)} \\
-is written in the language of categories as: \texttt{foldr f z t = appEndo (foldMap (Endo . f) t) z} We'll explain it later in this chapter.}.
+\lstinline{foldr _ z [] = z} \\
+\lstinline{foldr f z (x:xs) = f x (foldr f z xs)} \\
+is written in the language of categories as: \lstinline{foldr f z t = appEndo (foldMap (Endo . f) t) z} We'll explain it later in this chapter.}.
 
-The most important thing is abstraction. Hermann Weyl said ``Our mathematics of the last few decades has wallowed in generalities and formalizations." The samething happens in programming. The problems in modern computer science are challenging us with the complexicty we never seen before. Big-data, distributed computation, high concurrency, as well as the requirement to consistency, security, and integrity. We can't catch them up in the traditional way, like brute-force exhaustive search, pragmatic engineering practice, a smart idea plus some luck. It forces us to learn the new methods and tools from other science and mathematics.
-
-As Dieudonne said: ``This abstraction which has accrued in no way sprang from a perverse desire among mathematicans to isolate themselves from the scientific community by the use of a hermetic language. Their task was to find solutions for problems {\em handed down by the `classical' age}, or arising directly from new discoveries in physics. They found that this was possible, but only through the {\em creation} of new objets and new methods, whose abstract character was {\em indispensable} to their success.'' \cite{Dieudonne1987}(page 2)
+The most important thing is abstraction. Hermann Weyl said ``Our mathematics of the last few decades has wallowed in generalities and formalizations.'' The samething happens in programming. The problems in modern computer science are challenging us with the complexicty we never seen before. Big-data, distributed computation, high concurrency, as well as the requirement to consistency, security, and integrity. We can't catch them up in the traditional way, like brute-force exhaustive search, pragmatic engineering practice, a smart idea plus some luck. It forces us to learn the new methods and tools from other science and mathematics. As Dieudonne said: ``This abstraction which has accrued in no way sprang from a perverse desire among mathematicans to isolate themselves from the scientific community by the use of a hermetic language. Their task was to find solutions for problems {\em handed down by the `classical' age}, or arising directly from new discoveries in physics. They found that this was possible, but only through the {\em creation} of new objets and new methods, whose abstract character was {\em indispensable} to their success.'' \cite{Dieudonne1987}(page 2)
 
 Category theory was developed by mathematician Samuel Eilenberg and Sauders Mac Lane in 1940s.
 
@@ -329,7 +327,7 @@ i \longrightarrow j
 
 Hence for every two objects, either there is no arrow between them, which means they are not comparable; or there exists one, which means there is $\leq$ relationship. In summary, there is at most one arrow between any two objects. We can verify that such arrows are composable, and for every element $i$, relation $i \leq i$ holds, hence there exists self-pointed arrow. Such preset itself forms a category. Again, we see the symmetry between preset and monoid categories. Monoid category contains only one object, but has many arrows; while preset category contains many objects, but has at most one arrow between objects.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:cat-definition}
 \Question{Prove that the identity arrow is unique (hint: refer to the uniqueness of identity element for groups in previous chapter).}
 \Question{Verify the monoid $(S, \cup, \varnothing)$ (the elements are sets, the binary operation is set union, the identity element is empty set) and $(N, +, 0)$ (elements are natural numbers, the binary operation is add, the identity element is zero) are all categories that contain only one object.}
 \Question{In chapter 1, we introduced Peano's axioms for natural numbers and the isomorphic structures to Peano arithmetic, like the linked-list etc. They can be described in categories. This was found by German mathematician Richard Dedekind although the category theory was not established by his time. We named this category as Peano category, denoted as $\pmb{Pno}$. The objects in this category is $(A, f, z)$, where $A$ is a set, for example natural numbers $N$; $f: A \to A$ is a successor function. It is $succ$ for natural numbers; $z \in A$ is the starting element, it is zero for natural numbers. Given any two Peano objects $(A, f, z)$ and $(B, g, c)$, define the morphism from $A$ to $B$ as:
@@ -346,6 +344,123 @@ It satisfies:
 
 Verify that $\pmb{Pno}$ is a category.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:cat-definition}]
+\Question{Prove that the identity arrow is unique (hint: refer to the uniqueness of identity element for groups in previous chapter).
+
+Suppose there exists another identity arrow $id_A'$, pointed $A$ from itself: $A \arrowto{id_A'} A$.
+
+Consider every arrow from $A$ to $B$: $A \arrowto{f} B$, from the definition of identity arrow, $f \circ id_A = f$ holds. When replace $B$ with $A$, and replace $f$ with $id_A'$, then:
+
+\[
+id_A' \circ id_A = id_A'
+\]
+
+Similar, for every arrow from $B$ to $A$: $B \arrowto{g} A$, according to the definition of identity arrow, $id_A' \circ g = g$ holds. When replace $B$ with $A$, replace $g$ with $id_A$, then:
+
+\[
+id_A' \circ id_A = id_A
+\]
+
+Summarize these two result, we obtain $id_A = id_A'$, hence the identity arrow is unique.
+}
+\Question{Verify the monoid $(S, \cup, \varnothing)$ (the elements are sets, the binary operation is set union, the identity element is empty set) and $(N, +, 0)$ (elements are natural numbers, the binary operation is add, the identity element is zero) are all categories that contain only one object.
+
+The key idea is that every monoid is a category contains only one object. It's a bit difficult to answer: what is the object in this category? In fact, it does not matter what this object is. The object is not necessary the monoid, or any given set. It even need not contain any elements. To avoid bother with concrete object, we give it notation $\bigstar$.
+
+Let's first see the set monoid under union. Every set as an element in the monoid $s \in S$ can be used to define an arrow:
+
+\[
+\bigstar \arrowto{s} \bigstar
+\]
+
+Note there is no any inner structure (of the monoid) involved. The arrow composition is exactly set union.
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=4em, minimum width=2em]{
+     & \bigstar & \\
+     \bigstar & & \bigstar \\};
+  \path[-stealth]
+    (m-2-1) edge node [above] {$s_1$} (m-1-2)
+    (m-1-2) edge node [above] {$s_2$} (m-2-3)
+    (m-2-1) edge node [below] {$s_1 \circ s_2 = s_1 \cup s_2$} (m-2-3);
+\end{tikzpicture}
+\end{center}
+
+Because set union is associative, the arrows is also associative. The empty set is the unit of this monoid, it defines the identity arrow. As the empty set unions any set equals to that set itself. It serves as the identity arrow. The set monoid under union does form a category contains only one object.
+
+\begin{center}
+\begin{tikzpicture}
+\path (0, 0) node (obj) {$\bigstar$};
+\draw[->] (-0.2, 0) arc[radius=5mm, start angle=225, end angle=-45] node[pos=0.5, above]{$s_1$};
+\draw[->] (-0.4, 0) arc[radius=10mm, start angle=225, end angle=-45] node[pos=0.5, above]{$s_2$};
+\draw[->] (-0.6, 0) arc[radius=15mm, start angle=225, end angle=-45] node[pos=0.5, above]{$s_1 \cup s_2$};
+\end{tikzpicture}
+\end{center}
+
+Next let us see the additive monoid for natural numbers. Every number $n$ can define an arrow:
+
+\[
+\bigstar \arrowto{n} \bigstar
+\]
+
+The arrow composition is addition. Since addition is associative, hence arrow composition is also associative. Zero, 0 defines the identity arrow. This is because 0 adds to any number equals to this number itself. Therefore, the additive monoid for natural numbers does form a category.
+
+\begin{center}
+\begin{tikzpicture}
+\path (0, 0) node (obj) {$\bigstar$};
+\draw[->] (-0.2, 0) arc[radius=5mm, start angle=225, end angle=-45] node[pos=0.5, above]{$m$};
+\draw[->] (-0.4, 0) arc[radius=10mm, start angle=225, end angle=-45] node[pos=0.5, above]{$n$};
+\draw[->] (-0.6, 0) arc[radius=15mm, start angle=225, end angle=-45] node[pos=0.5, above]{$m + n$};
+\end{tikzpicture}
+\end{center}
+}
+\Question{In chapter 1, we introduced Peano's axioms for natural numbers and the isomorphic structures to Peano arithmetic, like the linked-list etc. They can be described in categories. This was found by German mathematician Richard Dedekind although the category theory was not established by his time. We named this category as Peano category, denoted as $\pmb{Pno}$. The objects in this category is $(A, f, z)$, where $A$ is a set, for example natural numbers $N$; $f: A \to A$ is a successor function. It is $succ$ for natural numbers; $z \in A$ is the starting element, it is zero for natural numbers. Given any two Peano objects $(A, f, z)$ and $(B, g, c)$, define the morphism from $A$ to $B$ as:
+
+\[
+A \arrowto{\phi} B
+\]
+
+It satisfies:
+
+\[
+\phi \circ f = g \circ \phi \quad \text{and} \quad \phi(z) = c
+\]
+
+Verify that $\pmb{Pno}$ is a category.
+
+An object in Peano category is a tuple of $(A, f, z)$. An arrow is a map $\phi$ that preserve the tuple structure. Arrow composition is function composition:
+
+\[ \begin{array}{l}
+A \arrowto{\phi} B \arrowto{\psi} C \\
+A \arrowto{\psi \circ \phi} C
+\end{array}\]
+
+Because function composition is associative, hence arrow composition is associative. For identity arrow:
+
+\[
+A \arrowto{id_A} A
+\]
+
+It satisfies $id_A(z) = z$, and $id_A \circ f = f \circ id_A$.
+
+Obviously, the tuple $(\pmb{N}, succ, 0)$ is an object in Peano category. It's interesting that, for every object $(A, f, z)$ in Peano category, there is a unique arrow:
+
+\[
+(\pmb{N}, succ, 0) \arrowto{\sigma} (A, f, z)
+\]
+
+where:
+
+\[
+\sigma(n) = f^n(z)
+\]
+
+which maps any natural number $n$ to the result of applying $f$ to $z$ for $n$ times.
+}
+\end{Answer}
 
 \subsection{Arrow \texorpdfstring{$\neq$}{≠} function}
 
@@ -391,7 +506,7 @@ A \arrowto{id} A \quad \longmapsto \quad \mathbf{F}A \arrowto{id} \mathbf{F}A
 \]
 
 \index{covariance} \index{contravariance}
-\item Any composition of arrows in one category is transformed to composition in another category\footnote{There are two different types of transformation, one is called covariance, the other is contravariance. The two terms are also used in programming language type system. We only consider covariance in this book}.
+\item Any composition of arrows in one category is transformed to composition in another category\footnote{There are two different types of transformation, one is called covariance, the other is contravariance, which reverts the arrows. The two terms are also used in programming language type system. We only consider covariance in this book}.
 
 \begin{center}
 \begin{tikzpicture}
@@ -453,9 +568,7 @@ Maybe functor. Computer scientist, Tony Hoare (Sir Charles Antony Richard Hoare)
 I call it my billion-dollar mistake. It was the invention of the null reference in 1965. At that time, I was designing the first comprehensive type system for references in an object oriented language (ALGOL W). My goal was to ensure that all use of references should be absolutely safe, with checking performed automatically by the compiler. But I couldn't resist the temptation to put in a null reference, simply because it was so easy to implement. This has led to innumerable errors, vulnerabilities, and system crashes, which have probably caused a billion dollars of pain and damage in the last forty years\cite{Wiki-Hoare}.
 \end{quotation}
 
-After 2015, the mainstream programming environments gradually adopted the maybe concept to replace the error prone null\footnote{For example the \texttt{Optional<T>} in Java and C++}.
-
-Below diagram illustrates how $\mathbf{Maybe}$ behaves.
+After 2015, the mainstream programming environments gradually adopted the maybe concept to replace the error prone null\footnote{For example the \lstinline{Optional<T>} in Java and C++}. Below diagram illustrates how $\mathbf{Maybe}$ behaves.
 
 \begin{center}
 \begin{tikzpicture}
@@ -473,14 +586,11 @@ Below diagram illustrates how $\mathbf{Maybe}$ behaves.
 
 The left side objects $A$ and $B$ can be data types, like integer, Boolean. While the right side objects are mapped types through functor $\mathbf{Maybe}$. If $A$ represents $Int$, then the right side corresponds to $\mathbf{Maybe}\ Int$, if $B$ represents $Bool$, then the right side corresponds to $\mathbf{Maybe}\ Bool$. How does the maybe functor map objects? that part is defined as:
 
-\lstset{frame=none}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame=none]
 data Maybe A = Nothing | Just A
-\end{lstlisting}
+\end{Haskell}
 
-It means, if the object is type $A$, then the mapped object is type $\mathbf{Maybe}\ A$. Note the object is type, but not value. The value of $\mathbf{Maybe}\ A$ is either empty, denoted as $Nothing$, or a value constructed by $Just$.
-
-Use type $Int$ for example, through the maybe functor, it is mapped to $\mathbf{Maybe}\ Int$. The value could be $Nothing$ or $Just\ 5$ for instance.
+It means, if the object is type $A$, then the mapped object is type $\mathbf{Maybe}\ A$. Note the object is type, but not value. The value of $\mathbf{Maybe}\ A$ is either empty, denoted as $Nothing$, or a value constructed by $Just$. Use type $Int$ for example, through the maybe functor, it is mapped to $\mathbf{Maybe}\ Int$. The value could be $Nothing$ or $Just\ 5$ for instance.
 
 Consider a binary search tree, that contains elements of type $A$. When search a value in the tree, it may not be found, therefore the type of search result is $\mathbf{Maybe}\ A$\footnote{The complete example program can be found in the appendix of this chapter}.
 
@@ -542,12 +652,12 @@ n < 2: & [n] \\
 Here is the corresponding example program. It uses tail recursion for performance purpose.
 
 \lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 binary = bin [] where
    bin xs 0 = 0 : xs
    bin xs 1 = 1 : xs
    bin xs n = bin ((n `mod` 2) : xs) (n `div` 2)
-\end{lstlisting}
+\end{Haskell}
 
 With functor, we can `lift' this function arrow up as shown in below diagram:
 
@@ -646,10 +756,9 @@ Therefore, Maybe is really a functor.
 \index{functor!list functor}
 List functor. We introduced the definition of list in chapter 1 as:
 
-\lstset{frame=none}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame=none]
 data List A = Nil | Cons(A, List A)
-\end{lstlisting}
+\end{Haskell}
 
 From programming perspective, it defines the linked-list data structure. The elements stored are of type $A$. We call it link-list of type $A$. From category perspective, a list functor need define maps for both object and arrow. Here objects are types, arrows are total functions. Below diagram illustrates how list functor behaves.
 
@@ -699,23 +808,23 @@ Summarize them together, we have the complete definition of $fmap$ for list:
 \end{array}
 \]
 
-In chapter 1, we introduced the simplified notation, using the infix `:' for $Cons$, and `[]' for $Nil$, then the definition of list functor that maps arrows can be simplified as:
+In chapter 1, we introduced the simplified notation, using the infix `:' for $Cons$, and `[\ ]' for $Nil$, then the definition of list functor that maps arrows can be simplified as:
 
 \[
 \begin{array}{l}
 \quad    fmap : (A \to B) \to (\mathbf{List}\ A \to \mathbf{List}\ B) \\
-\quad    fmap\ f\ [] = [] \\
+\quad    fmap\ f\ [\ ] = [\ ] \\
 \quad    fmap\ f\ (x:xs) = (f\ x):(fmap\ f\ xs) \\
 \end{array}
 \]
 
-Compare this definition with the list mapping definition in chapter 1, we find they are exactly same except for the name. It means we can re-use the list mapping to define list functor. This is the case in some programming environment, which re-uses \texttt{map} for list functor.
+Compare this definition with the list mapping definition in chapter 1, we find they are exactly same except for the name. It means we can re-use the list mapping to define list functor. This is the case in some programming environment, which re-uses map for list functor.
 
 \lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 instance Functor [] where
     fmap = map
-\end{lstlisting}
+\end{Haskell}
 
 \begin{mdframed}
 At the end of this example, let's verify the arrow mapping for list functor preserve identity and composition. \textbf{Readers can skip the proof in this box}.
@@ -779,7 +888,7 @@ Thus we verified $\mathbf{List}$ is really a functor.
 \end{mdframed}
 \end{example}
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:functor}
 \Question{For the list functor, define the arrow map with $foldr$.}
 \Question{Verify that the composition of maybe functor and list functor $\mathbf{Maybe} \circ \mathbf{List}$ and $\mathbf{List} \circ \mathbf{Maybe}$ are all functors.}
 \Question{Proof that the composition for any functors $\mathbf{G} \circ \mathbf{F}$ is still a functor.}
@@ -787,9 +896,84 @@ Thus we verified $\mathbf{List}$ is really a functor.
 \Question{For the binary tree defined in chapter 2, define the functor for it.}
 \end{Exercise}
 
+\begin{Answer}[ref={ex:functor}]
+\Question{For the list functor, define the arrow map with $foldr$.
+
+It's about to define list map with $foldr$ essentially:
+
+\[
+fmap\ f = foldr\ f\ Nil
+\]
+}
+\Question{Verify that the composition of maybe functor and list functor $\mathbf{Maybe} \circ \mathbf{List}$ and $\mathbf{List} \circ \mathbf{Maybe}$ are all functors.
+
+We only prove $\mathbf{Maybe} \circ \mathbf{List}$ is a functor. The other proof is similar. Any object $A$ is sent to $\mathbf{Maybe} (\mathbf{List}\ A)$. For arrows, let us first see the case of identity arrow:
+
+\bre
+(\mathbf{Maybe} \circ \mathbf{List})\ id & = & \mathbf{Maybe} (\mathbf{List}\ id) & \text{functor composition} \\
+ & = & \mathbf{Maybe}\ id & \text{identity arrow for list functor} \\
+ & = & id & \text{identity arrow for maybe functor} \\
+\ere
+
+Next is about arrow composition:
+
+\bre
+(\mathbf{Maybe} \circ \mathbf{List})\ (f \circ g) & = & \mathbf{Maybe} (\mathbf{List}\ (f \circ g)) & \text{functor composition} \\
+ & = & \mathbf{Maybe} ((\mathbf{List}\ f) \circ (\mathbf{List}\ g)) & \text{composition for list functor} \\
+ & = & (\mathbf{Maybe}\ (\mathbf{List}\ f)) \circ (\mathbf{Maybe}\ (\mathbf{List}\ g)) & \text{composition for maybe functor} \\
+ & = & ((\mathbf{Maybe} \circ \mathbf{List})\ f) \circ ((\mathbf{Maybe} \circ \mathbf{List})\ g) & \text{functor composition} \\
+\ere
+}
+\Question{Proof that the composition for any functors $\mathbf{G} \circ \mathbf{F}$ is still a functor.
+
+Similar to previous exercise, we need prove functor composition satisfies identity arrow and arrow composition. First for identity arrow:
+
+\bre
+(\mathbf{G} \circ \mathbf{F})\ id & = & \mathbf{G} (\mathbf{F}\ id) & \text{functor composition} \\
+ & = & \mathbf{G}\ id & \text{identity arrow for functor $\mathbf{F}$} \\
+ & = & id & \text{identity arrow for functor $\mathbf{G}$} \\
+\ere
+
+Then for arrow composition:
+
+\bre
+(\mathbf{G} \circ \mathbf{F})\ (\phi \circ \psi) & = & \mathbf{G} (\mathbf{F}\ (\phi \circ \psi)) & \text{functor composition} \\
+ & = & \mathbf{G} ((\mathbf{F}\ \phi) \circ (\mathbf{F}\ \psi)) & \text{arrow composition for functor $\mathbf{F}$} \\
+ & = & (\mathbf{G}\ (\mathbf{F}\ \phi)) \circ (\mathbf{G}\ (\mathbf{F}\ \psi)) & \text{arrow composition for functor $\mathbf{G}$} \\
+ & = & ((\mathbf{G} \circ \mathbf{F})\ \phi) \circ ((\mathbf{G} \circ \mathbf{F})\ \psi) & \text{functor composition} \\
+\ere
+}
+\Question{Give an example functor for preset.
+
+The functor for preset category is a monotone function.
+}
+\Question{For the binary tree defined in chapter 2, define the functor for it.
+
+Consider an object $A$ in set total function category, the binary tree functor sends it to:
+
+\lstset{frame=none}
+\begin{Haskell}
+data Tree A = Empty | Branch (Tree A) A (Tree A)
+\end{Haskell}
+
+For arrow $A \arrowto{f} B$, the binary tree functor maps it to:
+
+\bre
+fmap\ f\ Empty & = & Empty \\
+fmap\ f\ (Branch\ l\ x\ r) & = & Branch\ (fmap\ f\ l)\ (f\ x)\ (fmap\ f\ r) \\
+\ere
+
+Or we can use the $mapt$ defined in chapter 2:
+
+\[
+fmap = mapt
+\]
+}
+\end{Answer}
+
 \section{Products and coproducts}
 
-Before we introduce more complex categories and functors, let us see what product and coproduct are. We start from the product of sets. Given two set $A$ and $B$, their Cartesian product $A \times B$ is the set of all ordered pairs $(a, b)$, where $a \in A$ and $b \in B$:
+We start from the product of sets. Given two set $A$ and $B$, their Cartesian product $A \times B$ is the set of all ordered pairs $(a, b)$.
 
 \[
 \{(a, b) | a \in A, b \in B\}
@@ -863,13 +1047,11 @@ For every element $(x, tag)$ in $A + B$, if the $tag$ is 0, we know that $x$ com
 \{(1, 0), (2, 0), (3, 0), (a, 1), (b, 1)\}
 \]
 
-When programming, $A + B$ can be defined as:
+Below example program builds $A + B$ for two lists:
 
-\begin{mdframed}
-\[
-A + B = zip\ A\ \{0, ...\} \doubleplus zip\ B\ \{1, ...\}
-\]
-\end{mdframed}
+\begin{Haskell}[frame=single]
+A + B = zip A [0, 0, ...] ++ zip B [1, 1, ...]
+\end{Haskell}
 
 If set $A$ and $B$ are the same algebraic structures, we can define the below objects and arrows:
 
@@ -1565,7 +1747,7 @@ inits [1, 2, 3, 4] = [[],[1],[1,2],[1,2,3],[1,2,3,4]]
 The behavior of $inits$ function can be summarized as this:
 
 \[
-inits [a_1, a_2, ..., a_n] = [[], [a_1], [a_1, a_2], ..., [a_1, a_2, ..., a_n]]
+inits [a_1, a_2, ..., a_n] = [[\ ], [a_1], [a_1, a_2], ..., [a_1, a_2, ..., a_n]]
 \]
 
 Consider the category $\pmb{Set}$, for every object, a set $A$ (or type $A$), there exists $inits$ arrow indexed by $A$:
@@ -1576,7 +1758,7 @@ inits_A : \mathbf{List} A \to \mathbf{List}(\mathbf{List} A)
 
 There is a list functor $\mathbf{List}$, and another embedded list functor $\mathbf{List}\ \mathbf{List}$.
 
-With the simplified `[]' notation, this arrow can also be written as:
+With the simplified `[\ ]' notation, this arrow can also be written as:
 
 \[
 [A] \arrowto{inits_A} [[A]]
@@ -1612,16 +1794,16 @@ We'll prove the community with the $fmap$ defined in previous section. For $n$ e
 \[
 \begin{array}{cll}
   & \mathbf{List}(\mathbf{List}(f)) \circ init_A [a_1, ..., a_n] & \\
-= & fmap_{[[]]}(f) \circ init_A [a_1, ..., a_n] & \text{definition of $fmap$} \\
-= & fmap_{[[]]}(f) [[], [a_1], ..., [a_1, a_2, ..., a_n]] & \text{definition of $inits$} \\
-= & map(map\ f) [[], [a_1], ..., [a_1, a_2, ..., a_n]] & \text{$fmap$ is defined as $map$ for list functor} \\
-= & [map\ f\ [], map\ f\ [a_1], ..., map\ f\ [a_1, a_2, ..., a_n]] & \text{definition of $map$} \\
-= & [[], [f(a_1)], ..., [f(a_1), f(a_2), ..., f(a_n)]] & \text{apply $map\ f$ to every sub-list} \\
-= & [[], [b_1], ..., [b_1, b_2, ..., b_n]] & \text{definition of $f$} \\
+= & fmap_{[[\ ]]}(f) \circ init_A [a_1, ..., a_n] & \text{definition of $fmap$} \\
+= & fmap_{[[\ ]]}(f) [[\ ], [a_1], ..., [a_1, a_2, ..., a_n]] & \text{definition of $inits$} \\
+= & map(map\ f) [[\ ], [a_1], ..., [a_1, a_2, ..., a_n]] & \text{$fmap$ is defined as $map$ for list functor} \\
+= & [map\ f\ [\ ], map\ f\ [a_1], ..., map\ f\ [a_1, a_2, ..., a_n]] & \text{definition of $map$} \\
+= & [[\ ], [f(a_1)], ..., [f(a_1), f(a_2), ..., f(a_n)]] & \text{apply $map\ f$ to every sub-list} \\
+= & [[\ ], [b_1], ..., [b_1, b_2, ..., b_n]] & \text{definition of $f$} \\
 = & init_B\ [b_1, b_2, ..., b_n] & \text{reverse of $init$} \\
 = & init_B\ [f(a_1), f(a_2), ..., f(a_n)] & \text{reverse of $f$} \\
 = & init_B \circ map(f)\ [a_1, a_2, ..., a_n] & \text{reverse of $map\ f$} \\
-= & init_B \circ fmap_{[]}(f) [a_1, ..., a_n] & \text{$fmap$ is defined as $map$ for list functor} \\
+= & init_B \circ fmap_{[\ ]}(f) [a_1, ..., a_n] & \text{$fmap$ is defined as $map$ for list functor} \\
 = & init_B \circ \mathbf{List}(f) [a_1, ..., a_n] & \\
 \end{array}
 \]
@@ -1637,7 +1819,7 @@ The next example is called $safeHead$, it can safely access the first element of
 \[
 \begin{array}{l}
 safeHead : [A] \to \mathbf{Maybe}\ A \\
-safeHead\ [] = Nothing \\
+safeHead\ [\ ] = Nothing \\
 safeHead\ (x:xs) = Just\ x
 \end{array}
 \]
@@ -1677,11 +1859,11 @@ We prove it for two cases. The first case is the empty list:
 
 \[
 \begin{array}{cll}
-  & \mathbf{Maybe}(f) \circ safeHead_A\ [] & \\
+  & \mathbf{Maybe}(f) \circ safeHead_A\ [\ ] & \\
 = & \mathbf{Maybe}(f)\ Nothing & \text{definition of $safeHead$} \\
 = & Nothing & \text{definition of $fmap\ f\ Nothing$} \\
-= & safeHead_B\ [] & \text{reverse of $safeHead$} \\
-= & safeHead_B \circ \mathbf{List}(f)\ [] & \text{reverse of $fmap\ f\ []$} \\
+= & safeHead_B\ [\ ] & \text{reverse of $safeHead$} \\
+= & safeHead_B \circ \mathbf{List}(f)\ [\ ] & \text{reverse of $fmap\ f\ [\ ]$} \\
 \end{array}
 \]
 
@@ -1816,7 +1998,7 @@ All the above three examples $inits$, $safeHead$, and $swap$ are both polymorphi
 \[
 \begin{array}{l}
 length : [A] \to Int \\
-length\ [] = 0 \\
+length\ [\ ] = 0 \\
 length\ (x:xs) = 1 + length\ xs
 \end{array}
 \]
