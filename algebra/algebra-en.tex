@@ -3182,12 +3182,12 @@ Therefore, $G = \{e, g, g^2\}$. It's the cyclic group $C_3$.
 We come to the center of Galois theory. Starting from the equation coefficient field $F$, we keep extending the fields to the splitting field $F \subset F_1 \subset F_2 ... \subset E$. The corresponding Galois group is $Gal(E/F)$. Galois found, there was one to one correspondence between the Galois subgroups and its intermediate fields $F_1, F_2, ...$ in the reversed order.
 
 \begin{theorem}
-\textbf{Fundamental theorem of Galois theory}: If $E/F$ is field extension\footnote{Strictly speaking, it should be Galois extension, we skipped the definition of Galois extension here.}, $G$ is the corresponding Galois group. There is one to one correspondence between subgroups of $G$ and intermediate fields. If $F \subset L \subset E$, and $Gal(E/L) = H$, then $H$ is the subgroup of $Gal(E/F)$.
+\textbf{Fundamental theorem of Galois theory}: If $E/F$ is normal extension, $G$ is the corresponding Galois group. There is one to one correspondence between subgroups of $G$ and intermediate fields. If $F \subset L \subset E$, and $Gal(E/L) = H$, then $H$ is the subgroup of $Gal(E/F)$.
 \end{theorem}
 
 The reason why it's in reversed order is because the group gets smaller when extend the field. The starting point of field extension is $F$, the corresponding Galois group is $G = Gal(E/F)$; the end point is the splitting field $E$, while the corresponding group only contains one element, which is the identity permutation $\{1\}$. For the intermediate field $L$, the corresponding group is $H = Gal(E/L)$. It's a subgroup, $Gal(E/L) \subset Gal(E/F)$. If $H$ is a normal subgroup (refer to previous section \ref{normal-subgroup}), then its quotient group is $G/H = Gal(L/F)$.
 
-Let us see a concrete example\cite{MArtin} (pp. 490). Consider equation $x^4 - 8x^2 + 15 = 0$, it can be factored as $(x^2 - 3)(x^2 - 5) = 0$. The coefficients are in rational field $Q$, the splitting field is $E = Q[\sqrt{3}, \sqrt{5}]$. The order of its Galois group $Gal(E/Q)$ is 4. It is isomorphic to a 4-cycle cyclic group. We can find 3 intermediate field extensions: $Q[\sqrt{3}]$, $Q[\sqrt{5}]$, and $Q[\sqrt{15}]$. The Galois subgroup orders corresponding to all these 3 intermediate fields are 2. While the Galois group of the equation, which is the 4-cycle cyclic group only has one subgroup of order 2. Besides that, it hasn't any other non-trivial subgroups. According to the fundamental theorem of Galois theory, we know there is no other field extension besides those 3 intermediate field extensions. We can consider it from another view point. All elements in the splitting field are in the form of $\alpha = a + b\sqrt{3} + c\sqrt{5} + d\sqrt{15}$, where $a, b, c, d$ are rational numbers. For any elements in the 3 intermediate field extensions, among $b, c, d$, there are at least two are 0.
+For example, equation $x^4 - 8x^2 + 15 = 0$, it can be factored as $(x^2 - 3)(x^2 - 5) = 0$. The coefficients are in rational field $Q$, the splitting field is $E = Q[\sqrt{3}, \sqrt{5}]$. its Galois group $Gal(E/Q)$ is isomorphic to a Klein four group (with order 4), often denoted as $V$ or $K_4$. We can find 3 intermediate field extensions: $Q[\sqrt{3}]$, $Q[\sqrt{5}]$, and $Q[\sqrt{15}]$. The Galois subgroup orders corresponding to all these 3 intermediate fields are 2. While the Galois group of the equation, which is the Klein four group only has one subgroup of order 2. Besides that, it hasn't any other non-trivial subgroups. According to the fundamental theorem of Galois theory, we know there is no other field extension besides those 3 intermediate field extensions. We can consider it from another view point. All elements in the splitting field are in the form of $\alpha = a + b\sqrt{3} + c\sqrt{5} + d\sqrt{15}$, where $a, b, c, d$ are rational numbers. For any elements in the 3 intermediate field extensions, among $b, c, d$, there are at least two are 0.
 
 \begin{figure}[htbp]
 \centering
@@ -3262,31 +3262,141 @@ The composite morphism $f \cdot g$ negates $\sqrt{3}$ and $\sqrt{5}$ at the same
 \begin{figure}[htbp]
 %\begin{wrapfigure}{R}{0.4\textwidth}
 \centering
-\begin{tikzpicture}[scale=0.7]
-\filldraw[fill=gray, draw=gray] (-1, -2) rectangle (1, 2)
-    (-2, -0.5) rectangle (2, 0.5);
-\end{tikzpicture}
-\captionsetup{labelformat=empty}
+\includegraphics[scale=0.4]{img/K4}
 \caption{Klein four group. Symmetric when flip horizontally, vertically, or flip at the same time.}
 \label{fig:Klein-four-group}
 %\end{wrapfigure}
 \end{figure}
 
-In addition to the identity morphism 1, for the base field $Q$, there are four elements in its Galois group: $G = \{1, f, g, (f \cdot g)\}$. This group is isomorphic to Klein four group, while the Klein group is the product of two 2-cycle cyclic groups. It has 5 subgroups, each is corresponding to a field extension:
+In addition to the identity morphism 1, for the base field $Q$, there are four elements in its Galois group: $G = \{1, f, g, (f \cdot g)\}$. This group is isomorphic to Klein four group $V$, and $V$ is the product of two cyclic groups $C_2$. It has 5 subgroups, each is corresponding to a field extension:
 
-\begin{itemize}
+\begin{enumerate}
 \item The subgroup only contains the identity element $\{1\}$, it corresponds to the splitting field $Q[\sqrt{3}, \sqrt{5}]$;
 \item $G$ itself, corresponds to the rational field $Q$;
 \item Order 2 subgroup $\{1, f\}$, corresponds to field extension $Q[\sqrt{5}]$. $f$ only negates $\sqrt{3}$ and leaves $\sqrt{5}$ unchanged;
 \item Order 2 subgroup $\{1, g\}$, corresponds to field extension $Q[\sqrt{3}]$. $g$ only negates $\sqrt{5}$ and leaves $\sqrt{3}$ unchanged;
 \item Order 2 subgroup $\{1, (f \cdot g)\}$, corresponds to field extension $Q[\sqrt{15}]$. $(f \cdot g)$ negates $\sqrt{5}$ and $\sqrt{3}$ at the same time, and leaves $\sqrt{15}$ unchanged.
-\end{itemize}
+\end{enumerate}
 
-We can also write the Galois group of this equation in the form of permutation group \{(1), (1 2), (3 4), (1 2)(3 4)\}. Where (1) keeps all the 4 roots unchanged; (1 2) swaps $\pm \sqrt{3}$; (3 4) swaps $\pm \sqrt{5}$; while (1 2)(3 4) swaps these two pairs at the same time.
-
-Through the fundamental theorem of Galois theory, we managed to convert the equation problem in field to an equivalent problem about permutation group. The last attack is to reveal the solvability essence with group.
+We can also write the Galois group of this equation in the form of permutation group \{(1), (1 2), (3 4), (1 2)(3 4)\}. Where (1) keeps all the 4 roots unchanged; (1 2) swaps $\pm \sqrt{3}$; (3 4) swaps $\pm \sqrt{5}$; while (1 2)(3 4) swaps these two pairs at the same time. Through the fundamental theorem of Galois theory, we managed to convert the equation problem in field to an equivalent problem about permutation group. The last attack is to reveal the solvability essence with group.
 
 \subsection{Solvability}
+
+\begin{definition}
+多项式方程根式可解，当且仅当它的根域$E$是基本域$F$的根式扩域。
+\end{definition}
+
+我们可以从基本域$F = Q$开始，不断通过根式扩域加入前一个域中某个元素的素数次方根或者本原单位根，最终可以到达方程的根域$E = F[\alpha_1, ..., \alpha_k]$。这样就可以形成了域的“根式塔”：
+
+\[
+F = F_0 \subseteq F_1 \subseteq F_2 \subseteq ... \subseteq F_k = E
+\]
+
+其中每个$F_i = F_{i-1}[\alpha_i]$，而$\alpha_i$是$F_{i-1}$中某个元素的素数次方根或本原单位根。通过伽罗瓦对应，根式扩域的结构就和群的结构联系起来了，和这一系列不断扩大的域塔对应的，是一系列缩小的子群塔：
+
+\[
+Gal(F_k/F_0) = G_0 \rhd G_1 \rhd ... \rhd G_k = Gal(F_k/F_k) = \{e\}
+\]
+
+其中，每一个群都是上一个的正规子群，每一步从$G_{i-1}$前进到它的子群$G_i$，都反应了向域$F$中扩张某个$\alpha_i$。伽罗瓦看出了根式扩域和伽罗瓦群缩小之间的规律。伽罗瓦每次向域中加入的是最小多项式$f_t(X)$的全部$p$个根，其中$p$为素数。正规扩域后对应的伽罗瓦群$H$将原来的群划分为$p$个陪集:
+\[
+G = \sigma_1H + \sigma_2H + ... \sigma_pH
+\]
+其中$H$为不变子群，而这些陪集组成的商群$G/H$的阶等于素数$p$。从拉格朗日定理的推论\ref{co:prime-order-group}可知素数阶群$p$一定是循环群，而循环群一定是阿贝尔群（可交换的，见练习\ref{ex:cyclic-group}），因此根式扩域时，伽罗瓦群缩小后产生的商群是阿贝尔群。
+
+\begin{definition}
+\textbf{可解群}：$G$是一个有限群，如果存在一个$G$的子群列
+\[
+  G = G_0 \rhd G_1 \rhd ... \rhd G_k = \{e\}
+\]
+使得每个商群$G_i/G_{i+1}$都是阿贝尔群（可交换），则称$G$是一个可解群，上述群列为一个可解群列。
+\end{definition}
+
+从定义可以直接得出，可解群列中的任何子群都是可解群。另外任何阿贝尔群都有$G \rhd \{e\}$，所有阿贝尔群都是可解群。
+
+伽罗瓦应用他的理论揭示出了多项式方程根式可解的答案：
+
+\begin{theorem}
+多项式方程根式可解，当且仅当它的伽罗瓦群是可解群。
+\end{theorem}
+
+对于一般3次方程，3个根的全部置换构成群$S_3$，它有一个正规子群$C_3$，$C_3$是单群，只有一个子群$\{e\}$。参考图\ref{fig:S3-Cayley}，我们有群列：
+
+\[
+S_3 \rhd C_3 \rhd \{e\}
+\]
+
+对应商群的阶: $S_3/C_3 = 2, C_3/\{e\} = 3$都是素数，是可解群列。因此一般三次方程可解。
+
+对于一般4次方程，4个根的全部置换构成群$S_4$，有24个元素。它有一个正规子群，是交错群$A_4$，有12个元素，如图\ref{fig:A4-Cayley}所示。接下来的正规子群是克莱因群$V$，有4个元素；而它又有正规子群$C_2$（同构于$S_2$），这是一个单群，只有一个子群$\{e\}$。我们有群列：
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.4]{img/A4-Cayley}
+ \caption{交错群$A_4$的形状像一个三棱锥被截去了3个顶角}
+ \label{fig:A4-Cayley}
+\end{figure}
+% http://weddslist.com/groups/cayley-31/index.html
+% A graph illustrate K4 and A4: https://math.stackexchange.com/questions/651053/visualize-a-4-and-langle-x-z-rangle-isomorphic-to-the-klein-4-group
+
+\[
+S_4 \rhd A_4 \rhd V \rhd C_2 \rhd \{e\}
+\]
+
+对应商群的阶分别是2、3、2、2，都是素数，是可解群列。因此一般4次方程可解。
+
+从伽罗瓦理论可以直接推出阿贝尔——鲁菲尼定理：一般5次方程根式不可解。5个根的全部置换构成对称群$S_5$，有120个元素，它唯一的正规子群是交错群$A_5$，有60个元素，如图\ref{fig:A5-Cayley}所示。但是$A_5$是一个单群，它唯一的正规子群是$\{e\}$。我们有群列：
+
+\[
+S_5 \rhd A_5 \rhd \{e\}
+\]
+
+但是商群$A_5/\{e\}$同构于$A_5$，而$A_5$不是阿贝尔群。商群的阶是60，不是素数。因此它不是可解群。这样一般5次方程不是根式可解的。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.25]{img/A5-Cayley}
+ %\captionsetup{labelformat=empty}
+ \caption{交错群$A_5$的形状像一个足球}
+ \label{fig:A5-Cayley}
+\end{figure}
+
+我们还可以推出$n > 5$时，$S_n$也都不是可解群（见练习\ref{ex:3-cycle}，用反证法，这会导致$\{e\}$包含3循环的矛盾）。应用伽罗瓦理论，一般5次以上的多项式方程也都不是根式可解的。
+
+伽罗瓦正是通过对方程对称性的研究，发展出了伽罗瓦理论。它是抽象思想的明珠，是理性思维的强大工具。它可以解决很多问题，如证明正17边形可以用尺规作出，这是高斯年轻时发现的结论。伽罗瓦理论给出古希腊三大作图问题——圆化方、三分角、倍立方的否定答案，它们都无法用尺规作出。
+
+\begin{Exercise}\label{ex:solvable}
+\Question{考虑5次方程$x^5 - 1 = 0$，它是根式可解的。它的伽罗瓦群和可解群列是什么？}
+\Question{证明：当$n \geq 5$时，设$S_n$的子群$G$含有所有的3循环，形如$(abc)$，$N$是$G$的一个正规子群，商群$G/N$是阿贝尔群。则$N$也含有所有的三循环。}
+\label{ex:3-cycle}
+\end{Exercise}
+
+\begin{Answer}[ref = {ex:solvable}]
+\Question{考虑5次方程$x^5 - 1 = 0$，它是根式可解的。它的伽罗瓦群和可解群列是什么？
+
+我们知道方程的根是复平面单位元上的5个点：\{1, $\zeta$, $\zeta^2$, $\zeta^3$, $\zeta^4$ \}。其中$\zeta = e^{2 \pi i / 5} = \dfrac{\sqrt{5} - 1 + i\sqrt{10 + 2 \sqrt{5}}}{4}$。在有理数域上的伽罗瓦群是一个4阶循环群$G(Q[\zeta]/Q) = C_4$，同构于模5乘法群：$(\pmb{Z}/5\pmb{Z})^{\times} = \{1, 2, 3, 4 \}_5$。它没有中间扩域，分裂域为$Q[\zeta]$。在分裂域上的伽罗瓦群是$\{1\}$。
+
+显然$\{1\}$是$C_4$的正规子群。并且其商群$C_4/\{1\}$仍是循环群，在前面习题中我们证明了循环群一定是阿贝尔群。因此方程是根式可解的。群列：
+
+\[
+C_4 \rhd \{e\}
+\]
+}
+\Question{证明：当$n \geq 5$时，设$S_n$的子群$G$含有所有的3循环，形如$(abc)$，$N$是$G$的一个正规子群，商群$G/N$是阿贝尔群。则$N$也含有所有的三循环。
+
+由于商群$G/N$是阿贝尔群，对于任意$g_1, g_2 \in G$，有$g_1N \cdot g_2N = g_1g_2N = g_2g_1N$。所以$g_1^{-1}g_2^{-1}g_1g_2N = N$，即$g_1^{-1}g_2^{-1}g_1g_2 \in N$。
+
+因为$n \geq 5$，至少有5个数字，对于任意三循环$(abc)$，取另外两个不同的数字$d, f$，构造$g_1 = (dba), g_2 = (afc) \in G$。有：
+
+\[
+g_1^{-1}g_2^{-1}g_1g_2 = (abd)(cfa)(dba)(afc) = (abc) \in N
+\]
+
+因此$N$也含有所有的三循环。
+}
+\end{Answer}
+
+%%%%%%%%%%%%%%%%%%
 
 Through Galois correspondence, we connect the radical extension with group structure. To simplify the problem, we add some extra conditions. First, for every radical extension $F[\alpha_i]$, we assume the $\alpha_i$ being extended is a $p$-th root for some prime $p$. For example, we will factor $\sqrt[6]{\alpha}$ to $\sqrt{\alpha} = \beta$ and $\sqrt[3]{\beta}$. Then extend the field two times with them one by one. Second, if $\alpha_i$ is $p$-th root, and the radical extension $F[\alpha_1, ..., \alpha_{i-1}]$ does not contain $p$-th root of unity, we can assume the next radical extension $F[\alpha_1, ..., \alpha_i]$ does not contain $p$-th root of unity too, unless $\alpha_i$ itself is a $p$-th root of unity. For example, when we want to extend the field with root $\alpha = \sqrt[3]{2}$, if the field $F$ does not contain $\zeta = \dfrac{-1 + i\sqrt{3}}{2}$ as shown in figure \ref{fig:root-of-unity}, we can assume the radical extension $F[\sqrt[3]{2}]$ does not contain $\zeta$ too, unless $\alpha^3 = 1$, which means $\alpha$ itself equals $\zeta$. If it isn't the case, we can adjoin $\zeta$ before $\alpha_i$, then the radical extension $F[\alpha_1, ..., \alpha_{i-1}, \zeta]$ contains all the $p$-th root of unity: $1, \zeta, \zeta^2, ..., \zeta^{p-1}$. With both these modifications, the final field $F[\alpha_1, ..., \alpha_k]$ is the same, and it remains the same if the newly adjoined root $\zeta$ are included in the list $\alpha_1, ..., \alpha_k$.
 
@@ -3444,9 +3554,118 @@ We introduced Galois theory in this short section. Galois theory is a powerful t
 \Question{The 5th degree equation $x^5 - 1 = 0$ is radical solvable. What's its Galois subgroup chain?}
 \end{Exercise}
 
-\section{Further reading}
+\section{附录}
+伽罗瓦在他的论文中列出了一般4次方程伽罗瓦群缩小的群列。他当时还没有凯莱图这样的工具，于是用$abcd$代表方程的4个根，通过它们的置换表达了自己的思想。
 
-There are many textbooks introduce about abstract algebra. {\em Groups and Symmetry} by Armstrong is a good book about basic concept of groups and how it related and define symmetry in mathematics. {\em Algebra} by Micheal Artin is also a widely used textbook. It introduces Galois theory in the last chapter. {\em Galois Theory} by Emil Artin published in 1944 is the classic book. It was republished several times in 1998 and 2007. Artin was the important expositor. He gave the modern form of Galois theory. Harold M. Edwards introduced the development history in his {\em Galois Theory}, and took the classic way to explain this topic.
+\vspace{5mm}
+\begin{center}
+
+\begin{tabular}[t]{|c|}
+\hline
+$S_4$ \\
+\hline
+abcd \\
+badc \\
+cdab \\
+dcba \\
+acdb \\
+cabd \\
+dbac \\
+bdca \\
+adbc \\
+dacb \\
+bcad \\
+cbda \\
+bacd \\
+abdc \\
+dcab \\
+cdba \\
+cadb \\
+acbd \\
+bdac \\
+dbca \\
+dabc \\
+adcb \\
+cbad \\
+bcda \\
+\hline
+\end{tabular}
+\parbox[t]{3mm}{\vspace{2mm} $\rhd$}
+\begin{tabular}[t]{|c|}
+\hline
+$A_4$ \\
+\hline
+abcd \\
+badc \\
+cdab \\
+dcba \\
+acdb \\
+cabd \\
+dbac \\
+bdca \\
+adbc \\
+dacb \\
+bcad \\
+cbda \\
+\hline
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\hline
+\end{tabular}
+\parbox[t]{3mm}{\vspace{2mm} $\rhd$}
+\begin{tabular}[t]{|c|}
+\hline
+$V$ \\
+\hline
+abcd \\
+badc \\
+cdab \\
+dcba \\
+\hline
+\\
+\\
+\\
+\\
+\hline
+\\
+\\
+\\
+\\
+\hline
+\end{tabular}
+\parbox[t]{3mm}{\vspace{2mm} $\rhd$}
+\begin{tabular}[t]{|c|}
+\hline
+$C_2$ \\
+\hline
+abcd \\
+badc \\
+\hline
+\\
+\\
+\hline
+\end{tabular}
+\parbox[t]{3mm}{\vspace{2mm} $\rhd$}
+\begin{tabular}[t]{|c|}
+\hline
+$\{e\}$ \\
+\hline
+abcd \\
+\hline
+\\
+\hline
+\end{tabular}
+\end{center}
 
 \ifx\wholebook\relax \else
 \section{Answers}
