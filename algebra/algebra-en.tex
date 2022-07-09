@@ -3283,33 +3283,38 @@ We can also write the Galois group of this equation in the form of permutation g
 \subsection{Solvability}
 
 \begin{definition}
-多项式方程根式可解，当且仅当它的根域$E$是基本域$F$的根式扩域。
+The polynomial equation is radical solvable if and only if its root field $E$ is the radical extension of its base field $F$.
 \end{definition}
 
-我们可以从基本域$F = Q$开始，不断通过根式扩域加入前一个域中某个元素的素数次方根或者本原单位根，最终可以到达方程的根域$E = F[\alpha_1, ..., \alpha_k]$。这样就可以形成了域的“根式塔”：
+Start from base field $F = Q$, repeatedly apply radical extension by
+adding the primitive root of unity or $\sqrt[p]{\alpha}$ where $p$ is a prime number, and $\alpha$ is some element in the previous field. Finally obtain the root field $E = F[\alpha_1, ..., \alpha_k]$ if radical solvable. They form a tower of radical series:
 
 \[
 F = F_0 \subseteq F_1 \subseteq F_2 \subseteq ... \subseteq F_k = E
 \]
 
-其中每个$F_i = F_{i-1}[\alpha_i]$，而$\alpha_i$是$F_{i-1}$中某个元素的素数次方根或本原单位根。通过伽罗瓦对应，根式扩域的结构就和群的结构联系起来了，和这一系列不断扩大的域塔对应的，是一系列缩小的子群塔：
+Where every $F_i = F_{i-1}[\alpha_i]$, and $\alpha_i$ is either a primitive root of unity or $p$-th root ($p$ is prime) of some element in $F_{i-1}$. Through Galois correspondence, we connect the radical extension with group structure. Along the tower of extension series, is a tower of reduced groups:
 
 \[
 Gal(F_k/F_0) = G_0 \rhd G_1 \rhd ... \rhd G_k = Gal(F_k/F_k) = \{e\}
 \]
 
-其中，每一个群都是上一个的正规子群，每一步从$G_{i-1}$前进到它的子群$G_i$，都反应了向域$F$中扩张某个$\alpha_i$。伽罗瓦看出了根式扩域和伽罗瓦群缩小之间的规律。伽罗瓦每次向域中加入的是最小多项式$f_t(X)$的全部$p$个根，其中$p$为素数。正规扩域后对应的伽罗瓦群$H$将原来的群划分为$p$个陪集:
+Where every group is the normal subgroup of the previous one. Each step from $G_{i-1}$ to its subgroup $G_i$ corresponds to extending the field $F$ with some $\alpha_i$. Galois saw the insight between radical extension and the reduction of Galois group. Every time, Galois added all the $p$ roots of the minimal polynomial $f_t(X)$ to the field, where $p$ is prime. With normal extension, the corresponding Galois group $H$ partitions the previous group into $p$ cosets:
+
 \[
 G = \sigma_1H + \sigma_2H + ... \sigma_pH
 \]
-其中$H$为不变子群，而这些陪集组成的商群$G/H$的阶等于素数$p$。从拉格朗日定理的推论\ref{co:prime-order-group}可知素数阶群$p$一定是循环群，而循环群一定是阿贝尔群（可交换的，见练习\ref{ex:cyclic-group}），因此根式扩域时，伽罗瓦群缩小后产生的商群是阿贝尔群。
+
+Where $H$ is invariant subgroup, the quotient group $G/H$ consists of these cosets has the prime order $p$. From the corollary of Lagrange theory\ref{co:prime-order-group}, we know any group with prime order is a cyclic group, and cyclic group is abelian (see exercise \ref{ex:cyclic-group}). Therefore, the reduced quotient group after radical extension is abelian.
 
 \begin{definition}
-\textbf{可解群}：$G$是一个有限群，如果存在一个$G$的子群列
+\textbf{Solvable group}: A finite group $G$ is solvable, if it has a subnormal series:
+
 \[
   G = G_0 \rhd G_1 \rhd ... \rhd G_k = \{e\}
 \]
-使得每个商群$G_i/G_{i+1}$都是阿贝尔群（可交换），则称$G$是一个可解群，上述群列为一个可解群列。
+
+Such that every quotient group $G_i/G_{i+1}$ is abelian. The group series is called solvable group series.
 \end{definition}
 
 从定义可以直接得出，可解群列中的任何子群都是可解群。另外任何阿贝尔群都有$G \rhd \{e\}$，所有阿贝尔群都是可解群。
