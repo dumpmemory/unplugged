@@ -3026,62 +3026,155 @@ $F$-Automorphism: If $E$ is field extension of $F$, the automorphism $f$ of fiel
 
 The symmetry of roots is precisely defined under the $F$-automorphism. All the elements in $F$ keep unchanged, while all the new elements, and only these new elements in filed extension $E$ are changed. It well explains `If known then invariant; if invariant then known' found by Galois. An element is known, i.e. $x \in F$ if and only if it is unchanged under automorphism, i.e. $f(x) = x$. The changing among the elements in the field exactly means permutation, while the relations keep unchanged after permutation exactly means symmetry. For the example of $Q[\sqrt{2}]$, there are only two $Q$-automorphisms: one is the identity function $e(x) = x$, the other is $f(a + b\sqrt{2}) = a - b\sqrt{2}$. They form a group $\{e, f\}$, which is isomorphic to cyclic group $C_2$ and symmetric group $S_2$. We can write it as $\{f, f^2\}$ because $f^2 = f \cdot f = e$; we can also write it as permutations $\{(1), (1\ 2)\}$, where (1) keeps the two roots unchanged, and (12) transpose them.
 
-我们再给一个例子，方程$x^4 - 5x^2 + 6 = 0$的分裂域是$Q[\sqrt{2}, \sqrt{3}]$。我们有调换$\pm \sqrt{2}$的自同构$f$，也可以定义一个调换$\pm \sqrt{3}$的自同构$g(a + b\sqrt{3}) = a - b\sqrt{3}$。但是不存在能够调换$\sqrt{2}$和$\sqrt{3}$的$Q$-自同构。否则假设存在$h(\sqrt{2}) = \sqrt{3}$，则$h(\sqrt{2})^2 = h(\sqrt{2}^2) = h(2) = 2$。这是因为$f$保持乘法结构并且根据自同构的定义，对于有理数$x$有$h(x) = x$。但同时既然$h(\sqrt{2}) = \sqrt{3}$，则$h(\sqrt{2})^2 = \sqrt{3}^2 = 3$。于是推出$2 = 3$这样的矛盾。这说明并非$S_4$中的所有置换都反映了方程的对称性。这个方程的自同构有4个：$\{e, f, g, f \cdot g\}$，分别对应着恒等置换，对换$\pm \sqrt{2}$的$f$，对换$\pm \sqrt{3}$的$g$，和同时调换两对根的复合置换$f \cdot g$。它们构成一个群。
+For another example, the splitting field of equation $x^4 - 5x^2 + 6 = 0$ is $Q[\sqrt{2}, \sqrt{3}]$. There is automorphism $f$ to transpose $\pm \sqrt{2}$. To transpose $\pm \sqrt{3}$, we can also define an automorphism $g(a + b\sqrt{3}) = a - b\sqrt{3}$. However, there does not exist any $Q$-automorphism can transpose $\sqrt{2}$ and $\sqrt{3}$. Otherwise, assume there is $h(\sqrt{2}) = \sqrt{3}$, then $h(\sqrt{2})^2 = h(\sqrt{2}^2) = h(2) = 2$. This is because $h$ preserve multiplication structure, and from the definition of automorphism, $h(x) = x$ for any rational number $x$. Since $h(\sqrt{2}) = \sqrt{3}$, then $h(\sqrt{2})^2 = \sqrt{3}^2 = 3$, and we have $2 = 3$ which is absurd. It tells the fact, not all permutations in $S_4$ reflect the symmetry of the given equation. There are four automorphisms: $\{e, f, g, f \cdot g\}$, they correspond to identity, $f$ to transpose $\pm \sqrt{2}$, $g$ to transpose $\pm \sqrt{3}$, and the combination to transpose two pairs $f \cdot g$. They form a group.
 
-至此，我们已经把扩域和自同构联系了起来。把所有的自同构做成一个集合，这些自同构间的二元运算是复合变换，恒等变换是单位元，阿廷指出，这个群就是伽罗瓦群。
-
-\index{伽罗瓦群}
-\begin{definition}
-\textbf{伽罗瓦群}的现代定义：对于$F$的扩域$E$，我们有一组$E$的$F$-自同构的集合$G$。对任意$G$中的两个$F$-自同构$f, g$，定义二元运算$(f \cdot g)(x) = f(g(x))$。我们称$G$为扩域$E/F$的伽罗瓦群。记为$Gal(E/F)$。
-\end{definition}
-
-Our thought so far is to start from the rational number field, where the coefficients of the equation belong to, then move forward to the splitting field step by step through a series of radical extensions. How to further simplify the problem to find the answer? At this stage, Galois changed his mind to another direction. He turned to consider the symmetry among the roots of the equation. For example, There is a pair of roots for equation $x^2 - 2 = 0$, which are $\pm \sqrt{2}$. Obviously, if replace $\sqrt{2}$ with $-\sqrt{2}$, the equation still holds. Besides that, replacing $\sqrt{2}$ in equation $\sqrt{2}^2 + \sqrt{2} + 1 = 3 + \sqrt{2}$ with $-\sqrt{2}$, then the equation holds too. It means, the pair of roots $\pm \sqrt{2}$ is symmetric to the relation $\alpha^2 + \alpha + 1 = 3 + \alpha$. We can further say, for any expressions that only consist of addition and multiplication of $\sqrt{2}$, the pair of roots can be exchanged with each other. We know that the most powerful tool to describe symmetry is group, in particular, the symmetric group (we just introduced it in section \ref{symmetric group}). To connect field extension and group, Galois introduced an important concept of field automorphism.
-
-%%%%%%%%%%%%
-
-Let us summarize the result we obtained so far with the example $p(x) = x^2 - 2$:
-
-\begin{enumerate}
-\item The splitting field of $p(x)$ is $Q[\sqrt{2}]$;
-\item The $Q$-automorphism defines the symmetry of the roots of $p(x)$. It contains two functions: $f(a + b\sqrt{2}) = a - b\sqrt{2}$, and $g(x) = x$.
-\end{enumerate}
-
-However, we can't ensure the symmetry to all roots if only extend to the splitting field. For example, the splitting field of equation $x^4 - 5x + 6 = 0$ is $Q[\sqrt{2}, \sqrt{3}]$. Although there is automorphism $f$ that swaps (permute) $\pm \sqrt{2}$, there does not exist $Q$-automorphism permutes $\sqrt{2}$ and $\sqrt{3}$. Otherwise, suppose there was $f(\sqrt{2}) = \sqrt{3}$, then $f(\sqrt{2})^2 = f(\sqrt{2}^2) = f(2) = 2$, because $f$ preserves multiplicative structure and $f(x) = x$ for rational $x$. On the other hand, since $f(\sqrt{2}) = f(\sqrt{3})$, we have $f(\sqrt{2})^2 = \sqrt{3}^2 = 3$. It means $2 = 3$, which is clearly nonsense. Besides that, consider field extension $Q[x_1, ..., x_n, \sqrt{x_1}]$, it contains the square root of $x_1$, but does not contain the square root of $x_2$. Therefore, there is not automorphism that permutes $x_1$ and $x_2$. In order to obtain the complete symmetry, we need keep extending the field with $\sqrt{x_2}, ..., \sqrt{x_n}$.
-
-\begin{theorem}
-For each radical extension $E$ of $Q[x_1, ..., x_n]$, there exists a bigger radical extension $E \subseteq \overline{E}$ with automorphisms $\sigma$ extending all permutations of $x_1, ..., x_n$.
-\end{theorem}
-
-With this, we connected the field extension with automorphism. If we put all the automorphisms together as a set, using composition as the binary operation, and let the identity function be the identity element, we obtain a group, named Galois group.
+Now we link field extension to automorphism. Put all the automorphisms in a set, define the morphism composition as the binary operation, the identity as the unit. Artin gave the new definition of Galois group.
 
 \index{Galois group}
 \begin{definition}
-\textbf{Galois group}: For field extension $E$ from $F$, there is a set $G$ contains all the $F$-automorphisms of $E$. For any two $F$-automorphisms $f$ and $g$ in $G$, define the binary operation as $(f \cdot g)(x) = f(g(x))$. We define $G$ as the Galois group of field extension $E/F$. Denoted as $Gal(E/F)$.
+\textbf{Galois group}: For field extension $E$ from $F$, there is a set $G$ of all the $F$-automorphisms of $E$. For any two $F$-automorphisms $f$ and $g$ in $G$, define the binary operation as $(f \cdot g)(x) = f(g(x))$. We define $G$ as the Galois group of field extension $E/F$. Denoted as $Gal(E/F)$.
 \end{definition}
-
-We still use $p(x) = x^2 - 2$ for example. Galois group $G = Gal(p) = \{f, g\}$, contains two elements, one is $f(a + b\sqrt{2}) = a - b\sqrt{2}$, the other is $g(x) = x$. Where the identity element is $g$. Let's verify if $f \cdot f = g$:
-
-\[
-\begin{array}{rll}
-(f \cdot f)(a + b\sqrt{2}) & = f(f(a + b\sqrt{2})) & \text{Composition} \\
-  & = f(a - b\sqrt{2}) & \text{Definition of $f$ for inner parenthesis} \\
-  & = a + b\sqrt{2} & \text{Definition of $f$ again} \\
-  & = g(a + b\sqrt{2}) & \text{Definition of identity function $g$}
-\end{array}
-\]
-
-We do see that $G$ is a group. It's isomorphic (identical) to a 2-cycle cyclic group, and is also isomorphic to the degree 2 symmetric group $S_2$. This group can be written as $\{f, f^2\}$, since $f^2 = f \cdot f = 1$ is the identity element. It can also be written as the permutation group $\{(1), (1\ 2)\}$, where (1) keeps the two roots unchanged, and (1 2) swaps the two roots.
 
 \begin{mdframed}
 It's a critical idea to study the equation through the symmetry of its roots in Galois theory. By using the concept of automorphism, we can give the definition symmetry: in mathematics, the symmetry of object is the automorphism to the object itself while preserving all of its structure.
 \end{mdframed}
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:automorphism}
 \Question{Prove that, for any polynomial $p(x)$ with rational coefficients, $E/Q$ is the field extension, $f$ is the $Q$-automorphism of $E$, then equation $f(p(x)) = p(f(x))$ holds.}
 \Question{Taking the complex number into account, what is the splitting field for polynomial $p(x) = x^4-1$? What are the functions in its $Q$-automorphism?}
 \Question{What's the Galois group for quadratic equation $x^2 - bx + c = 0$?}
 \Question{Prove that, if $p$ is prime number, then Galois group for equation $x^p - 1$ is the ($p-1$)-cycle cyclic group $C_{p-1}$.}
+\Question{Let $\alpha$ be a root of equation $x^3 + x^2 - 4x + 1$, verify that $2 − 2\alpha - \alpha^2$ is also a root. What's the Galois group of this equation in rational field?}
 \end{Exercise}
+
+\begin{Answer}[ref = {ex:automorphism}]
+\Question{Prove that, for any polynomial $p(x)$ with rational coefficients, $E/Q$ is the field extension, $f$ is the $Q$-automorphism of $E$, then equation $f(p(x)) = p(f(x))$ holds.
+
+\begin{proof}
+Because $f$ is automorphism, we have:
+
+\[
+f(x + y) = f(x) + f(y), f(ax) = f(a) f(x), f(1/x) = 1 / f(x)
+\]
+
+Further, since $f$ is $Q$-automorphism, we have:
+
+\[
+ f(x) = x, \forall x \in Q
+\]
+
+Let $p(x) = a_0 + a_1 x + ... + a_n x^n$, where $a_i \in Q$, then:
+
+\bre
+f(p(x)) & = & f(a_0 + a_1 x + ... + a_n x^n) \\
+  & = & f(a_0) + f(a_1 x) + ... + f(a_n x^n) & f(x + y) = f(x) + f(y) \\
+  & = & f(a_0) + f(a_1) f(x) + f(a_2) f(x)^2 + ... + f(a_n) f(x)^n & f(ax) = f(a) f(x) \\
+  & = & a_0 + a_1 f(x) + a_2 f(x)^2 + ... + a_n f(x)^n & f(x) = x, \forall x \in Q \\
+  & = & p(f(x)) \\
+\ere
+\end{proof}
+}
+\Question{Taking the complex number into account, what is the splitting field for polynomial $p(x) = x^4-1$? What are the functions in its $Q$-automorphism?
+
+There are four roots for polynomial $x^4 -1$. They are $\pm 1, \pm i$. We can factor the polynomial to $p(x) = (x + 1)(x - 1)(x + i)( x - i)$. Actually, the splitting field of $p(x)$ is not complex number field $C$. It is too big. The splitting field is $Q[i]$.
+
+There are two transformations in this $Q$-automorphism. One is $f(a + bi) = a - bi$, the other is the identity transformation $g(x) = x$.
+}
+\Question{What's the Galois group for quadratic equation $x^2 - bx + c = 0$?
+
+We know the two roots for quadratic equation are:
+
+\[
+x_1, x_2 = \dfrac{b \pm \sqrt{b^2 - 4c}}{2}
+\]
+
+There are three cases: (1) there exists a rational number, such that $b^2 - 4c = r^2$. There are two rational roots (including duplicated ones) in this case; (2) No such rational number. Equation is not solvable in rational field, but there are real roots; (3) the discriminant is negative, hence the equation is not solvable in real field. But there are complex roots. Let's see the corresponding Galois groups for these three cases:
+
+Case 1: there are two rational roots $\dfrac{b \pm r}{2}$. There is only one element in its Galois group, which is the identity automorphism $f(x) = x$.
+
+Case 2: there are two irrational roots $\dfrac{b \pm \sqrt{d}}{2}$. There are two elements in its Galois group. One is the automorphism $f(p + q \sqrt{d}) = p - q \sqrt{d}$, where $p, q$ are rationals; the other is the identity transformation.
+
+Case 3: There are two complex roots $\dfrac{b \pm i \sqrt{d}}{2}$. There are two elements in its Galois group. One is the automorphism $f(p + q i) = p - q i$, where $p, q$ are real numbers; the other is the identity transformation.
+
+Actually, in case 2 and 3, their Galois groups are isomorphic in the splitting field. Note that $f(f(x)) = x$. It is isomorphic to the group of two elements ${0, 1}$ under the addition modulo 2. It is also isomorphic to the cyclic group $C_2$ or $\pmb{Z}/2\pmb{Z}$. Where the notation $\pmb{Z}/2\pmb{Z}$ means the quotation group of integers under addition $\pmb{Z}$ and its sub-group of even numbers $2\pmb{Z}$.
+}
+\Question{Prove that, if $p$ is prime number, then Galois group for equation $x^p - 1$ is the ($p-1$)-cycle cyclic group $C_{p-1}$.
+
+The $p$ roots of $x^p - 1$ are the points along the unit circle in complex plane, i.e. $1, \omega, \omega^2, ..., \omega^{p-1}$. They can be expressed in form of $e^{2 \pi k i / p}$. The splitting field is $Q[\omega]$.
+
+Consider automorphism $f$ as an element in Galois group $Gal(Q[\omega]/Q)$. According to the definition of automorphism, we have:
+
+\[
+f(\omega)^k = f(\omega^k) = 1 \iff \omega^k = 1
+\]
+
+It means $f(\omega)$ is also a $p$-th root of unity (a root of equation $x^p - 1 = 0$\footnote{If $p$ is not a prime number, but an integer $n$ greater than 1, then the $k$-th power of the $m$-th root is $\zeta_m^k = e^{2 \pi m k i / n}$. There may exist some $k < n$, such that $\zeta_m^k = 1$. Actually, it holds as far as $n$ divides $mk$. However, if $n$ is a prime number $p$, then $k$ can't be less than $p$, but must be multiplicand of $p$.}). Denote:
+
+\[
+f(\omega) = h_i(\omega) = \omega^{i}
+\]
+
+If $f(\omega)$ is the $i$-th root of unity, we name it as $h_i$, where $1 \leq i \leq p-1$ (why $i$ can't be 0?). In this way, we establish a one-to-one mapping from Galois group to cyclic group $C_{p-1}$:
+
+\[
+Gal(Q[\omega]/Q) \arrowto{\sigma} C_{p-1} :  \sigma(h_i) = i
+\]
+
+Where the Galois group contains $p-1$ automorphisms $\{h_1, h_2, ..., h_{p-1}\}$, hence it has the same order as the cyclic group $C_{p-1}$.
+
+Next we prove this is a group isomorphism.
+
+\[
+(h_i \cdot h_j)(\omega) = h_i(h_j(\omega)) = h_i(\omega^j) = \omega^{ji} = \omega^{ij}
+\]
+
+hence
+
+\[
+\sigma(h_i \cdot h_j) = ij = \sigma(h_i) \cdot \sigma(h_j)
+\]
+
+And $h_1(\omega)$ is the generator of this cyclic Galois group.
+
+\begin{mdframed}
+Here are two different groups that often cause confusion. The first one is the group of integers under addition modulo $n$. It's a cyclic group, containing the residue class modulo $n$ of \{ 0, 1, 2, ..., $n - 1$\}, total $n$ elements. This group is often denoted as $\pmb{Z}/n\pmb{Z}$. It is isomorphic to the group formed with the $n$ roots of equation $x^n - 1 = 0$. The elements are the $n$-th root of unity $\{1 = \zeta_n^0, \zeta_n^1, \zeta_n^2, ..., \zeta_n^{n-1}\}$. The binary operation is multiplication.
+
+\vspace{5mm}
+
+The second group is integers under multiplication modulo $n$. The group elements are not all the residues from 0 to $n-1$, but all the ones coprime to $n$. The group operation is modulo multiplication. Denoted as $(\pmb{Z}/n\pmb{Z})^{\times}$. There are total $\upphi(n)$ elements, where $\upphi$ is Euler's totient function. When $n$ is prime $p$, there are $\{1, 2, ..., p-1\}$, total $p-1$ group elements. However, the multiplicative group modulo $n$ is not necessary cyclic. Luckily it is cyclic when $n$ is prime. An interesting fact is that $(\pmb{Z}/p\pmb{Z})^{\times}$ is isomorphic to the additive group $\pmb{Z}/(p-1)\pmb{Z}$.
+
+\vspace{5mm}
+
+This exercise tells us: For the Galois group in rational field extension, if it is generated by $n$-th root of unity, then this group is isomorphic to the multiplicative group of integers modulo $n$, i.e. $(\pmb{Z}/n\pmb{Z})^{\times}$. For example, the cubic equation $x^3 -1 = 0$ has three roots $\{1, \dfrac{-1 \pm i \sqrt{3}}{2}\}$. Its Galois group contains two automorphisms. One is $f(x) = x$, which is corresponding to $h_1(\omega) = \omega^1$; the other is $g(a + bi) = a - bi$, which is corresponding to $h_2(\omega) = \omega^2$. The effect of $h_2$ is transform the order of the three roots from $1, 2, 3$ to $1, 3, 2$.
+
+\[
+\begin{array}{l}
+1 \mapsto 1^2 = 1 \\
+\omega \mapsto \omega^2 \\
+\omega^2 \mapsto (\omega^2)^2 = \omega^3 \omega = \omega \\
+\end{array}
+\]
+
+\end{mdframed}
+}
+\Question{Let $\alpha$ be a root of equation $x^3 + x^2 - 4x + 1$, verify that $2 − 2\alpha - \alpha^2$ is also a root. What's the Galois group of this equation in rational field?
+
+% from: https://math.stackexchange.com/questions/850818/find-the-galois-group-of-the-polynomial-when-a-root-is-given
+Let $f(x) = x^3 + x^2 - 4x + 1$, then $f(\alpha) = 0$ holds. We can verify $f(2 - 2\alpha - 2\alpha^2) = 0$. Next let $g(\alpha) = 2 - 2\alpha - 2\alpha^2$, we can verify the following:
+
+\bea*{rcll}
+g^2(\alpha) & = & g(2 - 2\alpha - 2\alpha^2) & \\
+            & = & \alpha^3 + \alpha - 3 & f(\alpha) = 0 \\
+\eea*
+
+\bea*{rcll}
+g^3(\alpha) & = & g(\alpha^3 + \alpha - 3) &  \\
+            & = & \alpha & f(\alpha) = 0\\
+\eea*
+
+Therefore, $G = \{e, g, g^2\}$. It's the cyclic group $C_3$.
+}
+\end{Answer}
 
 \subsection{Fundamental theorem of Galois theory}
 \index{Fundamental theorem of Galois theory}
