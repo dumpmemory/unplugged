@@ -3065,13 +3065,14 @@ Further, since $f$ is $Q$-automorphism, we have:
 
 Let $p(x) = a_0 + a_1 x + ... + a_n x^n$, where $a_i \in Q$, then:
 
-\bre
-f(p(x)) & = & f(a_0 + a_1 x + ... + a_n x^n) \\
-  & = & f(a_0) + f(a_1 x) + ... + f(a_n x^n) & f(x + y) = f(x) + f(y) \\
-  & = & f(a_0) + f(a_1) f(x) + f(a_2) f(x)^2 + ... + f(a_n) f(x)^n & f(ax) = f(a) f(x) \\
-  & = & a_0 + a_1 f(x) + a_2 f(x)^2 + ... + a_n f(x)^n & f(x) = x, \forall x \in Q \\
-  & = & p(f(x)) \\
-\ere
+\bea*{cll}
+  & f(p(x)) & \\
+= & f(a_0 + a_1 x + ... + a_n x^n) \\
+= & f(a_0) + f(a_1 x) + ... + f(a_n x^n) & f(x + y) = f(x) + f(y) \\
+= & f(a_0) + f(a_1) f(x) + f(a_2) f(x)^2 + ... + f(a_n) f(x)^n & f(ax) = f(a) f(x) \\
+= & a_0 + a_1 f(x) + a_2 f(x)^2 + ... + a_n f(x)^n & f(x) = x, \forall x \in Q \\
+= & p(f(x)) & \\
+\eea*
 \end{proof}
 }
 \Question{Taking the complex number into account, what is the splitting field for polynomial $p(x) = x^4-1$? What are the functions in its $Q$-automorphism?
@@ -3317,28 +3318,28 @@ Where $H$ is invariant subgroup, the quotient group $G/H$ consists of these cose
 Such that every quotient group $G_i/G_{i+1}$ is abelian. The group series is called solvable group series.
 \end{definition}
 
-从定义可以直接得出，可解群列中的任何子群都是可解群。另外任何阿贝尔群都有$G \rhd \{e\}$，所有阿贝尔群都是可解群。
+From this definition, we known any subgroup in solvable series is solvable. Because for any abelian group $G$, $G \rhd \{e\}$ holds, therefore, all abelian groups are solvable.
 
-伽罗瓦应用他的理论揭示出了多项式方程根式可解的答案：
+Using his theory, Galois gave the final answer to radical solvability for any polynomial equation:
 
 \begin{theorem}
-多项式方程根式可解，当且仅当它的伽罗瓦群是可解群。
+A polynomial equation is radical solvable if and only if its Galois group is solvable.
 \end{theorem}
 
-对于一般3次方程，3个根的全部置换构成群$S_3$，它有一个正规子群$C_3$，$C_3$是单群，只有一个子群$\{e\}$。参考图\ref{fig:S3-Cayley}，我们有群列：
+For general cubic equation, all permutations of the three roots form the group $S_3$, it has a normal subgroup $C_3$, and $C_3$ is a simple group, hence has the only subgroup $\{e\}$. Refer to figure \ref{fig:S3-Cayley}, we have the group series:
 
 \[
 S_3 \rhd C_3 \rhd \{e\}
 \]
 
-对应商群的阶: $S_3/C_3 = 2, C_3/\{e\} = 3$都是素数，是可解群列。因此一般三次方程可解。
+The order of the quotient groups $S_3/C_3 = 2, C_3/\{e\} = 3$ are all prime, hence is solvable group series. Therefore general cubic equation is radical solvable.
 
-对于一般4次方程，4个根的全部置换构成群$S_4$，有24个元素。它有一个正规子群，是交错群$A_4$，有12个元素，如图\ref{fig:A4-Cayley}所示。接下来的正规子群是克莱因群$V$，有4个元素；而它又有正规子群$C_2$（同构于$S_2$），这是一个单群，只有一个子群$\{e\}$。我们有群列：
+For general quartic equation, all 24 permutations of the four roots form the group $S_4$. It has a normal subgroup $A_4$, which is an alternating group of 12 elements, as shown in figure \ref{fig:A4-Cayley}. The next subgroup is Klein four group $V$ with 4 elements. It has normal subgroup $C_2$ (isomorphic to $S_2$), it's a simple group, with the only subgroup of $\{e\}$. The group series are:
 
 \begin{figure}[htbp]
  \centering
  \includegraphics[scale=0.4]{img/A4-Cayley}
- \caption{交错群$A_4$的形状像一个三棱锥被截去了3个顶角}
+ \caption{Cayley graph of alternating group $A_4$. Cut the three vertex angles of a triangle pyramid.}
  \label{fig:A4-Cayley}
 \end{figure}
 % http://weddslist.com/groups/cayley-31/index.html
@@ -3348,219 +3349,61 @@ S_3 \rhd C_3 \rhd \{e\}
 S_4 \rhd A_4 \rhd V \rhd C_2 \rhd \{e\}
 \]
 
-对应商群的阶分别是2、3、2、2，都是素数，是可解群列。因此一般4次方程可解。
+The orders of the corresponding quotient groups  are 2, 3, 2, 2. They are all primes. The group series is solvable. Therefore general quartic equation is solvable.
 
-从伽罗瓦理论可以直接推出阿贝尔——鲁菲尼定理：一般5次方程根式不可解。5个根的全部置换构成对称群$S_5$，有120个元素，它唯一的正规子群是交错群$A_5$，有60个元素，如图\ref{fig:A5-Cayley}所示。但是$A_5$是一个单群，它唯一的正规子群是$\{e\}$。我们有群列：
+We can deduce the Abel-Ruffini theorem directly from Galois theory: there is no solution in radicals to general quintic polynomial equation. All 120 permutations of the five roots form the group $S_5$. The only normal subgroup is the alternating group $A_5$ with 60 elements, as shown in figure \ref{fig:A5-Cayley}. $A_5$ is a simple group, its only normal subgroup is $\{e\}$. The group series are:
 
 \[
 S_5 \rhd A_5 \rhd \{e\}
 \]
 
-但是商群$A_5/\{e\}$同构于$A_5$，而$A_5$不是阿贝尔群。商群的阶是60，不是素数。因此它不是可解群。这样一般5次方程不是根式可解的。
+The quotient group $A_5/\{e\}$ is isomorphic to $A_5$, however, $A_5$ is not abelian. The order of the quotient group is 60, which is not a prime. It is not a solvable group. Therefore, general quintic polynomial equation is not solvable in radicals.
 
 \begin{figure}[htbp]
  \centering
  \includegraphics[scale=0.25]{img/A5-Cayley}
  %\captionsetup{labelformat=empty}
- \caption{交错群$A_5$的形状像一个足球}
+ \caption{Cayley graph of alternating group $A_5$ likes a football.}
  \label{fig:A5-Cayley}
 \end{figure}
 
-我们还可以推出$n > 5$时，$S_n$也都不是可解群（见练习\ref{ex:3-cycle}，用反证法，这会导致$\{e\}$包含3循环的矛盾）。应用伽罗瓦理论，一般5次以上的多项式方程也都不是根式可解的。
+We can also verify that $S_n$ is not solvable when $n > 5$ (see exercise \ref{ex:3-cycle}. Use reduction of absurdity, it leads to the contradict result that $\{e\}$ contains 3-cycles). Galois theory tells there is no solution in radicals to general polynomial equations of degree five or higher.
 
-伽罗瓦正是通过对方程对称性的研究，发展出了伽罗瓦理论。它是抽象思想的明珠，是理性思维的强大工具。它可以解决很多问题，如证明正17边形可以用尺规作出，这是高斯年轻时发现的结论。伽罗瓦理论给出古希腊三大作图问题——圆化方、三分角、倍立方的否定答案，它们都无法用尺规作出。
+Studied of the symmetry of equations, Galois developed his theory. Galois theory is a powerful tool in abstract algebra. It can solve many problems, like to prove Gauss's finding that the regular heptadecagon (17-sided polygon) can be constructed with straightedge and compass. Galois theory can also prove that the three classic geometric problems with straightedge and compass in ancient Greek, squaring the circle, trisecting the angle, and doubling the cube, are all impossible.
 
 \begin{Exercise}\label{ex:solvable}
-\Question{考虑5次方程$x^5 - 1 = 0$，它是根式可解的。它的伽罗瓦群和可解群列是什么？}
-\Question{证明：当$n \geq 5$时，设$S_n$的子群$G$含有所有的3循环，形如$(abc)$，$N$是$G$的一个正规子群，商群$G/N$是阿贝尔群。则$N$也含有所有的三循环。}
+\Question{The 5th degree equation $x^5 - 1 = 0$ is radical solvable. What is its Galois group and what are the solvable group series?}
+\Question{Prove that, when $n \geq 5$, assume the subgroup $G$ of $S_n$ contains all 3-cycles like $(abc)$, $N$ is a normal subgroup of $G$, the quotient group $G/N$ is abelian, then $N$ contains all 3-cycles too.}
 \label{ex:3-cycle}
 \end{Exercise}
 
 \begin{Answer}[ref = {ex:solvable}]
-\Question{考虑5次方程$x^5 - 1 = 0$，它是根式可解的。它的伽罗瓦群和可解群列是什么？
+\Question{The 5th degree equation $x^5 - 1 = 0$ is radical solvable. What is its Galois group and what are the solvable group series?
 
-我们知道方程的根是复平面单位元上的5个点：\{1, $\zeta$, $\zeta^2$, $\zeta^3$, $\zeta^4$ \}。其中$\zeta = e^{2 \pi i / 5} = \dfrac{\sqrt{5} - 1 + i\sqrt{10 + 2 \sqrt{5}}}{4}$。在有理数域上的伽罗瓦群是一个4阶循环群$G(Q[\zeta]/Q) = C_4$，同构于模5乘法群：$(\pmb{Z}/5\pmb{Z})^{\times} = \{1, 2, 3, 4 \}_5$。它没有中间扩域，分裂域为$Q[\zeta]$。在分裂域上的伽罗瓦群是$\{1\}$。
+We know the 5 roots along the unit circle in the complex plane: \{1, $\zeta$, $\zeta^2$, $\zeta^3$, $\zeta^4$ \}, where $\zeta = e^{2 \pi i / 5} = \dfrac{\sqrt{5} - 1 + i\sqrt{10 + 2 \sqrt{5}}}{4}$. The Galois group in rational field is a cyclic group of order 4: $G(Q[\zeta]/Q) = C_4$. It is isomorphic to the multiplicative group modulo 5: $(\pmb{Z}/5\pmb{Z})^{\times} = \{1, 2, 3, 4 \}_5$. There is no intermediate field extension. The splitting field is $Q[\zeta]$. The Galois group in splitting field is $\{e\}$.
 
-显然$\{1\}$是$C_4$的正规子群。并且其商群$C_4/\{1\}$仍是循环群，在前面习题中我们证明了循环群一定是阿贝尔群。因此方程是根式可解的。群列：
+Obviously, $\{e\}$ is the normal subgroup of $C_4$. The quotient group $C_4/\{e\}$ is cyclic too. In previous exercise, we proved that cyclic group is abelian, hence the equation is radical solvable. The group series are:
 
 \[
 C_4 \rhd \{e\}
 \]
 }
-\Question{证明：当$n \geq 5$时，设$S_n$的子群$G$含有所有的3循环，形如$(abc)$，$N$是$G$的一个正规子群，商群$G/N$是阿贝尔群。则$N$也含有所有的三循环。
+\Question{Prove that, when $n \geq 5$, assume the subgroup $G$ of $S_n$ contains all 3-cycles like $(abc)$, $N$ is a normal subgroup of $G$, the quotient group $G/N$ is abelian, then $N$ contains all 3-cycles too.
 
-由于商群$G/N$是阿贝尔群，对于任意$g_1, g_2 \in G$，有$g_1N \cdot g_2N = g_1g_2N = g_2g_1N$。所以$g_1^{-1}g_2^{-1}g_1g_2N = N$，即$g_1^{-1}g_2^{-1}g_1g_2 \in N$。
+Since the quotient group $G/N$ is abelian, for any $g_1, g_2 \in G$, we have $g_1N \cdot g_2N = g_1g_2N = g_2g_1N$. Therefore, $g_1^{-1}g_2^{-1}g_1g_2N = N$, i.e. $g_1^{-1}g_2^{-1}g_1g_2 \in N$.
 
-因为$n \geq 5$，至少有5个数字，对于任意三循环$(abc)$，取另外两个不同的数字$d, f$，构造$g_1 = (dba), g_2 = (afc) \in G$。有：
+Because $n \geq 5$, there are at least 5 numbers, for any 3-cycle $(abc)$, choose another two different numbers $d, f$, construct $g_1 = (dba), g_2 = (afc) \in G$, we have:
 
 \[
 g_1^{-1}g_2^{-1}g_1g_2 = (abd)(cfa)(dba)(afc) = (abc) \in N
 \]
 
-因此$N$也含有所有的三循环。
+Hence $N$ contains all 3-cycles too.
 }
 \end{Answer}
 
-%%%%%%%%%%%%%%%%%%
-
-Through Galois correspondence, we connect the radical extension with group structure. To simplify the problem, we add some extra conditions. First, for every radical extension $F[\alpha_i]$, we assume the $\alpha_i$ being extended is a $p$-th root for some prime $p$. For example, we will factor $\sqrt[6]{\alpha}$ to $\sqrt{\alpha} = \beta$ and $\sqrt[3]{\beta}$. Then extend the field two times with them one by one. Second, if $\alpha_i$ is $p$-th root, and the radical extension $F[\alpha_1, ..., \alpha_{i-1}]$ does not contain $p$-th root of unity, we can assume the next radical extension $F[\alpha_1, ..., \alpha_i]$ does not contain $p$-th root of unity too, unless $\alpha_i$ itself is a $p$-th root of unity. For example, when we want to extend the field with root $\alpha = \sqrt[3]{2}$, if the field $F$ does not contain $\zeta = \dfrac{-1 + i\sqrt{3}}{2}$ as shown in figure \ref{fig:root-of-unity}, we can assume the radical extension $F[\sqrt[3]{2}]$ does not contain $\zeta$ too, unless $\alpha^3 = 1$, which means $\alpha$ itself equals $\zeta$. If it isn't the case, we can adjoin $\zeta$ before $\alpha_i$, then the radical extension $F[\alpha_1, ..., \alpha_{i-1}, \zeta]$ contains all the $p$-th root of unity: $1, \zeta, \zeta^2, ..., \zeta^{p-1}$. With both these modifications, the final field $F[\alpha_1, ..., \alpha_k]$ is the same, and it remains the same if the newly adjoined root $\zeta$ are included in the list $\alpha_1, ..., \alpha_k$.
-
-Hence any radical extension $F[\alpha_1, ..., \alpha_k]$ is a chain of ascending fields:
-
-\[
-F = F_0 \subseteq F_1 \subseteq F_2 \subseteq ... \subseteq F_k = F[\alpha_1, ..., \alpha_k]
-\]
-
-Where every $F_i = F_{i-1}[\alpha_i]$. $\alpha_i$ is the $p$-th root of some element in $F_{i-1}$, where $p$ is prime. They satisfy the condition about root of unity above. Corresponding to this chain of radical extensions, we have a chain of descending groups:
-
-\[
-Gal(F_k/F_0) = G_0 \supseteq G_1 \supseteq ... \supseteq G_k = Gal(F_k/F_k) = \{1\}
-\]
-
-Where $G_i = Gal(F_k/F_i) = Gal(F_k/F_{i-1}[\alpha_i])$. Every step moves from $G_{i-1}$ to its subgroup $G_i$, corresponding to adjoin $p$-th root $\alpha_i$ to field $F$, where $p$ is prime. Using the terms in group theory, $G_i$ is the normal subgroup of the previous group $G_{i-1}$, while the quotient group $G_{i-1}/G_i$ is abelian (commutative). We have the following theorem reflects this fact:
-
-\begin{theorem}
-In field extension $B \subseteq B[\alpha] \subseteq E$, $\alpha^p \in B$ for some prime $p$, if $B[\alpha]$ contains no $p$-th roots of unity not in $B$ unless $\alpha$ itself is a $p$-th root of unity, then $Gal(E/B[\alpha])$ is a normal subgroup of $Gal(E/B)$, and the quotient group
-
-\[
-Gal(E/B) / Gal(E/B[\alpha])
-\]
-is abelian.
-
-\end{theorem}
-
-\begin{mdframed}
-The proof is a bit complex, reader can skip it in the this frame
-\begin{proof}
-We'll use the homomorphism theorem for groups introduced in section \ref{normal-subgroup} to prove this theorem. We need find a homomorphism of $Gal(E/B)$, with the kernal of $Gal(E/B[\alpha])$, into an abelian group (onto a subgroup of an abelian group, which of course is also abelian). The obvious map with kernel $Gal(E/B[\alpha])$ is restriction to field $B[\alpha]$, we denote this map as $|_{B[\alpha]}$. According to the definition of Galois group, the group elements are automorphisms:
-
-\[
-\sigma \in Gal(E/B[\alpha]) \iff \sigma|_{B[\alpha]} \text{is the identity map}
-\]
-
-All such automorphisms $\sigma$ in Galois group $Gal(E/B)$ satisfy the homomorphism property:
-
-\[
-\sigma'\sigma|_{B[\alpha]} = \sigma'|_{B[\alpha]}\sigma|_{B[\alpha]}
-\]
-
-Since $\sigma$ fixes all elements in $B$, $\sigma|_{B[\alpha]}$ is completely determined by the value of $\sigma(\alpha)$. There are two cases. In the first case, $\alpha$ is a $p$-th root of unity $\zeta$, then:
-
-\[
-(\sigma(\alpha))^p = \sigma(\alpha^p) = \sigma(\zeta^p) = \sigma(1) = 1
-\]
-
-Hence $\sigma(\alpha) = \zeta^i \in B[\alpha]$, since each $p$-th root of unity is some $\zeta^i$. In the second case, $\alpha$ is not a root of unity, then:
-
-\[
-(\sigma(\alpha))^p = \sigma(\alpha^p) = \alpha^p
-\]
-
-According to radical extension rule, $\alpha^p$ is in field $B$, hence $\sigma(\alpha) = \zeta^j\alpha$ for some $p$-th root of unity $\zeta$, and $\zeta \in B$, so again $\sigma(\alpha) \in B[\alpha]$. Thus $B[\alpha]$ is closed for every $\sigma$.
-
-This also implies that $|_{B[\alpha]}$ maps $Gal(E/B)$ into $Gal(E/B[\alpha])$, so it now remains to check that $Gal(B[\alpha]/B)$ is abelian. There are two cases: In the first case, $\alpha$ is a root of unity, then every element in Galois group, which is automorphism $\sigma_i = \sigma|_{B[\alpha]} \in Gal(B[\alpha]/B)$ can be written in form $\sigma_i(\alpha) = \alpha^i$, hence:
-
-\[
-\sigma_i\sigma_j(\alpha) = \sigma_i(\alpha^j) = \alpha^{ij} = \sigma_j\sigma_i(\alpha)
-\]
-
-In the second case, $\alpha$ is not a root of unity, then each group element, the automorphism $\sigma_i$ is of the form $\sigma_i(\alpha) = \zeta^i\alpha$, hence:
-
-\[
-\sigma_i\sigma_j(\alpha) = \sigma_i(\zeta^j\alpha) = \zeta^{i + j}\alpha = \sigma_j\sigma_i(\alpha)
-\]
-
-Since $\zeta \in B$, therefore $\zeta$ is fixed under the automorphism. Hence in either case, $Gal(B[\alpha]/B)$ is abelian.
-\end{proof}
-\end{mdframed}
-
-When observe the chain of Galois subgroups:
-
-\[
-Gal(F[\alpha_1, ..., \alpha_k]/F) = G_0 \supseteq G_1 \supseteq ... \supseteq G_k = \{1\}
-\]
-
-Along this chain, if every group $G_i$ is the normal subgroup of the previous group $G_{i-1}$, and every quotient group $G_{i-1}/G_i$ is abelian, then we say the Galois group $Gal(F[\alpha_1, ..., \alpha_k]/F)$ is \textbf{solvable}.
-
-Now let us see the general $n$-th degree equation:
-
-\[
-x^n - a_1x^{n-1} + a_2x^{n-2}... \pm a_n = 0
-\]
-
-The base field contains coefficients is $Q[a_1, ..., a_n]$. Let its $n$ roots (not necessarily be radical) be $x_1, ..., x_n$, which means:
-
-\[
-(x - x_1)...(x - x_n) = x^n - a_1x^{n-1} ... \pm a_n
-\]
-
-The splitting field of the equation is $Q[x_1, ..., x_n]$. If whatever radical extension we obtain, it can't contain the splitting field, then the equation is not radical solvable.
-
-\begin{theorem}
-When $n \geq 5$, any radical extension of $Q[a_1, ..., a_n]$ does not contain the splitting field $Q[x_1, ..., x_n]$.
-\end{theorem}
-
-\begin{proof}
-We use the reduction to absurdity method. Suppose some radical extension $E$ contains the splitting field $Q[x_1, ..., x_n]$. According to the theorem we proved previously, there exits a bigger radical extension $\overline{E} \supseteq E$, such that the corresponding Galois group $G_0 = Gal(\overline{E}/Q[a_1, ..., a_n])$ includes automorphisms of permutations of all roots. Hence we can construct a chain of Galois subgroups:
-
-\[
-G_0 \supseteq G_1 \supseteq ... \supseteq G_k = \{1\}
-\]
-
-Where each $G_i$ is the normal subgroup of the previous group $G_{i-1}$, and the quotient group $G_{i-1}/G_i$ is abelian. We now show that this is impossible. Since the normal subgroup $G_i$ is the kernel of the homomorphism of $G_{i-1}$, for any two automorphisms $\sigma, \tau$ in $G_{i-1}$, we have:
-
-\[
-\sigma^{-1}\tau^{-1}\sigma\tau \in G_{i}
-\]
-
-When $n \geq 5$, $G_0$ contains the permutations of all roots. It is isomorphic to symmetric group $S_n$, it must include 3-cycle permutation $(a\ b\ c)$. Suppose $G_{i-1}$ also include 3-cycle permutation, we have:
-
-\[
-(a\ b\ c) = (d\ a\ c)^{-1}(c\ e\ b)^{-1}(d\ a\ c)(c\ e\ b) \in G_i
-\]
-
-Where $a, b, c, d, e$ are distinct. It means $G_i$ includes 3-cycle permutation as well. According to mathematical induction, all groups in the chain include 3-cycle permutation. But this is impossible, because the last group in this chain is $\{1\}$, it does not include 3-cycle permutation.
-\end{proof}
-
-\begin{figure}[htbp]
-%\begin{wrapfigure}{R}{0.3\textwidth}
- \centering
- \includegraphics[scale=0.3]{img/Soccer-ball.png}
- \captionsetup{labelformat=empty}
- \caption{Symmetric group $S_5$ is the production of alternating group $A_5$ and 2-cycle cyclic group. It can describe the symmetry of a football}
- \label{fig:S5}
-%\end{wrapfigure}
-\end{figure}
-
-Thus we proved the general 5th degree equation is not radical solvable. We can explain from another perspective. The symmetric group $S_5$ has 120 elements, its only normal subgroup is $A_5$. Where $A_5$ is called alternating group, which contains 60 elements. The only normal subgroup of $A_5$ is $\{1\}$. Hence the subgroup chain is $S_5 \supset A_5 \supset \{1\}$. However, the quotient group $A_5/\{1\}$ is not abelian (not commutative). Therefore, it is not solvable group. The corresponding general 5th degree equation is not radical solvable.
-
-For the general 4th degree equation, the symmetric group $S_4$ has a normal subgroup $A_4$, and the alternating group $A_4$ has a normal subgroup:
-
-\[
-\{(1), (1 2)(3 4), (1 3)(2 4), (1 4)(2 3)\}
-\]
-
-This group is isomorphic to Klein group, which is solvable.
-
-For the general cubic equation, the symmetric group $S_3$ has a normal subgroup $A_3$, and the alternating group $A_3$ is isomorphic to 3-cycle cyclic group. Hence it is also solvable.
-
-\begin{figure}[htbp]
-  \centering
-  \subcaptionbox{Alternating $A_3$ is isomorphic to 3-cycle cyclic group}[0.3\linewidth]{\includegraphics[scale=0.25]{img/C3.png}} \quad
-  \subcaptionbox{Symmetric group $S_3$, the upper part is $A_3$}[0.3\linewidth]{\includegraphics[scale=0.25]{img/S3.png}}
-  \subcaptionbox{Alternating group $A_4$}[0.3\linewidth]{\includegraphics[scale=0.25]{img/A4.png}}
-  \caption{Symmetric group and alternating group. Black point is identity element, cycle is closed loop}
-  \label{fig:group-graph}
-\end{figure}
-
-We introduced Galois theory in this short section. Galois theory is a powerful tool in abstract algebra. It can solve many problems, like to prove the fundamental theorem of algebra, prove Gauss's finding that the regular heptadecagon (17-sided polygon) can be constructed with straightedge and compass. Galois theory can also prove that the three classic geometric problems with straightedge and compass in ancient Greek, squaring the circle, trisecting the angle, and doubling the cube, are all impossible. We hope that readers can appreciate the depth and beauty of abstract thinking through this chapter.
-
-\begin{Exercise}
-\Question{The 5th degree equation $x^5 - 1 = 0$ is radical solvable. What's its Galois subgroup chain?}
-\end{Exercise}
-
-\section{附录}
-伽罗瓦在他的论文中列出了一般4次方程伽罗瓦群缩小的群列。他当时还没有凯莱图这样的工具，于是用$abcd$代表方程的4个根，通过它们的置换表达了自己的思想。
+\section{Appendix}
+Galois list the tower of group series for general quartic equation in his memoir. He did not have the tool of Cayley graph by that time. Galois denoted the four roots as $abcd$, and permuted them to explain his idea.
 
 \vspace{5mm}
 \begin{center}
