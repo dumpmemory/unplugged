@@ -10,7 +10,7 @@ This book introduces the mathematics behind computer programming.
 Contents
 --------
 
-The book can be downloaded in both English ([EN](https://github.com/liuxinyu95/unplugged/files/6754569/unplugged-en.pdf)) and Chinese ([中文](https://github.com/liuxinyu95/unplugged/files/6822280/unplugged-zh-cn.pdf)).
+The book can be downloaded in both English ([EN](https://github.com/liuxinyu95/unplugged/files/9078590/unplugged-en.pdf)) and Chinese ([中文](https://github.com/liuxinyu95/unplugged/files/6822280/unplugged-zh-cn.pdf)).
 
 - Preface
 - Chapter 1, Natural numbers. Peano Axiom, list and folding;
