@@ -1,7 +1,6 @@
 \ifx\wholebook\relax \else
 
-\documentclass{article}
-
+\documentclass[b5paper]{article}
 \usepackage[nomarginpar
   %, margin=.5in
 ]{geometry}
@@ -43,11 +42,7 @@
  \label{fig:Penrose-triangle}
 \end{wrapfigure}
 
-I still remember the mathematics class in high school. My teacher often wrote down a complex formula with many alphabetic symbols in the blackboard, then asked us to simplify it. Some student stood up, volunteered to do it in front of the class. Combining like terms, factorization, ... all means were attempted. It liked a magic process often led to unbelievable simple result. Of course sometimes the guy was stuck or trapped in loops, and finally saved by our teacher.
-
-Chalk and blackboard, Such experience was unforgettable, just like happened yesterday. I was so impressed to the mythical power of reasoning. I always wanted to know more formulas, that could help me to deduce the result.
-
-The magic is that, we even needn't care about the concrete meanings when doing the deduction. It likes building bricks, from different parts, we finally build an interesting toy. These formulas and theorems can also be combined together, and finally build an interesting result. When meet $a^2 + 2ab + b^2$, then turn it into $(a+b)^2$, just like mating two bricks. We needn't force ourselves to remind the geometric meanings for this formula when deducing it.
+I still remember the mathematics class in high school. My teacher often wrote down a complex formula with many alphabetic symbols in the blackboard, then asked us to simplify it. Some student stood up, volunteered to do it in front of the class. Combining like terms, factorization, ... all means were attempted. It liked a magic process often led to unbelievable simple result. Of course sometimes the guy was stuck or trapped in loops, and finally saved by our teacher. Chalk and blackboard, Such experience was unforgettable, just like happened yesterday. I was so impressed to the mythical power of reasoning. I always wanted to know more formulas, that could help me to deduce the result. The magic is that, we even needn't care about the concrete meanings when doing the deduction. It likes building bricks, from different parts, we finally build an interesting toy. These formulas and theorems can also be combined together, and finally build an interesting result. When meet $a^2 + 2ab + b^2$, then turn it into $(a+b)^2$, just like mating two bricks. We needn't force ourselves to remind the geometric meanings for this formula when deducing it.
 
 \begin{figure}[htbp]
 \centering
@@ -85,9 +80,7 @@ We use two examples in this chapter to demonstrate how to do deduction in progra
 
 \section{foldr/build fusion}
 
-The first example is the foldr/build fusion law. In 2015, a main stream programming language Java adopted lambda expression and a set of functional tools in its 1.8 version. However, some programmer soon found the chained function calls brought elegance and expressiveness at the penalty of performance if using carelessly. One reason is the chained functions may generate excessive intermediate results. While these intermediate results are not necessary simple values, but the complete list, container, or collection of complex structures. They are thrown away after consumed by the next functions. However, the same level of new result will be generated step by step. Such pattern that produce, one time consume, thrown away, then produce again, happens along the function chain repeatedly, which causes computation overhead.
-
-For example, we can define below function to examine if every element in a list satisfies a given prediction\cite{GLPJ-1993}.
+The first example is the foldr/build fusion law. In 2015, a main stream programming language Java adopted lambda expression and a set of functional tools in its 1.8 version. However, some programmer soon found the chained function calls brought elegance and expressiveness at the penalty of performance if using carelessly. One reason is the chained functions may generate excessive intermediate results. While these intermediate results are not necessary simple values, but the complete list, container, or collection of complex structures. They are thrown away after consumed by the next functions. However, the same level of new result will be generated step by step. Such pattern that produce, one time consume, thrown away, then produce again, happens along the function chain repeatedly, which causes computation overhead. For example, we can define below function to examine if every element in a list satisfies a given prediction\cite{GLPJ-1993}.
 
 \[
 all(p, xs) = and(map(p, xs))
@@ -101,7 +94,7 @@ Below is an alternative definition. It can avoid generating the intermediate Boo
 \begin{array}{l}
 all(p, xs) = h(xs) \\
   \begin{cases}
-  h([]) = True \\
+  h([\ ]) = True \\
   h(x:xs) = p(x) \land h(xs) \\
   \end{cases}
 \end{array}
@@ -127,7 +120,7 @@ We defined the fold from right operation for list in chapter 1 as below:
 
 \[
 \begin{array}{l}
-foldr\ \oplus\ z\ [] = z \\
+foldr\ \oplus\ z\ [\ ] = z \\
 foldr\ \oplus\ z\ (x:xs) = x\ \oplus\ (foldr\ \oplus\ z\ xs) \\
 \end{array}
 \]
@@ -169,8 +162,8 @@ elem\ x\ xs\ = foldr\ (a\ b \mapsto (a = x) \lor b)\ False\ xs
 
 \[
 \begin{array}{rcl}
-map\ f\ xs & = & foldr\ (x\ ys \mapsto f(x) : ys)\ []\ xs \\
-           & = & foldr\ ((:) \circ f)\ []\ xs \\
+map\ f\ xs & = & foldr\ (x\ ys \mapsto f(x) : ys)\ [\ ]\ xs \\
+           & = & foldr\ ((:) \circ f)\ [\ ]\ xs \\
 \end{array}
 \]
 
@@ -178,11 +171,11 @@ map\ f\ xs & = & foldr\ (x\ ys \mapsto f(x) : ys)\ []\ xs \\
 
 \[
 \begin{array}{rl}
-filter\ f\ xs = foldr\ (x\ ys \mapsto
+filter\ p\ xs = foldr\ (x\ ys \mapsto
   \begin{cases}
-    f(x): & x:ys\ \\
+    p(x): & x:ys\ \\
     \text{otherwise}: & ys
-  \end{cases})\ []\ xs \\
+  \end{cases})\ [\ ]\ xs \\
 \end{array}
 \]
 
@@ -202,7 +195,7 @@ This is because:
 \item Concatenate multiple lists:
 
 \[
-concat\ xss = foldr\ \doubleplus\ []\ xss
+concat\ xss = foldr\ \doubleplus\ [\ ]\ xss
 \]
 
 \end{enumerate}
@@ -210,21 +203,21 @@ concat\ xss = foldr\ \doubleplus\ []\ xss
 Actually all list operations can be realized by folding (We proved it in the F-algebra section in previous chapter), if we can simplify folding, we then can simplify all list operations.
 
 \subsection{foldr/build fusion law}
-Let's consider, what if fold from right by the cons operation (:) starting from an empty list []?
+Let's consider, what if fold from right by the cons operation (:) starting from an empty list [\ ]?
 
 \be
-foldr\ (:)\ []\ [x_1, x_2, ..., x_n] = x_1 : (x_2 : (...(x_n : []))...)
+foldr\ (:)\ [\ ]\ [x_1, x_2, ..., x_n] = x_1 : (x_2 : (...(x_n : [\ ]))...)
 \label{eq:foldr-fixed-point}
 \ee
 
-We end up with the list itself. You may remind the fixed point introduced in previous chapter, we'll return to this topic later. In other words, if we have an operation $g$, from a starting value, for example [], and a binary operation, from example ``:'', it generates a list. We define such list construction process as $build$:
+We end up with the list itself. You may remind the fixed point introduced in previous chapter, we'll return to this topic later. In other words, if we have an operation $g$, from a starting value, for example [\ ], and a binary operation, from example ``:'', it generates a list. We define such list construction process as $build$:
 
 \be
-build(g) = g((:), [])
+build(g) = g((:), [\ ])
 \label{eq:build-definition}
 \ee
 
-Next, if we fold the list with another start value $z$ and binary operation $f$, the result is equivalent to call $g$ by replacing [] with $z$, and replacing ``(:)'' with $f$.
+Next, if we fold the list with another start value $z$ and binary operation $f$, the result is equivalent to call $g$ by replacing [\ ] with $z$, and replacing ``(:)'' with $f$.
 
 \be
 \pmb{foldr}(f, z, \pmb{build}(g)) = g(f, z)
@@ -245,7 +238,7 @@ Let us start from an example. Consider how to sum up all the integers from $a$ t
 \[
 range(a, b) =
 \begin{cases}
-a > b: & [] \\
+a > b: & [\ ] \\
 \text{otherwise}: & a : range(a+1, b) \\
 \end{cases}
 \]
@@ -256,7 +249,7 @@ Such that $range(1, 5)$ builds the list [1, 2, 3, 4, 5]. Sum up the enumerated l
 sum(range(a, b))
 \]
 
-Next, we extract the start value [] and the binary operation (:) out as parameters:
+Next, we extract the start value [\ ] and the binary operation (:) out as parameters, name as $z$ and $\oplus$:
 
 \[
 range'(a, b, \oplus, z) =
@@ -269,10 +262,10 @@ range'(a, b, \oplus, z) =
 We can further Curry the last two arguments of $range'$.
 
 \[
-range'\ a\ b = f\ c \mapsto
+range'\ a\ b = \oplus\ z \mapsto
   \begin{cases}
-  a > b: & c \\
-  \text{otherwise}: & f\ a\ (range' (a+1)\ b\ f\ c) \\
+  a > b: & z \\
+  \text{otherwise}: & a\ \oplus\ (range' (a+1)\ b\ \oplus\ z) \\
   \end{cases}
 \]
 
@@ -298,7 +291,7 @@ It gives the simplified result, which avoid generating the intermediate list, he
 range'\ a\ b\ (+)\ 0 =
   \begin{cases}
   a > b: & 0 \\
-  \text{otherwise}: & a + range'(a+1, b, (+), 0) \\
+  \text{otherwise}: & a + (range'\ (a+1)\ b\ (+)\ 0) \\
   \end{cases}
 \]
 
@@ -310,16 +303,16 @@ To leverage fusion law conveniently, we can rewrite the common functions that ge
 \item The simplest one generates an empty list.
 
 \[
-[] = build\ (f\ z \mapsto z)
+[\ ] = build\ (f\ z \mapsto z)
 \]
 
 We can substitute it with the definition (\ref{eq:build-definition}) of $build$ to prove this result.
 
 \begin{proof}
 \bre
-build\ (f\ z \mapsto z) & = & (f\ z \mapsto z)\ (:)\ [] & \text{definition of } build \\
-  & = & (:)\ [] \mapsto [] & \beta-\text{reduction, see chapter 2} \\
-  & = & [] & \\
+build\ (f\ z \mapsto z) & = & (f\ z \mapsto z)\ (:)\ [\ ] & \text{definition of } build \\
+  & = & (:)\ [\ ] \mapsto [\ ] & \beta-\text{reduction, see chapter 2} \\
+  & = & [\ ] & \\
 \ere
 \end{proof}
 
@@ -334,8 +327,8 @@ Let us verify it.
 \begin{proof}
 \blre
   & build\ (f\ z \mapsto f\ x\ (foldr\ f\ z\ xs)) & \\
-= & (f\ z \mapsto f\ x\ (foldr\ f\ z\ xs))\ (:)\ [] & \text{definition of } build \\
-= & x : (foldr\ (:)\ []\ xs) & \beta-\text{reduction} \\
+= & (f\ z \mapsto f\ x\ (foldr\ f\ z\ xs))\ (:)\ [\ ] & \text{definition of } build \\
+= & x : (foldr\ (:)\ [\ ]\ xs) & \beta-\text{reduction} \\
 = & x : xs & \text{By (\ref{eq:foldr-fixed-point}), the fixed point of folding} \\
 \elre
 \end{proof}
@@ -349,8 +342,8 @@ xs \doubleplus ys = build\ (f\ z \mapsto foldr\ f\ (foldr\ f\ z\ ys)\ xs)
 \begin{proof}
 \blre
   & build\ (f\ z \mapsto foldr\ f\ (foldr\ f\ z\ ys) xs) & \\
-= & (f\ z \mapsto foldr\ f\ (foldr\ f\ z\ ys)\ xs)\ (:)\ [] & \text{Definition of } build\\
-= & foldr\ (:)\ (foldr\ (:)\ []\ ys)\ xs & \beta-\text{reduction} \\
+= & (f\ z \mapsto foldr\ f\ (foldr\ f\ z\ ys)\ xs)\ (:)\ [\ ] & \text{Definition of } build\\
+= & foldr\ (:)\ (foldr\ (:)\ [\ ]\ ys)\ xs & \beta-\text{reduction} \\
 = & foldr\ (:)\ ys\ xs & \text{Fixed point for inner part} \\
 = & xs \doubleplus ys & \text{By (\ref{eq:binary-concat}), list concatenation} \\
 \elre
@@ -364,7 +357,7 @@ For the rest examples, we only give the final result and leave the proof as exer
 \setcounter{enumi}{3}
 \item Concatenate multiple lists.
 \[
-concat\ xss = build\ (f\ z \mapsto foldr\ (xs\ x \mapsto foldr\ f\ x xs)\ xss)
+concat\ xss = build\ (f\ z \mapsto foldr\ (xs\ x \mapsto foldr\ f\ x\ xs)\ z\ xss)
 \]
 
 \item Map.
@@ -376,9 +369,9 @@ map\ f\ xs = build\ (\oplus\ z \mapsto foldr\ (y\ ys \mapsto (f\ y) \oplus ys)\ 
 \item Filter.
 
 \[
-filter\ f\ xs = build\ (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
+filter\ p\ xs = build\ (\oplus\ z \mapsto foldr\ (x\ xs' \mapsto
   \begin{cases}
-    f(x): & x \oplus xs' \\
+    p(x): & x \oplus xs' \\
     \text{otherwise}: & xs' \\
   \end{cases})\ z\ xs) \\
 \]
@@ -399,14 +392,15 @@ Empowered by the fusion law, we are ready to simplify varies of computation. The
 \normalfont
 First, we express $and$ in folding form, then turn $map$ into its build form, and apply fusion law to do the reduction.
 
-\bre
-all(p, xs) & = & and(map(p, xs)) & \text{definition} \\
-  & = & foldr\ \land\ True\ map(p, xs) & \text{folding form of } and \\
-  & = & \pmb{foldr}\ \land\ True\ \pmb{build}\ (\oplus\ z \mapsto & \\
-  &   & \quad \quad foldr\ (x\ ys \mapsto p(x) \oplus ys)\ z\ xs) & \text{build form of } map\\
-  & = & (\oplus\ z \mapsto foldr\ (x\ ys \mapsto p(x) \oplus ys)\ z\ xs)\ \land\ True & \text{fusion law} \\
-  & = & foldr\ (x\ ys \mapsto p(x) \land ys)\ True\ xs & \beta-\text{reduction} \\
-\ere
+\bea{cll}
+  & all(p, xs) \\
+= & and(map(p, xs)) & \text{definition} \\
+= & foldr\ \land\ True\ map(p, xs) & \text{folding form of } and \\
+= & \pmb{foldr}\ \land\ True\ \pmb{build}\ (\oplus\ z \mapsto & \\
+  & \quad \quad foldr\ (x\ ys \mapsto p(x) \oplus ys)\ z\ xs) & \text{build form of } map\\
+= & (\oplus\ z \mapsto foldr\ (x\ ys \mapsto p(x) \oplus ys)\ z\ xs)\ \land\ True & \text{fusion law} \\
+= & foldr\ (x\ ys \mapsto p(x) \land ys)\ True\ xs & \beta-\text{reduction} \\
+\eea
 
 We can define a helper function $first$, which applies a given function $f$ to the first element of a pair.
 
@@ -465,17 +459,17 @@ This definition is straightforward. It first uses map to append a space to every
   & \quad foldr\ (w\ b \mapsto \\
   & \quad \quad foldr\ (foldr\ f\ b\ ['\ '])\ w)\ z\ ws) \\
 
-  & \{\text{substitute $(:)$ and $[]$ in the definition of $build$}\} \\
-= & foldr\ (w\ b \mapsto foldr\ (:)\ \pmb{(foldr\ (:)\ b\ ['\ '])}\ w)\ []\ ws \\
+  & \{\text{substitute $(:)$ and $[\ ]$ in the definition of $build$}\} \\
+= & foldr\ (w\ b \mapsto foldr\ (:)\ \pmb{(foldr\ (:)\ b\ ['\ '])}\ w)\ [\ ]\ ws \\
 
   & \{\text{evaluate the bold part}\} \\
-= & foldr\ (w\ b \mapsto foldr\ (:)\ ('\ ' : b)\ w)\ []\ ws \\
+= & foldr\ (w\ b \mapsto foldr\ (:)\ ('\ ' : b)\ w)\ [\ ]\ ws \\
 \end{array} \]
 
 The final reduced result is:
 
 \[
-join(ws) = foldr\ (w\ b \mapsto foldr\ (:)\ ('\ ' : b)\ w)\ []\ ws
+join(ws) = foldr\ (w\ b \mapsto foldr\ (:)\ ('\ ' : b)\ w)\ [\ ]\ ws
 \]
 
 We can further expand the folding operation to obtain a definition with both good readability and performance.
@@ -483,11 +477,11 @@ We can further expand the folding operation to obtain a definition with both goo
 \[
 \begin{array}{l}
 \begin{cases}
-join\ [] = [] \\
+join\ [\ ] = [\ ] \\
 join\ (w:ws) = h\ w \\
 \end{cases} \\
 \text{where}: \begin{cases}
-             h\ [] = '\ ' : join\ ws \\
+             h\ [\ ] = '\ ' : join\ ws \\
              h\ (x:xs) = x : h\ xs \\
              \end{cases} \\
 \end{array}
@@ -513,12 +507,12 @@ On the other hand:
 
 \blre
   & foldr\ f\ z\ (build\ (c\ n \mapsto [0])) & \\
-= & foldr\ f\ z\ ((c\ n \mapsto [0])\ (:)\ []) & \text{definition of } build \\
+= & foldr\ f\ z\ ((c\ n \mapsto [0])\ (:)\ [\ ]) & \text{definition of } build \\
 = & foldr\ f\ z\ [0] & \beta-\text{reduction} \\
 = & f(0, z) & \text{expand foldr} \\
 \elre
 
-Obviously that $f(0, z)$ is not identical to $[0]$, even their types are not same\footnote{Unless the extreme case that $f = (:), z = []$.}. The reason that leads to this contradiction is because $(c\ n \mapsto [0])$ is not a function that builds result of $c$ and $n$. It tells us, the fusion law $foldr\ f\ z\ (build\ g) = g\ f\ z$, has type constraint for $g$. Its first argument can be $c$ or $f$. Actually, it accepts a polymorphic binary operation $\forall A. \forall B.\ A \times B \to B$; The second argument is the start value of a polymorphic type $B$, the result type is also $B$. Write the binary operation in Curried form, we obtain the following type constraint for $g$.
+Obviously that $f(0, z)$ is not identical to $[0]$, even their types are not same\footnote{Unless the extreme case that $f = (:), z = [\ ]$.}. The reason that leads to this contradiction is because $(c\ n \mapsto [0])$ is not a function that builds result of $c$ and $n$. It tells us, the fusion law $foldr\ f\ z\ (build\ g) = g\ f\ z$, has type constraint for $g$. Its first argument can be $c$ or $f$. Actually, it accepts a polymorphic binary operation $\forall A. \forall B.\ A \times B \to B$; The second argument is the start value of a polymorphic type $B$, the result type is also $B$. Write the binary operation in Curried form, we obtain the following type constraint for $g$.
 
 \[
 g : \forall A. (\forall B. (A \to B \to B) \to B \to B)
@@ -605,7 +599,7 @@ h \circ a = b \circ \mathbf{F}(h) \\
 \end{array}
 \ee
 
-What does the fusion law for initial algebra mean? In previous chapter, we explained that catamorphism can turn the non-recursive computation to folding on recursive structures. For example, when the functor $\mathbf{F}$ is $\mathbf{ListF}A$, where $A$ is a given object, the arrow $a = f + z$ (coproduct of $f$ and $z$), the initial arrow is $i = (:) + []$, and the catamorphism is $\lbb a \rbb = foldr(f, z)$. If denote $b = c + n$, then the fusion law can be written as:
+What does the fusion law for initial algebra mean? In previous chapter, we explained that catamorphism can turn the non-recursive computation to folding on recursive structures. For example, when the functor $\mathbf{F}$ is $\mathbf{ListF}A$, where $A$ is a given object, the arrow $a = f + z$ (coproduct of $f$ and $z$), the initial arrow is $i = (:) + [\ ]$, and the catamorphism is $\lbb a \rbb = foldr(f, z)$. If denote $b = c + n$, then the fusion law can be written as:
 
 \[
 h \circ foldr(f, z) = foldr(c, n)
@@ -624,7 +618,7 @@ This extended fusion law is called {\em acid rain law}\footnote{Because fusion l
 I \arrowto{\lbb a \rbb} A \quad \Rightarrow \quad \lbb a \rbb \circ g\ i = g\ a
 \ee
 
-For the list example, the catamorphism $\lbb a \rbb$ is $foldr(f, z)$; the initial algebra $i$ for list is $(:) + []$; define $build(g) = g\ (:)\ []$, and substitute it into the left side of acid rain law, we obtain the foldr/build fusion law:
+For the list example, the catamorphism $\lbb a \rbb$ is $foldr(f, z)$; the initial algebra $i$ for list is $(:) + [\ ]$; define $build(g) = g\ (:)\ [\ ]$, and substitute it into the left side of acid rain law, we obtain the foldr/build fusion law:
 
 \blre
 & \lbb a \rbb \circ g\ i = g\ a & \text{acid rain law} \\
@@ -633,10 +627,10 @@ For the list example, the catamorphism $\lbb a \rbb$ is $foldr(f, z)$; the initi
 foldr\ f\ z\ (g\ i) = g\ a & \text{foldr is catamorphism for list} \\
 
 \Rightarrow &
-foldr\ f\ z\ (g\ (:)\ []) = g\ a & \text{the initial algebra $i$ for list is $(:), []$} \\
+foldr\ f\ z\ (g\ (:)\ [\ ]) = g\ a & \text{the initial algebra $i$ for list is $(:), [\ ]$} \\
 
 \Rightarrow &
-foldr\ f\ z\ (g\ (:)\ []) = g\ f\ z & \text{substitute $a$ with $f, z$} \\
+foldr\ f\ z\ (g\ (:)\ [\ ]) = g\ f\ z & \text{substitute $a$ with $f, z$} \\
 
 \Rightarrow &
 \pmb{foldr}\ f\ z\ (\pmb{build}\ g) = g\ f\ z & \text{reverse of $build$} \\
@@ -666,7 +660,7 @@ repeat\ x = build\ (\oplus\ z \mapsto let\ r = x \oplus r\ in\ r) \\
 \Question{Simplify the quick sort algorithm.
 \[
 \begin{cases}
-qsort\ [] = [] \\
+qsort\ [\ ] = [\ ] \\
 qsort\ (x:xs) = qsort\ [a | a \in xs, a \leq x] \doubleplus [x] \doubleplus qsort\ [a | a \in xs, x < a] \\
 \end{cases}\]
 Hint: turn the ZF-expression\footnote{Known as Zermelo-Fraenkel expression in set theory. In the form $\{f(x) | x \in X, p(x), q(x), ...\}$ to build set. We'll meet it again in the next chapter about infinity and set theory.} into $filter$.}
@@ -740,7 +734,7 @@ Where $fork(f, g)\ x = (f\ x, g\ x)$. It applies two functions to a given variab
 
 \[
 \begin{cases}
-eval\ [] = 0 \\
+eval\ [\ ] = 0 \\
 eval (t:ts) = product\ (map\ dec\ t) + eval(ts) \\
 \end{cases}
 \]
@@ -780,7 +774,7 @@ Where $e_i$ is written in the form of $(ds:fs):ts$. The first sub-expression in 
 
 \[
 \begin{cases}
-extend\ d\ [] = [expr(d)] \\
+extend\ d\ [\ ] = [expr(d)] \\
 extend\ d\ es = concatMap\ (add\ d)\ es
 \end{cases}
 \]
@@ -863,7 +857,7 @@ For every expression and 4-tuple, we call $value$ function to calculate the valu
 
 \be
 \begin{cases}
-expand\ d\ [] = [(expr(d), (10, d, 1, 0))] \\
+expand\ d\ [\ ] = [(expr(d), (10, d, 1, 0))] \\
 expand\ d\ evs = concatMap\ ((filter\ ((\leq 100) \circ value \circ snd)) \circ (add\ d))\ evs\\
 \end{cases}
 \ee
@@ -871,7 +865,7 @@ expand\ d\ evs = concatMap\ ((filter\ ((\leq 100) \circ value \circ snd)) \circ 
 We are ready to fold on $expand$, generate all candidate expressions and 4-tuples that do not exceed 100. Finally, we calculate the result from the 4-tuples, and leave only those equal to 100.
 
 \be
-map\ fst \circ filter\ ((=100) \circ value \circ snd)\ (foldr\ expand\ []\ [1, 2, ..., 9])
+map\ fst \circ filter\ ((=100) \circ value \circ snd)\ (foldr\ expand\ [\ ]\ [1, 2, ..., 9])
 \ee
 
 The complete program based on this definition is given in the appendix of this chapter. There are total 7 expressions evaluate to 100.
