@@ -301,7 +301,7 @@ range'\ a\ b\ (+)\ 0 =
 
 \subsection{列表的构建形式}
 
-为了方便使用融合律，我们可以把常见的列表生成操作写为$build...foldr$的形式。这样当用叠加操作和这种形式的操作组合起来时，$\pmb{foldr}...(\pmb{build}...foldr)$，就可以使用融合律化简。
+为了方便使用融合律，我们可以把常见的列表生成操作写为$build...foldr$的形式。这样当用叠加操作和$build...foldr$形式组合起来时：$\pmb{foldr}...(\pmb{build}...foldr)$，就可以使用融合律化简。
 
 \begin{enumerate}
 \item 首先是最简单的操作——构造空列表：
