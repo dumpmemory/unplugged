@@ -439,7 +439,9 @@ join(ws) = concat(map(w \mapsto w \doubleplus ['\ '], ws))
 = & build\ (f\ z \mapsto \\
   & \quad \pmb{foldr}\ (x\ y \mapsto foldr\ f\ y\ x)\ z\ (\pmb{build}\ (f'\ z' \mapsto \\
   & \quad \quad foldr\ (w\ b \mapsto f'\ (w \mapsto w \doubleplus ['\ '])\ b)\ z'\ ws))) \\
-
+\end{array}
+\]
+\[ \begin{array}{rl}
   & \{\text{融合律}\} \\
 = & build\ (f\ z \mapsto \\
   & \quad foldr\ (w\ b \mapsto (x\ y \mapsto foldr\ f\ y\ x)\ (w \doubleplus ['\ '])\ b)\ z\ ws) \\
@@ -453,7 +455,9 @@ join(ws) = concat(map(w \mapsto w \doubleplus ['\ '], ws))
   & \quad foldr\ (w\ b \mapsto \\
   & \quad \quad \pmb{foldr}\ f\ b\ (\pmb{build}\ (f'\ z' \mapsto \\
   & \quad \quad \quad foldr\ f'\ (foldr\ f'\ z'\ ['\ '])\ w)))\ z\ ws) \\
-
+\end{array}
+\]
+\[ \begin{array}{rl}
   & \{\text{融合律}\} \\
 = & build\ (f\ z \mapsto \\
   & \quad foldr\ (w\ b \mapsto \\
