@@ -1,10 +1,3 @@
-# force build:
-force-cn:
-	latexmk -cd -xelatex unplugged-zh-cn.tex
-
-force-en:
-	latexmk -cd -xelatex unplugged-en.tex
-
 all: cn en
 
 BOOK-CN := $(wildcard *-zh-cn.tex)
@@ -21,6 +14,13 @@ CHAPTERS-EN := $(shell egrep -l documentclass $$(find . -name '*-en.tex' -a \! -
 chapters: chapters-cn chapters-en
 chapters-cn: $(CHAPTERS-CN:.tex=.pdf)
 chapters-en: $(CHAPTERS-EN:.tex=.pdf)
+
+# force build:
+force-cn:
+	latexmk -cd -xelatex unplugged-zh-cn.tex
+
+force-en:
+	latexmk -cd -xelatex unplugged-en.tex
 
 clean:
 	git clean -fdx
