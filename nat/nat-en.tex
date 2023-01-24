@@ -465,7 +465,7 @@ With these setup, we can define summation:
 \begin{array}{ll}
 c = (0, 0) & \text{Starting pair} \\
 h (m, n) = (m', m' + n) & \text{Succeed the 1st; Add the successor and the 2nd} \\
-sum = 2nd \cdot foldn(c, h) \\
+sum = 2nd \circ foldn(c, h) \\
 \end{array}
 \]
 
@@ -491,11 +491,11 @@ Similarly, we can define factorial with $foldn$.
 \begin{array}{lr}
 c = (0, 1) & \text{Starting pair for factorial} \\
 h (m, n) = (m', m'n) & \text{Iteration for factorial} \\
-fact = 2nd \cdot foldn(c, h) \\
+fact = 2nd \circ foldn(c, h) \\
 \end{array}
 \]
 
-Here we use the symbol `$\cdot$' to `connect' the $2nd$ function and the $foldn(c, h)$ function. We call it {\em function composition}. $f\cdot g$ means firstly apply $g$ to the variable, then apply $f$ on top of the result. That is $(f\cdot g)(x) = f(g(x))$.
+Here we use the symbol `$\circ$' to `connect' the $2nd$ function and the $foldn(c, h)$ function. We call it {\em function composition}. $f\circ g$ means firstly apply $g$ to the variable, then apply $f$ on top of the result. That is $(f\circ g)(x) = f(g(x))$.
 
 \index{Fibonacci}
 \begin{figure}[htbp]
@@ -540,7 +540,7 @@ The starting numbers are defined as 0 and 1 by convention\footnote{If start from
 
 \be
 \begin{array}{l}
-F = 1st \cdot foldn((0, 1), h) \\
+F = 1st \circ foldn((0, 1), h) \\
 h (m, n) = (n, m + n)
 \end{array}
 \ee
@@ -568,7 +568,7 @@ fib = fst . foldn (0, 1) h where
 We can define square from the iterative relation $(n+1)^2 = n^2 + 2n + 1$
 
 \[
-()^2 = 2nd \cdot foldn\ (0, 0)\ h
+()^2 = 2nd \circ foldn\ (0, 0)\ h
 \]
 
 Where $h$ accepts a pair $(i, s)$, containing number $i$ and its square $s$. It increases $i$ by 1, then uses the iterative relation to calculate the next square.
@@ -582,7 +582,7 @@ h\ (i, s) = (i + 1, s + 2i + 1)
 One simple method is to re-use the definition of $m^{()} = foldn(1, (\cdot m))$ in chapter 1:
 
 \[
-()^m = 2nd \cdot foldn\ (0, 0)\ h
+()^m = 2nd \circ foldn\ (0, 0)\ h
 \]
 
 where
@@ -628,7 +628,7 @@ pascal = gen [1] where
 \Question{Define sum of odd numbers with $foldn$, what sequence does it produce?
 
 
-1 + 3 + 5 + ... can be defined with $foldn$ as $2nd \cdot foldn\ (1, 0)\ h$, where:
+1 + 3 + 5 + ... can be defined with $foldn$ as $2nd \circ foldn\ (1, 0)\ h$, where:
 
 \[
 h\ (i, s) = (i + 2, s + i)
@@ -790,7 +790,7 @@ We can measure the length of the list with $sum$. It essentially maps a list to 
 \be
 \begin{array}{l}
 one(a) = 1 \\
-length = sum \cdot foldr(0, one)
+length = sum \circ foldr(0, one)
 \end{array}
 \ee
 
@@ -809,10 +809,10 @@ concat = foldr(nil, \doubleplus)
 When apply $concat([[1, 1], [2, 3, 5], [8]])$, the result is $[1, 1, 2, 3, 5, 8]$. At the end of this section, we'll define two important list operations with $foldr$, filtering and mapping\footnote{Different from one to one mapping, the map defined here is one direction only. For example, the map from a string to its length is one direction. The reverse map does not exist.}. Filter is to compose a new list from the elements that satisfy a given predication. In order to realize filtering, we need introduce the conditional expression\footnote{Also known as McCarthy conditional form, or McCarthy formalism. It was introduced by the computer scientist, the inventor of Lisp, John McCarthy in 1960.}. It's written as $(p \mapsto f, g)$. When give variable $x$, if the predication $p(x)$ holds, then the result is $f(x)$, else it's $g(x)$. We also use if $p(x)$ then $f(x)$ else $g(x)$ for conditional expression.
 
 \be
-filter(p) = foldr(nil, (p \cdot 1st \mapsto cons, 2nd))
+filter(p) = foldr(nil, (p \circ 1st \mapsto cons, 2nd))
 \ee
 
-Let's use an example to understand how this definition works. We want to select all even numbers from a list $filter(even, [1, 4, 9, 16, 25])$. Like expansion process in $sum$, the filtering expands to $h(1, h(4, h(9, ...)))$ till the right end $cons(25, nil)$. According to the definition of $foldr$, the result is $c$ when the list is $nil$. So the next step is to compute $h(25, nil)$, where $h$ is the conditional expression. When apply $even \cdot 1st$ to the pair $(25, nil)$, function $1st$ picks 25, as it's odd, the predication $even$ does not hold. Based on the conditional expression, $2nd$ is evaluated and gives the result $nil$. Then we enter the upper level to compute $h(16, nil)$. Function $1st$ extracts the number 16, as 16 is even, the predicate $even$ holds, so the conditional expression sends to $cons(16, nil)$, which produces the list $[16]$. Then we enter one more upper level to compute $h(9, [16])$, the conditional expression sends to $2nd$, which again produces $[16]$. The computation enters to $h(4, [16])$ next. The conditional expression sends to $cons(4, [16])$, which produces the list $[4, 16]$. The computation finally reach to the top level $h(1, [4, 16])$. The conditional expression sends to $2nd$, which produces the final result $[4, 16]$.
+Let's use an example to understand how this definition works. We want to select all even numbers from a list $filter(even, [1, 4, 9, 16, 25])$. Like expansion process in $sum$, the filtering expands to $h(1, h(4, h(9, ...)))$ till the right end $cons(25, nil)$. According to the definition of $foldr$, the result is $c$ when the list is $nil$. So the next step is to compute $h(25, nil)$, where $h$ is the conditional expression. When apply $even \circ 1st$ to the pair $(25, nil)$, function $1st$ picks 25, as it's odd, the predication $even$ does not hold. Based on the conditional expression, $2nd$ is evaluated and gives the result $nil$. Then we enter the upper level to compute $h(16, nil)$. Function $1st$ extracts the number 16, as 16 is even, the predicate $even$ holds, so the conditional expression sends to $cons(16, nil)$, which produces the list $[16]$. Then we enter one more upper level to compute $h(9, [16])$, the conditional expression sends to $2nd$, which again produces $[16]$. The computation enters to $h(4, [16])$ next. The conditional expression sends to $cons(4, [16])$, which produces the list $[4, 16]$. The computation finally reach to the top level $h(1, [4, 16])$. The conditional expression sends to $2nd$, which produces the final result $[4, 16]$.
 
 The concept of mapping is to transform every element in one list to another value through a function $f$, and form a new list. That is $map(f, \{x_1, x_2, ..., x_n\} = \{f(x_1), f(x_2), ..., f(x_n)\}$. It can be defined with $foldr$ as below.
 
@@ -823,7 +823,7 @@ h(x, c) = cons(f(x), c)
 \end{array}
 \ee
 
-We call the operation that applies a function to the first value in a pair as `$first$', that is $first(f, (x, y)) = (f(x), y)$. We'll come back to it in the chapter of category theory. With $first$, map can be defined as $map(f) = foldr(nil, cons \cdot first(f))$.
+We call the operation that applies a function to the first value in a pair as `$first$', that is $first(f, (x, y)) = (f(x), y)$. We'll come back to it in the chapter of category theory. With $first$, map can be defined as $map(f) = foldr(nil, cons \circ first(f))$.
 
 \begin{Exercise}\label{ex:foldr}
 \Question{What does the expression $foldr(nil, cons)$ define?}
@@ -848,13 +848,13 @@ foldr\ (c\ d \mapsto 10d + c)\ 0
 However, if the lowest digit is on the right, and the elements in the list are characters but not digit, then we need adjust it to:
 
 \[
-1st \cdot foldr\ (c, (d, e) \mapsto ((toInt\ c)e + d, 10e))\ (0, 1)
+1st \circ foldr\ (c, (d, e) \mapsto ((toInt\ c)e + d, 10e))\ (0, 1)
 \]
 
 We can make it process the hexadecimal numbers by replacing 10 to 16 in this definition. When meet the decimal point, we can divide $d$, the result so far, by $e$ to calculate the fractional part value.
 
 \[
-1st \cdot foldr\ h\ (0, 1)
+1st \circ foldr\ h\ (0, 1)
 \]
 
 where
@@ -871,9 +871,8 @@ c = '.' & (d / e, 1) \\
 If all numbers are positive, then the maximum sum is the sum of the whole list. This is because addition is monotone increasing upon positive numbers. If all numbers are negative, then the maximum sum should be zero, which is the sum of empty list. For any sub-list, the sum increases when add a positive number, while it decreases when add a negative number. We can maintain two things during folding: one is the maximum sum found so far $S_m$, the other is the sum of the sub-list till the current number being examined $S$. By adding the next element, if $S$ exceeds $S_m$, it means we found a larger sub-list sum. Hence we replace $S_m$ with $S$; If $S$ becomes negative, it means we complete the previous sub-list, and should start a new one.
 
 \blre
-max_s & = & 1st \cdot foldr\ f\ (0, 0) \\
-\text{where}: & & f\ x\ (S_m, S) = (S_m', S') \\
-& & \text{where in $f$}:  S' = max(0, x + S), S_m' = max(S_m, S') \\
+max_s & = & 1st \circ foldr\ f\ (0, 0) \\
+\text{where}: & & f\ x\ (S_m, S) = (S_m' = \max(S_m, S'), S' = \max(0, x + S)) \\
 \elre
 
 Here is the example program implements this solution.
@@ -890,9 +889,8 @@ maxSum = fst . foldr f (0, 0) where
 If want to return the sub-list together with the maximum sum, we can maintain two pairs $P_m$ and $P$ during folding, each pair contains the sum and the sub-list $(S, L)$.
 
 \blre
-max_s & = & 1st \cdot foldr\ f\ ((0, []), (0, [])) \\
-\text{where}: & & f\ x\ (P_m, (S, L)) = (P_m', P') \\
-& & \text{where in $f$}:  P' = max((0, []), (x + S, x:L)), P_m' = max(P_m, P') \\
+max_s & = & 1st \circ foldr\ f\ ((0, [\ ]), (0, [\ ])) \\
+\text{where}: & & f\ x\ (P_m, (S, L)) = (P_m' = \max(P_m, P'), P' = \max((0, [\ ]), (x + S, x \cons L))) \\
 \elre
 }
 \Question{The longest sub-string without repeated characters. Given a string, find the longest sub-string without any repeated characters in it. For example, the answer for string ``abcabcbb'' is ``abc''. Solve it with $foldr$.
@@ -900,7 +898,7 @@ max_s & = & 1st \cdot foldr\ f\ ((0, []), (0, [])) \\
 We give two methods. One solution is to maintain the longest sub-string without repeated characters during folding, record and check if the character $c$ has met before and its last appeared position. If $c$ never occurred, or it appears before the current sub-string we are examining, then we append it to the current sub-string, and compare with the longest one we've found so far. Otherwise, it means the current sub-string contains a repeated character, we need go back to its last occurred position, move ahead one, then restart searching.
 
 \[
-longest(S) = fst2 \cdot foldr\ f\ (0, |S|, |S|, \varnothing)\ zip(\{1, 2, ...\}, S)
+longest(S) = fst2 \circ foldr\ f\ (0, |S|, |S|, \varnothing)\ zip(\{1, 2, ...\}, S)
 \]
 
 Where folding starts from a tuple of 4 elements. It contains the length of the longest sub-string we found so far, the right boundary of the longest sub-string, the right boundary of the current sub-string, and a map recorded the last occurred position for different characters. Function $fst2$ extract the first two elements from the tuple as result. To obtain the position of each character easily during folding, we $zip$ the string $S$ and natural number sequence together. The most critical function $f$ is defined as below:
@@ -971,7 +969,7 @@ P = \displaystyle \prod_{c \in S} p_c
 Therefore, for any new character $c'$, we can check whether the corresponding prime number $p'$ divides $P$ or not to know if $c'$ appears in $S$. Based on this fact, we can design an algorithm. It maintains the product of primes during folding. When there is a character, that its corresponding prime number divides the product, we then find a repeated character. We need drop off the part containing the repeated character and go on folding. During this process, we also need update the longest sub-string.
 
 \[
-longest = fst \cdot foldr\ f\ ((0, []), (0, []), 1)
+longest = fst \circ foldr\ f\ ((0, [\ ]), (0, [\ ]), 1)
 \]
 
 Where the folding starts from a tuple of three elements. The first two are pairs, represent the longest sub-string (length and content), and the current sub-string. The last one in the tuple is the product of primes, starts from 1. Function $f$ is defined as the following:
