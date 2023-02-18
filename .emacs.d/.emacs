@@ -37,17 +37,21 @@
 
 (defvar my-site-lisp "~/.emacs.d/site-lisp")
 
-
 ;; ==========================================
 ;; ELPA and MELPA
 
 (require 'package)
 
 (setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
-        ("melpa-stable" . "http://stable.melpa.org/packages/")))
+      '(("gnu" . "https://elpa.gnu.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")))
 
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(current-language-environment "UTF-8")
  '(package-selected-packages
    (quote
@@ -69,6 +73,15 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Disable auto indent in Tex Mode
+(add-to-list 'auto-mode-alist '("\\.tex$" . LaTeX-mode))
+
+(defun remove-electric-indent-mode ()
+  (electric-indent-local-mode -1))
+
+(add-hook 'LaTeX-mode-hook 'remove-electric-indent-mode)
+(add-hook 'plain-TeX-mode-hook 'remove-electric-indent-mode)
 
 ;; =======================================
 ;;    Interactive with host OS

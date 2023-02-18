@@ -1,7 +1,6 @@
 \ifx\wholebook\relax \else
 
-\documentclass{article}
-
+\documentclass[b5paper]{article}
 \usepackage[nomarginpar
   %, margin=.5in
 ]{geometry}
@@ -35,13 +34,15 @@
 
 \epigraph{I know that I know nothing}{——Socrates}
 
-\begin{wrapfigure}{R}{0.5\textwidth}
+%\begin{wrapfigure}{R}{0.5\textwidth}
+\begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.3]{img/Escher-Waterfall-1961.jpg}
+ \includegraphics[scale=0.25]{img/Escher-Waterfall-1961}
  \captionsetup{labelformat=empty}
  \caption{Escher, Waterfall, 1961}
  \label{fig:Escher-Waterfall}
-\end{wrapfigure}
+\end{figure}
+%\end{wrapfigure}
 
 \index{Deep Blue}
 In 1996, the 26th Summer Olympic game was hold in Atlanta, U.S. More than 10 thousand athletes from 197 nations challenged human limit of speed, strength, and team work in 26 sports. At the same time, there was another interesting match on-going. An IBM computer, called Deep Blue challenged the world chess champion Garry Kasparov in a six-game match. Deep Blue won the first game, but Kasparov won three and drew two, defeating Deep Blue by a score of 4:2. The next year, heavily upgraded Deep Blue challenged again to human world champion Kasparov. On May 11, computer defected human: two wins for Deep Blue, one for the champion, and three draws. Deep Blue is a super computer of 1270 kilogram weight, with 32 processors. It can explorer 200 million possible moves in a second. The design team input 2 million grandmaster games in the past 100 years as the knowledge base for Deep Blue. The machine created by human intelligence, defected human at the first time in the field of intelligence. This result led to attention, fear, and hotly debate among mess media.
@@ -205,11 +206,25 @@ Russell died of influenza on February 2nd, 1970 at his home in Penrhyndeudraeth.
 
 Russell was sad after discovering the paradox in the central of set theory. ``What makes it vital, what makes it fruitful, is the absolute unbridled Titanic passion that I have put into it. It is passion that has made my intellect clear, ... it is passion that enabled me to sit for years before a blank page, thinking the whole time about one probably trivial point which I could not get right ...''(\cite{HanXueTao16} pp.231) Russell wrote to mathematician and logician Gottlob Frege about his paradox. Frege was about to build the foundation of arithmetic. The second volume of his {\em Basic Laws of Arithmetic} was about to go to press. Frege was surprised, he wrote: ``Hardly anything more unwelcome can befall a scientific writer than that one of the foundations of his edifice be shaken after the work is finished. This is the position into which I was put by a letter from Mr Betrand Russell as the printing of this volume was nearing completion... '' Russell's paradox in axiomatic set theory was disastrous. Further, since set theory was seen as the basis for axiomatic development of all other branches of mathematics, Russell's paradox threatened the foundation. This motivated a great deal of research around the turn of the 20th century to develop a consistent (contradiction free) mathematics.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:Russell-paradox}
 \Question{We can define numbers in natural language. For example ``the maximum of two digits number'' defines 99. Define a set containing all numbers that cannot be described within 20 words. Consider such an element: ``The minimum number that cannot be described within 20 words''. Is it a member of this set?}
 \Question{``The only constant is change'' said by Heraclitus. Is this Russell's paradox?}
 \Question{Is the quote saying by Socrates (the beginning of this chapter) Russell's paradox?}
 \end{Exercise}
+
+\begin{Answer}[ref = {ex:Russell-paradox}]
+\Question{We can define numbers in natural language. For example ``the maximum of two digits number'' defines 99. Define a set containing all numbers that cannot be described within 20 words. Consider such an element: ``The minimum number that cannot be described within 20 words''. Is it a member of this set?
+
+This is an instance of Russell's paradox. Whether it is a member, all lead to contradiction.
+}
+\Question{``The only constant is change'' said by Heraclitus. Is this Russell's paradox?
+
+Yes, this is an instance of Russell's paradox.}
+\Question{Is the quote saying by Socrates (the beginning of this chapter) Russell's paradox?
+
+Yes, it is an instance of Russell's paradox.
+}
+\end{Answer}
 
 \section{Philosophy of mathematics}
 
@@ -553,10 +568,58 @@ To add or remove the successorship $S$, we define below rules.
 
 So far, the TNT system is very powerful, we can construct complex theorems with it.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:TNT-system}
 \Question{Translate Fermat's last theorem into a TNT string.}
 \Question{Prove the associative law of addition with TNT reasoning rules.}
 \end{Exercise}
+
+\begin{Answer}[ref = {ex:TNT-system}]
+\Question{Translate Fermat's last theorem into a TNT string.
+
+We need define power operation first.
+
+\[\begin{cases}
+\forall a: e(a, 0) = S0 & \text{0-th power is 1} \\
+\forall a: \forall b: e(a, Sb) = a \cdot e(a, b) & \text{recursion} \\
+\end{cases}\]
+
+We can then define Fermat's last theorem atop it.
+
+\[
+\forall d: \lnot \exists a: \exists b: \exists c: \lnot (d = 0 \lor d = S0 \lor d = SS0) \to e(a, d) + e(b, d) = e(c, d)
+\]
+}
+\Question{Prove the associative law of addition with TNT reasoning rules.
+
+Surprisingly, we can prove every theorem below:
+
+\bre
+a + b + 0 & = & a + (b + 0) \\
+a + b + S0 & = & a + (b + S0) \\
+a + b + SS0 & = & a + (b + SS0) \\
+... \\
+\ere
+
+For example:
+
+\bre
+a + b + 0 = a + b = a + (b + 0)
+\ere
+
+And:
+
+\bre
+a + b + SS0 & = & SS(a + b + 0) \\
+ & = & SS(a + b) \\
+ & = & a + SSb \\
+ & = & a + (b + SS0) \\
+\ere
+
+However, we cannot prove: $\forall c: a + b + c = a + (b + c)$.
+
+To do that, we has to introduce mathematical induction.
+}
+\end{Answer}
 
 \subsubsection{Incompleteness of TNT}
 
@@ -597,9 +660,29 @@ The $\omega$ incompleteness of TNT tells us, we are missing an important rule --
 
 With mathematical induction supported, TNT system now has the same capability as Peano's arithmetic.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:math-induction}
 \Question{Prove that $\forall a: (0 + a) = a$ with the newly added rule of induction.}
 \end{Exercise}
+
+\begin{Answer}[ref = {ex:math-induction}]
+\Question{Prove that $\forall a: (0 + a) = a$ with the newly added rule of induction.
+
+First for the case of 0:
+
+\[
+0 + 0 = 0
+\]
+
+Next suppose $(0 + a) = a$ holds, we have:
+
+\bre
+(0 + Sa) & = & S(0 + a) & \text{axiom 3} \\
+  & = & Sa & \text{induction hypothesis} \\
+\ere
+
+From the rule of induction, we obtain: $\forall a: (0 + a) = a$
+}
+\end{Answer}
 
 \subsection{Gödel numbering}
 \index{Gödel numbering}
@@ -718,15 +801,15 @@ Our proof uses the same method as Cantor's diagonal argument in previous chapter
 
 \section{Epilogue}
 
-\begin{wrapfigure}{R}{0.6\textwidth}
-%\begin{figure}[htbp]
+%\begin{wrapfigure}{R}{0.6\textwidth}
+\begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.8]{img/Escher-Dragon.png}
+ \includegraphics[scale=0.75]{img/Escher-Dragon.png}
  %\captionsetup{labelformat=empty}
  \caption{Escher, {\em Dragon}, 1952}
  \label{fig:Escher-Dragon}
-%\end{figure}
-\end{wrapfigure}
+\end{figure}
+%\end{wrapfigure}
 
 As human being, our rational thinking is great. It can lead us back to thousands of years, and talk to ancient sages; it can send us across the universe, and step onto the unreachable planet; it can foresee elementary parcels that are invisible to eyes; it can break through intuition and reach to high dimension magic world. Looking up the sky, through the clouds, dust, and stars, we feel the insignificant of ourselves. We are just passing passengers in the long river of time, just like a drop in the vast sea.
 
@@ -735,19 +818,22 @@ The problem we introduce in this chapter, is essentially about ourselves as huma
 Even it was about a hundred years ago, the hot debate about mathematical foundation, the genius proof given by Gödel still have their practical significance today. As human beings, we are humbly in awe of the nature, the universe, our ancestors, and ourselves.
 
 \ifx\wholebook\relax \else
+\section{Answers}
+\shipoutAnswer
+
 \begin{thebibliography}{99}
 
 \bibitem{Gatys-2015}
 Leon A. Gatys, Alexander S. Ecker, Matthias Bethge. ``A Neural Algorithm of Artistic Style.'' 2015. arXiv:1508.06576 [cs.CV] IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 2017.
 
 \bibitem{GuSen-2012}
-{\fontspec{\cnmainft}顾森 《思考的乐趣——Matrix67数学笔记》 人民邮电出版社.} 2012, ISBN: 9787115275868
+顾森 《思考的乐趣——Matrix67数学笔记》 人民邮电出版社. 2012, ISBN: 9787115275868
 
 \bibitem{SICP}
 Harold Abelson, Gerald Jay Sussman, Julie Sussman. ``Structure and Interpretation of Computer Programs''. MIT Press, 1984; ISBN 0-262-01077-1
 
 \bibitem{HanXueTao16}
-{\fontspec{\cnmainft}韩雪涛 ``数学悖论与三次数学危机''. 人民邮电出版社}. 2016, ISBN: 9787115430434
+韩雪涛 ``数学悖论与三次数学危机''. 人民邮电出版社. 2016, ISBN: 9787115430434
 
 \bibitem{M-Kline-2007}
 Morris Kline. ``Mathematics: The Loss of Certainty''. Oxford University Press, 1980. 0-19-502754-X.

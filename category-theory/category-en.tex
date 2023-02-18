@@ -1,6 +1,6 @@
 \ifx\wholebook\relax \else
 
-\documentclass{article}
+\documentclass[b5paper]{article}
 \usepackage[nomarginpar
   %, margin=.5in
 ]{geometry}
@@ -38,7 +38,7 @@
 
 \begin{wrapfigure}{R}{0.4\textwidth}
  \centering
- \includegraphics[scale=0.5]{img/dewdrop.jpg}
+ \includegraphics[scale=0.5]{img/dewdrop}
  \captionsetup{labelformat=empty}
  \caption{Escher, Dewdrop, 1948}
  \label{fig:Escher-Dewdrop-1948}
@@ -47,13 +47,11 @@
 Welcome to the world of category! We just see the wounderful scence about abstract algebra in previous chapter. Congratulation to enter the door to the new kingdom of abstraction. The road to this kingdom is developed by may talent minds. In the first stage, people abstracted the concept of number and shape from the concrete things; in the second stage, we removed the meaning of numbers, shapes, and concrete arithmatics, abstract them to algebraic structures (for example group) and relations (for example isomorphism); category theory can be considered as the third stage.
 
 What is category? Why does it matter? Any relationship between category and programming? Category theory was a `side product' when mathematicians studied homological algebra in 1940s. In recent decades, category theory has been widely used in varies of areas. Because of the powerful abstraction capability, it is applicable to many problems. It may also be used as an axiomatic foundation for mathematics, as an alternative to set theory and other proposed foundations. Category theory has practical applications in programming language theory. More and more mainstream programming languages adopted category concepts. The usage of monads is relized in more than 20 languages\cite{Monad-Haskell-Wiki}. Speaking in language of category, a monad is a monoid in the category of endofunctors. Most of the foundamental computations have been abstracted in this way nowadays\footnote{For example, the traditional generic folding from right: \\
-\texttt{foldr \_ z {[} {]} = z} \\
-\texttt{foldr f z (x:xs) = f x (foldr f z xs)} \\
-is written in the language of categories as: \texttt{foldr f z t = appEndo (foldMap (Endo . f) t) z} We'll explain it later in this chapter.}.
+\lstinline{foldr _ z [] = z} \\
+\lstinline{foldr f z (x:xs) = f x (foldr f z xs)} \\
+is written in the language of categories as: \lstinline{foldr f z t = appEndo (foldMap (Endo . f) t) z} We'll explain it later in this chapter.}.
 
-The most important thing is abstraction. Hermann Weyl said ``Our mathematics of the last few decades has wallowed in generalities and formalizations." The samething happens in programming. The problems in modern computer science are challenging us with the complexicty we never seen before. Big-data, distributed computation, high concurrency, as well as the requirement to consistency, security, and integrity. We can't catch them up in the traditional way, like brute-force exhaustive search, pragmatic engineering practice, a smart idea plus some luck. It forces us to learn the new methods and tools from other science and mathematics.
-
-As Dieudonne said: ``This abstraction which has accrued in no way sprang from a perverse desire among mathematicans to isolate themselves from the scientific community by the use of a hermetic language. Their task was to find solutions for problems {\em handed down by the `classical' age}, or arising directly from new discoveries in physics. They found that this was possible, but only through the {\em creation} of new objets and new methods, whose abstract character was {\em indispensable} to their success.'' \cite{Dieudonne1987}(page 2)
+The most important thing is abstraction. Hermann Weyl said ``Our mathematics of the last few decades has wallowed in generalities and formalizations.'' The samething happens in programming. The problems in modern computer science are challenging us with the complexicty we never seen before. Big-data, distributed computation, high concurrency, as well as the requirement to consistency, security, and integrity. We can't catch them up in the traditional way, like brute-force exhaustive search, pragmatic engineering practice, a smart idea plus some luck. It forces us to learn the new methods and tools from other science and mathematics. As Dieudonne said: ``This abstraction which has accrued in no way sprang from a perverse desire among mathematicans to isolate themselves from the scientific community by the use of a hermetic language. Their task was to find solutions for problems {\em handed down by the `classical' age}, or arising directly from new discoveries in physics. They found that this was possible, but only through the {\em creation} of new objets and new methods, whose abstract character was {\em indispensable} to their success.'' \cite{Dieudonne1987}(page 2)
 
 Category theory was developed by mathematician Samuel Eilenberg and Sauders Mac Lane in 1940s.
 
@@ -329,7 +327,7 @@ i \longrightarrow j
 
 Hence for every two objects, either there is no arrow between them, which means they are not comparable; or there exists one, which means there is $\leq$ relationship. In summary, there is at most one arrow between any two objects. We can verify that such arrows are composable, and for every element $i$, relation $i \leq i$ holds, hence there exists self-pointed arrow. Such preset itself forms a category. Again, we see the symmetry between preset and monoid categories. Monoid category contains only one object, but has many arrows; while preset category contains many objects, but has at most one arrow between objects.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:cat-definition}
 \Question{Prove that the identity arrow is unique (hint: refer to the uniqueness of identity element for groups in previous chapter).}
 \Question{Verify the monoid $(S, \cup, \varnothing)$ (the elements are sets, the binary operation is set union, the identity element is empty set) and $(N, +, 0)$ (elements are natural numbers, the binary operation is add, the identity element is zero) are all categories that contain only one object.}
 \Question{In chapter 1, we introduced Peano's axioms for natural numbers and the isomorphic structures to Peano arithmetic, like the linked-list etc. They can be described in categories. This was found by German mathematician Richard Dedekind although the category theory was not established by his time. We named this category as Peano category, denoted as $\pmb{Pno}$. The objects in this category is $(A, f, z)$, where $A$ is a set, for example natural numbers $N$; $f: A \to A$ is a successor function. It is $succ$ for natural numbers; $z \in A$ is the starting element, it is zero for natural numbers. Given any two Peano objects $(A, f, z)$ and $(B, g, c)$, define the morphism from $A$ to $B$ as:
@@ -346,6 +344,123 @@ It satisfies:
 
 Verify that $\pmb{Pno}$ is a category.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:cat-definition}]
+\Question{Prove that the identity arrow is unique (hint: refer to the uniqueness of identity element for groups in previous chapter).
+
+Suppose there exists another identity arrow $id_A'$, pointed $A$ from itself: $A \arrowto{id_A'} A$.
+
+Consider every arrow from $A$ to $B$: $A \arrowto{f} B$, from the definition of identity arrow, $f \circ id_A = f$ holds. When replace $B$ with $A$, and replace $f$ with $id_A'$, then:
+
+\[
+id_A' \circ id_A = id_A'
+\]
+
+Similar, for every arrow from $B$ to $A$: $B \arrowto{g} A$, according to the definition of identity arrow, $id_A' \circ g = g$ holds. When replace $B$ with $A$, replace $g$ with $id_A$, then:
+
+\[
+id_A' \circ id_A = id_A
+\]
+
+Summarize these two result, we obtain $id_A = id_A'$, hence the identity arrow is unique.
+}
+\Question{Verify the monoid $(S, \cup, \varnothing)$ (the elements are sets, the binary operation is set union, the identity element is empty set) and $(N, +, 0)$ (elements are natural numbers, the binary operation is add, the identity element is zero) are all categories that contain only one object.
+
+The key idea is that every monoid is a category contains only one object. It's a bit difficult to answer: what is the object in this category? In fact, it does not matter what this object is. The object is not necessary the monoid, or any given set. It even need not contain any elements. To avoid bother with concrete object, we give it notation $\bigstar$.
+
+Let's first see the set monoid under union. Every set as an element in the monoid $s \in S$ can be used to define an arrow:
+
+\[
+\bigstar \arrowto{s} \bigstar
+\]
+
+Note there is no any inner structure (of the monoid) involved. The arrow composition is exactly set union.
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=4em, minimum width=2em]{
+     & \bigstar & \\
+     \bigstar & & \bigstar \\};
+  \path[-stealth]
+    (m-2-1) edge node [above] {$s_1$} (m-1-2)
+    (m-1-2) edge node [above] {$s_2$} (m-2-3)
+    (m-2-1) edge node [below] {$s_1 \circ s_2 = s_1 \cup s_2$} (m-2-3);
+\end{tikzpicture}
+\end{center}
+
+Because set union is associative, the arrows is also associative. The empty set is the unit of this monoid, it defines the identity arrow. As the empty set unions any set equals to that set itself. It serves as the identity arrow. The set monoid under union does form a category contains only one object.
+
+\begin{center}
+\begin{tikzpicture}
+\path (0, 0) node (obj) {$\bigstar$};
+\draw[->] (-0.2, 0) arc[radius=5mm, start angle=225, end angle=-45] node[pos=0.5, above]{$s_1$};
+\draw[->] (-0.4, 0) arc[radius=10mm, start angle=225, end angle=-45] node[pos=0.5, above]{$s_2$};
+\draw[->] (-0.6, 0) arc[radius=15mm, start angle=225, end angle=-45] node[pos=0.5, above]{$s_1 \cup s_2$};
+\end{tikzpicture}
+\end{center}
+
+Next let us see the additive monoid for natural numbers. Every number $n$ can define an arrow:
+
+\[
+\bigstar \arrowto{n} \bigstar
+\]
+
+The arrow composition is addition. Since addition is associative, hence arrow composition is also associative. Zero, 0 defines the identity arrow. This is because 0 adds to any number equals to this number itself. Therefore, the additive monoid for natural numbers does form a category.
+
+\begin{center}
+\begin{tikzpicture}
+\path (0, 0) node (obj) {$\bigstar$};
+\draw[->] (-0.2, 0) arc[radius=5mm, start angle=225, end angle=-45] node[pos=0.5, above]{$m$};
+\draw[->] (-0.4, 0) arc[radius=10mm, start angle=225, end angle=-45] node[pos=0.5, above]{$n$};
+\draw[->] (-0.6, 0) arc[radius=15mm, start angle=225, end angle=-45] node[pos=0.5, above]{$m + n$};
+\end{tikzpicture}
+\end{center}
+}
+\Question{In chapter 1, we introduced Peano's axioms for natural numbers and the isomorphic structures to Peano arithmetic, like the linked-list etc. They can be described in categories. This was found by German mathematician Richard Dedekind although the category theory was not established by his time. We named this category as Peano category, denoted as $\pmb{Pno}$. The objects in this category is $(A, f, z)$, where $A$ is a set, for example natural numbers $N$; $f: A \to A$ is a successor function. It is $succ$ for natural numbers; $z \in A$ is the starting element, it is zero for natural numbers. Given any two Peano objects $(A, f, z)$ and $(B, g, c)$, define the morphism from $A$ to $B$ as:
+
+\[
+A \arrowto{\phi} B
+\]
+
+It satisfies:
+
+\[
+\phi \circ f = g \circ \phi \quad \text{and} \quad \phi(z) = c
+\]
+
+Verify that $\pmb{Pno}$ is a category.
+
+An object in Peano category is a tuple of $(A, f, z)$. An arrow is a map $\phi$ that preserve the tuple structure. Arrow composition is function composition:
+
+\[ \begin{array}{l}
+A \arrowto{\phi} B \arrowto{\psi} C \\
+A \arrowto{\psi \circ \phi} C
+\end{array}\]
+
+Because function composition is associative, hence arrow composition is associative. For identity arrow:
+
+\[
+A \arrowto{id_A} A
+\]
+
+It satisfies $id_A(z) = z$, and $id_A \circ f = f \circ id_A$.
+
+Obviously, the tuple $(\pmb{N}, succ, 0)$ is an object in Peano category. It's interesting that, for every object $(A, f, z)$ in Peano category, there is a unique arrow:
+
+\[
+(\pmb{N}, succ, 0) \arrowto{\sigma} (A, f, z)
+\]
+
+where:
+
+\[
+\sigma(n) = f^n(z)
+\]
+
+which maps any natural number $n$ to the result of applying $f$ to $z$ for $n$ times.
+}
+\end{Answer}
 
 \subsection{Arrow \texorpdfstring{$\neq$}{≠} function}
 
@@ -391,7 +506,7 @@ A \arrowto{id} A \quad \longmapsto \quad \mathbf{F}A \arrowto{id} \mathbf{F}A
 \]
 
 \index{covariance} \index{contravariance}
-\item Any composition of arrows in one category is transformed to composition in another category\footnote{There are two different types of transformation, one is called covariance, the other is contravariance. The two terms are also used in programming language type system. We only consider covariance in this book}.
+\item Any composition of arrows in one category is transformed to composition in another category\footnote{There are two different types of transformation, one is called covariance, the other is contravariance, which reverts the arrows. The two terms are also used in programming language type system. We only consider covariance in this book}.
 
 \begin{center}
 \begin{tikzpicture}
@@ -453,9 +568,7 @@ Maybe functor. Computer scientist, Tony Hoare (Sir Charles Antony Richard Hoare)
 I call it my billion-dollar mistake. It was the invention of the null reference in 1965. At that time, I was designing the first comprehensive type system for references in an object oriented language (ALGOL W). My goal was to ensure that all use of references should be absolutely safe, with checking performed automatically by the compiler. But I couldn't resist the temptation to put in a null reference, simply because it was so easy to implement. This has led to innumerable errors, vulnerabilities, and system crashes, which have probably caused a billion dollars of pain and damage in the last forty years\cite{Wiki-Hoare}.
 \end{quotation}
 
-After 2015, the mainstream programming environments gradually adopted the maybe concept to replace the error prone null\footnote{For example the \texttt{Optional<T>} in Java and C++}.
-
-Below diagram illustrates how $\mathbf{Maybe}$ behaves.
+After 2015, the mainstream programming environments gradually adopted the maybe concept to replace the error prone null\footnote{For example the \lstinline{Optional<T>} in Java and C++}. Below diagram illustrates how $\mathbf{Maybe}$ behaves.
 
 \begin{center}
 \begin{tikzpicture}
@@ -473,14 +586,11 @@ Below diagram illustrates how $\mathbf{Maybe}$ behaves.
 
 The left side objects $A$ and $B$ can be data types, like integer, Boolean. While the right side objects are mapped types through functor $\mathbf{Maybe}$. If $A$ represents $Int$, then the right side corresponds to $\mathbf{Maybe}\ Int$, if $B$ represents $Bool$, then the right side corresponds to $\mathbf{Maybe}\ Bool$. How does the maybe functor map objects? that part is defined as:
 
-\lstset{frame=none}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame=none]
 data Maybe A = Nothing | Just A
-\end{lstlisting}
+\end{Haskell}
 
-It means, if the object is type $A$, then the mapped object is type $\mathbf{Maybe}\ A$. Note the object is type, but not value. The value of $\mathbf{Maybe}\ A$ is either empty, denoted as $Nothing$, or a value constructed by $Just$.
-
-Use type $Int$ for example, through the maybe functor, it is mapped to $\mathbf{Maybe}\ Int$. The value could be $Nothing$ or $Just\ 5$ for instance.
+It means, if the object is type $A$, then the mapped object is type $\mathbf{Maybe}\ A$. Note the object is type, but not value. The value of $\mathbf{Maybe}\ A$ is either empty, denoted as $Nothing$, or a value constructed by $Just$. Use type $Int$ for example, through the maybe functor, it is mapped to $\mathbf{Maybe}\ Int$. The value could be $Nothing$ or $Just\ 5$ for instance.
 
 Consider a binary search tree, that contains elements of type $A$. When search a value in the tree, it may not be found, therefore the type of search result is $\mathbf{Maybe}\ A$\footnote{The complete example program can be found in the appendix of this chapter}.
 
@@ -542,12 +652,12 @@ n < 2: & [n] \\
 Here is the corresponding example program. It uses tail recursion for performance purpose.
 
 \lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 binary = bin [] where
    bin xs 0 = 0 : xs
    bin xs 1 = 1 : xs
    bin xs n = bin ((n `mod` 2) : xs) (n `div` 2)
-\end{lstlisting}
+\end{Haskell}
 
 With functor, we can `lift' this function arrow up as shown in below diagram:
 
@@ -646,10 +756,9 @@ Therefore, Maybe is really a functor.
 \index{functor!list functor}
 List functor. We introduced the definition of list in chapter 1 as:
 
-\lstset{frame=none}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame=none]
 data List A = Nil | Cons(A, List A)
-\end{lstlisting}
+\end{Haskell}
 
 From programming perspective, it defines the linked-list data structure. The elements stored are of type $A$. We call it link-list of type $A$. From category perspective, a list functor need define maps for both object and arrow. Here objects are types, arrows are total functions. Below diagram illustrates how list functor behaves.
 
@@ -699,23 +808,23 @@ Summarize them together, we have the complete definition of $fmap$ for list:
 \end{array}
 \]
 
-In chapter 1, we introduced the simplified notation, using the infix `:' for $Cons$, and `[]' for $Nil$, then the definition of list functor that maps arrows can be simplified as:
+In chapter 1, we introduced the simplified notation, using the infix `:' for $Cons$, and `[\ ]' for $Nil$, then the definition of list functor that maps arrows can be simplified as:
 
 \[
 \begin{array}{l}
 \quad    fmap : (A \to B) \to (\mathbf{List}\ A \to \mathbf{List}\ B) \\
-\quad    fmap\ f\ [] = [] \\
+\quad    fmap\ f\ [\ ] = [\ ] \\
 \quad    fmap\ f\ (x:xs) = (f\ x):(fmap\ f\ xs) \\
 \end{array}
 \]
 
-Compare this definition with the list mapping definition in chapter 1, we find they are exactly same except for the name. It means we can re-use the list mapping to define list functor. This is the case in some programming environment, which re-uses \texttt{map} for list functor.
+Compare this definition with the list mapping definition in chapter 1, we find they are exactly same except for the name. It means we can re-use the list mapping to define list functor. This is the case in some programming environment, which re-uses map for list functor.
 
 \lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 instance Functor [] where
     fmap = map
-\end{lstlisting}
+\end{Haskell}
 
 \begin{mdframed}
 At the end of this example, let's verify the arrow mapping for list functor preserve identity and composition. \textbf{Readers can skip the proof in this box}.
@@ -779,7 +888,7 @@ Thus we verified $\mathbf{List}$ is really a functor.
 \end{mdframed}
 \end{example}
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:functor}
 \Question{For the list functor, define the arrow map with $foldr$.}
 \Question{Verify that the composition of maybe functor and list functor $\mathbf{Maybe} \circ \mathbf{List}$ and $\mathbf{List} \circ \mathbf{Maybe}$ are all functors.}
 \Question{Proof that the composition for any functors $\mathbf{G} \circ \mathbf{F}$ is still a functor.}
@@ -787,9 +896,89 @@ Thus we verified $\mathbf{List}$ is really a functor.
 \Question{For the binary tree defined in chapter 2, define the functor for it.}
 \end{Exercise}
 
+\begin{Answer}[ref={ex:functor}]
+\Question{For the list functor, define the arrow map with $foldr$.
+
+It's about to define list map with $foldr$ essentially:
+
+\[
+fmap\ f = foldr\ f\ Nil
+\]
+}
+\Question{Verify that the composition of maybe functor and list functor $\mathbf{Maybe} \circ \mathbf{List}$ and $\mathbf{List} \circ \mathbf{Maybe}$ are all functors.
+
+We only prove $\mathbf{Maybe} \circ \mathbf{List}$ is a functor. The other proof is similar. Any object $A$ is sent to $\mathbf{Maybe} (\mathbf{List}\ A)$. For arrows, let us first see the case of identity arrow:
+
+\bre
+(\mathbf{Maybe} \circ \mathbf{List})\ id & = & \mathbf{Maybe} (\mathbf{List}\ id) & \text{functor composition} \\
+ & = & \mathbf{Maybe}\ id & \text{identity arrow for list functor} \\
+ & = & id & \text{identity arrow for maybe functor} \\
+\ere
+
+Next is about arrow composition:
+
+\[
+%\resizebox{\linewidth}{!}{\ensuremath{
+\begin{array}{cll}
+  & (\mathbf{Maybe} \circ \mathbf{List})\ (f \circ g) & \\
+= & \mathbf{Maybe} (\mathbf{List}\ (f \circ g)) & \text{functor composition} \\
+= & \mathbf{Maybe} ((\mathbf{List}\ f) \circ (\mathbf{List}\ g)) & \text{composition for list functor} \\
+= & (\mathbf{Maybe}\ (\mathbf{List}\ f)) \circ (\mathbf{Maybe}\ (\mathbf{List}\ g)) & \text{composition for maybe functor} \\
+= & ((\mathbf{Maybe} \circ \mathbf{List})\ f) \circ ((\mathbf{Maybe} \circ \mathbf{List})\ g) & \text{functor composition} \\
+\end{array}
+%}}
+\]
+}
+\Question{Proof that the composition for any functors $\mathbf{G} \circ \mathbf{F}$ is still a functor.
+
+Similar to previous exercise, we need prove functor composition satisfies identity arrow and arrow composition. First for identity arrow:
+
+\bre
+(\mathbf{G} \circ \mathbf{F})\ id & = & \mathbf{G} (\mathbf{F}\ id) & \text{functor composition} \\
+ & = & \mathbf{G}\ id & \text{identity arrow for functor $\mathbf{F}$} \\
+ & = & id & \text{identity arrow for functor $\mathbf{G}$} \\
+\ere
+
+Then for arrow composition:
+
+\bre
+(\mathbf{G} \circ \mathbf{F})\ (\phi \circ \psi) & = & \mathbf{G} (\mathbf{F}\ (\phi \circ \psi)) & \text{functor composition} \\
+ & = & \mathbf{G} ((\mathbf{F}\ \phi) \circ (\mathbf{F}\ \psi)) & \text{arrow composition for functor $\mathbf{F}$} \\
+ & = & (\mathbf{G}\ (\mathbf{F}\ \phi)) \circ (\mathbf{G}\ (\mathbf{F}\ \psi)) & \text{arrow composition for functor $\mathbf{G}$} \\
+ & = & ((\mathbf{G} \circ \mathbf{F})\ \phi) \circ ((\mathbf{G} \circ \mathbf{F})\ \psi) & \text{functor composition} \\
+\ere
+}
+\Question{Give an example functor for preset.
+
+The functor for preset category is a monotone function.
+}
+\Question{For the binary tree defined in chapter 2, define the functor for it.
+
+Consider an object $A$ in set total function category, the binary tree functor sends it to:
+
+\lstset{frame=none}
+\begin{Haskell}
+data Tree A = Empty | Branch (Tree A) A (Tree A)
+\end{Haskell}
+
+For arrow $A \arrowto{f} B$, the binary tree functor maps it to:
+
+\bre
+fmap\ f\ Empty & = & Empty \\
+fmap\ f\ (Branch\ l\ x\ r) & = & Branch\ (fmap\ f\ l)\ (f\ x)\ (fmap\ f\ r) \\
+\ere
+
+Or we can use the $mapt$ defined in chapter 2:
+
+\[
+fmap = mapt
+\]
+}
+\end{Answer}
+
 \section{Products and coproducts}
 
-Before we introduce more complex categories and functors, let us see what product and coproduct are. We start from the product of sets. Given two set $A$ and $B$, their Cartesian product $A \times B$ is the set of all ordered pairs $(a, b)$, where $a \in A$ and $b \in B$:
+We start from the product of sets. Given two set $A$ and $B$, their Cartesian product $A \times B$ is the set of all ordered pairs $(a, b)$.
 
 \[
 \{(a, b) | a \in A, b \in B\}
@@ -863,13 +1052,11 @@ For every element $(x, tag)$ in $A + B$, if the $tag$ is 0, we know that $x$ com
 \{(1, 0), (2, 0), (3, 0), (a, 1), (b, 1)\}
 \]
 
-When programming, $A + B$ can be defined as:
+Below example program builds $A + B$ for two lists:
 
-\begin{mdframed}
-\[
-A + B = zip\ A\ \{0, ...\} \doubleplus zip\ B\ \{1, ...\}
-\]
-\end{mdframed}
+\begin{Haskell}[frame=single]
+A + B = zip A [0, 0, ...] ++ zip B [1, 1, ...]
+\end{Haskell}
 
 If set $A$ and $B$ are the same algebraic structures, we can define the below objects and arrows:
 
@@ -889,17 +1076,17 @@ If set $A$ and $B$ are the same algebraic structures, we can define the below ob
 \end{tikzpicture}
 \end{center}
 
+The two constructions are symmetric. If rotate the two diagrams by 90 degree, laying $A$ on top of $B$, then the two problems appear left and right. They are symmetric like our two hands. We can find a lot of such symmetric concepts in category theory. Our world is full of symmetric things. When we understand one, we understand the dual one at the same time.
+
 %\begin{wrapfigure}{R}{0.4\textwidth}
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.06]{img/hands.png}
+ \includegraphics[scale=0.06]{img/hands}
  \captionsetup{labelformat=empty}
  \caption{}
  \label{fig:hands}
 \end{figure}
 %\end{wrapfigure}
-
-The two constructions are symmetric. If rotate the two diagrams by 90 degree, laying $A$ on top of $B$, then the two problems appear left and right. They are symmetric like our two hands. We can find a lot of such symmetric concepts in category theory. Our world is full of symmetric things. When we understand one, we understand the dual one at the same time.
 
 \subsection{Definition of product and coproduct}
 \index{product} \index{coproduct}
@@ -1075,18 +1262,17 @@ of the pair in the category $\pmb{Set}$.
 
 The detailed proof can be found in the appendix of this book. In program environment, product is often realized with paired tuple $(a, b)$ and functions $fst, snd$. However, coproduct is sometimes realized with a dedicated data type.
 
-\lstset{frame = single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame = single]
 data Either a b = Left a | Right b
-\end{lstlisting}
+\end{Haskell}
 
 The advantage is that we needn't the 0, 1 tags to mark if an element $x$ of type \texttt{Either a b} comes from \texttt{a} or \texttt{b}. The below example program handles the coproduct value through pattern matching:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 either :: (a -> c) -> (b -> c) -> Either a b -> c
 either f _ (Left x)     =  f x
 either _ g (Right y)    =  g y
-\end{lstlisting}
+\end{Haskell}
 \lstset{frame = none}
 
 Let's see an example, consider the coproduct \texttt{Either String Int}. It is either a string, like \texttt{s = Left "hello"}; or an integer, like \texttt{n = Right 8}. If it is a string, we want to count its length; if it is a number, we want to double it. To do this, we can utilize the $either$ function: \texttt{either length (*2) x}.
@@ -1337,6 +1523,7 @@ We start from proving the identity condition. For all $(a, b) \in A \times B$, w
 Next we prove the composition condition.
 
 \[
+\resizebox{\textwidth}{!}{\ensuremath{
 \begin{array}{rcll}
 ((f \circ f') \times (g \circ g'))(a, b) & = & ((f \circ f')\ a, (g \circ g')\ b) & \text{product of arrows} \\
     & = & (f(f'(a)), g(g'(b))) & \text{arrow composition} \\
@@ -1344,6 +1531,7 @@ Next we prove the composition condition.
     & = & (f \times g)((f' \times g')(a, b)) & \text{reverse of arrows product} \\
     & = & ((f \times g) \circ (f' \times g'))(a, b)
 \end{array}
+}}
 \]
 
 Hence proved the bifunctor satisfies both functor conditions.
@@ -1466,10 +1654,72 @@ bimap\ f\ g\ (right\ y) = right\ (g\ y)
 \end{array}
 \]
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:product-coproduct}
 \Question{For any two objects in a poset, what is their product? what is their coproduct?}
 \Question{Prove the absorption law for coproduct, and verify the coproduct functor satisfies composition condition.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:product-coproduct}]
+\Question{For any two objects in a poset, what is their product? what is their coproduct?
+
+In chapter 3, we mentioned any poset is a category, every element is the poset is an object, there is at most one arrow between two objects (the arrow exits if they have ordering relation). For two elements (objects) $a$ and $b$, if they have arrows both to the up and down stream, then:
+
+\[
+\text{meet}\ a \land b \quad \quad \quad \text{join}\ a \lor b
+\]
+
+is the
+
+\[
+\text{product} \quad \quad \quad \text{coproduct}
+\]
+
+for this pair of objects.
+
+Where meet is the least upper bound (also called supremum) of the two objects, and join is the greatest lower bound (infimum) of them. In general, the join and meet of a subset of a partially ordered set need not exist, hence the product and coproduct of a poset need not exist too.
+
+% https://en.wikipedia.org/wiki/Join_and_meet
+%In mathematics, specifically order theory, the join and meet of a subset S of a partially ordered set P are respectively the supremum (least upper bound) of S, denoted ⋁S, and infimum (greatest lower bound) of S, denoted ⋀S. In general, the join and meet of a subset of a partially ordered set need not exist. Join and meet are dual to one another with respect to order inversion.
+}
+\Question{Prove the absorption law for coproduct, and verify the coproduct functor satisfies composition condition.
+
+The absorption law for coproduct states:
+
+\[
+[p, q] \circ (f + g) = [p \circ f, q \circ g]
+\]
+
+\begin{proof}
+\blre
+  & [p, q] \circ (f + g)  \\
+= & [p, q] \circ [left \circ f, right \circ g] & \text{definition of $+$} \\
+= & [[p, q] \circ (left \circ f), [p, q] \circ (right \circ g)] & \text{fusion law} \\
+= & [[p, q] \circ left \circ f, [p, q] \circ right \circ g] & \text{associative} \\
+= & [p \circ f, q \circ g] & \text{cancellation law} \\
+\elre
+\end{proof}
+
+The composition condition for coproduct states:
+
+\[
+ (f + g) \circ (f' + g') = f \circ f' + g \circ g'
+\]
+
+\begin{proof}
+Let $p = left \circ f$, and $q = right \circ g$
+
+\blre
+  & (f + g) \circ (f' + g') \\
+= & [left \circ f, right \circ g] \circ (f' + g') & \text{definition of $+$} \\
+= & [p, q] \circ (f' + g') & \text{substitute with $p, q$} \\
+= & [p \circ f', q \circ g'] & \text{absorption law} \\
+= & [left \circ f \circ f', right \circ g \circ g'] & \text{substitute $p, q$ back} \\
+= & [left \circ (f \circ f'), right \circ (g \circ g')] & \text{associative law} \\
+= & f \circ f' + g \circ g' & \text{reverse of $+$} \\
+\elre
+\end{proof}
+}
+\end{Answer}
 
 \section{Natural transformation}
 
@@ -1554,18 +1804,17 @@ Natural transformation is a higher level of abstraction on top of categories, ar
 \normalfont
 The first example is the $inits$ function. It enumerates all the prefixes of a given string or list. For instances:
 
-\lstset{frame=none}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame=none]
 inits "Mississippi" = ["","M","Mi","Mis","Miss","Missi","Missis",
         "Mississ","Mississi","Mississip","Mississipp","Mississippi"]
 
 inits [1, 2, 3, 4] = [[],[1],[1,2],[1,2,3],[1,2,3,4]]
-\end{lstlisting}
+\end{Haskell}
 
 The behavior of $inits$ function can be summarized as this:
 
 \[
-inits [a_1, a_2, ..., a_n] = [[], [a_1], [a_1, a_2], ..., [a_1, a_2, ..., a_n]]
+inits [a_1, a_2, ..., a_n] = [[\ ], [a_1], [a_1, a_2], ..., [a_1, a_2, ..., a_n]]
 \]
 
 Consider the category $\pmb{Set}$, for every object, a set $A$ (or type $A$), there exists $inits$ arrow indexed by $A$:
@@ -1576,7 +1825,7 @@ inits_A : \mathbf{List} A \to \mathbf{List}(\mathbf{List} A)
 
 There is a list functor $\mathbf{List}$, and another embedded list functor $\mathbf{List}\ \mathbf{List}$.
 
-With the simplified `[]' notation, this arrow can also be written as:
+With the simplified `[\ ]' notation, this arrow can also be written as:
 
 \[
 [A] \arrowto{inits_A} [[A]]
@@ -1612,16 +1861,16 @@ We'll prove the community with the $fmap$ defined in previous section. For $n$ e
 \[
 \begin{array}{cll}
   & \mathbf{List}(\mathbf{List}(f)) \circ init_A [a_1, ..., a_n] & \\
-= & fmap_{[[]]}(f) \circ init_A [a_1, ..., a_n] & \text{definition of $fmap$} \\
-= & fmap_{[[]]}(f) [[], [a_1], ..., [a_1, a_2, ..., a_n]] & \text{definition of $inits$} \\
-= & map(map\ f) [[], [a_1], ..., [a_1, a_2, ..., a_n]] & \text{$fmap$ is defined as $map$ for list functor} \\
-= & [map\ f\ [], map\ f\ [a_1], ..., map\ f\ [a_1, a_2, ..., a_n]] & \text{definition of $map$} \\
-= & [[], [f(a_1)], ..., [f(a_1), f(a_2), ..., f(a_n)]] & \text{apply $map\ f$ to every sub-list} \\
-= & [[], [b_1], ..., [b_1, b_2, ..., b_n]] & \text{definition of $f$} \\
+= & fmap_{[[\ ]]}(f) \circ init_A [a_1, ..., a_n] & \text{definition of $fmap$} \\
+= & fmap_{[[\ ]]}(f) [[\ ], [a_1], ..., [a_1, a_2, ..., a_n]] & \text{definition of $inits$} \\
+= & map(map\ f) [[\ ], [a_1], ..., [a_1, a_2, ..., a_n]] & \text{$fmap$ is defined as $map$ for list functor} \\
+= & [map\ f\ [\ ], map\ f\ [a_1], ..., map\ f\ [a_1, a_2, ..., a_n]] & \text{definition of $map$} \\
+= & [[\ ], [f(a_1)], ..., [f(a_1), f(a_2), ..., f(a_n)]] & \text{apply $map\ f$ to every sub-list} \\
+= & [[\ ], [b_1], ..., [b_1, b_2, ..., b_n]] & \text{definition of $f$} \\
 = & init_B\ [b_1, b_2, ..., b_n] & \text{reverse of $init$} \\
 = & init_B\ [f(a_1), f(a_2), ..., f(a_n)] & \text{reverse of $f$} \\
 = & init_B \circ map(f)\ [a_1, a_2, ..., a_n] & \text{reverse of $map\ f$} \\
-= & init_B \circ fmap_{[]}(f) [a_1, ..., a_n] & \text{$fmap$ is defined as $map$ for list functor} \\
+= & init_B \circ fmap_{[\ ]}(f) [a_1, ..., a_n] & \text{$fmap$ is defined as $map$ for list functor} \\
 = & init_B \circ \mathbf{List}(f) [a_1, ..., a_n] & \\
 \end{array}
 \]
@@ -1632,12 +1881,12 @@ Therefor, $inits : \mathbf{List} \to \mathbf{List} \circ \mathbf{List}$ is a nat
 
 \begin{example}
 \normalfont
-The next example is called $safeHead$, it can safely access the first element of the list. Here `safe' means it can handle the empty list (Nil) case without exception. To do that, we will utilize the maybe functor defined previously. $safeHead$ is defined as the following:
+The next example is called \textit{safeHead}, it can safely access the first element of the list. Here `safe' means it can handle the empty list (Nil) case without exception. To do that, we will utilize the maybe functor defined previously. $safeHead$ is defined as the following:
 
 \[
 \begin{array}{l}
 safeHead : [A] \to \mathbf{Maybe}\ A \\
-safeHead\ [] = Nothing \\
+safeHead\ [\ ] = Nothing \\
 safeHead\ (x:xs) = Just\ x
 \end{array}
 \]
@@ -1677,11 +1926,11 @@ We prove it for two cases. The first case is the empty list:
 
 \[
 \begin{array}{cll}
-  & \mathbf{Maybe}(f) \circ safeHead_A\ [] & \\
+  & \mathbf{Maybe}(f) \circ safeHead_A\ [\ ] & \\
 = & \mathbf{Maybe}(f)\ Nothing & \text{definition of $safeHead$} \\
 = & Nothing & \text{definition of $fmap\ f\ Nothing$} \\
-= & safeHead_B\ [] & \text{reverse of $safeHead$} \\
-= & safeHead_B \circ \mathbf{List}(f)\ [] & \text{reverse of $fmap\ f\ []$} \\
+= & safeHead_B\ [\ ] & \text{reverse of $safeHead$} \\
+= & safeHead_B \circ \mathbf{List}(f)\ [\ ] & \text{reverse of $fmap\ f\ [\ ]$} \\
 \end{array}
 \]
 
@@ -1716,23 +1965,23 @@ Not only for $A$, when abstract {\em all} objects, we obtain a family of arrows 
 In some programming environments, natural transformation can be written as\footnote{There is an \texttt{ExplicitForAll} option in Haskell, we'll see it again in the next chapter about build/foldr fusion law.}:
 
 \lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
-phi :: forall a . F a -> G a
-\end{lstlisting}
+\begin{Haskell}
+phi :: forall a *'$\cdot$'* F a -> G a
+\end{Haskell}
 
 When we needn't explicitly call out \texttt{forall a}, natural transformation can be simplified as:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 phi : F a -> G a
-\end{lstlisting}
+\end{Haskell}
 
 For the two examples above, the type of $inits$ and $safeHead$ are:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 inits :: [a] -> [[a]]
 
 safeHead :: [a] -> Maybe a
-\end{lstlisting}
+\end{Haskell}
 
 It only substitutes the name \texttt{phi} to their names respectively, and replace $F$ and $G$ to their own functors.
 
@@ -1798,9 +2047,7 @@ Since they are bifunctors, for every two arrows $A \arrowto{f} C$ and $B \arrowt
 \end{tikzpicture}
 \end{center}
 
-It's easy to prove this. We can chose any two products $(a, b)$ and $(c, d)$, substitute them into both sides of the natural condition. We leave the proof as an exercise of this section.
-
-Although both are product functors, let's take some time to prove they are natural isomorphic. For the product of any two objects $A \times B$, as:
+It's easy to prove this. We can chose any two products $(a, b)$ and $(c, d)$, substitute them into both sides of the natural condition. We leave the proof as an exercise of this section. Although both are product functors, let's take some time to prove they are natural isomorphic. For the product of any two objects $A \times B$, as:
 
 \[
 swap_{A \times B} \circ swap_{B \times A} = id
@@ -1810,19 +2057,161 @@ It tells us that $swap$ is an one to one mapping. It is isomorphic in the target
 
 All the above three examples $inits$, $safeHead$, and $swap$ are both polymorphic functions and natural transformations. This is not a coincidence. In fact, all polymorphic functions are natural transformations in functional programming\cite{Wadler-1989}.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:nature-transform}
 \Question{Prove that $swap$ satisfies the natural transformation condition $(g \times f) \circ swap = swap \circ (f \times g)$}
 \Question{Prove that the polymorphic function $length$ is a natural transformation. It is defined as the following:
 \[
 \begin{array}{l}
 length : [A] \to Int \\
-length\ [] = 0 \\
+length\ [\ ] = 0 \\
 length\ (x:xs) = 1 + length\ xs
 \end{array}
 \]
 }
 \Question{Natural transformation is composable. Consider two natural transformations $\mathbf{F} \arrowto{\phi} \mathbf{G}$ and $\mathbf{G} \arrowto{\psi} \mathbf{H}$. For any arrow $A \arrowto{f} B$, draw the diagram for their composition, and list the commutative condition.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:nature-transform}]
+\Question{Prove that $swap$ satisfies the natural transformation condition $(g \times f) \circ swap = swap \circ (f \times g)$
+
+For $A \arrowto{f} C$ and $B \arrowto{g} D$, we need prove the below diagram commutes.
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     (A, B) & (B, A) \\
+     (C, D) & (D, C) \\};
+  \path[-stealth]
+    (m-1-1) edge node [above] {$swap_{A, B}$} (m-1-2)
+    (m-2-1) edge node [below] {$swap_{C, D}$} (m-2-2)
+    (m-1-1) edge node [left] {$f \times g$} (m-2-1)
+    (m-1-2) edge node [right] {$g \times f = swap\ f \times g$} (m-2-2);
+\end{tikzpicture}
+\end{center}
+
+\begin{proof}
+\blre
+  & ((g \times f) \circ swap)\ (A, B) \\
+= & (g \times f)\ (swap\ (A, B)) & \text{definition of composition} \\
+= & (g \times f) \circ (B, A) & \text{definition of $swap$} \\
+= & (g\ B, f\ A) & \text{product of arrows} \\
+= & (D, C) & \text{definition of $g, f$} \\
+= & swap\ (C, D) & \text{reverse of $swap$ definition} \\
+= & swap\ (f\ A, g\ B) & \text{reverse of $f, g$ definition} \\
+= & swap\ ((f \times g)\ (A, B)) & \text{product of arrow} \\
+= & (swap \circ (f \times g))\ (A, B) & \text{reverse of composition} \\
+\elre
+\end{proof}
+}
+\Question{Prove that the polymorphic function $length$ is a natural transformation. It is defined as the following:
+\[
+\begin{array}{l}
+length : [A] \to Int \\
+length\ [\ ] = 0 \\
+length\ (x:xs) = 1 + length\ xs
+\end{array}
+\]
+
+For any object $A$, the arrow $length$ indexed by $A$ is:
+
+\[
+[A] \arrowto{length_A} \mathbf{K}_{Int}\ A
+\]
+
+where $\mathbf{K}_{Int}$ is constant functor. It sends every object to $Int$, and sends every arrow to identity arrow $id_{int}$. For arrow $A \arrowto{f} B$, we need prove below diagram commutes.
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     A & \lbrack A \rbrack & \mathbf{K}_{Int}\ A \\
+     B & \lbrack B \rbrack & \mathbf{K}_{Int}\ B \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$f$} (m-2-1)
+    % square
+    (m-1-2) edge node [above] {$length_A$} (m-1-3)
+    (m-2-2) edge node [below] {$length_B$} (m-2-3)
+    (m-1-2) edge node [left] {$\mathbf{List}(f)$} (m-2-2)
+    (m-1-3) edge node [right] {$\mathbf{K}_{Int}(f)$} (m-2-3);
+\end{tikzpicture}
+\end{center}
+
+From the definition of constant functor, this diagram is equivalent to:
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     A & \lbrack A \rbrack & Int \\
+     B & \lbrack B \rbrack & Int \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$f$} (m-2-1)
+    % square
+    (m-1-2) edge node [above] {$length_A$} (m-1-3)
+    (m-2-2) edge node [below] {$length_B$} (m-2-3)
+    (m-1-2) edge node [left] {$\mathbf{List}(f)$} (m-2-2)
+    (m-1-3) edge node [right] {$id$} (m-2-3);
+\end{tikzpicture}
+\end{center}
+
+We are about to prove:
+
+\[
+id \circ length_{A} = length_{B} \circ \mathbf{List}(f)
+\]
+
+Which means: $length_{A} = length_{B} \circ \mathbf{List}(f)$
+
+
+\begin{proof}
+Use mathematical induction, we first consider the empty list case:
+
+\blre
+  & length_B \circ \mathbf{List}(f) [] \\
+= & length_B [] & \text{definition of list functor} \\
+= & 0 & \text{definition of $length$} \\
+= & length_A\ [] & \text{reverse of $length$ definition}
+\elre
+
+Next suppose $length_B \circ \mathbf{List}(f)\ as = length_A\ as$ holds, we have:
+
+\blre
+  & length_B \circ \mathbf{List}(f) (a:as) \\
+= & length_B\ (f(a) : \mathbf{List}(f)\ as) & \text{definition of list functor} \\
+= & 1 + length_B\ (\mathbf{List}(f)\ as) & \text{definition of $length$} \\
+= & 1 + length_B\ \circ \mathbf{List}(f)\ as & \text{arrow composition} \\
+= & 1 + length_A\ as & \text{induction assumption} \\
+= & length_A\ (a:as) & \text{reverse of $length$ definition}
+\elre
+\end{proof}
+}
+\Question{Natural transformation is composable. Consider two natural transformations $\mathbf{F} \arrowto{\phi} \mathbf{G}$ and $\mathbf{G} \arrowto{\psi} \mathbf{H}$. For any arrow $A \arrowto{f} B$, draw the diagram for their composition, and list the commutative condition.
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     \mathbf{F}A & \mathbf{G}A & \mathbf{H}A \\
+     \mathbf{F}B & \mathbf{G}B & \mathbf{H}B \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$\mathbf{F}(f)$} (m-2-1)
+    (m-1-1) edge node [above] {$\phi_A$} (m-1-2)
+    (m-2-1) edge node [below] {$\phi_B$} (m-2-2)
+    (m-1-2) edge node [above] {$\psi_A$} (m-1-3)
+    (m-2-2) edge node [below] {$\psi_B$} (m-2-3)
+    (m-1-2) edge node [left] {$\mathbf{G}(f)$} (m-2-2)
+    (m-1-3) edge node [right] {$\mathbf{H}(f)$} (m-2-3);
+\end{tikzpicture}
+\end{center}
+
+The commutative condition is:
+
+\[
+\mathbf{H}(f) \circ (\psi_A \circ \phi_A) = (\psi_B \circ \phi_B) \circ \mathbf{F} (f)
+\]
+}
+\end{Answer}
 
 \section{Data types}
 
@@ -1928,7 +2317,7 @@ The composition results a zero arrow, it connects the three groups $G$, $\{e\}$,
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.3]{img/01-obj.png}
+ \includegraphics[scale=0.3]{img/01-obj}
  %\captionsetup{labelformat=empty}
  \caption{Zero object}
  \label{fig:zero-obj}
@@ -1955,7 +2344,7 @@ Please take a while to think about this point. Let's consider the identity arrow
 
 To answer the above question, since there is unique arrow from the empty set to any set, there is also unique arrow from empty set to $\{ \bigstar \}$. Hence there is unique arrow from every set (includes the empty set) to $\{ \bigstar \}$. Therefore, $\{ \bigstar \}$ is the final object in the category of set.
 
-Why can't we let the singleton set $\{ \bigstar \}$ be the initial object like what we do for groups? The reason is because the arrow from $\{ \bigstar \}$ to set $S$ may not be unique. Consider a set $S = \{x, y, z, ...\}$, we can define the arrow (total function) $\{ \bigstar \} \arrowto{\vec{x}} S$, that sends the only element to $x$; we can also define the arrow $\{ \bigstar \} \arrowto{\vec{y}} S$ or $\{ \bigstar \} \arrowto{\vec{z}} S$ to send it to other elements.
+Why can't we let the singleton set $\{ \bigstar \}$ be the initial object like what we do for groups? The reason is because the arrow from $\{ \bigstar \}$ to set $S$ may not be unique\footnote{Another reason is any group contains at least 1 element, the unit. There is empty set, but no empty group.}. Consider a set $S = \{x, y, z, ...\}$, we can define the arrow (total function) $\{ \bigstar \} \arrowto{\vec{x}} S$, that sends the only element to $x$; we can also define the arrow $\{ \bigstar \} \arrowto{\vec{y}} S$ or $\{ \bigstar \} \arrowto{\vec{z}} S$ to send it to other elements.
 
 We intend to choose the symbol $\{ \bigstar \}$ to emphasize that, it does not matter what the element is, as far as it is a singleton set. Because all singleton sets are isomorphic equivalent.
 
@@ -1976,35 +2365,35 @@ The type system in programming environment is the category of set $\pmb{Set}$ es
 
 We can define a dedicated data type, named as ``()'', with only one element, also named as ``()''.
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 data  ()  =  ()
-\end{lstlisting}
+\end{Haskell}
 
 It is isomorphic equivalent to any singleton set, hence $\{ \bigstar \} = \{()\}$. We will see the advantage of choosing the ``()'' symbol later. We can define the arrow (total function) from any data type (set) to this final object as below:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 unit :: a -> ()
 unit _ = ()
-\end{lstlisting}
+\end{Haskell}
 
 We can also define the final object with any singleton data type, since it is isomorphic equivalent to ()\footnote{Many programming environments, like C++, Java, Scala, etc. support defining singleton object. We can also treat the force type casting as an arrow, then it also forms the final object.}.
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 data Singleton = S
 
 proj :: a -> Singleton
 proj _ = S
-\end{lstlisting}
+\end{Haskell}
 
 It looks like a constant function, which maps any value to a constant. However, not all constant functions point to the final object. For example the following two constant functions:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 yes :: a -> Bool
 yes _ = True
 
 no :: a -> Bool
 no _ = False
-\end{lstlisting}
+\end{Haskell}
 
 As the $Bool$ data type contains two values, any other data type has two arrows $yes$, and $no$ point to $Bool$, hence it does not satisfy the uniqueness condition for the arrow to the final object.
 
@@ -2012,27 +2401,27 @@ In the category of sets, the initial object is the empty set $\varnothing$. What
 
 For example, we can declare a data type \texttt{Void}, but leave it without any values:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 data Void
-\end{lstlisting}
+\end{Haskell}
 
 Thus \texttt{Void} represents an empty set. However, the initial object must have a unique arrow to any other object. It requires us to define a function from \texttt{Void} to all other data types.
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 absurd :: Void -> a
 absurd _ = undefined
-\end{lstlisting}
+\end{Haskell}
 
 The implementation does not matters here, because there does not exist a real argument to call this function. It is quite OK to implement it as this:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 absurd :: Void -> a
 absurd a = case a of {}
-\end{lstlisting}
+\end{Haskell}
 
 We can also define the initial object by other means as far as they are isomorphic equivalent. The method is to only declare the type without define any values. For example:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 data Empty
 
 f :: Empty -> a
@@ -2043,40 +2432,72 @@ iso _ = undefined
 
 iso' :: Empty -> Void
 iso' _ = undefined
-\end{lstlisting}
+\end{Haskell}
 
 Here we explicitly define $iso$ and $iso'$ to form the isomorphism between \texttt{Empty} and $\texttt{Void}$. It is easy to verify that $iso \cdot iso' = id$.
 
 In the category of sets, we define the arrow from the final object to any set as the selection arrow. What does it mean in programming? Set corresponds to type. It means we can select a specific value from any type. The below example selects 0 and 1 from $Int$ type respectively:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 zero :: () -> Int
 zero () = 0
 
 one :: () -> Int
 one () = 1
-\end{lstlisting}
+\end{Haskell}
 
 We see the advantage of choosing the ``()'' symbol. When call the function, it looks like we pass null argument to it: $zero\ ()$ returns 0, and $one\ ()$ returns 1.
 \end{example}
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:01-obj}
 \Question{In the poset example, we say if there exists the minimum (or the maximum) element, then the minimum (or the maximum) is the initial object (or the final object). Consider the category of all posets $\pmb{Poset}$, if there exists the initial object, what is it? If there exists the final object, what is it?}
 \Question{In the Peano category $\pmb{Pno}$ (see exercise 2 in section 1), what is the initial object in form $(A, f, z)$? What is the final object?}
 \end{Exercise}
 
+\begin{Answer}[ref={ex:01-obj}]
+\Question{In the poset example, we say if there exists the minimum (or the maximum) element, then the minimum (or the maximum) is the initial object (or the final object). Consider the category of all posets $\pmb{Poset}$, if there exists the initial object, what is it? If there exists the final object, what is it?
+
+For the $\pmb{Poset}$ category, the objects are posets, the arrows are monotone functions. For two posets $P, Q$, arrow $P \arrowto{h} Q$ means for any two ordered elements $a \leq b$ in $P$, $h(a) \leq h(b)$ holds.
+
+The initial object in this category is the empty poset $0 = \varnothing$. There is unique arrow from it to any poset $P$:
+
+\[
+\varnothing \longrightarrow P
+\]
+
+The final object is the singleton poset $1 = \{\bigstar\}$, the order relationship is $R = \{(\bigstar, \bigstar)\}$, i.e. $\bigstar \leq \bigstar$. From any poset $P$, there is unique arrow to 1:
+
+\bre
+P & \longrightarrow & \{\bigstar\} \\
+p & \mapsto & \bigstar
+\ere
+}
+\Question{In the Peano category $\pmb{Pno}$ (see exercise 2 in section 1), what is the initial object in form $(A, f, z)$? What is the final object?
+
+The initial object is $(\pmb{N}, succ, 0)$. There is unique arrow from it to any object:
+
+\[
+(\pmb{N}, succ, 0) \arrowto{\sigma} (A, f, z): \sigma(n) = f^n(z)
+\]
+
+The final object is a singleton $1 = (\{\bigstar\}, \bigstar, id)$. There is unique arrow from any object $(A, f, z)$ to the final object:
+
+\[
+(A, f, z) \arrowto{\sigma} 1 : \sigma(a) = \bigstar
+\]
+}
+\end{Answer}
+
 \subsection{Exponentials}
 \index{exponential}
 
-The initial and final objects are similar to 0 and 1, the product and coproduct are similar to $\times$ and $+$, if we can find something similar to exponentials, then we will be empowered with the basic arithmetic in the abstract category world. Further, we can even develop something `isomorphic' to polynomials.
-
-Observe a binary function $f(x, y) = z$ defined for natural numbers, for example $f(x, y) = x^2 + 2y + 1$. Its type is $f: N \times N \to N$. It's natural to think about writing the type as:
+The initial and final objects are similar to 0 and 1, the product and coproduct are similar to $\times$ and $+$, if we can find something similar to exponentials, then we will be empowered with the basic arithmetic in the abstract category world. Further, we can even develop something `isomorphic' to polynomials. Observe a binary function $f(x, y) = z$ defined for natural numbers, for example $f(x, y) = x^2 + 2y + 1$. Its type is $f: N \times N \to N$. It's natural to think about writing the type as:
 
 \[
 f : N^2 \to N
 \]
 
-For function $f$, can we take $N^2$ as a whole object, but not two arguments? i.e. treat it as $f\ (x, y)$ but not $f(x, y)$. If we consider the argument as a `hole', then the former is $f\ \bullet$, then put a pair $(x, y)$ into that hole; while the latter is $f(\bullet, \bullet)$, then we put $x$ and $y$ to the two holes respectively. On the other hand, we introduced Currying in chapter 2. We can consider $f$ as $f: N \to (N \to N)$. After passing $x$ to it, $f\ x$ returns another function. This new function sends one natural number to another number. It seems we can't get the exponential concept with Currying directly. However, what if we consider the Curried result, which is $N \to N$, as a whole thing? we can name it as the `function object'. It's still a bit complex since $N$ is a infinite set. Let's go back a step and restart with a simpler example, the $Bool$ set with only two elements:
+For function $f$, can we take $N^2$ as a whole object, but not two arguments? i.e. treat it as $f\quad (x, y)$ but not $f(x, y)$. If we consider the argument as a `hole', then the former is $f\ \bullet$, then put a pair $(x, y)$ into that hole; while the latter is $f(\bullet, \bullet)$, then we put $x$ and $y$ to the two holes respectively. On the other hand, we introduced Currying in chapter 2. We can consider $f$ as $f: N \to (N \to N)$. After passing $x$ to it, $f\ x$ returns another function. This new function sends one natural number to another number. It seems we can't get the exponential concept with Currying directly. However, what if we consider the Curried result, which is $N \to N$, as a whole thing? we can name it as the `function object'. It's still a bit complex since $N$ is a infinite set. Let's go back a step and restart with a simpler example, the $Bool$ set with only two elements:
 
 \begin{example}
 \normalfont
@@ -2123,8 +2544,7 @@ And the index set $\mathbf{2} = \{0, 1\}$ is isomorphic to $Bool$ (under the fun
 \normalfont
 Let's see another example. Consider the set of all the arrows (functions) $Char \to Bool$ from characters $Char$ to the Boolean values $Bool$. There are many functions in this set. For example $isDigit(c)$ check whether the passed in character is digit or not. One implementation can be this (not practical but possible):
 
-\lstset{frame=none}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame=none]
 isDigit : Char -> Bool
 ...
 isDigit '0' = True
@@ -2134,7 +2554,7 @@ isDigit '9' = True
 isDigit 'a' = False
 isDigit 'b' = False
 ...
-\end{lstlisting}
+\end{Haskell}
 
 Although this is a naive implementation, it reflects such fact: If there are 256 different chars (ASCII code of English for example), then the result of $isDigit$ function is isomorphic to a 256-tuple, values of (False, ..., True, True, ... True, False, ...), where the positions corresponding to digit characters are Ture, the rest are False. Among the varies of functions of type $Char \to Bool$, like $isUpper$, $isLower$, $isWhitespace$ etc. everyone corresponds to a specific tuple. For example in the tuple corresponding to $isUpper$, the positions for the upper case characters are Ture, the rest are False. Although there are infinite many ways to define a function from $Char$ to $Bool$, from the result perspective, there are only $2^{256}$ different functions essentially. It means $Char \to Bool$ is isomorphic to $Bool^{Char}$, which is the set of 256-tuple Boolean values.
 \end{example}
@@ -2262,7 +2682,7 @@ The diagram commutes when $k \circ (f \times id_B) = h$. There exists the final 
 curry\ apply = id
 \]
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:exp-obj}
 \Question{Verify that $\pmb{Exp}$ is a category. What is the $id$ arrow and arrow composition in it?}
 \Question{In the reflection law $curry\ apply = id$, what is the subscript of the $id$ arrow? Please prove it with another method.}
 \Question{We define the equation
@@ -2271,6 +2691,103 @@ curry\ apply = id
 \]
 as the fusion law for Currying. Draw the diagram and prove it.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:exp-obj}]
+\Question{Verify that $\pmb{Exp}$ is a category. What is the $id$ arrow and arrow composition in it?
+
+Let us first verify the $id$ arrow $h \arrowto{id} h$, such that the following diagram commutes:
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     A & A \times B & \\
+     A & A \times B & C \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$id_A$} (m-2-1)
+    (m-1-2) edge node [left] {$id_A \times id_B$} (m-2-2)
+    (m-1-2) edge node [above] {$h$} (m-2-3)
+    (m-2-2) edge node [below] {$h$} (m-2-3);
+\end{tikzpicture}
+\end{center}
+
+Next is the arrow composition:
+
+The composition of $h \arrowto{i} k$ and $k \arrowto{j} m$ is $j \circ i$ such that below diagram commutes:
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     A & A \times B & \\
+     D & D \times B & C \\
+     E & E \times B & \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$f$} (m-2-1)
+    (m-2-1) edge node [left] {$g$} (m-3-1)
+    (m-1-2) edge node [left] {$f \times id_B$} (m-2-2)
+    (m-2-2) edge node [left] {$g \times id_B$} (m-3-2)
+    (m-1-2) edge node [above] {$h$} (m-2-3)
+    (m-2-2) edge node [above] {$k$} (m-2-3)
+    (m-3-2) edge node [below] {$m$} (m-2-3);
+\end{tikzpicture}
+\end{center}
+
+For arrow $h \arrowto{j} k$, it means $id_k \circ j = j = j \circ id_h$ holds. And the associative law hold for any three arrows.
+}
+\Question{In the reflection law $curry\ apply = id$, what is the subscript of the $id$ arrow? Please prove it with another method.
+
+The subscript of the $id$ arrow is the type of the binary arrow: $A \times B \to C$.
+
+\begin{proof}
+\blre
+  & curry \circ apply\ f\ a\ b \\
+= & curry\ (apply\ f)\ a\ b & \text{definition of composition} \\
+= & (apply\ f)\ (a, b) & \text{definition of $curry$}\\
+= & f(a, b) & \text{definition of $apply$} \\
+= & id_{A \times B \to C}\ f(a, b)
+\elre
+\end{proof}
+}
+\Question{We define the equation
+\[
+(curry\ f) \circ g = curry(f \circ (g \times id))
+\]
+as the fusion law for Currying. Draw the diagram and prove it.
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     D & D \times B & \\
+     A & A \times B & \\
+     C^B & C^B \times B & C \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$g$} (m-2-1)
+    (m-2-1) edge node [left] {$curry\ f$} (m-3-1)
+    (m-1-2) edge node [left] {$g \times id$} (m-2-2)
+    (m-1-2) edge [bend right] node {} (m-3-2)
+    (m-1-2) edge node [above] {$f \circ (g \times id)$} (m-3-3)
+    (m-2-2) edge node [above] {$f$} (m-3-3)
+    (m-3-2) edge node [below] {$apply$} (m-3-3);
+\end{tikzpicture}
+\end{center}
+
+Observe the triangle of $D \times B$, $A \times B$, and $C$. We know the arrow of $D \times B \to C$ is $f \circ (g \times id)$.
+
+According to the definition of exponentials and transpose arrow, we have:
+
+\[
+apply \circ (curry\ f) \circ g = f \circ (g \times id)
+\]
+
+According to the universal property of $curry$ and $apply$:
+
+\[
+(curry\ f) \circ g = curry (f \circ (g \times id))
+\]
+}
+\end{Answer}
 
 \subsection{Cartesian closed and object arithmetic}
 
@@ -2353,7 +2870,7 @@ This is exactly the `\hyperref[sec:selection-arrow]{selection arrow}' introduced
   f_a : 1 \to a
 \]
 
-Such function can select an element $a$ from $A$ hence is called selection function. The set of all such functions from 1 to $A$ is $\{f_a : 1 \mapsto a | a \in A\}$, which is exactly the set $1 \to A$. On the other hand, set $\{ f_a \}$ has one to one mapping to $A = \{a\}$, hence they are isomorphic.
+Such function can select an element $a$ from $A$ hence is called selection function. The set of all such functions from 1 to $A$ is $\{f_a : 1 \mapsto a | a \in A\}$, which is exactly the set $1 \to A$. On the other hand, set $\{ f_a \}$ has one to one mapping to $\{a\} = A$, hence they are isomorphic.
 
 \[
 \begin{array}{rcll}
@@ -2565,19 +3082,19 @@ We say it defines the $F$-algebra $(M, \alpha)$ of the monoid.
 
 For programming, we can define the type of the F-algebra arrow:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 type Algebra f a = f a -> a
-\end{lstlisting}
+\end{Haskell}
 
 It gives an alias to the arrow $\mathbf{F}A \to A$ essentially, named as \texttt{Algebra} $\mathbf{F}, A$. For the monoid, we also need define a functor\footnote{There is a definition of monoid in Haskell standard library (see the appendix of this chapter). However, it is the definition of the monoid algebraic structure, but not the definition of the monoid functor}:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 data MonoidF a = MEmptyF | MAppendF a a
-\end{lstlisting}
+\end{Haskell}
 
 When \texttt{a} is string for example, we can implement the arrow of the F-algebra \texttt{(String, evals)} as below:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 evals :: Algebra MonoidF String
 evals MEmpty = e ()
 evals (MAppendF s1 s2) = m s1 s2
@@ -2587,15 +3104,15 @@ e () = ""
 
 m :: String -> String -> String
 m = (++)
-\end{lstlisting}
+\end{Haskell}
 
 We can further simplify it by embedding \texttt{e} and \texttt{m} in \texttt{evals}:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 evals :: Algebra MonoidF String
 evals MEmpty = ""
 evals (MAppendF s1 s2) = s1 ++ s2
-\end{lstlisting}
+\end{Haskell}
 
 \texttt{evals} is one implementation to the arrow $\alpha : \mathbf{F}A \to A$, where $\mathbf{F}$ is \texttt{MonoidF}, and $A$ is \texttt{String}. There can be other implementations as far as they satisfy the monoid axioms.
 \end{example}
@@ -2754,12 +3271,96 @@ F-algebra and F-morphism, F-coalgebra and F-morphism form
 
 respectively.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:F-algebra}
 \Question{Draw the diagram to illustrate the reverse element axiom for group.}
 \Question{Let $p$ be a prime. Use the F-algebra to define the $\alpha$ arrow for the multiplicative group for integers modulo $p$ (refer to the previous chapter for the definition of this group).}
 \Question{Define F-algebra for ring (refer to the previous chapter for definition of ring).}
 \Question{What is the $id$ arrow for F-algebra category? What is the arrow composition?}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:F-algebra}]
+\Question{Draw the diagram to illustrate the reverse element axiom for group.
+
+The reverse element axiom can be formalized as: $m \circ (id, i) = m \circ (i, id) = e$
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     G & G \times G & G \\
+     1 & G & 1 \\};
+  \path[-stealth]
+    (m-1-1) edge node [above] {$(id, i)$} (m-1-2)
+    (m-1-3) edge node [above] {$(i, id)$} (m-1-2)
+    (m-1-1) edge node [left] {} (m-2-1)
+    (m-1-2) edge node [left] {$m$} (m-2-2)
+    (m-1-3) edge node [left] {} (m-2-3)
+    (m-2-1) edge node [above] {$e$} (m-2-2)
+    (m-2-3) edge node [above] {$e$} (m-2-2);
+\end{tikzpicture}
+\end{center}
+}
+\Question{Let $p$ be a prime. Use the F-algebra to define the $\alpha$ arrow for the multiplicative group for integers modulo $p$ (refer to the previous chapter for the definition of this group).
+
+According to the $\alpha$ arrow defined for group:
+
+\[
+\mathbf{F} A \arrowto{\alpha = e + m +i} A
+\]
+
+The multiplicative group for integers modulo $p$ is defined as:
+
+\bre
+e\ () & = & 1 & \text{1 is the unit} \\
+m(a, b) & = & ab \bmod p & \text{multiplication modulo $p$} \\
+i(a) & = & a^{p-2} \bmod p & \text{Fermat's little theorem $a^{p-1} \equiv 1 \mod p$} \\
+\ere
+}
+\Question{Define F-algebra for ring (refer to the previous chapter for definition of ring).
+
+The algebraic structure of ring contains three parts:
+\begin{enumerate}[i]
+\item Carrier object $R$, the set that carries the algebraic structure of ring;
+\item Polynomial functor $\mathbf{F}A = 1 + 1 + A \times A + A \times A + A$;
+\item Arrow $\mathbf{F}A \arrowto{\alpha = z + e + p + m + n} A$, consists of the unit of addition $z$, the unit of multiplication $e$, addition $p$, multiplication $m$, and negation $n$.
+\end{enumerate}
+
+These define the $F$-algebra $(R, \alpha)$ for ring. When the carrier object is integers for example, the ring is defined as below under standard arithmetic:
+
+\[\begin{array}{l}
+z\ () = 0 \\
+e\ () = 1 \\
+p(a, b) = a + b \\
+m(a, b) = ab \\
+n(a) = -a \\
+\end{array}\]
+}
+\Question{What is the $id$ arrow for F-algebra category? What is the arrow composition?
+
+The $id$ arrow is the homomorphism from $F$-algebra $(A, \alpha)$ to itself. The arrow composition is the composition of $F$-morphisms. The arrow between carrier object $A \arrowto{f} B \arrowto{g} C$ makes the following diagram commute:
+
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=3em, column sep=5em, minimum width=2em]{
+     \mathbf{F} A & \mathbf{F} B & \mathbf{F} C \\
+     A & B & C \\};
+  \path[-stealth]
+    (m-1-1) edge node [left] {$\alpha$} (m-2-1)
+    (m-1-2) edge node [left] {$\beta$} (m-2-2)
+    (m-1-3) edge node [left] {$\gamma$} (m-2-3)
+    (m-1-1) edge node [above] {$\mathbf{F}(f)$} (m-1-2)
+    (m-1-2) edge node [above] {$\mathbf{F}(g)$} (m-1-3)
+    (m-2-1) edge node [below] {$f$} (m-2-2)
+    (m-2-2) edge node [below] {$g$} (m-2-3);
+\end{tikzpicture}
+\end{center}
+
+\[
+  g \circ f \circ \alpha = \gamma \circ \mathbf{F}(g) \circ \mathbf{F}(f) = \gamma \circ \mathbf{F}(g \circ f)
+\]
+}
+\end{Answer}
 
 \subsubsection{Recursion and fixed point}
 
@@ -2769,10 +3370,9 @@ Consider a set $A$ furnished with algebraic structure. Use the Fibonacci numbers
 
 In order to model this {\em kind} of algebraic structure in F-algebra, we need three things: functor, carrier object, and the $\alpha$ arrow. From the Peano axiom, natural number functor should be defined as below:
 
-\lstset{frame=none}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame=none]
 data NatF A = ZeroF | SuccF A
-\end{lstlisting}
+\end{Haskell}
 
 This is a polynomial functor $\mathbf{NatF} A = 1 + A$. Here is an interesting question: let $A' = \mathbf{NatF} A$, substitute it into functor $\mathbf{NatF}$, then what will the $\mathbf{NatF} A'$ look like? It will look like applying the functor twice $\mathbf{NatF}(\mathbf{NatF} A)$. We can repeat this process to apply the functor three times as $\mathbf{NatF}(\mathbf{NatF}(\mathbf{NatF} A))$. Actually, we can repeat infinite many times, and name the type $\mathbf{NatF}(\mathbf{NatF}(...))$ as $\mathbf{Nat}$.
 
@@ -2787,11 +3387,11 @@ This is a polynomial functor $\mathbf{NatF} A = 1 + A$. Here is an interesting q
 
 It is exactly the type of natural numbers we defined in chapter 1. Let us list \texttt{Nat} and \texttt{NatF A} together:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame = none]
 data Nat = Zero | Succ Nat
 
 data NatF A = ZeroF | SuccF A
-\end{lstlisting}
+\end{Haskell}
 
 This is a recursive functor. We've already met the similar concept in chapter 2. Applying the endo-functor to itself infinite many times gives the {\em fixed point}:
 
@@ -2811,11 +3411,11 @@ The fixed point of endo-functor $\mathbf{F}$ is $\mathbf{Fix}\ \mathbf{F}$. When
 %% \end{array}
 %% \]
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:fix-point-functor}
 \Question{Someone write the natural number like functor as the below recursive form. What do you think about it?
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame = none]
 data NatF A = ZeroF | SuccF (NatF A)
-\end{lstlisting}
+\end{Haskell}
 }
 \Question{We can define an $\alpha$ arrow for $\mathbf{NatF} Int \to Int$, named $eval$:
 \[
@@ -2833,6 +3433,45 @@ eval : \mathbf{NatF}^n Int \to Int \\
 \]
 }
 \end{Exercise}
+
+\begin{Answer}[ref = {ex:fix-point-functor}]
+\Question{Someone write the natural number like functor as the below recursive form. What do you think about it?
+\begin{Haskell}[frame = none]
+data NatF A = ZeroF | SuccF (NatF A)
+\end{Haskell}
+
+No, such definition does not work. Consider carrier object $A$, Functor $\mathbf{NatF}$ is recursive, it does not send $A$ to a determined object. In fact, we expect it is mapped to a object in Peano category $(A, f, z)$.
+}
+\Question{We can define an $\alpha$ arrow for $\mathbf{NatF} Int \to Int$, named $eval$:
+\[
+\begin{array}{l}
+eval : \mathbf{NatF} Int \to Int \\
+eval\ ZeroF = 0 \\
+eval\ (SuccF\ n) = n + 1 \\
+\end{array}
+\]
+We can recursively substitute $A' = \mathbf{NatF} A$ to functor $\mathbf{NatF}$ by $n$ times. We denote the functor obtained as $\mathbf{NatF}^n A$. Can we define the following $\alpha$ arrow?
+\[
+\begin{array}{l}
+eval : \mathbf{NatF}^n Int \to Int \\
+\end{array}
+\]
+
+\[
+\resizebox{\linewidth}{!}{\ensuremath{
+\begin{array}{rcll}
+eval & : &\mathbf{NatF}^n Int \to Int \\
+eval\ ZeroF & = & 0 & \text{$ZeroF$ is an object of $\mathbf{NatF}^n Int$}\\
+eval\ (SuccF\ ZeroF) & = & 1 & \text{$ZeroF$ is an object of $\mathbf{NatF}^{n-1} Int$}\\
+eval\ (SuccF\ (SuccF\ ZeroF)) & = & 2 & \text{$ZeroF$ is an object of $\mathbf{NatF}^{n-2} Int$}\\
+... \\
+eval\ (SuccF^{n-1}\ ZeroF) & = & n - 1 & \text{$ZeroF$ is an object of $\mathbf{NatF} Int$}\\
+eval\ (SuccF^n\ m) & = & m + n \\
+\end{array}
+}}
+\]
+}
+\end{Answer}
 
 \subsubsection{Initial algebra and catamorphism}
 
@@ -3004,11 +3643,11 @@ Catamorphism is powerful, it can convert the function $f$ on a non-recursive str
 
 The natural number functor $\mathbf{NatF}$ is not recursive, while the initial algebra for natural number $\mathbf{Nat}$ is recursive:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame = none]
 data NatF A = ZeroF | SuccF A
 
 data Nat = Zero | Succ Nat
-\end{lstlisting}
+\end{Haskell}
 
 Although the arrow $\mathbf{NatF} A \arrowto{f} A$ is not recursive, the catamorphism $cata$ builds the arrow $\mathbf{Nat} \to A$ from $f$, which can apply computation to the recursive $\mathbf{Nat}$. The type of $cata$ is as below:
 
@@ -3027,32 +3666,31 @@ cata\ f\ (Succ\ n) = f (SuccF\ (cata\ f\ n)) \\
 
 The first clause handles the edge condition for the recursion. For the $Zero$ value of $\mathbf{Nat}$, it applies $f$ to it; for the recursive case, which is $Succ\ n$, it first recursively evaluates $cata\ f\ n$ to get a value $a$ of type $A$; then uses $SuccF\ a$ to convert it to a value of type $\mathbf{NatF}A$; finally applies $f$ on top of it. This natural number catamorphism is generic as it is applicable to any carrier object $A$. Let's further see two concrete examples. The first one converts any value of $\mathbf{Nat}$ back to $Int$.
 
-\lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 toInt :: Nat -> Int
 toInt = cata eval where
   eval :: NatF Int -> Int
   eval ZeroF = 0
   eval (SuccF x) = x + 1
-\end{lstlisting}
+\end{Haskell}
 
 With this definition, $toInt\ Zero$ gives 0, and $toInt\ (Succ\ (Succ\ (Succ\ Zero)))$ gives 3. We can define a helper function to make the verification easy:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 fromInt :: Int -> Nat
 fromInt 0 = Zero
 fromInt n = Succ (fromInt (n-1))
-\end{lstlisting}
+\end{Haskell}
 
 For any integer $n$, $n = (toInt \circ fromInt)\ n$ holds. This example looks trivial. Let us see the second example about Fibonacci numbers.
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 toFib :: Nat -> (Integer, Integer)
 toFib = cata fibAlg where
   fibAlg :: NatF (Integer, Integer) -> (Integer, Integer)
   fibAlg ZeroF = (1, 1)
   fibAlg (SuccF (m, n)) = (n, m + n)
-\end{lstlisting}
+\end{Haskell}
 
 We intentionally rename the previous function from $fib$ to $fibAlg$ to call out our purpose. From the algebraic relation of Fibonacci numbers (non-recursive), we make it capable to recursively calculate the Fibonacci sequence with catamorphism. $toFib\ Zero$ gives pair $(1, 1)$, and $toFib\ (Succ\ (Succ\ (Succ\ Zero)))$ gives pair $(3, 5)$. The following helper function calculates the $n$-th Fibonacci number.
 
@@ -3127,16 +3765,15 @@ We can define more algebraic data types with initial F-algebra, like list and bi
 \normalfont
 The definition of list given in chapter 1 is as below.
 
-\lstset{frame=none}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame = none]
 data List A = Nil | Cons A (List A)
-\end{lstlisting}
+\end{Haskell}
 
 The corresponding non-recursive functor is:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame = none]
 data ListF A B = NilF | ConsF A B
-\end{lstlisting}
+\end{Haskell}
 
 Actually, $\mathbf{List}$ is the fixed point of functor $\mathbf{ListF}$. To verify it, let $B' = \mathbf{ListF}\ A\ B$, then recursively apply to itself infinite many times. Denote the result of it as $\mathbf{Fix}\ (\mathbf{ListF}\ A)$.
 
@@ -3180,42 +3817,41 @@ It forms F-algebra for list. We know that the initial algebra is $(List, [nil, c
 
 Given a non-recursive computation $f$, we can build from it through the catamorphism that can be applied to recursive list.
 
-\lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 cata :: (ListF a b -> b) -> (List a -> b)
 cata f Nil = f NilF
 cata f (Cons x xs) = f (ConsF x (cata f xs))
-\end{lstlisting}
+\end{Haskell}
 
 For example, we define the algebraic rules to calculate the length of list:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 len :: (List a) -> Int
 len = cata lenAlg where
   lenAlg :: ListF a Int -> Int
   lenAlg NilF = 0
   lenAlg (ConsF _ n) = n + 1
-\end{lstlisting}
+\end{Haskell}
 
 Hence $len\ Zero$ gives 0, and $len\ (Cons\ 1\ (Cons\ 1\ Zero))$ gives 2. We can define a helper function to convert the list in bracket symbol to $List$.
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 fromList :: [a] -> List a
 fromList [] = Nil
 fromList (x:xs) = Cons x (fromList xs)
-\end{lstlisting}
+\end{Haskell}
 
 We can chain them together, for example as $len (fromList [1, 1, 2, 3, 5, 8])$ to calculate the length of a list.
 
 Different algebraic rule $f$ gives different computation on list. Below example sums up the elements in a list:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 sum :: (Num a) => (List a) -> a
 sum = cata sumAlg where
   sumAlg :: (Num a) => ListF a a -> a
   sumAlg NilF = 0
   sumAlg (ConsF x y) = x + y
-\end{lstlisting}
+\end{Haskell}
 
 Next we use list diagram to prove, the catamorphism on list is the folding computation $foldr$ essentially. List functor is a polynomial functor. When fix $A$, for carrier object $B$, it sends to $\mathbf{ListF}\ A\ B = 1 + A \times B$; for arrow $h$, it sends to $(\mathbf{ListF}\ A)(h) = id + (id \times h)$. As the diagram commutes, we have:
 
@@ -3252,16 +3888,15 @@ It tells us, the catamorphism of list F-algebra $\lbb c + f \rbb = foldr(c, f)$.
 \normalfont
 In chapter 2, we defined binary tree as below:
 
-\lstset{frame=none}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame = none]
 data Tree A = Nil | Br A (Tree A) (Tree A)
-\end{lstlisting}
+\end{Haskell}
 
 All the binary tree like structure can be described with F-algebra. First, we need define the binary tree functor:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame = none]
 data TreeF A B = NilF | BrF A B B
-\end{lstlisting}
+\end{Haskell}
 
 $B$ is the carrier object, the initial algebra is $(\mathbf{Tree}\ A, [nil, branch])$. We leave the proof of this fact as exercise of this section. Below diagram illustrates the catamorphism of binary tree:
 
@@ -3340,26 +3975,51 @@ foldt\ c\ h\ (Br\ k\ l\ r) = h(k, foldt\ c\ h\ l, foldt\ c\ h\ r) \\
 Therefore, the computation to sum all the elements in a binary tree can be represented by folding as $foldt(0_B, (\bullet + \bullet + \bullet))$.
 \end{example}
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:bitree-algebra}
 \Question{For the binary tree functor $\mathbf{TreeF}\ A\ B$, fix $A$, use the fixed point to prove that $(\mathbf{Tree}\ A, [nil, branch])$ is the initial algebra}
 \end{Exercise}
+
+\begin{Answer}[ref = {ex:bitree-algebra}]
+\Question{For the binary tree functor $\mathbf{TreeF}\ A\ B$, fix $A$, use the fixed point to prove that $(\mathbf{Tree}\ A, [nil, branch])$ is the initial algebra
+
+Let $B' = \mathbf{TreeF}\ A\ B$. We recursively apply to itself, and call this result as $\mathbf{Fix}\ (\mathbf{TreeF}\ A)$.
+
+\[
+\resizebox{\textwidth}{!}{\ensuremath{
+\begin{array}{rcll}
+\mathbf{Fix}\ (\mathbf{TreeF}\ A) & = & \mathbf{TreeF}\ A\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A)) & \text{definition of fixed point} \\
+ & = & \mathbf{TreeF}\ A\ (\mathbf{TreeF}\ A (...)) & \text{expand} \\
+ & = & NilF | BrF\ A\ (\mathbf{TreeF}\ A\ (...))\ (\mathbf{TreeF}\ A\ (...)) & \text{definition of binary tree functor} \\
+ & = & NilF | BrF\ A\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A))\ (\mathbf{Fix}\ (\mathbf{TreeF}\ A)) & \text{reverse of fixed point} \\
+\end{array}
+}}
+\]
+
+Compare with the definition of $Tree A$:
+
+\begin{Haskell}[frame = none]
+data Tree A = Nil | Br A (Tree A) (Tree A)
+\end{Haskell}
+
+Hence $\mathbf{Tree}\ A = \mathbf{Fix}\ (\mathbf{TreeF}\ A)$. The initial algebra is $(\mathbf{Tree}\ A, [nil, branch])$.
+}
+\end{Answer}
 
 \section{Summary}
 
 In this chapter, we introduced the basic concepts in category theory, including category, functor, natural transformation, product and coproduct, initial object and final object, exponentials, and F-algebra. They can construct complex algebraic structures. Before the end of this chapter, let us see how the generic folding operation is realized in the language of category theory\cite{Haskell-foldable}:
 
-\lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 foldr f z t = appEndo (foldMap (Endo . f) t) z
-\end{lstlisting}
+\end{Haskell}
 
 The reason why it is defined like this is abstraction, to make $foldr$ not only limit to list, but also expand to any foldable structures. It's common to define the folding operation for list as below:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 foldr :: (a -> b -> b) -> b -> [a] -> b
 foldr f z [] = z
 foldr f z (x:xs) = f x (foldr f z xs)
-\end{lstlisting}
+\end{Haskell}
 
 Where $f$ is a binary operation, we can denote it as $\oplus$, and explicitly denote $z$ as the identity element $e$. According to this definition, $foldr\ (\oplus)\ e\ [a, b, c]$ can be expanded as:
 
@@ -3378,9 +4038,9 @@ concat_M = foldr\ (\oplus)\ e \\
 
 It is named as \texttt{mconcat} in some programming environment. For any monoid $M$, function $concat$ processes a list of elements of $M$, fold them together through the binary operation and the identity element. For example, string is an instance of monoid, the identity element is the empty string, and the binary operation is string concatenation. Hence $concat_M$ \texttt{["Hello", "String" "Monoid"]} gives the following result.
 
-\begin{verbatim}
+\begin{Haskell}[frame = none]
 "Hello" ++ ("String" ++ ("Monoid" ++ "")) = "HelloStringMonoid"
-\end{verbatim}
+\end{Haskell}
 
 We are able to sum up any monoid elements. Can we make it more generic? Consider there is a list of elements that don't belong to monoid. We can still sum them if there is a way to convert them to monoid elements. List functor behaves exactly as we expect, to convert a list of some types to a list of monoids. In other words, we can use the list functor to `lift' the arrow $A \arrowto{g} M$ to $\mathbf{List}(g)$ for sum.
 
@@ -3408,10 +4068,9 @@ foldMap\ g = concat_M \circ fmap\ g
 
 However, there is still limitation. For the binary operation $f : A \to B \to B$ passed to $foldr$, if $B$ is not monoid, we can't do folding. To solve it, consider the Curried $f$ of $f : A \to (B \to B)$. When we treat the arrow $B \to B$ as object, they can form a monoid. Where the identity element is the $id$ arrow, and the binary operation is arrow composition. To make it clear, we wrap the $B \to B$ arrow as a type (set) through a functor:
 
-\lstset{frame=none}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}[frame=none]
 newtype Endo B = Endo (B -> B)
-\end{lstlisting}
+\end{Haskell}
 
 We name it as `endo' functor as it point to $B$ from $B$ itself. Besides, we also define a function of $\mathbf{Endo}B \arrowto{appEndo} B$:
 
@@ -3421,12 +4080,11 @@ appEndo(Endo\ a) = a
 
 Now we can declare $\mathbf{Endo}$ is a monoid, with $id$ arrow as the identity element, and function composition as the binary operation.
 
-\lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 instance Monoid Endo where
     mempty = Endo id
     Endo f `mappend` Endo g = Endo (f . g)
-\end{lstlisting}
+\end{Haskell}
 
 Given any binary function $f$, we can use $foldMap$ to fold on $Endo$ monoid:
 
@@ -3482,62 +4140,61 @@ We can not introduce the category theory in depth just in one chapter. We only s
 
 Definition of functors:
 
-\lstset{frame=single}
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 class  Functor f  where
     fmap        :: (a -> b) -> f a -> f b
-\end{lstlisting}
+\end{Haskell}
 
 The Maybe functor:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 instance  Functor Maybe  where
     fmap _ Nothing       = Nothing
     fmap f (Just a)      = Just (f a)
-\end{lstlisting}
+\end{Haskell}
 
 Look up in binary search tree with Maybe functor, and convert the result to binary format:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 lookup Nil _ = Nothing
 lookup (Node l k r) x | x < k = lookup l x
                       | x > k = lookup r x
                       | otherwise = Just k
 
 lookupBin = (fmap binary) . lookup
-\end{lstlisting}
+\end{Haskell}
 
 Definition of bifunctor:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 class Bifunctor f where
   bimap :: (a -> c) -> (b -> d) -> f a b -> f c d
-\end{lstlisting}
+\end{Haskell}
 
 Definition of product and coproduct functors:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 instance Bifunctor (,) where
   bimap f g (x, y) = (f x, g y)
 
 instance Bifunctor Either where
   bimap f _ (Left a) = Left (f a)
   bimap _ g (Right b) = Right (g b)
-\end{lstlisting}
+\end{Haskell}
 
 Definition of $curry$ and its reverse $uncurry$:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 curry       :: ((a, b) -> c) -> a -> b -> c
 curry f x y =  f (x, y)
 
 uncurry     :: (a -> b -> c) -> ((a, b) -> c)
 uncurry f (x, y) =  f x y
-\end{lstlisting}
+\end{Haskell}
 
 Definition of monoid:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 class Semigroup a => Monoid a where
     mempty  :: a
 
@@ -3546,11 +4203,11 @@ class Semigroup a => Monoid a where
 
     mconcat :: [a] -> a
     mconcat = foldr mappend mempty
-\end{lstlisting}
+\end{Haskell}
 
 Definition of foldable:
 
-\begin{lstlisting}[style=Haskell]
+\begin{Haskell}
 newtype Endo a = Endo { appEndo :: a -> a }
 
 class Foldable t where
@@ -3559,9 +4216,12 @@ class Foldable t where
 
     foldMap :: Monoid m => (a -> m) -> t a -> m
     foldMap f = foldr (mappend . f) mempty
-\end{lstlisting}
+\end{Haskell}
 
 \ifx\wholebook\relax \else
+\section{Answers}
+\shipoutAnswer
+
 \begin{thebibliography}{99}
 
 \bibitem{Dieudonne1987}

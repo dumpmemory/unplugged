@@ -4,6 +4,8 @@
 % loading packages
 %
 
+\usepackage[hyphens]{url}
+\urlstyle{rm}
 \RequirePackage{ifpdf}
 \RequirePackage{ifxetex}
 
@@ -38,12 +40,14 @@
 \usepackage{graphicx, color}
 \usepackage{adjustbox}
 \usepackage{wrapfig}
+\usepackage{caption}
 \usepackage{subcaption}  % subfig is deprecated
 \usepackage{enumerate}
 \usepackage{multicol}
 \usepackage{pdfpages}    % to include pdf
 \usepackage[table]{xcolor} % for colored table
 \usepackage{hhline}
+\usepackage[super, square]{natbib}
 \usepackage{tikz}
 \usetikzlibrary{patterns,matrix,positioning,shapes,arrows}
 
@@ -52,10 +56,12 @@
 \usepackage{gensymb}
 \usepackage{mathtools}
 \usepackage{extarrows}
-\usepackage{exercise} % for exercise
+\usepackage{polynom}
+\usepackage[answerdelayed]{exercise} % for exercise
 \usepackage{stmaryrd} % for banana brackets
 \usepackage{pict2e}   % for customize lens brackets
 \usepackage[normalem]{ulem}
+\usepackage{suffix}   % for starred command
 
 \usepackage{import} % for nested input
 \usepackage{standalone}
@@ -78,7 +84,6 @@
 \usepackage{xunicode}
 \usepackage{textcomp}
 \usepackage{mdframed}
-\usepackage{url}
 \usepackage{xeCJK}
 \usepackage{sourcecodepro}
 
@@ -91,6 +96,8 @@
 %\newcommand\doubleplus{+\kern-1.3ex+\kern0.8ex}
 %\newcommand\mdoubleplus{\ensuremath{\mathbin{+\mkern-10mu+}}}
 
+\newcommand\cons{\ensuremath{\mathbin{\!:\!}}}
+
 % for literate Haskell code
 \lstdefinestyle{Haskell}{
   language=Haskell,
@@ -98,7 +105,7 @@
   numberstyle=\ttfamily\tiny,
   emphstyle={\bf},
   escapeinside={*'}{'*},
-  stringstyle=\mdseries\rmfamily,
+  stringstyle=\mdseries\ttfamily, %rmfamily,
   keywordstyle=\bfseries\ttfamily, %rmfamily
   basicstyle=\footnotesize\ttfamily, %sffamily
   commentstyle = \footnotesize\rmfamily,
@@ -161,6 +168,8 @@
     style=Haskell,
     #1}}{}
 
+\newcommand{\inlineHaskell}{\lstinline[language=Haskell, basicstyle=\ttfamily]}
+
 \newcommand{\arrowto}[2][]{\xlongrightarrow[#1]{\displaystyle #2}}
 \newcommand{\lbb}{\llparenthesis} % left banana bracket
 \newcommand{\rbb}{\rrparenthesis} % right banana bracket
@@ -212,12 +221,12 @@
 \newcommand{\ee}{\end{equation}}
 
 % numbered equation array
-\newcommand{\bea}{\begin{eqnarray}}
-\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\bea}[1]{\begin{equation} \begin{array}{#1}}
+\newcommand{\eea}{\end{array} \end{equation}}
 
 % equation array not numbered
-\newcommand{\bean}{\begin{eqnarray*}}
-\newcommand{\eean}{\end{eqnarray*}}
+\WithSuffix\newcommand{\bea}*[1]{\[ \begin{array}{#1}}
+\WithSuffix\newcommand{\eea}*{\end{array} \]}
 
 % begin/end reasoning
 \newcommand{\bre}{\[ \begin{array}{rcll}}
@@ -231,8 +240,8 @@
 \DeclareMathOperator{\gcm}{gcm}
 \DeclareMathOperator{\fold}{fold}
 
-\newcommand{\btab}{\vspace{5mm} \begin{tabular}}
-\newcommand{\etab}{\end{tabular} \vspace{5mm}}
+\newcommand{\btab}[1]{\vspace{5mm} \begin{center} \begin{tabular}{#1}}
+\newcommand{\etab}{\end{tabular} \end{center} \vspace{5mm}}
 
 \makeatletter
 \newcommand{\verbatimfont}[1]{\renewcommand{\verbatim@font}{\ttfamily#1}}
@@ -286,9 +295,8 @@
   \newtheorem{definition}{定义}[section]
   \newtheorem{example}{例}[section]
 
-  % 中文书籍设置
-  % ====================================
   \renewcommand\ExerciseName{练习}
+  \renewcommand\AnswerName{答案}
   \renewcommand{\sectionautorefname}{节}
 }
 

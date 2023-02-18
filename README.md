@@ -1,7 +1,7 @@
 Isomorphism -- Mathematics of Programming
 ====
 
-2021/07
+2022/07
 
 This book introduces the mathematics behind computer programming.
 
@@ -83,5 +83,3 @@ This will generate unplugged-en.pdf and unplugged-zh-cn.pdf. If you only need th
 LIU Xinyu
 
 liuxinyu95@gmail.com
-
-``Cogito ergo sum''

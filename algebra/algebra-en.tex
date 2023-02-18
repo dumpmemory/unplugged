@@ -33,78 +33,127 @@
 
 \epigraph{One must be able to say at all times--instead of points, straight lines, and planes--tables, chairs, and beer mugs}{——David Hilbert}
 
-\begin{wrapfigure}{R}{0.3\textwidth}
- \centering
- \includegraphics[scale=0.35]{img/vitruvian-man.png}
- %\includegraphics[scale=0.35]{img/Escher-Liberation-1955.jpg}
- \captionsetup{labelformat=empty}
- %\caption{Escher, Liberation, 1955}
- \caption{Leonardo da Vinci, Vitruvian Man, 1490}
- %\label{fig:Escher-liberation}
-\end{wrapfigure}
-
 Symmetry appears everywhere in our world. It is often related to a sense of harmonious, order, pattern, beautiful proportion and balance. We, as human is symmetric, left and right, the sagittal plane divides our body into bilateral halves. {\em Vitruvian Man} by Leonardo da Vinci is often used as a representation of symmetry in the human body and by extension, the natural universe. The beautiful butterfly, the fish, and birds all represent the symmetry in biology. In our civilization, people created symmetric artifacts, arts, and buildings. The ancient clay jars are rotational symmetric; the Arabic carpets and rags are rectangular symmetric; the fine Chinese style window pane is radial symmetric. The great buildings like Taj Mahal, the forbidden city are reflectional symmetric. We are surprised about the symmetry in snowflakes, every one is unique, but all follow the same hexagon symmetric pattern. When step in the garden in spring, we see all kinds of the beautiful flowers with radial symmetry; while in the woods in autumn, the matured fruits and spikes, the colorful leaves demonstrate us an amazing canvas in the language of symmetry.
 
-In the great world of astronomy, the galaxy rotates its symmetric arms; in the small world of particle, the symmetric crystal lattice reflects light to tell us the mystical nature. A meaningful palindrome poem leads to deep thinking, a rando variation music moves our feeling. Our minds contain symmetric things, like connotation and denotation concepts, like abstraction versus material. Mathematics is full of symmetric things in geometry, in algebra, in equations, in curves. Programming is also about symmetry, push in and pop out of a stack, computation scheduling, allocation and release. What is symmetry? How to accurately define, or even measure symmetry?
+In the great world of astronomy, the galaxy rotates its symmetric arms; in the small world of particle, the symmetric crystal lattice reflects light to tell us the mystical nature. A meaningful palindrome poem leads to deep thinking, a rando variation music moves our feeling. Our minds contain symmetric things, like connotation and denotation concepts, like abstraction versus material. Mathematics is full of symmetric things in geometry, in algebra, in equations, in curves. Programming is also about symmetry, push in and pop out of a stack, computation scheduling, allocation and release.
 
-Mathematician developed group to define, explain, and measure symmetry. And surprisingly, some hard problems, like the solvability of equation is ultimately solved by revealing the symmetry of roots. Other famous problems, like the three classic geometric problems in ancient Greece are also solved by this. To uncover the secret of symmetry, we are going to follow the path in this chapter to the abstract algebra world of groups, rings, and fields.
+%\begin{wrapfigure}{R}{0.3\textwidth}
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.35]{img/vitruvian-man}
+ \captionsetup{labelformat=empty}
+ \caption{Leonardo da Vinci, Vitruvian Man, 1490}
+\end{figure}
+%\end{wrapfigure}
 
-Humans gradually developed the habit to sort things. We classify similar things together. The methods and properties those apply to the entire class are also valid for every thing in it. In this way, we needn't repeatedly solve the concrete individual problems one by one, but solve the abstract problem as a whole. It greatly improved our ability to understand the world.
-
-In previous chapters, we generalized the abstract `folding' operation from sum and factorial for numbers. We observed their similar structures, abstracted zero in sum, and one in factorial to unit element; then abstracted add and multiplication to binary operation. As the result, we developed the fold operation for numbers in a higher level. With this powerful tool, we then further solved a large sort of problems that are isomorphic to natural number, such as the Fibonacci numbers.
-
-For another example, we defined the abstract $foldr$ operation for list in chapter 1. With this tool, we can sum a list of numbers as $sum = foldr(0, +)$; we can also multiply them as $product = foldr(1, \times)$. In computer programming, there is a data structure called `binary search tree'. We introduced about it in chapter 2. Binary search tree is a special binary tree. Its elements are comparable\footnote{The meaning of comparable is abstract. If the elements are numbers, we can compare which one is bigger, if they are words, we can compare their lexicographical order.}. For any branch node, all elements in its left sub-trees are ahead of the element in this node; while all elements in its right sub-trees are behind it. Due to this kind of ordering, we also call it `sorted binary tree'. We can define insert operation for binary search tree as below:
-
-\[
-\begin{array}{rcl}
-  insert(nil, x) & = & node(nil, x, nil) \\
-  insert(node(l, y, r), x) & = & \left.
-  \begin{cases}
-  x < y\ : & node(insert(l, x), y, r) \\
-  x > y\ : & node(l, y, insert(r, x))
-  \end{cases} \right.
-\end{array}
-\label{eq:BST-insert}
-\]
-
-According to this definition, when insert element $x$ to binary search tree, if the tree is empty, the result is $node(nil, x, nil)$; otherwise, we compare $x$ with the element $y$ in the branch node. If $x$ is ahead of $y$ (the `$<$' holds), then we recursively insert it to the left sub-tree, else insert to the right sub-tree. Is there any similarity among the insertion, sum, and factorial? Insertion is also a binary operation, $nil$ can be considered as the unit element. Then we can apply the abstract fold operation to turn a list of elements into a binary search tree:
+\section{What is symmetry?}
+What is symmetry? How to accurately define, or even measure symmetry? Let's start from {\em Vitruvian Man}. The upper half figure is an example of reflective symmetry. We obtain the same figure when reflect it against the middle vertical axis. Put a figure in Cartesian plan, let the $y$-axis be the symmetric axis. When negate $x \mapsto -x$ for all points in the figure, the new figure is congruent with the original if its reflective symmetric. Express as:
 
 \[
-build = foldr(nil, insert)
+f(x) = f(-x)
 \]
 
-Figure \ref{fig:bst-example} shows the binary search tree generated when compute $build\ [4, 3, 1, 8, 2, 16, 10, 7, 14, 9]$.
+Let's abstract the reflective figure as a segment with two ends of 1 and 2. The segment is congruent when exchange ends from 1, 2 to 2, 1 as shown in figure \ref{fig:reflection}. We call the transform $(1, 2) \mapsto (2, 1)$ a permutation.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[scale=0.4]{img/bst-example.ps}
-  \caption{The binary search tree generated from folding.}
-  \label{fig:bst-example}
+  \includegraphics[scale=0.8]{img/reflection.png}
+  \caption{Reflective symmetry}
+  \label{fig:reflection}
 \end{figure}
 
-We have similar experience when developing the concept of add. The addition operation was applied to specific things at first, like the fruits being collected, the prey being hunted. People later abstracted the addition for numbers and removed the specific meanings for things. Then we extended our understanding about numbers from integers to fractions, although the detailed addition process is quite different. We need firstly unify the denominators, then add the nominators together, and finally reduce the fraction. People generalized the two different processes to the unified addition for rational numbers. We learned to think about the essence and principles of addition. Every time when people extended the concept of numbers, there was a new definition for addition. Along this way, we defined the addition for real numbers and complex numbers. We found the method established for abstract things without specific meanings had a greater scope of application. Abstract method can solve a whole kind of problems rather than the individual ones. Similar things happened in computer engineering. People developed the object-oriented method, generic type system, and dynamic type system. All these are sorts of mechanisms to support abstraction.
+For a set of two things $\{a, b\}$, like two end points of a segment, two coordinates, two persons, two computer programs and whatever. Let the first thing be 1, the second be 2. There are two permutations: $(1, 2) \mapsto (2, 1)$ and $(1, 2) \mapsto (1, 2)$. We call the first `transpose', denoted as $s$, the second `identity', denoted as $e$:
 
-We should always ask an important question when developing abstract tools or generic methods. `What is the applicable scope for this abstraction? When will the abstraction be invalid?' It could lead to ridiculous result if ignore this. One example is about the sum of the infinite geometric series $1 + x + x^2 + x^3 + ... = 1/(1-x)$. It is so powerful that people can solved the Zeno's paradox\footnote{Here it is the Achilles and turtle paradox, which is one of the four famous paradoxes by Zeno, the ancient Greek philosopher. Achilles was a hero in ancient Greek. Zeno supposed Achilles wanted to catch up with the turtle ahead. When he ran to the position where the tortoise left, the tortoise had moved a short distance forward. Achilles must continue to run to that new position, but the turtle moved forward again. Repeated this process, Zeno argued that Achilles would never catch up the turtle. We'll explain Zeno's paradox in detail in Chapter 5.} with it. The mathematicians in the 17 Century substituted $x$ with -1, then got a result of $1 - 1 + 1 - 1 + ... = 1/2$. While, someone had a different idea that, $S = (1 - 1) + (1 - 1)+ ... = 0$. And there was another different one: $S = 1 + (-1 + 1) + (-1 + 1) + ... = 1$. There were people supported the result should be 1/2, because $S = 1 - (1 - 1 + 1 - 1 + ...) = 1 -S$, solving this equation gave $S = 1/2$. The Italian mathematician Grandi (1671 - 1742) found more surprising results. By using the infinite series:
-
-\[
-\def\arraystretch{2.2}
-\begin{array}{l}
-\dfrac{1}{1 + x + x^2} = 1 - x + x^3 - x^4 + x^6 - x^7 + ... \\%[5pt]
-\dfrac{1}{1 + x + x^2 + x^3} = 1 - x + x^4 - x^5 + x^8 - x^9 + ... \\
-...
-\end{array}
+\[ s = \begin{pmatrix}
+1 & 2 \\
+2 & 1 \\
+\end{pmatrix}
+,\
+e = \begin{pmatrix}
+1 & 2 \\
+1 & 2 \\
+\end{pmatrix}
 \]
 
-Let $x = 1$, Grandi found the sum of the infinite series $1 - 1 + 1 - 1 + 1 - 1 + ...$ could be 1/3, 1/4, ... Even the great mathematician Leibniz thought the result could be 0 or 1 with the same probability, therefore the `true' value should be the average 1/2. Grandi offered a new explanation in 1710: Two brothers inherited a priceless gem from their father, who forbade them to sell it, so they agreed that it would reside in each other's museums on alternating years. If this agreement last for all eternity between the brother's descendants, then the two families would each have half possession of the gem, even though it changed hands infinitely often\cite{HanXueTao16}. People kept suffering from these strange puzzles until the French mathematician Cauchy introduced the convergence concept for infinite series.
+Taking $s$ for example, it permute the two elements $1\ 2$ in the first row, to $2\ 1$ in the second row. We can combine and apply multiple permutations. $s \cdot s$ applies transpose twice: $(1, 2)  \arrowto{s} (2, 1) \arrowto{s} (1, 2)$, it restores the elements finally, equals to identity, i.e. $s \cdot s = e$. In other words, $s$ reverses itself: $s^{-1} = s$. We say apply one permutation, then another a {\em composition}, denoted as `$\cdot$'. There are four compositions among $s$ and $e$: (1) $s \cdot e = s$, (2)  $e \cdot s = s$, (3) $s \cdot s = e$, (4) $e \cdot e = e$, summarized in below table:
 
-This chapter introduces the basic abstract algebra structures. They are not only abstraction to numbers, but also the abstraction to concepts, properties, and relationships. They are the most valuable things from many great thoughts and minds. Some contents challenge our limit of abstract thinking. It's quite common that you can't grasp them during the first time reading. I intended to add many stories about those great mathematicians, how they made breakthrough with unbelievable difficulties. I hope these interesting stories could encourage you keep going forward.
+\btab{c|cc}
+$\cdot$  & s & e \\
+\hline
+s & e & s \\
+e & s & e \\
+\etab
+
+Such table is called Cayley table, named after British mathematicial Arthur Cayley. We can skip the dot to simplify the composition of $\tau$ and $\mu$ as $\tau\mu$. We call the permutation set $\{s, e\}$ and the compositions among its elements as $S_2$. It defines the reflexive symmetry in a plane. For any reflexive thing $a$, $s(a) = a$ holds. For example, consider three points with coordinate $A = (-1, 0), B = (1, 0), C = (2, 0)$. Because $s(AB) = AB$, segment $AB$ is reflexive symmetric, while $s(AC)  \neq AC$, segment $AC$ is not symmetric.
+
+What symmetry can we obtain when extend from a segment with two end points to a triangle? Let the three end points 1, 2, and 3. There are 6 permutations, change the points to: $(2, 1, 3)$、$(3, 2, 1)$、$(1, 3, 2)$、$(2, 3, 1)$、$(3, 1, 2)$、$(1, 2, 3)$. Where the last one is the identity $e$, keeping points same. As shown in figure \ref{fig:triangles}, the first permutation swaps 1 and 2, while keeping 3 fixed. It flips the triangle against the middle axis. We denote it as $s$. The fourth permutation rotates the triangle clockwise, denoted as $r$. The fifth permutation rotates counter clockwise, it's $r^{-1}$. We call these 6 permutations together with their compositions as $S_3$. The three triangles shown in this figure have different symmetries. The left triangle only unchanged under the permutation of identity $e$. It has the least symmetry; The middle triangle unchanged under $s$ and $e$. It has more symmetry than the left; The right regular triangle unchanged under all the 6 permutations. It has the most symmetry (Reflection against three axes, two rotations of $\pm\dfrac{2\pi}{3}$, and identity). We can measure the symmetry of triangle with $S_3$.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.6]{img/triangles}
+  \caption{Thy symmetry of triangle.}
+  \label{fig:triangles}
+\end{figure}
+
+The 6 permutations are composable. Rotate counter clockwise $r^{-1}$ first, then mirror $s$, we obtain the second permutation, i.e. $(2, 1, 3) (3, 1, 2) = (3, 2, 1)$. While the clockwise rotation is equivalent to rotate counter clockwise twice, i.e. $r^{-1} = rr$. The 6 permutations can be expressed with $s$, $r$, and $e$ as below Cayley table of $S_6$:
+
+\btab{c|cccccc}
+ & $s$ & $sr^{-1}$ & $sr$ & $r$ & $r^{-1}$ & $e$ \\
+\hline
+$s$ & $e$ & $r^{-1}$ & $r$ & $sr$ & $sr^{-1}$ & $s$ \\
+$sr^{-1}$ & $r$ & $e$ & $r^{-1}$ & $s$ & $sr$ & $sr^{-1}$ \\
+$sr$ & $r^{-1}$ & $r$ & $e$ & $sr^{-1}$ & $s$ & $sr$ \\
+$r$ & $sr$ & $s$ & $sr^{-1}$ & $r^{-1}$ & $e$ & $r$ \\
+$r^{-1}$ & $sr^{-1}$ & $sr$ & $s$ & $e$ & $r$ & $r^{-1}$\\
+$e$ & $s$ & $sr^{-1}$ & $sr$ & $r$ & $r^{-1}$ & $e$ \\
+\etab
+
+$S_2$ and $S_3$ define the symmetry of segment, triangle. We can also use them to study the symmetry for abstract things. Consider equation $x^2 + px + q = 0$ with its two roots $x_1$ and $x_2$. According to Vieta's theorem in school math, we have:
+
+\be
+\begin{cases}
+x_1 + x_2 = -p \\
+x_1 x_2 = q
+\end{cases}
+\ee
+
+Apply $S_2$, $s$ swaps the two roots, the equation and Vieta's theorem all hold. Together with identity $e$, we can see $S_2$ defines the symmetry for quadratic equation. Vieta further expanded his theorem to cubic equation $x^3 + rx^2 + px + q = 0$.
+
+\be
+\begin{cases}
+x_1 + x_2 + x_3 = -r \\
+x_1 x_2 + x_2 x_3 + x_3 x_1 = p \\
+x_1 x_2 x_3 = -q
+\end{cases}
+\ee
+
+Where $x_1$, $x_2$, and $x_3$ are the three roots. Obviously the cubic equation and Vieta's theorem all hold under the 6 permutations in $S_3$. Similarly, $S_3$ defines the symmetry for cubic equation. Such finding led to a new mathematical domain in history. Mathematician developed group to define, explain, and measure symmetry. And surprisingly, some hard problems, like the solvability of equation is ultimately solved by revealing the symmetry of roots. Other famous problems, like the three classic geometric problems in ancient Greece are also solved by this. To uncover the secret of symmetry, we give simple introduction to some basic abstract algebra structures. They are not only abstraction to numbers, but also apply to concepts, properties, and relationships. They are the most valuable things from many great thoughts and minds. Some contents challenge our limit of abstract thinking. I give some stories about those great mathematicians, how they made breakthrough with unbelievable difficulties. I hope these interesting stories could encourage you keep going forward.
+
+\begin{Exercise}\label{ex:reflective-binary-tree}
+\Question{Write a program to test whether a binary tree is reflexive symmetric.}
+\end{Exercise}
+\begin{Answer}[ref={ex:reflective-binary-tree}]
+\Question{Write a program to test whether a binary tree is reflexive symmetric.
+\bea*{rcl}
+reflective\ \nil & = & True \\
+reflective\ (l, k, r) & = & eq\ l\ r \\
+\eea*
+其中
+\bea*{rcl}
+eq\ \nil\ \nil & = & True \\
+eq\ \nil\ (l, k, r) & = & False \\
+eq\ (l, k, r)\ \nil & = & False \\
+eq\ (l_1, k_1, r_1)\ (l_2, k_2, r_2) & = & k_1 = k_2\ \textbf{and}\ (eq\ l_1\ l_2)\ \textbf{and}\ (eq\ r_1\ r_2) \\
+\eea*
+}
+\end{Answer}
 
 \section{Group}
 
 \begin{figure}[htbp]
 %\begin{wrapfigure}{R}{0.4\textwidth}
  \centering
- \includegraphics[scale=0.3]{img/Cardano.jpg}
+ \includegraphics[scale=0.3]{img/Cardano}
  \captionsetup{labelformat=empty}
  \caption{Gerolamo Cardano, 1501-1576}
  \label{fig:Cardano}
@@ -120,19 +169,19 @@ The group theory is originate from the history of equations. Equation is a power
 \begin{figure}[htbp]
 %\begin{wrapfigure}{R}{0.3\textwidth}
  \centering
- \includegraphics[scale=0.25]{img/Gaus.jpg}
+ \includegraphics[scale=0.25]{img/Gaus}
  \captionsetup{labelformat=empty}
  \caption{Gauss (1777-1855) in 10 Mark}
  \label{fig:Gauss}
 %\end{wrapfigure}
 \end{figure}
 
-People encountered surprisingly difficulty when seek for radical solutions for generic quintic and higher order equations in the next 300 years. The breakthrough happened in the 19th Century with unexpected result. The French young Genius Évariste Galois developed an innovative idea, he was able to determine a necessary and sufficient condition for a polynomial to be solvable by radicals while still in his teens\footnote{Around 1770, Joseph Louis Lagrange began the groundwork that unified the method to solve equations, he introduced the new idea to permute roots in the form of Lagrange resolvents. But he didn't consider the combination among the permutations. In 1799 The Italian mathematician Paolo Ruffini marked a major improvement, developing Lagrange's work on permutation theory. However, in general, Ruffini's proof was not considered convincing, and was discovered later incomplete. In 1824, the young Norwegian mathematician Niels Henrik Abel first completed proof demonstrating the impossibility of solving the general quintic equation in radicals. It is called `Abel–Ruffini theorem' nowadays. We know that there are radical solutions to the special quintic equation $x^5-1=0$. In what condition a polynomial is solvable in radicals? This problem was completely solved by Galois\cite{Wiki-Galois-theory}.}.
+People encountered surprisingly difficulty when seek for radical solutions for generic quintic and higher order equations in the next 300 years. The breakthrough happened in the 19th Century with unexpected result. Around 1770, Joseph Louis Lagrange began the groundwork that unified the method to solve equations, he introduced the new idea to permute roots in the form of Lagrange resolvents. But he didn't consider the combination among the permutations. In 1799 The Italian mathematician Paolo Ruffini marked a major improvement, developing Lagrange's work on permutation theory. However, in general, Ruffini's proof was not considered convincing, and was discovered later incomplete. In 1824, the young Norwegian mathematician Niels Henrik Abel first completed proof demonstrating the impossibility of solving the general quintic equation in radicals. It is called `Abel–Ruffini theorem' nowadays. We know that there are radical solutions to the special quintic equation $x^5-1=0$. In what condition a polynomial is solvable in radicals? This problem was completely solved by French young Genius Évariste Galois. He developed an innovative idea, being able to determine a necessary and sufficient condition for a polynomial to be solvable by radicals while still in his teens\cite{Wiki-Galois-theory}.
 
 \begin{figure}[htbp]
 %\begin{wrapfigure}{L}{0.4\textwidth}
  \centering
- \includegraphics[scale=0.4]{img/galois.jpg}
+ \includegraphics[scale=0.4]{img/galois}
  \captionsetup{labelformat=empty}
  \caption{Galois, 1811 - 1832}
  \label{fig:Galois}
@@ -151,7 +200,7 @@ On July 28, 1829, Galois' father, a mayor of the village, committed suicide afte
 \begin{figure}[htbp]
 %\begin{wrapfigure}{L}{0.4\textwidth}
  \centering
- \includegraphics[scale=0.4]{img/lltp.jpg}
+ \includegraphics[scale=0.4]{img/lltp}
  \captionsetup{labelformat=empty}
  \caption{Eugène Delacroix, Liberty Leading the People, 1830, Louvre, Paris}
  \label{fig:Liberty-Leading-the-People}
@@ -187,9 +236,9 @@ In 1870, French mathematician Camille Jordan wrote the book {\em Traité des sub
 \subsection{Group}
 \index{Group}
 
-Let us start the journey from group to understand what Galois landed for abstract algebra.
+The $S_2$ and $S_3$ that define the symmetry for segment and triangle are actually two examples of group. Below are the definition of group.
 
-\begin{definition} A group is a set $G$ equipped with a binary operation ``$\cdot$'', which satisfied four axioms:
+\begin{definition} A group is a set $G$ equipped with a binary operation ``$\cdot$'', which satisfies four axioms:
 
 \begin{enumerate}
 \item \textbf{Closure}: For all $a, b \in G$, the result of the operation $a \cdot b \in G$;
@@ -222,7 +271,7 @@ let us see some examples to understand the definition of groups.
 %\end{wrapfigure}
 \end{figure}
 
-It's helpful to think about symmetry through the Rubik cube group. In original state, all 6 sides have the same color for each. Let a kid play it with a series of random rotations. The player need to figure out a way, restore the Rubik cube to its original state, the all sides are back to the unified color. If we record the kid's rotations with a camera as $\{t_0, t_1, ..., t_m\}$, and the restore process as $\{r_0, r_1, ..., r_n\}$. Then the whole process to solve the Rubik cube puzzle means:
+In original state of the Rubik cube, all 6 sides have the same color for each. Let a kid play it with a series of random rotations. The player need to figure out a way, restore the Rubik cube to its original state, the all sides are back to the unified color. If we record the kid's rotations with a camera as $\{t_0, t_1, ..., t_m\}$, and the restore process as $\{r_0, r_1, ..., r_n\}$. Then the whole process to solve the Rubik cube puzzle means:
 
 \[
   (r_n \cdot r_{n-1} ... \cdot r_0) \cdot (t_m \cdot t_{m-1} ... \cdot t_0) = e
@@ -241,39 +290,35 @@ While the following examples are not groups:
 \begin{enumerate}
 \item All the integers except 0, together with multiplication do not form a group. We can't use 1 as the identity element, otherwise there will be no inverse element for 3 for example (1/3 is not an integer);
 
-\item For the same reason, remainders of modulo 5 $\{0, 1, 2, 3, 4\}$, together with multiplication modulo 5 do not form a group. However, when exclude all multiples of 5, then the set $\{1, 2, 3, 4\}$ and multiplication modulo 5 form a group. We can see this fact from the following ``multiplication table'' modulo 5:
+\item For the same reason, remainders of modulo 5 $\{0, 1, 2, 3, 4\}$, together with multiplication modulo 5 do not form a group. However, when exclude all multiples of 5, then the set $\{1, 2, 3, 4\}$ and multiplication modulo 5 form a group. We can see this fact from the following Cayley ``multiplication table'' modulo 5:
 
-\vspace{5mm}
-  \begin{tabular}{c|cccc}
+  \btab{c|cccc}
     & 1 & 2 & 3 & 4 \\
   \hline
   1 & \textbf{1} & 2 & 3 & 4 \\
   2 & 2 & 4 & \textbf{1} & 3 \\
   3 & 3 & \textbf{1} & 4 & 2 \\
   4 & 4 & 3 & 2 & \textbf{1}
-  \end{tabular}
-\vspace{5mm}
+  \etab
 
 Therefore, 1 is the identity element, it is also the inverse element of itself; 2 and 3 are inverse elements for each other; the inverse element for 4 is 4 again;
 
-\item Although all the none zero remainders modulo 5 form a group under modulo multiplication, the none zero remainders modulo 4 do not form a group. Observe the multiplication table modulo 4:
+\item Although all the none zero remainders modulo 5 form a group under modulo multiplication, the none zero remainders modulo 4 do not form a group. Observe the Cayley multiplication table modulo 4:
 
-\vspace{5mm}
-  \begin{tabular}{c|cccc}
+  \btab{c|cccc}
     & 1 & 2 & 3 \\
   \hline
   1 & 1 & 2 & 3 \\
   2 & 2 & \textbf{0} & 2 \\
   3 & 3 & 2 & 1 \\
-  \end{tabular}
-\vspace{5mm}
+  \etab
 
-Note that $(2 \times 2) \bmod 4 = 0$, which is not in set $\{1, 2, 3\}$. This negative example shows that, only the remainders that are coprime to $n$ form a group under the multiplication modulo $n$. This kind of groups are called multiplicative group of integers modulo $n$. For any prime number $p$, set $\{1, 2, ..., p-1\}$ forms a multiplicative group modulo $p$.
+Note that $(2 \times 2) \bmod 4 = 0$, which is not in set $\{1, 2, 3\}$. Only the remainders that are coprime to $n$ form a group under the multiplication modulo $n$. This kind of groups are called multiplicative group of integers modulo $n$. For any prime number $p$, set $\{1, 2, ..., p-1\}$ forms a multiplicative group modulo $p$.
 
 \item All the rational numbers together with multiplication do not form a group. Although all rational number with form $p/q$ has a inverse element $q/p$, but there is no inverse element for 0. All the rational number exclude 0 form a group under multiplication.
 \end{enumerate}
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:grp-definition}
 \Question{Do all the even numbers form a group under addition?}
 \Question{Can we find a subset of integers, that can form a group under multiplication?}
 \Question{Do all the positive real numbers form a group under multiplication?}
@@ -281,6 +326,33 @@ Note that $(2 \times 2) \bmod 4 = 0$, which is not in set $\{1, 2, 3\}$. This ne
 \Question{Find an example of group with only two elements.}
 \Question{What is the identity element for Rubik cube group? What is the inverse element for $F$?}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:grp-definition}]
+\Question{Do all the even numbers form a group under addition?
+
+Yes, even numbers form a group under addition. Even number add even number, the result is still even. Add is associative. The unit is zero. The inverse of a number is its negate.
+}
+\Question{Can we find a subset of integers, that can form a group under multiplication?
+
+The subset $\{ -1, 1 \}$ form a group under multiplication. The unit is 1. Every element is the reverse of itself.
+}
+\Question{Do all the positive real numbers form a group under multiplication?
+
+Yes. Positive real numbers are close under multiplication. The unit is 1. For each number $r$, the reverse is $1/r$.
+}
+\Question{Do integers form a group under subtraction?
+
+No, integers cannot form a group under subtraction. This is because subtraction is not associative. for e.g. (3 - 2) - 1 = 0, while 3 - (2 - 1) = 2.
+}
+\Question{Find an example of group with only two elements.
+
+As shown in previous exercise, set $\{-1, 1\}$ forms a group under multiplication. Another example is Boolean values $\{T, F\}$, they form a group under logic exclusive or (xor). The logic exclusive or is closed and associative. The unit is $F$, because every element exclusive or $F$ gives itself. And every element is the reverse of itself.
+}
+\Question{What is the identity element for Rubik cube group? What is the inverse element for $F$?
+
+The unit for the Rubik cube group is the identity transform, which keeps any state unchanged. The reverse of $F$ is $F'$, which rotate the face side 90 degree counterclockwise.
+}
+\end{Answer}
 
 \subsection{Monoid and semi-group}
 
@@ -406,12 +478,90 @@ x^n = \left .
 \right .
 \]
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:monoid-semigroup}
 \Question{The set of Boolean values \{True, False\} forms a monoid under the logic or operator $\lor$. It is called `Any' logic monoid. What is the identity element for this monoid?}
 \Question{The set of Boolean values \{True, False\} forms a monoid under the logic and operator $\land$. It is called `All' logic monoid. What is the identity element for this monoid?}
-\Question{For the comparable type, when compare two elements, there can be three different results. We abstract them as $\{<, =, >\}$\footnote{Some programming languages, such as C, C++, Java use negative number, zero, and positive number to represent these three results. In Haskell, they are GT, EQ, and LE respectively.}. For this set, we can define a binary operation to make it a monoid. What is the identity element for this monoid?}
+\Question{For the comparable type, when compare two elements, there can be four different results. We abstract them as $\{<, =, >, ?\}$. The first three are deterministic\footnote{Some programming languages, such as C, C++, Java use negative number, zero, and positive number to represent them. In Haskell, they are GT, EQ, and LE respectively.}, the last '?' means undetermined. For this set, we can define a binary operation to make it a monoid. What is the identity element for this monoid?}
 \Question{Prove that the power operation for group, monoid, and semigroup is commutative: $x^mx^n = x^nx^m$}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:monoid-semigroup}]
+\Question{The set of Boolean values \{True, False\} forms a monoid under the logic or operator $\lor$. It is called `Any' logic monoid. What is the identity element for this monoid?
+
+False
+}
+\Question{The set of Boolean values \{True, False\} forms a monoid under the logic and operator $\land$. It is called `All' logic monoid. What is the identity element for this monoid?
+
+True
+}
+\Question{For the comparable type, when compare two elements, there can be four different results. We abstract them as $\{<, =, >, ?\}$. The first three are deterministic\footnote{Some programming languages, such as C, C++, Java use negative number, zero, and positive number to represent them. In Haskell, they are GT, EQ, and LE respectively.}, the last '?' means undetermined. For this set, we can define a binary operation to make it a monoid. What is the identity element for this monoid?
+
+Define the binary operation Cayley table as:
+
+\btab{c|cccc}
+$\circ$  & < & = & > & ? \\
+\hline
+< & < & < & ? & ? \\
+= & < & = & > & ? \\
+> & ? & > & > & ? \\
+? & ? & ? & ? & ? \\
+\etab
+
+These four relations form a monoid. The unit is $=$.
+}
+\Question{Prove that the power operation for group, monoid, and semigroup is commutative: $x^mx^n = x^nx^m$
+
+In order to prove the commutative law, we first use mathematical induction to prove a lemma: $x^n x = x x^n$. For group and monoid, when $n = 0$:
+
+\[
+x^0 x = e x = x = x e = x x^0
+\]
+
+As there is no unit in semigroup, we start from $n = 1$:
+
+\[
+x^1 x = x x = x x^1
+\]
+
+Suppose for $n$, $x^n x = x x^n$ holds, then for $n + 1$:
+
+\bre
+x^{n + 1} x & = & (x x^n) x & \text{recursive definition of power} \\
+  & = & x (x^n x) & \text{associative} \\
+  & = & x (x x^n) & \text{induction hypothesis} \\
+  & = & x x^{n + 1} & \text{recursive definition of power} \\
+\ere
+
+With this lemma, we use mathematical induction again to prove the commutativity for power operation. For group and monoid, when $n = 0$, we have:
+
+\bre
+x^m x ^ 0 & = & x^m e & \text{definition of 0-th power} \\
+  & = & x^m & \text{definition of unit} \\
+  & = & e x^m & \text{definition of unit} \\
+  & = & x^0 x^m & \text{definition of 0-th power} \\
+\ere
+
+Because semigroup does not have unit, we start from $n = 1$:
+
+\bre
+x^m x ^ 1 & = & x^m x & \text{definition of 1-st power} \\
+  & = & x x^m & \text{the lemma} \\
+  & = & x^1 x^m & \text{definition of 1-st power} \\
+\ere
+
+Suppose the commutativity law $x^mx^n = x^nx^m$ holds for $n$, then for $n + 1$:
+
+\bre
+x^m x^{n+1} & = & x^m (x x^n) & \text{recursive definition of power} \\
+  & = & (x^m x) x^n & \text{associative law for multiplication} \\
+  & = & x x^m x^n & \text{the lemma} \\
+  & = & x (x^m x^n) & \text{associative law for multiplication} \\
+  & = & x (x^n x^m) & \text{induction hypothesis} \\
+  & = & (x x^n) x^m & \text{associative law for multiplication} \\
+  & = & x^{n+1} x^m & \text{recursive definition of power} \\
+\ere
+}
+\end{Answer}
 
 \subsection{Properties of group}
 
@@ -526,43 +676,43 @@ We say $f$ is a \textbf{homomorphism} from $A$ to $B$. If $f$ is a surjection, k
 \index{automorphism}
 If $f$ is not only a surjection, but also a injection (there are no any two different elements map to the same image), then it's one-to-one mapping. We call $f$ is the \textbf{isomorphism} from $A$ to $B$. Denote as $A \cong B$. Isomorphism is a very powerful relationship. Besides group, isomorphism is also applicable to semigroups, monoids and other algebraic structures. As shown in figure \ref{fig:isomorphism}. If $A$ is isomorphic to $B$, from the abstracted view, they are essentially the same thing with different names. If there is a algebraic property in $A$, then there is exactly a same property in $B$ (\cite{ZhangHeRui1978} pp.25). The special isomorphism from $A$ to $A$ is called \textbf{automorphism} of $A$. For example, the group of integers with addition has a automorphism under the negate operation.
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}
-\path (0, 0) node[below] {cat}
-      (0, 2) node[above] {sheep}
-      (-2, 2) node[above] {dog}
-      (-2, 0) node[below] {cow};
-\filldraw (0, 0) circle (4pt) node (cat) {} --
-   (0, 2) circle (4pt) node (sheep) {} --
-   (-2, 2) circle (4pt) node (dog) {} --
-   (-2, 0) circle (4pt) node (cow) {};
-\draw (dog) -- (cat) -- (cow);
+%% \begin{figure}[htbp]
+%% \centering
+%% \begin{tikzpicture}
+%% \path (0, 0) node[below] {cat}
+%%       (0, 2) node[above] {sheep}
+%%       (-2, 2) node[above] {dog}
+%%       (-2, 0) node[below] {cow};
+%% \filldraw (0, 0) circle (4pt) node (cat) {} --
+%%    (0, 2) circle (4pt) node (sheep) {} --
+%%    (-2, 2) circle (4pt) node (dog) {} --
+%%    (-2, 0) circle (4pt) node (cow) {};
+%% \draw (dog) -- (cat) -- (cow);
 
-\filldraw[fill=gray, draw=black, pattern=north west lines]
-    (3, 0) circle (4pt) node (collar) {} --
-    (5.6, 0) circle (4pt) node (bell) {} --
-    (4.3, 2.3) circle (4pt) node (milk) {} -- (collar) --
-    (4.3, 1) circle (4pt) node (wool) {} -- (bell);
-\path (3, 0) node[below] {collar}
-      (5.6, 0) node[below] {bell}
-      (4.3, 2.3) node[above] {milk}
-      (4.3, 1) node[below] {wool};
+%% \filldraw[fill=gray, draw=black, pattern=north west lines]
+%%     (3, 0) circle (4pt) node (collar) {} --
+%%     (5.6, 0) circle (4pt) node (bell) {} --
+%%     (4.3, 2.3) circle (4pt) node (milk) {} -- (collar) --
+%%     (4.3, 1) circle (4pt) node (wool) {} -- (bell);
+%% \path (3, 0) node[below] {collar}
+%%       (5.6, 0) node[below] {bell}
+%%       (4.3, 2.3) node[above] {milk}
+%%       (4.3, 1) node[below] {wool};
 
-\draw[dashed, ->] (dog) .. controls (-2.5, 1.5) .. (collar)
-    (sheep) to[bend left] (wool)
-    (cat) to[bend right] (bell)
-    (cow) .. controls (-3, 3) ..(milk);
-\end{tikzpicture}
-\[
-\begin{array}{rl}
-f(dog) = collar & f(cat) = bell \\
-f(sheep) = wool & f(cow) = milk
-\end{array}
-\]
-\caption{Graph isomorphism. The two different graphs have the same structure.}
-\label{fig:graph-isomorphism}
-\end{figure}
+%% \draw[dashed, ->] (dog) .. controls (-2.5, 1.5) .. (collar)
+%%     (sheep) to[bend left] (wool)
+%%     (cat) to[bend right] (bell)
+%%     (cow) .. controls (-3, 3) ..(milk);
+%% \end{tikzpicture}
+%% \[
+%% \begin{array}{rl}
+%% f(dog) = collar & f(cat) = bell \\
+%% f(sheep) = wool & f(cow) = milk
+%% \end{array}
+%% \]
+%% \caption{Graph isomorphism. The two different graphs have the same structure.}
+%% \label{fig:graph-isomorphism}
+%% \end{figure}
 
 People often use the familiar concrete, example to help understanding abstract algebraic structure. For groups, most time, we think about integers with addition. How those concepts, properties of group will be for integers? But this approach may give us illusion that the element of group is kind of entity, like numbers; and the binary operation is more like the common addition or multiplication that is commutative. We'll introduce an `exceptional' example, the transformation group. On one hand, it is not abelian, the binary operation is not commutative; on the other hand, its group elements are not numbers, but transformations.
 
@@ -680,19 +830,73 @@ Every group is isomorphic to a transformation group.
 % TODO：附录
 We skip the proof. This theorem tells us, for any abstract group, we can find a concrete instance as a transformation group. In other words, we needn't concern about finding an abstract group in the future, which is totally a castle in the air(\cite{ZhangHeRui1978} pp49).
 
-\begin{Exercise}
-\Question{Is the odd-even test function homomorphic between the integer addition group $(Z，+)$ and the Boolean logic-and group $(Bool, \land)$? What about the group of integers without zero under multiplication?}
+\begin{Exercise}\label{ex:group-rules}
+\Question{Is the odd-even test function homomorphic between the integer addition group $(\pmb{Z}, +)$ and the Boolean logic-and group $(Bool, \land)$? What about the group of integers without zero under multiplication?}
 \Question{Suppose two groups $G$ and $G'$ are homomorphic. In $G$, the element $a \to a'$. Is the order of $a$ same as the order of $a'$?}
 \Question{Prove that the identity element for transformation group must be identity transformation.}
 \end{Exercise}
 
+\begin{Answer}[ref={ex:group-rules}]
+\Question{Is the odd-even test function homomorphic between the integer addition group $(\pmb{Z}, +)$ and the Boolean logic-and group $(Bool, \land)$? What about the group of integers without zero under multiplication?
+
+odd-even test function maps every integer to Boolean value true or false. To test homomorphic, we need verify whether $f(a) f (b) = f(a \cdot b)$ holds. However, there is a negative case:
+
+$a, b$ are all odd, i.e. $odd(a) = odd(b) = True$. Their sum is even, $odd(a + b) = False$. However, the logic and result is $odd(a) \land odd(b) = True \neq odd(a + b) = False$.
+
+Hence they are not homomorphic.
+
+While the multiplicative group of integers without zero is homomorphic with the logic and group. We can verify all the three cases:
+
+  \begin{itemize}
+  \item $a, b$ are all odd, i.e. $odd(a) = odd(b) = True$. Their product $ab$ is still odd: $odd(ab) = True$. Hence, $odd(a) \land odd(b) = odd(ab)$;
+  \item $a, b$ are all even, i.e. $odd(a) = odd(b) = False$. Their product $ab$ is still even: $odd(ab) = False$. Hence, $odd(a) \land odd(b) = odd(ab)$;
+  \item $a, b$ are old and even respectively. Let $odd(a) = True, odd(b) = False$. Their product $ab$ is even: $odd(ab) = False$. Hence, $odd(a) \land odd(b) = odd(ab)$.
+  \end{itemize}
+
+Therefore, they are homomorphic.
+}
+\Question{Suppose two groups $G$ and $G'$ are homomorphic. In $G$, the element $a \to a'$. Is the order of $a$ same as the order of $a'$?
+
+Their orders are same. To prove it, let the image of unit $e$ be $e'$, the homomorphism is $f$. Denote the order of $a$ is $n$, i.e. $a^n = e$.
+
+On one hand:
+\[
+f(a^n) = f(e) = e'
+\]
+
+On the other hand, according to the definition of homomorphism:
+
+\bre
+f(a^n) & = & f(a) f(a) ... f(a) & \text{total $n$} \\
+  & = & a' a' ... a' & \text{total $n$} \\
+  & = & (a')^n
+\ere
+
+Summarize the above two results, we have $(a')^n = e'$. Hence the order of $a$ and $a'$ are same.
+}
+\Question{Prove that the identity element for transformation group must be identity transformation.
+
+Suppose the unit transformation is $\epsilon': a \to a^{\epsilon'} = \epsilon'(a)$. According to the definition of unit, for any transformation $\tau$, $\epsilon' \tau = \tau$ holds, i.e.
+
+\[
+\begin{array}{l}
+\tau: a \to a^\tau \\
+\epsilon' \tau: a \to (a^{\epsilon'})^\tau \\
+\end{array}
+\]
+
+Therefore, $a^{\epsilon'} = a = \epsilon'(a)$, $\epsilon'$ is identity transformation.
+}
+\end{Answer}
+
 \subsection{Permutation group}
 \label{permutation group}
 \label{symmetric group}
+\index{permutation group} \index{symmetric group}
 
-In this section, we introduce permutation group. It is the permutation group that Galois used to determine if a given equation is radical solvable. Permutation group is a special transformation group. Let's first define what is permutation. A \textbf{permutation} is a one to one transformation for a finite set. The permutations of a finite set form a \textbf{permutation group} under the composite operation. As the name indicates, it permutes elements in the set. Further, the group of {\em all} permutations of a set with $n$ elements is the \textbf{symmetric group} of degree $n$, denoted as $S_n$.
+In this section, we introduce the family of groups like $S_2$ and $S_3$, the permutation groups. Galois developed them to study the symmetry of equation roots, and named them as `group' first. Permutation group is a special transformation group. Let's first define what is permutation. A \textbf{permutation} is a one to one transformation for a finite set. The permutations of a finite set form a \textbf{permutation group} under the composite operation. As the name indicates, it permutes elements in the set. Further, the group of {\em all} permutations of a set with $n$ elements is the \textbf{symmetric group} of degree $n$, denoted as $S_n$.
 
-We know from the permutation theory learned in high school, there are $n!$ different permutations for $n$ elements. Therefore, the symmetric group of degree $n$ has the order of $n!$. A permutation maps element $a_i$ in the set to $a_{k_i}$, where $i = 1, 2, ..., n$. The permutation can be determined by $n$ pairs of $(1, k_1), (2, k_2), ..., (n, k_n)$. We can express the permutation as:
+We know from the permutation theory learned in high school, there are $n!$ different permutations for $n$ elements. Therefore, group $S_n$ has the order of $n!$. A permutation maps element $a_i$ in the set to $a_j$. We can list the before/after numbers as $n$ pairs of $(1, k_1), (2, k_2), ..., (n, k_n)$, or write in two rows as:
 
 \[
 \begin{pmatrix}
@@ -725,35 +929,25 @@ When do the multiplication, which is composition essentially, we can determine t
 \end{array}
 \]
 
-They are different results. $S_3$ is not abelian. Actually, it is the smallest finite none abelian group. A finite none abelian group contains at least 6 elements. Observe the permutation for 5 elements $(2, 3, 1, 4, 5)$, only the first three ones change, while the rest two keep same. The changes for the first three elements have a pattern: $2 \to 1$, $3 \to 2$, $1 \to 3$, which is cyclic.
+They are different results. $S_3$ is not abelian. Actually, it is the smallest finite none abelian group. A finite none abelian group contains at least 6 elements. Observe the permutation for 5 elements $(2, 3, 1, 4, 5)$, only the first three ones change, while the rest two keep same. The changes for the first three elements have a pattern, as shown n \ref{fig:cycle-permutation}, it is cyclic.
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1]
-\path (0, 0) node[circle, draw] (1) {1}
-      (2, 0) node[circle, draw] (2) {2}
-      (4, 0) node[circle, draw] (3) {3};
-\draw[<-] (1) edge (2)
-          (2) edge (3)
-          (3) .. controls (2, 2) .. (1);
-\path (0, -0.5) node[below] {2}
-      (2, -0.5) node[below] {3}
-      (4, -0.5) node[below] {1};
-\end{tikzpicture}
-\caption{Permutation $(2\ 3\ 1)$ is cyclic}
+\includegraphics[scale=0.6]{img/3-cycle}
+\caption{3-cycle permutation $(1\ 2\ 3)$}
 \label{fig:cycle-permutation}
 \end{figure}
 
-With this pattern, we can simplify the permutation notation from $(2, 3, 1, 4, 5)$ to $(2\ 3\ 1)$. Note there is no comma between elements, and we treat $(1\ 2\ 3)$, $(2\ 3\ 1)$, and $(3\ 1\ 2)$ represent the same 3-cyclic permutation\footnote{There are people use $(231)$ notation without any spaces as deliminator. However, when there are over 10 elements, it causes ambiguity. As it can also be $(23\ 1)$.}. Formally, we define $k$-cyclic permutation $(i_{j_1} i_{j_2} ... i_{j_k})$. It maps the next element to its previous position, and send the first element to the last to form the cycle:
+With this pattern, we can simplify the permutation notation from $(2, 3, 1, 4, 5)$ to $(1\ 2\ 3)$. Note there is no comma between elements, and we treat $(1\ 2\ 3)$, $(2\ 3\ 1)$, and $(3\ 1\ 2)$ represent the same 3-cyclic permutation\footnote{Some people use $(231)$ notation, and only add space deliminator when exceed 10 elements, e.g. $(12\ 3)$.}. It's called $k$-cyclic permutation, means $k$-elements form a cycle: $(i_1 i_2 ... i_k)$. It maps every element to its next, and maps the last element to the first one:
 
 \[
-i_{j_2} \to i_{j_1}, i_{j_3} \to i_{j_2}, ..., i_{j_1} \to i_{j_k}
+i_1 \to i_2 \to i_3 \to ... \to i_{k-1} \to i_k \to i_1
 \]
 
-The elements in $k$-cyclic permutation are not necessary adjacent, for example $(3\ 9\ 4)$, nor in a fixed order, for example $(2\ 4\ 1\ 3)$. If there are only two element in the circle, like $(i\ j)$, we call it transposition (swap). Identity transformation is the special case, for example $(1, 2, 3, 4, 5)$, we denote it as $\epsilon = (1)$, and let:
+This explains the $k$-cycle notation from map perspective as shown in the lower part in figure \ref{fig:cycle-permutation}. Let the permutation be $\sigma$, follow the arrows in the figure: $1 \to \sigma(1) = 2$, $2 \to \sigma(2) = 3$, $3 \to \sigma(3) = 1$. We can also explain it as movements. $k$-cycle moves every element to its predecessor's position, and move the first element to the last to form a cycle, as shown in the upper part in figure \ref{fig:cycle-permutation}. The elements in $k$-cycle may not be necessarily adjacent, for example $(3\ 9\ 4)$, nor in a fixed order, for example $(2\ 4\ 1\ 3)$. If there are only two elements in the cycle, like $(i\ j)$, we call it transposition (swap). Identity transformation is the special case, for example $(1, 2, 3, 4, 5)$, we denote it as $e = (1)$, and let:
 
 \[
-\epsilon = (1) = (2) = ... = (n)
+e = (1) = (2) = ... = (n)
 \]
 
 Observe the permutation $(2, 1, 4, 5, 3)$, it contains two cycles, one is the 2-cyclic permutation $(1\ 2)$, the other is 3-cyclic permutation $(3\ 4\ 5)$. We can use the permutation multiplication to express this fact:
@@ -767,51 +961,31 @@ In fact, every permutation $\pi$ for $n$ elements can be expressed with some mut
 The following list express all the permutations in $S_3$ in this way:
 
 \[
-(1),
-(1\ 2), (1\ 3), (2\ 3),
-(1\ 2\ 3), (1\ 3\ 2)
+(1), (1\ 2), (1\ 3), (2\ 3), (1\ 2\ 3), (1\ 3\ 2)
 \]
 
-Given a permutation $(k_1, k_2, ..., k_n)$, how to express it as the product of cyclic forms? We can do it with such prescription. From left to right compare every position with the number in the permutation, if $k_i$ equals $i$, it means the element has already in the right position; otherwise open a pair of parentheses, write down the number in position $k_i$ in the parentheses, let say it is $k_j$, then check the position $k_j$ with $j$, if they are not equal, write in the parentheses. Repeat this step till we found some element form a cycle to the starting point. At this time point, we close the parentheses of this cycle. After that, we go on checking from left to right till all the elements are processed (\cite{Armstrong1988}, pp27). If for all positions, we have $k_i$ equals to $i$, then we write down $(1)$ to present the identity permutation. It very convenient to realize this process in programming. Below is the algorithm for it with example source code in a real programming language.
+Given a permutation $(k_1, k_2, ..., k_n)$, how to express it as the product of disjoint cycles? We can do it with such prescription. From left to right compare every position with the number in the permutation, if $k_i$ equals $i$, it means the element has already in the right position; otherwise open a pair of parentheses, write down the number in position $k_i$ in the parentheses, let say it is $k_j$, then check the position $k_j$ with $j$, if they are not equal, write in the parentheses. Repeat this step till we found some element form a cycle to the starting point ($k_i = i$). At this time point, we close the parentheses of this cycle. After that, we go on checking from left to right till all the elements are processed (\cite{Armstrong1988}, pp27). If for all positions, we have $k_i$ equals to $i$, then we write down $(1)$ for the identity permutation. It very convenient to realize this process in programming, as below algorithm:
 
-\begin{algorithmic}
+\begin{algorithmic}[1]
 \Function{k-cycles}{$\pi$}
-  \State $r \gets []$
-  \For{$i \gets 1$ to $|\pi|$}
-    \State $p \gets []$
-    \While{$i \neq \pi[i]$}
-      \State $p \gets \pi[i]:p$
-      \State Exchange $\pi[i] \leftrightarrow \pi[\pi[i]]$
+  \State $r \gets [\ ], n \gets |\pi|$
+  \For{$i \gets 1$ to $n$}
+    \State $p \gets [\ ], j \gets i$
+    \While{$j \neq \pi[j]$}
+      \State $p \gets p \doubleplus [j]$
+      \State $j \gets \pi[j]$
     \EndWhile
-    \If{$p \neq []$}
-      \State $r \gets r:(\pi[i]:reverse(p))$
+    \If{$p \neq [\ ]$}
+      \State $r \gets r \doubleplus [p]$
     \EndIf
   \EndFor
-  \If{$r \neq []$}
+  \If{$r \neq [\ ]$}
     \State \Return r
   \Else
     \State \Return $[[1]]$ \Comment{Identity permutation}
   \EndIf
 \EndFunction
 \end{algorithmic}
-
-Express any permutation as product of $k$-cycle notation:
-
-\lstset{language=Python}
-\begin{lstlisting}
-def kcycles(a):
-    r = []
-    n = len(a)
-    for i in range(n):
-        p = []
-        while i + 1 != a[i]:
-            p.append(a[i])
-            j = a[i] - 1
-            a[i], a[j] = a[j], a[i]
-        if p != []:
-            r.append([a[i]] + p)
-    return r if r != [] else [[1]]
-\end{lstlisting}
 
 From the theorem in previous section, we further have:
 
@@ -821,25 +995,74 @@ Every finite group is isomorphic to a permutation group.
 
 For any finite group, like the solutions of a equation, we can study it with the permutation group, as it is easy to manipulate. This is exactly how Galois solve the problem to determine if the equation is radical solvable.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:symmetric-group}
+\Question{Prove that if the transform $\sigma$ sends the $i$-th element to the $j$-th, i.e. $\sigma(i) = j$, then the $k$-cycle permutation is $(\sigma(i_1)\ \sigma(\sigma(i_1))\ ...\ \sigma^k(i_1))$.}
 \Question{List all the elements in $S_4$.}
-\Question{Express all the elements in $S_3$ as the product of cyclic forms.}
 \Question{Write a program to convert the product of $k$-cycles back to permutation.}
 \end{Exercise}
 
+\begin{Answer}[ref={ex:symmetric-group}]
+\Question{Prove that if the transform $\sigma$ sends the $i$-th element to the $j$-th, i.e. $\sigma(i) = j$, then the $k$-cycle permutation is $(\sigma(i_1)\ \sigma(\sigma(i_1))\ ...\ \sigma^k(i_1))$.
+
+From the $k$-cycle definition:
+\[
+i_1 \to i_2 \to i_3 \to ... \to i_{k−1} \to i_k \to i_1
+\]
+
+We have:
+\bea*{l}
+i_2 = \sigma(i_1) \\
+i_3 = \sigma(i_2) = \sigma(\sigma(i_1)) = \sigma^2(i_1) \\
+... \\
+i_k = \sigma(i_{k-1}) = \sigma(\sigma(i_{k-2})) = \sigma^{k-1}(i_1) \\
+i_1 = \sigma(i_k) = \sigma^k(i_1) \\
+\eea*
+}
+\Question{List all the elements in $S_4$.
+
+(1);
+
+(12), (34), (13), (24), (14), (23);
+
+(123), (132), (134), (143), (124), (142), (234), (243);
+
+(1234), (1243), (1324), (1342), (1423), (1432);
+
+(12)(34), (13)(24), (14)(23)。
+
+There are total $4! = 24$ elements.
+}
+\Question{{Write a program to convert the product of $k$-cycles back to permutation.}
+
+\begin{algorithmic}[1]
+\Function{Permute}{$C, n$}
+  \State $\pi \gets [1, 2, ..., n]$
+  \For{$c \in C$}
+    \State $j \gets c[1]$
+    \State $m \gets |c|$
+    \For{$i \gets 2$ to $m$}
+      \State $\pi[j] \gets c[i]$
+      \State $j \gets c[i]$
+    \EndFor
+    \State $\pi[c[m]] \gets c[1]$
+  \EndFor
+  \State \Return $\pi$
+\EndFunction
+\end{algorithmic}
+}
+\end{Answer}
+
 \subsection{Groups and symmetry}
 
-Why the group of all permutations of a set is called symmetric group? Because it exactly defines what is symmetry. Let us consider a regular triangle for example:
+Why the group of all permutations of a set is called symmetric group? Because it exactly defines what is symmetry. Consider a regular triangle for example, let the three vertex be 1, 2, 3. We choose from $S_3$ three elements, (1 2), (1 2 3), and (1 3 2), and apply them to the triangle vertexes as shown in figure \ref{fig:S3-examples}.
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.5]{img/s3-examples.png}
+ \includegraphics[scale=0.5]{img/s3-examples}
  %\captionsetup{labelformat=empty}
  \caption{Symmetric transforms of a regular triangle}
  \label{fig:S3-examples}
 \end{figure}
-
-Denote the 3 vertex as 1, 2, 3. We choose from $S_3$ three elements, (1 2), (1 2 3), and (1 3 2), and apply them to the triangle vertexes as shown in figure \ref{fig:S3-examples}.
 
 \begin{enumerate}
 \item The shape on the right side is the transformed result after applying (1 2). The three vertexes change from 123 to 213. It is exactly the mirrored result to flip the triangle against the axis at vertex 3. Because the shapes are same before and after transform, it means the regular triangle is reflection symmetric. Besides (1 2), there are another two reflection symmetric transforms, which are (1 3) and (2 3) respectively. Their corresponding axes are the heights at vertex 2 and 1.
@@ -856,7 +1079,7 @@ Among the transformations, those do not change the dimensions of the body are ca
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.3]{img/chirality.jpg}
+ \includegraphics[scale=0.3]{img/chirality}
  %\captionsetup{labelformat=empty}
  \caption{Chirality}
  \label{fig:chirality}
@@ -864,14 +1087,60 @@ Among the transformations, those do not change the dimensions of the body are ca
 
 In real world, there is no way to tranform a sinistral object to its dextral image in the mirror. This is the difference between proper and improper congruence. The proper congruence carries a left skew into a left and a right one into a right; the improper (or reflexive) congruence changes a left skew into a right one and vice versa\cite{Weyl1952}. The reflection sends any points $P$ to its antipode point $P'$ with respect to $O$ found by joining $P$ with $O$ and prolonging the straight line $PO$ by its own length: $|PO| = |OP'|$. It's also called inversion in a point. For the four points in the figure of sea snails, the transform (2 4) in symmetric group $S_4$ is an improper congruence. It carries the left skew snail into the right. As such, the symmetric groups depict both the real and the mirrored worlds.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:symmetry-and-group}
 What symmetries for what shape are defined by the symmetric group $S_4$?
 \end{Exercise}
 
-\subsection{Cyclic group}
+\begin{Answer}[ref={ex:symmetry-and-group}]
+\Question{What symmetries for what shape are defined by the symmetric group $S_4$?
 
+It defines the symmetry of a tetrahedron. A tetrahedron has four vertex corners, each has an axis. Rotation around such axis by $120\degree$ and $240\degree$ is symmetric. Connect the middle point of every two opposite edges also gives an axis. There are total 3 such axes, each one is reflective symmetric. Include the identity transformation, there are total $2 \times 4 + 3 + 1 = 12$ symmetries. They form a group called $A_4$, which is a alternating group.
+
+%\begin{figure}[htbp]
+\begin{center}
+ \includegraphics[scale=0.3]{../appendix/answer/img/tetrahedron}
+ %\captionsetup{labelformat=empty}
+ \captionof{figure}{The rotation and reflection axes}
+ \label{fig:tetrahedron}
+\end{center}
+%\end{figure}
+
+For the tetrahedron 1234 in figure \ref{fig:S4}, elements in group $A_4$ transform it to:
+
+3124, 2314, 1423, 1342, 4213, 3241, 4132, 2431, 2143, 3412, 4321, 1234
+
+These 12 transformations are all proper congruences. Besides, there are also improper congruences. As shown in figure \ref{fig:S4}, when rotated by $120\degree$ against the axis, the tetrahedron transforms to 3124 on the right, this is a proper congruence. Then reflect it against surface $O13$, we get the bottom-right tetrahedron 3142. This is an improper congruence.
+
+%\begin{figure}[htbp]
+\begin{center}
+ \includegraphics[scale=0.4]{../appendix/answer/img/S4}
+ %\captionsetup{labelformat=empty}
+ \captionof{figure}{Improper congruence}
+ \label{fig:S4}
+\end{center}
+%\end{figure}
+
+For every element in $A_4$, there is such a improper congruence by reflection. In total 12:
+
+3142, 2341, 1432, 1324, 4231, 3214, 4123, 2413, 2134, 3421, 4312, 1243
+
+Although there are other 2 reflection surfaces, they don't generate new transformations, as there are $4! = 24$ permutations for 4 points. All the 24 transformations of proper and improper congruences are corresponding to the elements in $S_4$.
+}
+\end{Answer}
+
+\subsection{Rotational symmetry and cyclic group}
 \index{cyclic group}
-Among all the groups, the cyclic group is the easiest. It's the group we completely understand as of today. Is it possible that all the elements in a group $G$ are powers of a given element? Such group does exist. Consider the integer multiplicative group modulo 5 without 0 for example. It contains 4 elements $\{1, 2, 3, 4\}$. If list all the powers of 2 modulo 5, we have the following result:
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.8]{img/hexagonal-pyramid}
+ \caption{Regular hexagonal pyramid}
+ \label{fig:regular-hexagonal-pyramid}
+\end{figure}
+
+The regular hexagonal pyramid is symmetric. Consider the axis OP, which is perpendicular to the bottom side. The pyramid is congruence after rotate against OP for 60$\degree$, 120$\degree$, 180$\degree$, 240$\degree$, 300$\degree$, 360$\degree$, and their multiples. We call it rotational symmetry\footnote{Besides the rotational symmetry, the regular hexagonal pyramid also has reflexive symmetry. There are 3 mirror sides determined by the axis OP and the middle point of each edge of the hexagon, another 3 mirror sides determined by OP and the vertex of the hexagon.}. Although there are 6 vertexes in regular hexagon, $S_6$ is not the group defines the symmetry for the regular hexagonal pyramid. There are $6! = 720$ permutations in $S_6$, however, there are only 6 rotation symmetries. Let the rotation against OP for 60$\degree$ be $r$, rotation of 120$\degree$ is equivalent to rotate 60$\degree$ twice, i.e. $r \cdot r = r^2$, similarly, rotate 180$\degree$ equals to $r^3$, ..., and restore after rotate 360$\degree$, hence $r^6 = e$. The 6 rotation symmetries are $C_6 = \{e, r, r^2, r^3, r^4, r^5\}$. They form a group, isomorphic to the subset of $S_6$: $\{(1), (1\ 2\ 3\ 4\ 5\ 6), ..., (5\ 6\ 1\ 2\ 3\ 4)\}$. Compare $C_6$ an $S_3$, they have different structures although both have 6 elements. $S_3$ does not define the symmetry of the regular pyramid.
+
+$C_6$ is an instance of a family of groups. We can image the group of $C_n$, which defines the symmetry for the $n$-sides pyramid. We call them cyclic group, one of the easiest group families people completely understand as of today. All the elements in a cyclic group $G$ are powers of a given element. Consider the integer multiplicative group modulo 5 without 0 for example. It has 4 elements $\{1, 2, 3, 4\}$. If list all the powers of 2 modulo 5, we have the following result:
 
 \[
 \begin{array}{l}
@@ -969,7 +1238,7 @@ a^ha^k = a^{h + k} \to [h + k] = [h] + [k]
 \]
 \end{proof}
 
-Therefore, from the abstract perspective, there is only one group that the order of generator is infinite, and there is only one group that the order of generator is a given positive integer. We clearly understand the algebraic structure of these cyclic groups:
+Because of this, we sometimes write $C_n$ as $\mathbb{Z}/n\mathbb{Z}$. From the abstract perspective, there is only one group that the order of generator is infinite, and there is only one group that the order of generator is a given positive integer. We clearly understand the algebraic structure of these cyclic groups:
 
 \begin{itemize}
 \item The order of $a$ is infinite
@@ -987,16 +1256,150 @@ Therefore, from the abstract perspective, there is only one group that the order
 % https://en.wikipedia.org/wiki/Wilson_Bentley
 \begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.3]{img/snowflakes.jpg}
+ \includegraphics[scale=0.3]{img/snowflakes}
  \caption{Snowflake crystal photos by Wilson Bentley, 1902}
  \label{fig:snowflakes}
 \end{figure}
 
-Now we are ready to explain the symmetry of snowflake. The hexagon shaped snowflake has rotational symmetry, that can be exactly defined by $C_6$. A snowflake aligns with itself after rotate 60\degree, 120\degree, 180\degree, 240\degree, 300\degree, and $360\degree$ around its centre. Each rotation is corresponding to an element of $C_6$. Generic speaking, the cyclic group of order $n$ defines the symmetry of regular $n$-polygon. It also defines the symmetry of the cross section of a regular polygonal prism. The famous photographer Wilson Bentley in US (1865 - 1931) took over 5000 photographs of snowflake crystal. He donated his collection, the crystal of science and art, to the Buffalo Museum of Science. From these photos, Bentley came to the conclusion that every child today knows: each snowflake is unique.
+Now we are ready to explain the rotational symmetry of snowflake. The hexagon shaped snowflake has rotational symmetry, that can be exactly defined by $C_6$. A snowflake aligns with itself after rotate 60\degree, 120\degree, 180\degree, 240\degree, 300\degree, and $360\degree$ around its centre. Each rotation is corresponding to an element of $C_6$. Generic speaking, the cyclic group of order $n$ defines the rotational symmetry of regular $n$-polygon. It also defines the rotational symmetry of the cross section of a regular polygonal prism. The famous photographer Wilson Bentley in US (1865 - 1931) took over 5000 photographs of snowflake crystal. He donated his collection, the crystal of science and art, to the Buffalo Museum of Science. From these photos, Bentley came to the conclusion that every child today knows: each snowflake is unique.
 
-\begin{Exercise}
+\subsubsection{Cyclotomic equation}
+
+We lay the regular hexagon, the abstracted snowflake, to the complex plane, scale it to inscribe the unit circle. The six vertexes represent the roots for equation $x^6 - 1 = 0$, as shown in figure \ref{fig:cyclotomic-6}. Obviously $x = \pm 1$ are two roots, the rest roots can be given by de Moivre's formula learnt in high school:
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=2]{img/cyclotomic-6}
+ \caption{roots of $x^6 - 1 = 0$}
+ \label{fig:cyclotomic-6}
+\end{figure}
+
+\be
+e^{i n \theta} = \cos n \theta + i \sin n \theta = (\cos \theta + i \sin \theta)^n
+\ee
+
+The six roots are $\zeta_0 = 1, \zeta_1 = e^{i\frac{\pi}{3}}, \zeta_2 = e^{i\frac{2\pi}{3}}, \zeta_3 = e^{i\pi}, \zeta_4 = e^{i\frac{4\pi}{3}}, \zeta_5 = e^{i\frac{5\pi}{3}}$. They equally divide the unit circle into six parts. For this reason, we call $x^n - 1 = 0$ the {\em cyclotomic equation} (cycle = circle, tom = division or part). Among the $n$ roots, everyone can be written as $\zeta_k = e^{i\frac{2k\pi}{n}}$. However, they are not algebraic solution of the cyclotomic equation, we neither know if can draw a regular $n$-polygon with compass and straightedge.We start to solve cyclotomic equation in radicals when $n$ is 2, 3, 4, 6, and 12 for examples.
+
+When $n = 2$, we can factor the polynomial $x^2 - 1 = (x + 1)(x - 1)$. The two roots are $\pm 1$. When $n=3$, we know $x = 1$ is a root, hence $x - 1$ divides $x^3 - 1$. Using polynomial long division, we obtain: $x^3 - 1 = (x - 1)(x^2 + x + 1)$. Next solve the quadratic equation $x^2 + x + 1 = 0$, gives all the three roots: 1, $\dfrac{-1 \pm i \sqrt{3}}{2}$. We often name $\omega = \dfrac{-1 + i \sqrt{3}}{2}$, the three roots can be written as: $1, \omega, \omega^2$.
+
+\begin{center}
+\polylongdiv{x^3-1}{x-1}
+\end{center}
+
+When $n = 4$, factor $x^4 - 1 = (x^2 - 1)(x^2 + 1) = (x - 1)(x + 1)(x - i)(x + i)$. The four roots are $\pm 1, \pm i$.
+
+%% $n = 5$，由于$x - 1$是因子，我们再次用多项式除法$x^5 - 1 = (x - 1)(x^4 + x^3 + x^2 + x + 1)$。为了解方程$x^4 + x^3 + x^2 + x + 1 = 0$，令$y = x + 1/x$，这样就转化为解一元二次方程$y^2 + y - 1 = 0$。得到两个解：$y = \dfrac{-1 \pm \sqrt{5}}{2}$。代回方程$x^2 - yx + 1 = 0$，得到全部五个解：
+
+%% \[
+%% 1, \dfrac{\sqrt{5} - 1 \pm \sqrt{-2 \sqrt{5} - 10}}{4},
+%%    \dfrac{-\sqrt{5} - 1 \pm \sqrt{2 \sqrt{5} - 10}}{4}
+%% \]
+
+When $n = 6$, factor $x^6 - 1 = (x^3 - 1)(x^3 + 1)$. Therefore all the roots for cubic cyclotomic equation are also the roots for $n = 6$. Obviously, $x = -1$ is another root, hence $(x + 1)$ divides $x^3 + 1$. Using polynomial long division, gives $x^3 + 1 = (x + 1)(x^2 - x + 1)$. Next solve the quadratic equation $x^2 - x + 1 = 0$, we obtain all the six roots: $\pm 1, \dfrac{\pm 1 \pm i \sqrt{3}}{2}$, as shown in figure \ref{fig:cyclotomic-6}.
+
+%% \begin{center}
+%% \polylongdiv{x^3+1}{x+1}
+%% \end{center}
+
+It's not by chance that the roots for 6 degree cyclotomic equation contain all the roots for cubic cyclotomic equation. The roots for quartic cyclotomic equation contain all roots for quadratic cyclotomic equation, and the roots for 6 degree also contain roots for quadratic. As such, we need differentiate two things:
+
+\begin{enumerate}
+\item $n$-th root of unity: the number that $n$-th power is 1, i.e. $x^n = 1$;
+\item $n$-th primitive root of unity: an $n$-th root of unity is said to be primitive if it is not an $m$-th root of unity for some smaller $m$, that is if $x^n = 1$, and for every $m = 1, 2, ..., n - 1$, $x^m \neq 1$.
+\end{enumerate}
+
+$-1$ for example is the primitive 2nd root of unity, although it's also the 4-th root of unity, it is not the 4-th primitive root of unity. Observe the factoring result, for example $x^3 - 1 = (x - 1)(x^2 + x + 1)$. Both factors are irreducible (with rational coefficients). The root of $x - 1$, which is 1 is first primitive root of unity, and the two roots of $x^2 + x + 1$ are the 3rd primitive root of unity. We call them cyclotomic polynomials. Denote the cyclotomic polynomial for $k$-th primitive root of unity as $\Phi_k(x)$. This is an important relation between cyclotomic equation and cyclotomic polynomial:
+
+\be
+x^n - 1 = \displaystyle \prod_{d | n} \Phi_d(x)
+\ee
+
+In other words, for every factor $d$ of integer $n$, the cyclotomic equation $x^n - 1$ has a cyclotomic polynomial of degree $d$ as a factor. There is another interesting relation linking cyclotomic equation and cyclic group: all the $n$-th roots of unity form a cyclic group $C_n$ under multiplication, and the $n$-th primitive root $\zeta_k$ is a group generator, i.e. $C_n = (\zeta_k)$.
+
+\btab{|c|p{0.15\linewidth}|p{0.2\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.1\linewidth}|}
+\hline
+$n$ & cyclotomic equation & roots & primitive roots & cyclotomic polynomial $\Phi_n(x)$ & cyclic group \\
+\hline
+1 & $x - 1 = 0$ & 1 & 1 & $x - 1$ & $C_1$ \\
+\hline
+2 & $x^2 - 1 = 0$ & $\pm 1$ & -1 & $x + 1$ & $C_2$ \\
+\hline
+3 & $x^3 - 1 = 0$ & $1, \omega, \omega^2$ & $\omega, \omega^2$ & $x^2 + x + 1$ & $C_3$ \\
+\hline
+4 & $x^4 - 1 = 0$ & $\pm 1, \pm i$ & $\pm i$ & $x^2 + 1$ & $C_4$ \\
+\hline
+6 & $x^6 - 1 = 0$ & $\pm 1, \dfrac{\pm 1 \pm i \sqrt{3}}{2}$ & $\dfrac{1 \pm i \sqrt{3}}{2}$ & $x^2 - x + 1$ & $C_6$ \\
+\hline
+\etab
+
+\begin{Exercise}\label{ex:cyclic-group}
 \Question{Proof that cyclic groups are abelian.}
+\Question{Write a program for polynomial long division.}
+\Question{Factor $x^{12} - 1$ to cyclotomic polynomials.}
+\Question{Solve the quintic cyclotomic equation in radicals. hint: the equation $x^4 + x^3 + x^2 + x + 1 = 0$ changes to symmetric after being divided by $x^2$ as $x^2 + x + 1 + x^{-1} + x^{-2} = 0$.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:cyclic-group}]
+\Question{Proof that cyclic groups are abelian.
+
+Let the generator be $a$. For any two elements, express them as the power of $a$, i.e. $a^p, a^q$ respectively. Because:
+
+\[
+a^p a^q = a^{p + q} = a^{q + p} = a^q a^p
+\]
+
+Hence it is abelian.
+}
+\Question{Write a program for polynomial long division.
+
+We represent a polynomial as a list of coefficients. The polynomial $a(x) = a_0 x^n + a_1 x^{n-1} + ... =a_n x + a_{n+1}$ is represented as the list $[a_0, a_1, ..., a_{n+1}]$, where $a_0 \neq 0$, and we pad 0 for the missing coefficient if necessary. For integer coefficients, the polynomial division can be expressed as:
+
+\[
+a(x) = q(x)b(x) + r(x)
+\]
+
+Where $q(x)$ is the quotient, $r(x)$ is the remainder, and the degree of $r(x)$ is less than the degree of $b(x)$. Assume the degree of $a(x)$ is greater than the degree of $b(x)$. Below is the example program in Haskell:
+
+\lstset{frame = single}
+\begin{Haskell}
+polyndiv as bs = pdiv as (length as - length bs) [] where
+  pdiv as i qs = if i == 0 then (reverse (q:qs), as')
+                 else pdiv as' (i - 1) (q:qs) where
+    q = head as `div` head bs
+    as' = dropWhile (== 0) [a - b*q | (a, b) <- zip as (bs ++ [0, 0..])]
+\end{Haskell}
+}
+\Question{Factor $x^{12} - 1$ to cyclotomic polynomials.
+
+\bea*{rcl}
+x^{12} - 1 & = & \Phi_1(x)\Phi_2(x)\Phi_3(x)\Phi_4(x)\Phi_6(x)\Phi_{12}(x) \\
+          & = & (x - 1)(x + 1)(x^2 + x + 1)(x^2 + 1)(x^2 - x + 1)(x^4 - x + 1) \\
+\eea*
+}
+\Question{Solve the quintic cyclotomic equation in radicals. hint: the equation $x^4 + x^3 + x^2 + x + 1 = 0$ changes to symmetric after being divided by $x^2$ as $x^2 + x + 1 + x^{-1} + x^{-2} = 0$.
+
+% let y = x + 1/x => y^2 + y - 1 = 0
+% from: https://crypto.stanford.edu/pbc/notes/numbertheory/cyclo.html
+Let $y = x + \dfrac{1}{x}$, the original equation converts to:
+
+\[
+y^2 + y - 1 = 0
+\]
+
+Solve this quadratic equation gives:
+
+\[
+y = \dfrac{-1 \pm \sqrt{5}}{2}
+\]
+
+Then solve the quadratic equation of $x$:
+
+\[
+x = \dfrac{\sqrt{5} - 1 \pm \sqrt{-2\sqrt{5} - 10}}{4},
+    \dfrac{-\sqrt{5} - 1 \pm \sqrt{2\sqrt{5} - 10}}{4}
+\]
+}
+\end{Answer}
 
 \subsection{Subgroup}
 \index{subgroup}
@@ -1035,9 +1438,9 @@ For any group $G$, a none empty subset $H$ forms a subgroup if and only if, for 
 \end{theorem}
 
 \begin{proof}
-First prove the sufficiency. Let $a, b \in H$, from the second condition in theorem \ref{theorem:subgroup}, we have $b^{-1} \in H$. Then using the first condition, we get $ab^{-1} \in H$;
+First prove the sufficiency. Let $a \in H$, and $b = a$, then $aa^{-1} = e \in H$. Since $e, a \in H$, therefore, $ea^{-1} = a^{-1} \in H$. This is the second condition in theorem \ref{theorem:subgroup}; For all $a, b \in H$, we just proved $b^{-1} \in H$. Therefore, $a(b^{-1})^{-1} = ab \in H$. This is the first condition in theorem \ref{theorem:subgroup};
 
-Next prove the necessity. Let $a \in H$, according to the identity axiom, we have $aa^{-1} = e \in H$. Since $e, a \in H$, therefore, $ea^{-1} = a^{-1} \in H$. This is the second condition in theorem \ref{theorem:subgroup}; For all $a, b \in H$, we just proved $b^{-1} \in H$. Therefore, $a(b^{-1})^{-1} = ab \in H$. This is the first condition in theorem \ref{theorem:subgroup}.
+Next prove the necessity. Let $a, b \in H$, from the second condition in theorem \ref{theorem:subgroup}, we have $b^{-1} \in H$. Then using the first condition, we get $ab^{-1} \in H$.
 \end{proof}
 
 If the subset $H$ is finite, then the condition to form a subgroup can be further simplified:
@@ -1110,50 +1513,46 @@ Ha = \{ha | h \in H\}
 
 As shown in figure \ref{fig:right-cosets-Z3}, $Z$ is the additive group of integers. Set $H$ contains all multiples of 3, includes $0, \pm 3, \pm 6, ...$. It forms a subgroup under the addition. We add 0 in $Z$ from right\footnote{As the additive group of integers is abelian, the addition is commutative, therefore, the left and right cosets are same.} to every element in $H$, which gives $H0$. Obviously, $H0$ equals to $H$. It contains all the remainders of 0 modulo 3, denoted as [0]. Adding 1 in $Z$ from right to every element in $H$ gives $H1$. It contains all remainders of 1 modulo 3, denoted as [1]; Adding 2 in $Z$ from right to every element in $H$ gives $H2$. It contains all remainders of 2 modulo 3, denoted as [2]. If add 3 to every element in $H$, the result is as same as $H0$. In fact, whatever element $a$ we choose from $H0$ to generate a right coset $Ha$, it is always as same as $H0$; whatever element $b$ we choose from $H1$ to generate a right coset $Hb$, it is always as same as $H1$; whatever element $c$ we choose from $H2$ to generate a right coset $Hc$, it is always as same as $H2$. Put the three right cosets $H0$, $H1$, and $H2$ together, the result is exactly all the integers $Z$. It is a partition of $Z$: [0], [1], [2].
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=0.6]
-\draw (0, 3) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H) {$H$ \\ $(1), (1\ 2)$}
-      (-5.5, 0) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H1) {$H(1)$ \\ $(1), (1\ 2)$}
-      (0, 0) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H13) {$H(1\ 3)$ \\ $(1\ 3), (1\ 2\ 3)$}
-      (5.5, 0) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H23) {$H(2\ 3)$ \\ $(2\ 3), (1\ 3\ 2)$};
-\draw[->] (H) edge (H1)
-          (H) edge (H13)
-          (H) edge (H23);
-\end{tikzpicture}
-\caption{right cosets of a finite non-abelian group.}
-\label{fig:right-cosets-S3}
-\end{figure}
+%% \begin{figure}[htbp]
+%% \centering
+%% \begin{tikzpicture}[scale=0.6]
+%% \draw (0, 3) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H) {$H$ \\ $(1), (1\ 2)$}
+%%       (-5.5, 0) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H1) {$H(1)$ \\ $(1), (1\ 2)$}
+%%       (0, 0) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H13) {$H(1\ 3)$ \\ $(1\ 3), (1\ 2\ 3)$}
+%%       (5.5, 0) circle[x radius=2.5cm, y radius=1cm] node[align=center] (H23) {$H(2\ 3)$ \\ $(2\ 3), (1\ 3\ 2)$};
+%% \draw[->] (H) edge (H1)
+%%           (H) edge (H13)
+%%           (H) edge (H23);
+%% \end{tikzpicture}
+%% \caption{right cosets of a finite non-abelian group.}
+%% \label{fig:right-cosets-S3}
+%% \end{figure}
 
-Let's see another example about finite non-abelian group. Consider a permutation group with degree 3.
+Let's see another example about finite non-abelian group. Consider the symmetry group $S_3$.
 
-$G = S_3 = \{(1), (1\ 2), (1\ 3), (2\ 3), (1\ 2\ 3), (1\ 3\ 2)\}$，
+$S_3 = \{(1), (1\ 2), (1\ 3), (2\ 3), (1\ 2\ 3), (1\ 3\ 2)\}$
 
-It has a subgroup $H = \{(1), (1\ 2)\}$. We use the identity permutation $(1)$ and another two permutations $(1\ 3)$, $(2\ 3)$ to multiply $H$ from right. It gives 3 right cosets:
+Its subgroup $C_{2a} = \{(1), (1\ 2)\}$ is isomorphic to the cyclic group of order 2. We use the identity permutation $(1)$ and another two permutations $(1\ 3)$, $(2\ 3)$ to multiply $H$ from right. It gives 3 right cosets:
 
 \[
 \begin{array}{rcl}
-H(1) & = & \{(1), (1\ 2)\} \\
-H(1\ 3) & = & \{(1\ 3), (1\ 2\ 3)\} \\
-H(2\ 3) & = & \{(2\ 3), (1\ 3\ 2)\}
+C_{2a} (1) & = & \{(1), (1\ 2)\} \\
+C_{2a} (1\ 3) & = & \{(1\ 3), (1\ 2\ 3)\} \\
+C_{2a} (2\ 3) & = & \{(2\ 3), (1\ 3\ 2)\}
 \end{array}
 \]
 
-We can use another three different elements to form the right cosets:
-
-$H(1\ 2)$、$H(1\ 2\ 3)$、$H(1\ 3\ 2)$
-
-Because $(1\ 2) \in H(1)$, $(1\ 2\ 3) \in H(1\ 3)$, $(1\ 3\ 2) \in H(2\ 3)$, therefore we have:
+We can use another three elements to form the right cosets: $C_{2a} (1\ 2)$, $C_{2a} (1\ 2\ 3)$, $C_{2a} (1\ 3\ 2)$. Because $(1\ 2) \in C_{2a} (1)$, $(1\ 2\ 3) \in C_{2a} (1\ 3)$, $(1\ 3\ 2) \in C_{2a} (2\ 3)$, therefore:
 
 \[
 \begin{array}{l}
-H(1) = H(1\ 2) \\
-H(1\ 3) = H(1\ 2\ 3) \\
-H(2\ 3) = H(1\ 3\ 2)
+C_{2a} (1) = C_{2a} (1\ 2) \\
+C_{2a} (1\ 3) = C_{2a} (1\ 2\ 3) \\
+C_{2a} (2\ 3) = C_{2a} (1\ 3\ 2)
 \end{array}
 \]
 
-The subgroup $H$ partitions the group $G = S_3$ into three disjoint right cosets $H(1)$,$H(1\ 3)$, and $H(2\ 3)$. Putting these three right cosets together gets exactly $G$. They form a partition of $G$.
+The subgroup $C_{2a}$ partitions the group $G = S_3$ into three disjoint right cosets $C_{2a} (1)$,$C_{2a} (1\ 3)$, and $C_{2a} (2\ 3)$. Putting these three right cosets together gets exactly $G$. They form a partition of $G$.
 
 \index{left coset}
 Symmetric to right coset, we can also define left coset. Define the symmetric equivalence relation $\sim'$ as:
@@ -1173,7 +1572,46 @@ To prove this theorem, we can construct a map from the left coset to the right c
 \index{index of subgroup}
 With this theorem, we can use the number of the cosets (left or right) for a subgroup $H$ to define the \textbf{index} of $H$ in $G$.
 
-In common cases, the right coset $Ha$ does not equal to the left coset $aH$. If they are same, such subgroup is called normal subgroup. It was Galois, who first introduced normal subgroups to analyze if equations are solvable in radicals.
+In above example of $S_3$, we use the subgroup $C_{2a} = \{(1), (1\ 2)\}$ as the equivalence relation to partition $S_3$. There is another subgroup $C_3 = \{(1), (1\ 2\ 3), (1\ 3\ 2)\}$ of $S_3$ which is cyclic of order 3. We can also use it as the equivalence relation to partition $S_3$.
+
+\[
+\begin{array}{l}
+C_3 (1) = C_3 \\
+C_3 (1\ 2) = \{(1\ 2), (1\ 3), (2\ 3)\}
+\end{array}
+\]
+
+Figure \ref{fig:S3-Cayley} and \ref{fig:S3-Cayley-aH} show the two partitions. They have major difference, subgroup $C_3$ generates the same left and right cosets, while $C_{2a}$ generates the different left and right cosets.
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.4]{img/S3-Cayley}
+ \caption{The right cosets generated with different subgroups of $S_3$.}
+ \label{fig:S3-Cayley}
+\end{figure}
+
+\btab{|c|c|c|}
+\hline
+subgroup & $C_3$ & $C_{2a}$ \\
+\hline
+left cosets & $C_3 + \{(1\ 2), (1\ 3), (2\ 3)\}$ & $C_{2a} + \{(1\ 3), (1\ 3\ 2)\} + \{(2\ 3), (1\ 2\ 3)\}$ \\
+\hline
+right cosets & $C_3 + \{(1\ 2), (1\ 3), (2\ 3)\}$ & $C_{2a} + \{(1\ 3), (1\ 2\ 3)\} + \{(2\ 3), (1\ 3\ 2)\}$ \\
+\hline
+\etab
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.4]{img/S3-Cayley-aH}
+ \caption{The left cosets generated wth different subgroups of $S_3$.}
+ \label{fig:S3-Cayley-aH}
+\end{figure}
+
+In common cases, the right coset $Ha$ does not equal to the left coset $aH$. If they are same, such subgroup is called normal subgroup. It was Galois, who first introduced normal subgroups to analyze if equations are solvable in radicals. Galois called them `invariant subgroups' because they give two invariant partitions of $G$:
+
+\[
+G = H a_1 + H a_2 + ... = a_1 H + a_2 H + ...
+\]
 
 \index{normal subgroup} \index{invariant subgroup}
 \begin{definition}
@@ -1183,7 +1621,7 @@ For a group $G$, the subgroup $N$ is called \textbf{normal subgroup} (or invaria
 Na = aN
 \]
 
-holds. The left (or right) coset for a normal group is called \textbf{coset} of $N$.
+holds. Denoted as: $N \lhd G$ or $G \rhd N$. The left (or right) coset for a normal group is called \textbf{coset} of $N$.
 \label{normal-subgroup}
 \end{definition}
 
@@ -1225,10 +1663,24 @@ If $f$ is a surjective homomorphism from group $G$ to another group $G'$, consid
 
 We have the following theorem. If $G$ is homomorphic to $G'$, then the kernal $N$ of the homomorphism is the normal subgroup of $G$. And the quotient group $G/N \cong G'$. A group is homomorphic to every of its quotient group, and from the abstract point of view, $G$ can only be homomorphic to its quotient groups. Sometimes, we find $G$ is homomorphic to $G'$, and we don't know well about the properties of $G'$. However, we are sure to be able to find a normal subgroup $N$ of $G$, that the properties of $G'$ are essentially identical to the quotient group $G/N$. We can see the importance of the normal subgroup and the quotient group. Galois did use this idea to figure out the way to define the equation group is solvable or not.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:subgroup}
 \Question{Proof theorem \ref{theorem:subgroup}, which determines if a subset forms a subgroup.}
-\Question{List the left cosets for $H$ in figure \ref{fig:right-cosets-S3}.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:subgroup}]
+\Question{Proof theorem that determines if a none empty subset $H$ of group $G$ forms a subgroup, if and only if:
+  \begin{enumerate}[i]
+  \item For all $a, b \in H$, the product $ab \in H$;
+  \item For all element $a \in H$, its reverse $a^{-1} \in H$.
+  \end{enumerate}
+
+First prove the sufficiency. Condition i ensures $H$ is closed on multiplication. The associativity holds for multiplication in $G$, hence also holds in $H$. Because $H$ is not empty, there exists an element $a$, based on condition ii, the corresponding $a^{-1}$ is also in $H$. And from condition i, $aa^{-1} = e \in H$ holds. Therefore $H$ is a subgroup.
+
+Next prove the necessity. If $H$ forms a subgroup, then condition i is true obviously. For condition ii, since $H$ is a group, there exits the unit element $e'$, such that for every element $a$ in $H$, equation $e'a = a$ holds. As both $e'$ and $a$ are in $G$, we say $e'$ is a solution to equation $ya = a$ in $G$. However, there is only one solution in $G$ for this equation, which is the unit $e$ of $G$, hence $e' = e \in H$.
+
+As $H$ is a group, equation $ya = e$ has solution $a'$ in $H$. While $a'$ is also the solution of this equation in $G$. However, the unique solution to this equation in $G$ is $a^{-1}$. Therefore, $a' = a^{-1} \in H$.
+}
+\end{Answer}
 
 \subsection{Lagrange's theorem}
 \index{Lagrange}
@@ -1239,9 +1691,9 @@ Lagrange's theorem greatly demonstrates the power of abstract algebra. We can re
 \begin{wrapfigure}{R}{0.4\textwidth}
  %\raggedright
  \centering
- \includegraphics[scale=1.5]{img/lagrange.jpg}
+ \includegraphics[scale=1.5]{img/lagrange}
  \captionsetup{labelformat=empty}
- \caption{Stamp of Joseph-Louise Lagrange}
+ \caption{Joseph-Louise Lagrange}
  \label{fig:Lagrange}
 \end{wrapfigure}
 %\end{figure}
@@ -1297,7 +1749,7 @@ First, we know that $G$ can be fully partitioned by the cosets of $H$; From the 
 \]
 \end{proof}
 
-Note that there is a conversed question to Lagrange's theorem, whether every divisor of the order of a group is the order of some subgroup? This does not hold in general. Later we'll see such negative example in figure \ref{fig:group-graph} (c). The order of alternative group $A_4$ is 12, but it has no subgroup of order 6. We can deduce many interesting results from Lagrange's theorem.
+Note that there is a conversed question to Lagrange's theorem, whether every divisor of the order of a group is the order of some subgroup? This does not hold in general. For example, the order of alternative group $A_4$ is 12, but it has no subgroup of order 6. We can deduce many interesting results from Lagrange's theorem.
 
 \begin{corollary}
 If $G$ is a finite group, the order of every element $a$ is a divisor of the order of $G$.
@@ -1377,8 +1829,8 @@ If we link the head and tail for every pearl string to make a necklace, some dif
 
 \begin{figure}[htbp]
   \centering
-  \subcaptionbox{A necklace in 3 colors represents 7 different strings: \texttt{ABCBAAC}, \texttt{BCBAACA}, \texttt{CBAACAB}, \texttt{BAACABC}, \texttt{AACABCB}, \texttt{ACABCBA}, \texttt{CABCBAA}}[0.45\linewidth]{\includegraphics[scale=0.2]{img/bracelet-rotate.png}} \quad
-  \subcaptionbox{The necklace in same color only represent one string: \texttt{AAAAAAA}}[0.45\linewidth]{\includegraphics[scale=0.2]{img/bracelet-identical.png}}
+  \subcaptionbox{A necklace in 3 colors represents 7 different strings: \texttt{ABCBAAC}, \texttt{BCBAACA}, \texttt{CBAACAB}, \texttt{BAACABC}, \texttt{AACABCB}, \texttt{ACABCBA}, \texttt{CABCBAA}}[0.45\linewidth]{\includegraphics[scale=0.2]{img/bracelet-rotate}} \quad
+  \subcaptionbox{The necklace in same color only represent one string: \texttt{AAAAAAA}}[0.45\linewidth]{\includegraphics[scale=0.2]{img/bracelet-identical}}
   \caption{Partition strings through necklace}
   \label{fig:bracelet}
 \end{figure}
@@ -1412,7 +1864,7 @@ The proof by counting necklaces might be the most straightforward method people 
 %\begin{figure}[htbp]
 \begin{wrapfigure}{L}{0.35\textwidth}
   \centering %\raggedleft
- \includegraphics[scale=0.4]{img/Fermat.jpg}
+ \includegraphics[scale=0.4]{img/Fermat}
  \captionsetup{labelformat=empty}
  \caption{Pierre de Fermat, 1601-1665}
  \label{fig:Fermat}
@@ -1438,7 +1890,7 @@ Fermat published nearly nothing in his lifetime, although it is unbelievable fro
 \begin{wrapfigure}{R}{0.33\textwidth}
 %\begin{figure}[htbp]
  \centering
- \includegraphics[scale=0.4]{img/Arithmetica.jpg}
+ \includegraphics[scale=0.4]{img/Arithmetica}
  \captionsetup{labelformat=empty}
  \caption{The 1670 edition of the {\em Arithmetica of Diophantus}, with Fermat's annotation.}
  \label{fig:Arithmetica}
@@ -1486,7 +1938,7 @@ Let us see an example. Below is the multiplication table for all the none zero r
   & \textbf{1} & 2 & \textbf{3} & 4 & 5 & 6 & \textbf{7} & 8 & \textbf{9} \\
 \hline
 \rowcolor{Gray}
-\textbf{1} & \cellcolor{gray} \underline{1} & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 8 \\
+\textbf{1} & \cellcolor{gray} \underline{1} & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
 \hline
 2 & 2 & 4 & 6 & 8 & 0 & 2 & 4 & 6 & 8 \\
 \hline
@@ -1576,7 +2028,7 @@ Interestingly, Fermat's little theorem provides a way for fast primality test. F
 
 The {\em Fermat primality test} algorithm (also known as Fermat test) based on this idea can be described as below:
 
-\begin{algorithmic}
+\begin{algorithmic}[1]
 \Function{primality}{$n$}
   \State Random select a positive integer $a < n$
   \If{$a^{n-1} \equiv 1 \mod n$}
@@ -1677,20 +2129,169 @@ We summarized the relations for group, semigroup, monoid introduced so far as th
 \label{fig:groups}
 \end{figure}
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:Lagrange-theorem}
 \Question{Today is Sunday, what day it will be after $2^{100}$ days?}
 \Question{Given two strings (character string or list), write a program to test if they form the same necklace.}
 \Question{Write a program to realize Eratosthenes sieve algorithm.}
 \Question{Extend the idea of Eratosthenes sieve algorithm, write a program to generate Euler $\upphi$ function values for all numbers from 2 to 100.}
+\Question{From Euler's theorem, how many $n$-th primitive of unit roots are there?}
 \Question{Write a program to realize fast modular multiplication, and Fermat's primality test.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:Lagrange-theorem}]
+\Question{Today is Sunday, what day it will be after $2^{100}$ days?
+
+There are 7 days in a week. According to the Fermat's little theorem, $2^{7-1} \equiv 1 \mod 7$. We have:
+
+\blre
+2^{100} = 2^{16 \times 6 + 4} & \equiv & 1 \times 2^4 \mod 7 \\
+  & \equiv & 16 \mod 7 \\
+  & \equiv & 2 \mod 7 \\
+\elre
+
+Therefore, it will be Tuesday.
+}
+\Question{Given two strings (character string or list), write a program to test if they form the same necklace.
+
+Given two strings $S_1, S_2$ with the same length, we can duplicate $S_1$ and append it after itself, then examine whether $S_2$ is the sub-string of $S_1S_1$. If yes, then they can form the same necklace.
+
+\[
+eqiv(S_1, S_2) = S_2 \subset (S_1 \doubleplus S_1)
+\]
+}
+\Question{Write a program to realize Eratosthenes sieve algorithm.
+
+For all natural numbers from 2, pick the next as a prime, then remove all its multiplicands. Then do this repeatedly. Here is an example Haskell program:
+
+\lstset{language=Haskell, frame=single}
+\begin{lstlisting}
+primes = sieve [2..] where
+    sieve (x:xs) = x : sieve [y | y <- xs, y `mod` x > 0]
+\end{lstlisting}
+
+The following are the example Python and Java programs.
+
+\lstset{language=Python}
+\begin{lstlisting}
+def odds():
+    i = 3
+    while True:
+        yield i
+        i = i + 2
+
+class prime_filter(object):
+    def __init__(self, p):
+        self.p = p
+        self.curr = p
+
+    def __call__(self, x):
+        while x > self.curr:
+            self.curr += self.p
+        return self.curr != x
+
+def sieve():
+    yield 2
+    iter = odds()
+    while True:
+        p = next(iter)
+        yield p
+        iter = filter(prime_filter(p), iter)
+
+list(islice(sieve(), 100))
+\end{lstlisting}
+
+\lstset{language=Java}
+\begin{lstlisting}
+public class Prime {
+    private static LongPredicate sieves = x -> true; // initialize sieve as id
+    public final static long[] PRIMES = LongStream
+        .iterate(2, i -> i + 1)
+        .filter(i -> sieves.test(i))
+        .peek(i -> sieves = sieves.and(v -> v % i != 0)) // update, chain the sieve
+        .limit(100)                 // take first 100
+        .toArray();
+}
+\end{lstlisting}
+}
+\Question{Extend the idea of Eratosthenes sieve algorithm, write a program to generate Euler $\upphi$ function values for all numbers from 2 to 100.
+
+When generate prime numbers within $n$ with the sieve of Eratosthenes, we can update the Euler $\upphi$ function list by every prime numbers found so far. The list is initialized with all elements start from 1. For every prime number $p$, the corresponding $\upphi(p) = p(1 - \dfrac{1}{p}) = p - 1$. All the multiplicands of $p$ need multiply with this value. However, it is not enough as $\upphi(p^2) = p^2(1 - \dfrac{1}{p}) = p \upphi(p)$. Next we need multiply all the Euler function value for multiplicands of $p^2$ by $p$, and repeat for multiplicands of $p^3$ and so on until $p^m$ exceeds $n$. Below is the algorithm of this idea.
+
+\begin{algorithmic}[1]
+\Function{Euler-Totient}{$n$}
+  \State $\upphi \gets \{1, 1, ..., 1\}$ \Comment{1 to $n$}
+  \State $P \gets \{2, 3, ..., n\}$ \Comment{sieve input}
+  \While{$P \neq \varnothing$}
+    \State $p \gets P[0]$
+    \State $P \gets \{x | x \in P[1...], x \bmod p \neq 0\}$
+    \State $p' \gets p$
+    \Repeat
+      \For{$i \gets$ from $p'$ to $n$ step $p'$}
+        \If{$p' = p$}
+          \State $\upphi[i] \gets \upphi[i] \times (p - 1)$
+        \Else
+          \State $\upphi[i] \gets \upphi[i] \times p$
+        \EndIf
+      \EndFor
+      \State $p' \gets p' \times p$
+    \Until{$p' > n$}
+  \EndWhile
+  \State \Return $\upphi$
+\EndFunction
+\end{algorithmic}
+}
+\Question{From Euler's theorem, how many $n$-th primitive of unit roots are there?
+
+$\upphi(n)$, if $n$ is prime, then all the roots except 1 are primitive.}
+\Question{Write a program to realize fast modular multiplication, and Fermat's primality test.
+
+Our idea is to realize the fast modular multiplication with the similar approach when calculate power.
+
+\[
+x^y =
+\begin{cases}
+y \text{ is even}: & x^{\lfloor y / 2 \rfloor} \\
+y \text{ is odd}: & x \cdot x^{\lfloor y / 2 \rfloor} \\
+\end{cases}
+\]
+
+Based on this, we can change it to modular multiplication as below:
+
+\begin{algorithmic}[1]
+\Function{Mod-Exp}{$x, y, n$}
+  \If{$y = 0$}
+    \State \Return 1
+  \EndIf
+  \State $z \gets$ \Call{Mod-Exp}{$x, \lfloor y /2 \rfloor, n$}
+  \If{$y$ is even}
+    \State \Return $z^2 \bmod n$
+  \Else
+    \State \Return $x \cdot z^2 \bmod n$
+  \EndIf
+\EndFunction
+\end{algorithmic}
+
+With Fermat's little theorem, we can realize the primality test with some selected 'witnesses':
+
+\begin{algorithmic}[1]
+\Function{primality}{$n$}
+  \State random select $k$ positive numbers $a_1, a_2, ..., a_k < n$
+  \If{$a_i^{n-1} \equiv 1 \mod n$, for all $i = 1, 2, ..., k$}
+    \State \Return prime
+  \Else
+    \State \Return composite
+  \EndIf
+\EndFunction
+\end{algorithmic}
+}
+\end{Answer}
 
 \section{Ring and Field}
 
 \begin{wrapfigure}{R}{0.3\textwidth}
 %\begin{figure}[htbp]
  \centering
- \includegraphics[scale=1]{img/Noether.jpg}
+ \includegraphics[scale=1]{img/Noether}
  \captionsetup{labelformat=empty}
  \caption{Emmy Noether, 1882-1935}
  \label{fig:Noether}
@@ -1705,7 +2306,7 @@ This was an unconventional decision. Two years earlier, the Academic Senate of t
 
 During the 1903–1904 winter semester, she studied at the University of Göttingen, attending lectures given by astronomer Karl Schwarzschild and mathematicians Hermann Minkowski, Otto Blumenthal, Felix Klein, and David Hilbert. Noether returned to Erlangen. She officially reentered the university in October 1904, and declared her intention to focus solely on mathematics. Under the supervision of Paul Gordan she wrote her dissertation. For the next seven years (1908–1915) she taught at the University of Erlangen's Mathematical Institute without pay only because she was a woman.
 
-The mathematician Ernst Fischer was an important influencer on Noether, in particular by introducing her to the work of David Hilbert. From 1913 to 1916 Noether published several papers extending and applying Hilbert's methods to mathematical objects such as fields of rational functions and the invariants of finite groups. This phase marks the beginning of her engagement with abstract algebra, the field of mathematics to which she would make groundbreaking contributions.
+The mathematician Ernst Fischer was an important influencer on Noether, in particular by introducing her to the work of David Hilbert. From 1913 to 1916 Noether published several papers extending and applying Hilbert's methods to mathematical objects such as fields of rational functions and the invariant of finite groups. This phase marks the beginning of her engagement with abstract algebra, the field of mathematics to which she would make groundbreaking contributions.
 
 In the spring of 1915, Noether was invited to return to the University of Göttingen by David Hilbert and Felix Klein. Their effort to recruit her, however, was blocked by the philologists and historians among the philosophical faculty: Women, they insisted, should not become privatdozenten. Hilbert responded with indignation, stating, ``I do not see that the sex of the candidate is an argument against her admission as privatdozent. After all, we are a university, not a bath house.''
 
@@ -1729,23 +2330,27 @@ Noether is best remembered for her contributions to abstract algebra. Nathan Jac
 
 \subsection{Ring}
 \index{ring}
-Let us see how ring is defined.
+Group is a system defined with an operation (set and multiplication), ring is a system defined with two operations. Given a set $R$ of elements $a, b, ...$, define add $a + b$ and multiply $ab$, their results still in the set. Where the add and multiply satisfy the following rules.
 
-\begin{definition}
-A ring is a set $R$ that satisfies below \textbf{ring axioms}:
 \begin{enumerate}
-\item $R$ is an additive group, it means $R$ forms an abelian group under the addition operation defined on it;
-\item There is multiplication defined for $R$, and $R$ is close under this multiplication operation;
-\item The multiplication is associative. For all $a, b, c$, equation $(ab)c = a(bc)$ holds;
-\item Multiplication is distributive with respect to addition, meaning that, for all $a, b, c$, we have:
-\[
-\begin{array}{l}
-a(b + c) = ab + ac \\
-(b + c)a = ba + ca
-\end{array}
-\]
+\item Rules for add:
+  \begin{enumerate}
+  \item associative: $a + (b + c) = (a + b) + c$
+  \item commutative: $a + b = b + a$
+  \item exist the unique unity, and every element has unique inverse.
+  \end{enumerate}
+\item Rules for multiple:
+  \begin{enumerate}
+  \item associative: $a(bc) = (ab)c$
+  \end{enumerate}
+\item distributive:
+  \begin{enumerate}
+  \item $a(b + c) = ab + ac$
+  \item $(b + c)a = ba + ca$
+  \end{enumerate}
 \end{enumerate}
-\end{definition}
+
+The ring consists of an additive group and a multiplicative semigroup. The additive group is abelian because it's commutative; the multiplication is closed and associative.
 
 \index{commutative ring}
 Obviously, all integers form a ring under the addition and multiplication. Other examples are polynomials and matrix form ring under the addition and multiplication. The ring definition only requires the addition operation is commutative, thus the ring is an abelian group under addition. It does not have such requirement for multiplication. When the ring multiplication is also commutative, we call it \textbf{commutative ring}. In commutative ring, for positive integer $n$ and any two elements, the following equation holds:
@@ -1760,7 +2365,7 @@ The ring definition does not require an identity element for the multiplication 
 ea = ae = a
 \]
 
-We call $e$ the \textbf{unity} (multiplicative identity element) of the ring. A ring may not necessarily have unity\footnote{More people define a ring to have a multiplicative identity nowadays, and use symbol $rng$ for a ring without multiplicative identity.}. Traditionally, we use 1 to represent the unity. It is just a symbol, but not means the actual number 1. With unity, we can also define inverse element. If $ab = ba = 1$, we say $b$ is the inverse element of $a$. According to the group property, we know that if the ring has an identity element for multiplication, it is unique. If an element is invertible, the inverse element is also unique. While it is not necessary that all elements are invertible. For example, the integer ring has unity, but except for $\pm 1$, all other integers are not invertible. We call the invertible element a \textbf{unit}.
+We call $e$ the \textbf{unity} (multiplicative identity element) of the ring. A ring may not necessarily have unity\footnote{More people define a ring to have a multiplicative identity nowadays, and use symbol $rng$ for a ring without multiplicative identity.}. Traditionally, we use 1 to represent the unity for multiplication, and use 0 as the unity for add. They are just symbols, but not means the actual number 1 or 0. With unity, we can also define inverse element. If $ab = ba = 1$, we say $b$ is the inverse element of $a$. According to the group property, we know that if the ring has an identity element for multiplication, it is unique. If an element is invertible, the inverse element is also unique. While it is not necessary that all elements are invertible. For example, the integer ring has unity, but except for $\pm 1$, all other integers are not invertible. We call the invertible element a \textbf{unit}.
 
 From the distributive axiom, we have:
 
@@ -1784,8 +2389,8 @@ In a ring, if there exists $a \neq 0, b \neq 0$, but $ab = 0$, we call $a$ is a 
 \begin{theorem}
 For a ring without zero divisor, the following two cancellation rules hold.
 \begin{itemize}
-\item If $a \neq 0$, and $ab = ac$, then $b = c$;
-\item If $a \neq 0$, and $ba = ca$, then $b = c$.
+\item If $a \neq 0$, and $ab = ac$, then $b = c$
+\item If $a \neq 0$, and $ba = ca$, then $b = c$
 \end{itemize}
 \end{theorem}
 
@@ -1814,10 +2419,70 @@ a(b + c) = ab + ac \\
 \end{definition}
 Natural numbers $N$ is an example of semiring. The Boolean operations form a semiring with two elements.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:ring}
 \Question{Prove the theorem that the two cancellation rules hold in a nonzero ring (ring without zero divisor).}
 \Question{Prove that, all real numbers in the form of $a + b \sqrt{2}$, where $a, b$ are integers form a integral domain under the normal addition and multiplication.}
 \end{Exercise}
+
+\begin{Answer}[ref={ex:ring}]
+\Question{Prove the theorem that the two cancellation rules hold in a nonzero ring (ring without zero divisor).
+
+\begin{proof}
+Suppose there is no zero divisor in $R$. Because
+\[
+  ab = ac \Rightarrow a(b - c) = 0
+\]
+
+as no zero divisor, hence:
+
+\[
+  a \neq 0, ab = ac \Rightarrow b - c = 0 \Rightarrow b = c
+\]
+
+Similarly,
+
+\[
+  a \neq 0, ba = ca \Rightarrow b = c
+\]
+
+Therefore, both cancellation rules hold in $R$. Reversely, suppose the first cancellation rule hold in $R$. Because:
+
+\[
+  ab = 0 \Rightarrow ab = a0
+\]
+
+Based on the assumption,
+
+\[
+  a \neq 0, ab = 0 \Rightarrow b = 0
+\]
+
+Hence $R$ does not have zero divisor. We can make the similar prove when the second cancellation rule holds.
+\end{proof}
+}
+\Question{Prove that, all real numbers in the form of $a + b \sqrt{2}$, where $a, b$ are integers form a integral domain under the normal addition and multiplication.
+
+\begin{proof}
+We need verify three things:
+
+  \begin{enumerate}[i]
+  \item The commutative law for multiplication holds.
+    \bre
+      (a + b \sqrt{2})(c + d \sqrt{2}) & = & ac + 2bd + (ad + bc)\sqrt{2} \\
+        & = & (c + d \sqrt{2})(a + b \sqrt{2})
+    \ere
+  \item There is unit 1 for multiplication.
+    \[
+      1 (a + b \sqrt{2}) = (a + b \sqrt{2}) 1 = a + b \sqrt{2}
+    \]
+  \item No zero divisor
+    \[
+    (a + b \sqrt{2})(c + d \sqrt{2}) = 0 \Rightarrow a = b = 0\ \text{or}\ c = d = 0
+    \]
+  \end{enumerate}
+\end{proof}
+}
+\end{Answer}
 
 \subsection{Division ring and field}
 
@@ -1835,10 +2500,10 @@ A ring $R$ is a \textbf{division ring} if it satisfies the following conditions:
 
 \index{field}
 \begin{definition}
-A commutative division ring is a \textbf{field域}.
+A commutative division ring is a \textbf{field}.
 \end{definition}
 
-According to this definition, all rational numbers form a field. Similarly, all real numbers and all complex numbers form fields under the addition and multiplication\footnote{We'll see in later chapter, rational number field is countable, while real number field and complex number field are not countable.}. There are some interesting properties for division ring and field. There is no zero divisor in a division ring. This is because if $a \neq 0$, and $ab = 0$, then we multiply the inverse element of $a$ from left to both sides:
+According to this definition, all rational numbers form a field. Similarly, all real numbers and all complex numbers form fields under the addition and multiplication\footnote{We'll see in chapter 6, rational number field is countable, while real number field and complex number field are not countable.}. There are some interesting properties for division ring and field. There is no zero divisor in a division ring. This is because if $a \neq 0$, and $ab = 0$, then we multiply the inverse element of $a$ from left to both sides:
 
 \[
 a^{-1}ab = b = 0
@@ -1891,7 +2556,7 @@ We skipped some important algebraic structure here like subring, ideal, principa
 
 Galois theory provides connection between group and field. Using Galois theory, certain problems in field theory can be reduced to group theory, which is in some sense simpler and easier to understand. A field can contain infinite many elements with adding, subtracting, multiplying, and dividing. It's a complex mathematical object. Galois theory can simplify the problems in field to a corresponding problem in finite group with only one operation. This is the key idea of Galois theory.
 
-Galois theory is famous for its difficulty and hard to understand. Compare to its original form, the modern Galois theory is no longer ambiguous, and much clearer and elegant. This is because more than two dozens of masters greatly developed and improved it in the past. The most important contributors are Jordan, Dedekind, and Emil Artin. Jordan and Dedekind first systematically developed Galois theory in France and Germany. The definition of Galois group we are using today was given by Dedekind. The modern form of Galois theory is made by Artin\cite{ZhangPu2013}. We adopted a gentle explanation that is friendly to beginners\cite{Stillwell1994} in this short section. It's quite common that we can't understand it in the first time reading. It's always helpful to read the masters. Our life is not linear. I recommend the way to revisit what we learned before, find more great books to read. Our understanding changes along the time, and there must be aha moment in the future.
+Galois theory is famous for its difficulty and hard to understand. Compare to its original form, the modern Galois theory is no longer ambiguous, and much clearer and elegant. This is because more than two dozens of masters greatly developed and improved it in the past. The most important contributors are Jordan, Dedekind, and Emil Artin. Jordan and Dedekind first systematically developed Galois theory in France and Germany. The definition of Galois group we are using today was given by Dedekind. The modern form of Galois theory is made by Artin\cite{ZhangPu2013}. We adopted a gentle explanation that is friendly to beginners\cite{FengChengTian2019} in this short section. It's quite common that we can't understand it in the first time reading. It's always helpful to read the masters. Our life is not linear. I recommend the way to revisit what we learned before, find more great books to read. Our understanding changes along the time, and there must be aha moment in the future.
 
 \subsection{Field extension}
 \index{field extension}
@@ -1935,34 +2600,412 @@ Thus the splitting field of equation $x^2 -2 = 0$ is $Q[\sqrt{2}]$. Why is it na
 
 For a given polynomial equation, if we can start from the basic rational number field, with a series of field extension, reach to its splitting field, then this equation is radical solvable.
 
-We've seen the example of square root. There are more complex cases. Cubic equation may need cubic root, some equation even requires imaginary unit $i$. From the high school math, we know that for the simplest equation $x^p-1=0$, there are $p$ roots of $1, \zeta, \zeta^2, ..., \zeta^{p-1}$, where $\zeta \neq 1$ is a complex root in the unit circle. We need a strict description of field extension to cover these cases.
+We've seen the example of square root. There are more complex cases. For the cyclotomic equation $x^p-1=0$, there are $p$ roots of $1, \zeta, \zeta^2, ..., \zeta^{p-1}$ in the unit circle in complex plane. We need a strict description of field extension to cover these cases.
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=3]
- \draw[step=.5cm, gray, very thin] (-1.2,-1.2) grid (1.2,1.2);
- \draw[->] (-1.25,0) -- (1.25,0) coordinate (x axis);
- \draw[->] (0,-1.25) -- (0,1.25) coordinate (y axis);
- \draw (0,0) circle (1cm);
- \draw[->, very thick] (0, 0) edge node[below=2pt,fill=white] {$\zeta^0 = \zeta^3 = 1$} (1, 0)
-     (0, 0) edge node[above] {$\zeta = \dfrac{-1 + i\sqrt{3}}{2}$} (120:1cm)
-     (0, 0) edge node[below] {$\zeta^2 = \dfrac{-1 - i\sqrt{3}}{2}$} (-120:1cm);
-\end{tikzpicture}
-\caption{Unit root of $x^3 - 1 = 0$}
-\label{fig:root-of-unity}
-\end{figure}
+\index{Normal extension}
+If the integer power of $\alpha$ is some element $b$ in field $F$, i.e. $\alpha^m = b \in F$, such $\alpha$ can be written as the radical form of $b$ as $\alpha = \sqrt[m]{b}$. For simplification, assume the $\alpha_i$ in every extension $F[\alpha_i]$ is a $p$-th root for some prime $p$. For example, instead extend like $\sqrt[6]{\alpha}$, we break it into two extensions of $\sqrt{\alpha} = \beta$ and $\sqrt[3]{\beta}$. There is another problem. Consider equation $x^3 - 2 = 0$, it's insufficient to only add $\sqrt[3]{2}$ to the field. The other two roots $\omega\sqrt[3]{2}, \omega^2\sqrt[3]{2}$ are not in field extension $Q[\sqrt[3]{2}]$. Hence we need add $\sqrt[3]{2}$ and $\omega = \dfrac{-1 + i\sqrt{3}}{2}$ to extend the field to $Q[\sqrt[3]{2}, \omega]$. Such field extension contains {\em all} roots of the polynomial, which is called normal extension.
 
-If the integer power of $\alpha$ is some element $b$ in field $F$, which means $\alpha^m = b \in F$, such $\alpha$ can be obtained through radical form of $b$ as $\alpha = \sqrt[m]{b}$. We can extend the field with a series of such radical forms to $F[\alpha_1][\alpha_2]...[\alpha_k]$. If each $\alpha_i$ is radical form, we call the field extension $F[\alpha_1, \alpha_2, ..., \alpha_k]$ as radical extension of $F$. Let the equation roots be $x_1, x_2, ..., x_n$ (Note $x_i$ may not be radical form), if the splitting field $E = Q[x_1, x_2, ..., x_n]$ is radical extension, then the equation is radical solvable.
+\index{Radical extension}
+We can extend the field with a series of such radical forms to $F[\alpha_1][\alpha_2]...[\alpha_k]$. If each $\alpha_i$ is radical form, we call the field extension $F[\alpha_1, \alpha_2, ..., \alpha_k]$ as radical extension of $F$. Let the equation roots be $x_1, x_2, ..., x_n$ (Note $x_i$ may not be radical form), if the splitting field $E = Q[x_1, x_2, ..., x_n]$ is radical extension, then the equation is radical solvable.
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:field}
 \Question{Prove that $Q[a, b] = Q[a][b]$, where $Q[a, b]$ contains all the expressions combined with $a$ and $b$, such as $2ab, a + a^2b$ etc.}
 \end{Exercise}
 
+\begin{Answer}[ref={ex:field}]
+\Question{Prove that $Q[a, b] = Q[a][b]$, where $Q[a, b]$ contains all the expressions combined with $a$ and $b$, such as $2ab, a + a^2b$ etc.
+
+Let us see an example first:
+
+\[
+ Q[\sqrt{2}, \sqrt{3}] = \{a + b \sqrt{2} + c \sqrt{3} + d \sqrt{6}, \text{where } a, b, c, d \in Q\}
+\]
+
+\bre
+Q[\sqrt{2}][\sqrt{3}] & = & \{a + b \sqrt{3}, \text{where } a, b \in Q[\sqrt{2}]\} \\
+  & = & \{a' + b' \sqrt{2} + (c + d \sqrt{2}) \sqrt{3}, \text{where } a', b', c, d \in Q\} \\
+  & = & \{a' + (b' + d) \sqrt{2} + c \sqrt{3} + d \sqrt{6}, \text{where } a', b', c, d \in Q\}
+\ere
+
+\begin{proof}
+\[
+Q[a][b] = \{x_0 + x_1 b + x_2 b^2 + ... + x_n b^n, \text{where } x_i \in Q[a]\}
+\]
+$n$ is the minimum integer that polynomial $p(b) = 0$ exists. Substitute $x_i$ with the expressions in field $Q[a]$.
+
+\bre
+Q[a][b] & = & \{ y_{0,0} + y_{0,1} a + y_{0,2} a^2 + ... + y_{0,m} a^m\ + \\
+        &   &   (y_{1,0} + y_{1,1} a + y_{1,2} a^2 + ... + y_{1,m} a^m) b\ + \\
+        &   &   ... \\
+        &   &   + (y_{n,0} + y_{n,1} a + y_{n,2} a^2 + ... + y_{n,m} a^m) b^n \}
+\ere
+
+Where $y_{i,j} \in Q$, $m$ is the minimum integer that polynomial $p(a) = 0$ exists.
+
+Without loss of generality, we assume $m < n$ (otherwise, we let $m' = min(m, n), n' = max(m, n)$). We can further convert it as:
+
+\bre
+Q[a][b] & = & \{ y_{0,0} + y_{0,1} a + y_{1,0} b + y_{0,2} a^2 + y_{1,1} ab + y_{2,0} b^2 + ... \\
+        &   &    + y_{0,m} a^m + y_{1,m-1} a^{m-1} b + ... + y_{m, 0} b^m + \\
+        &   &    y_{1,m} a^m b + y_{2, m-1} a^{m-1} b^2 + ... + y_{m, 1} b^{m+1} + ... \\
+        &   &    + y_{n, m} a^m b^n \}
+\ere
+
+This field is formed with all the expressions of $a, b$.
+\end{proof}
+}
+\end{Answer}
+
+\subsection{From Newton, Lagrange to Galois}
+
+The great ideas were advanced by all mankind in history. The Galois theory was not a pearl appeared after one night. Tracing backwards, there were a series of great steps taken by Viète, Newton, Vandermonde, Lagrange, and Gauss. Galois took the torch. Let's look back to understand how Galois developed his idea.
+
+\subsubsection{Symmetric polynomials and Newton's theorem}
+\index{symmetric polynomials}
+
+%\begin{wrapfigure}{L}{0.3\textwidth}
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.5]{img/Isaac_Newton}
+ \captionsetup{labelformat=empty}
+ \caption{Isaac Newton (1642 - 1726)}
+ \label{fig:Isaac-Newton}
+\end{figure}
+%\end{wrapfigure}
+
+Newton is famous for his great discoveries including differential and integral calculus, binomial theorem, classic mechanics, and etc. He made great contribution in pure mathematics as well. He studied more symmetric polynomials after Viète, a portion of his work was published in Newton's {\em Arithmetica Universals} in 1707. Gauss referenced it as `Newton's theorem'. It's hard for people nowadays to understand why Newton did not announce his findings or publish the {\em Mathematical Principles of Natural Philosophy} unless Halley kept encouraging and pushing him. Similar things happened to Newton's theorem, we found below result in his notebook when he was 23 years old (in 1665 or 1666).
+
+Let the 3 roots for cubic equation $x^3 + bx^2 + cx + d = 0$ be $r, s, t$, then
+
+\[
+x^3 + bx^2 + cx + d = (x - r)(x - s)(x -t)
+\]
+
+hold, and:
+
+\bea*{rcl}
+r + s + t & = & -b \\
+r^2 + s^2 + t^2 & = & b^2 - 2c \\
+r^3 + s^3 + t^3 & = & -b^3 + 3bc - 3d \\
+rs + st + rt & = & c \\
+r^2s + s^2t + t^2r + r^2t + t^2s + s^2r = -bc + 3d \\
+... & & ... \\
+r^3s^3t^3 = -d^3
+\eea*
+
+Newton list 19 symmetric polynomials. He even extended the degree to 8 and calculated result for equation $x^8 + px^7 + qx^6 + rx^5 + sx^4 + tx^3 + vx^2 + yx + z = 0$. Among these symmetric polynomials, Newton found some were elementary. Generalize to the equation of degree $n$, there are $n$ roots.
+
+\[
+x^n + b_1 x^{n-1} + b_2 x^{n-2} + ... + b_n = (x - r_1)(x - r_2)...(x - r_n)
+\]
+
+The elementary polynomials are:
+\index{elementary polynomial}
+
+\bea{rcccl}
+\sigma_1 & = & r_1 + r_2 + ... + r_n & = & -b_1 \\
+\sigma_2 & = & r_1r_2 + r_2r_3 + ... + r_{n-1}r_n & = & b_2 \\
+\sigma_3 & = & r_1r_2r_3 + r_1r_2r_4 + ... + r_{n-2}r_{n-1}r_n & = & -b_3 \\
+& & ... & & \\
+\sigma_n & = & r_1r_2...r_n & = & (-1)^nb_n \\
+\eea
+
+Why are they elementary symmetric polynomials? Because Newton found they were basic building blocks, in other words, any symmetric polynomial can be expressed as a combination of the elementary ones. For example, $(a - b)$ is not symmetric (the positive/negative signal changes when exchange $a$ and $b$), but its square is. $(a - b)^2$ can be expressed as:
+
+\bre
+(a - b)^2 & = & (a + b)^2 - 4ab & \text{in two symmetric polynomials} \\
+          & = & \sigma_1^2 - 4\sigma_2 & \text{quadratic elementary symmetric} \\
+\ere
+
+\begin{theorem}
+\textbf{Newton's theorem}: Any polynomial of $r_1, r_2, ..., r_n$ can be expressed with the elementary symmetric polynomials of $\sigma_1, \sigma_2, ..., \sigma_n$.
+\end{theorem}
+\index{Newton's theorem}
+
+\subsubsection{Lagrange resolvent}
+\index{Lagrange resolvent}
+
+We skip the proof of Newton's theorem. Following this direction, the French mathematician Vandermonde and Lagrange studied independently. Lagrange did not know Vandermonde's work, but his method to solve cubic equation was essentially as same as Vandermonde's. His influential paper has 220 pages, we can only introduce a short summary (Galois read this paper\footnote{Réflexions sur la résolution algébrique des équations, published in 1770} at his age of 15). For generic cubic equation $ay^3 + by^2 + cy + d = 0$, let $y = x - b / 3a$ to convert it to $x^3 + px + q = 0$. Its three roots are $r_1, r_2, r_3$. Lagrange also considered the 3rd primitive unity of root $\omega = \dfrac{-1 + i \sqrt{3}}{2}$. From the cyclotomic equation, $\omega^3 = 1, 1 + \omega + \omega^2 = 0$. Lagrange introduced a key concept, {\em resolvent}:
+
+\be
+t = r_1 + \omega r_2 + \omega^2 r_3
+\ee
+
+Lagrange permuted the three roots, and got an interesting finding: although there are 6 permutations, the cubic of $t$ has only two values. The concept of group was not known in 1770, we now know what Lagrange found, is the cubic resolvent $t^3$ has two values under the 6 permutations of group $S_3$:
+
+\[
+\begin{cases}
+t_1^3 = (r_1 + \omega r_2 + \omega^2 r_3)^3 = L^3 & (1) \\
+t_2^3 = (\omega r_1 + \omega^2 r_2 + r_3)^3 = (\omega L)^3 = L^3 & (132) \\
+t_3^3 = (\omega^2 r_1 + r_2 + \omega r_3)^3 = (\omega^2 L)^3 = L^3 & (123) \\
+\end{cases}
+\]
+
+Where the left side is the cubic value of the resolvent, the right side is the permutation in $S_3$. Because $\omega^3 = 1$, for the second row for example: $r_3 \omega^3 = r_3$. It changes all the three roots, corresponding to the permutations $\{(1), (132), (123)\}$ in the invariant (normal) subgroup $C_3$.
+
+\[
+\begin{cases}
+t_4^3 = (r_1 + \omega^2 r_2 + \omega r_3)^3 = R^3 & (23) \\
+t_5^3 = (\omega r_1 + r_2 + \omega^2 r_3)^3 = (\omega R)^3 = R^3 & (12) \\
+t_6^3 = (\omega^2 r_1 + \omega r_2 + r_3)^3 = (\omega^2 R)^3 = R^3 & (13) \\
+\end{cases}
+\]
+
+This group of permutations fixes a root, and exchange the other two, corresponding to the permutations $\{(23), (12), (13)\}$ in the coset. Lagrange next introduced the resolvent equation:
+
+\be
+(X - t_1)(X - t_2)(X - t_3)(X - t_4)(X - t_5)(X - t_6) = 0
+\ee
+
+The 6-degree equation looks complex, actually it can be converted to a quadratic equation. Group the first 3 factors together, and leave the rest three in another group. Where $(X - t_1)(X - t_2)(X - t_3) = (X - L)(X - \omega L) (X - \omega^2 L) = X^3 - L^3$; similarly, the rest three factors can be simplified to $X^3 - R^3$. As such, the resolvent equation changes to $(X^3 - L)(X^3 - R) = 0$. Expand it to:
+
+\be
+X^6 - (L^3 + R^3)X^3 + L^3R^3 = 0
+\ee
+
+Substitute $X^3$ as $Y$, we obtain a quadratic equation $Y^2 -(L^3 + R^3)Y + L^3R^3 = 0$. The sum of the resolvent cubic can be expressed with the coefficients of the original equation:
+
+\be
+\begin{cases}
+L^3 + R^3 = -27q \\
+L^3R^3 = -27p^3 \\
+\end{cases}
+\label{eq:LR-pq}
+\ee
+
+Substitute $p, q$ in, we can solve the $L, R$ from the quadratic equation of $Y$. Revisit the equation $x^3 + px + q = 0$. The coefficient of the quadratic item is 0, from Viète's formula, $r_1 + r_2 + r_3 = 0$. As such, we list three equations:
+
+\be
+\begin{cases}
+r_1 + \omega r_2 + \omega r_3 = L \\
+r_1 + \omega^2 r_2 + \omega r_3 = R \\
+r_1 + r_2 + r_3 = 0 \\
+\end{cases}
+\ee
+
+Solving the equations gives the three roots expressed in Lagrange's resolvent:
+
+\be
+\begin{cases}
+r_1 = \dfrac{\omega^2 L + \omega R}{3} \\
+r_2 = \dfrac{\omega L + \omega^2 R}{3} \\
+r_3 = \dfrac{L + R}{3} \\
+\end{cases}
+\ee
+
+Substitute $L, R$, solve the cubic equation finally. Lagrange's method is significant. Use the quartic equation for example, define the resolvent with the 4-th primitive roots of unity $\pm 1, \pm i$:
+
+\be
+t = r_1 + i r_2 - r_3 - i r_4
+\ee
+
+Below resolvent equation is invariant under the $4! = 24$ permutations in the symmetric group $S_4$:
+
+\be
+\Phi(X) = (X - t_1)(X - t_2)...(X - t_{24})
+\ee
+
+According to Newton's theorem, all its coefficients are known. Lagrange successfully simplified this equation of degree 24 to a cubic equation, and solved the quartic equation. However, Lagrange was stuck when applying his method to the quintic equation. The resolvent equation $\Phi(X) = (X - r_1)(X - r_2) ... (X - r_{120})$ has the degree of $5! = 120$. Lagrange simplified it to lower degree, another quintic equation. But it looped back to the same problem: quintic equation. The next critical step was taken by Galois.
+
+\subsubsection{Galois' memoir}
+\index{irreducible polynomial} \index{minimal polynomial}
+
+We revert the time back to the mid-night on May 29, 1832, try to understand this special, depressed, unbelievable memoir. We skip the proof, illustrate Galois thought with some verification examples. Galois firstly defined what irreducible polynomial was: For polynomial $f(x)$, let the field\footnote{There was no concept of field by that time. Field was defined by German mathematician Dedekind later.} of coefficients be $F$. We say the polynomial reducible if $f(x)$ can be factored in field $F$, else it's irreducible. For example, $x^2 + 1$ is irreducible in rational field $Q$, but it can be factored in complex field $C$ as $(x + i)(x - i)$. For another example, $x^2 - 2$ is irreducible in rational field $Q$, but it can be factored in field extension $Q[\sqrt{2}]$ as $(x + \sqrt{2})(x - \sqrt{2})$. For some element $\alpha$ in field $F$, the monic (the coefficient of the highest degree is 1) irreducible polynomial of lowest degree, such that $\alpha$ is a root, is called the minimal polynomial. For example, $x^2 - 2$ is the minimal polynomial in rational field, having $\sqrt{2}$ as a root. Galois next defined what is known value. From rational field, add specific value and their rational expressions (the $+, -, \times, /$ arithmetic) are known. We known today this is essentially the concept of field extension.
+
+Galois next introduced the concept of group, particularly, he referred to the permutation group. He was the first one used the French word `groupe', and pointed out the composite of two permutations was also a permutation. We know nowadays, Galois was using $S_n$ and the subgroups to permute the roots in their rational expressions. For example, apply $\sigma = (123)$ to rational expression $x_1 x_2 + x_3$, it gives:
+
+\[
+\sigma(x_1 x_2 + x_3) = x_2 x_3 + x_1
+\]
+
+Galois next gave an important fact for irreducible polynomial:
+
+\begin{lemma} Property of the irreducible polynomial: Let $f(x)$ be a polynomial in field $F$, $p(x)$ is an irreducible polynomial in $F$. If there is common root of $f(x)$ and $p(x)$, then $p(x)$ divides $f(x)$.
+\end{lemma}
+
+We can compare this to the integer division: consider the polynomials as integers, the irreducible polynomials as prime numbers. The common root is like the common prime factor. For example, $f(x) = x^3 - 1$ and $p(x) = x^2 + x + 1$, where $p(x)$ is irreducible in rational field. They have two common roots $\omega = \dfrac{-1 + i\sqrt{3}}{2}$:
+
+\[
+\omega^3 - 1 = \omega^2 + \omega + 1 = 0
+\]
+
+$p(x)$ divides $f(x)$ because $x^3 - 1 = (x - 1)(x^2 + x + 1)$.
+
+What Galois next did looked like an extension to Lagrange resolvent, he defined `Galois resolvent'.
+
+\begin{lemma} Galois resolvent $t$: let $f(x)$ is a polynomial in field $F$. Its roots are $x_1, x_2, ..., x_n$. There exists some rational expression of the roots $t = \varphi(x_1, x_2, ..., x_n)$, its value changes under different root permutations.
+\end{lemma}
+
+In other words, the permutation of $n$ roots leads to different values of $t$. For example, $f(x) = x^2 + 1$ in rational field has two roots $x_1 = i, x_2 = -i$, we can find a rational expression:
+
+\[
+t = x_1 - x_2
+\]
+
+It takes different values under the two permutation (1) and (12) in $S_2$:
+
+\[
+\begin{cases}
+t_1 = x_1 - x_2 = 2i & \text{permutation} (1) \\
+t_2 = x_2 - x_1 = -2i & \text{permutation} (12) \\
+\end{cases}
+\]
+
+The two values are different. Galois only said there existed $t$, he also gave the method to construct it through linear combination $t = k_1x_1 + k_2x_2 + ... + k_nx_n$, but did not prove it. Galois excluded the case of duplicated roots, as the value won't change under permutation for duplicated roots. Lagrange expressed the roots with different resolvent values, Galois applied the similar idea.
+
+\begin{lemma} Express root with Galois resolvent $t$: There exists rational expression $\varphi_1(x), \varphi_2(x), ..., \varphi_n(x)$ in field $F$, where the roots $x_1, x_2, ..., x_n$ of polynomial $f(x)$ can be expressed with Galois resolvent $t$:
+
+\[
+x_1 = \varphi_1(t), x_2 = \varphi_2(t), ..., x_n = \varphi_n(t)
+\]
+\end{lemma}
+
+Use the same example, the two roots of $f(x) = x^2 + 1$ are $x_1 = i, x_2 = -i$, the resolvent $t = x_1 - x_2 = 2i$, we can find $\varphi_1(x) = \dfrac{x}{2}, \varphi_2(x) = -\dfrac{x}{2}$, such that the two roots can be expressed with $t$ as:
+
+\[
+x_1 = \dfrac{t}{2}, x_2 = -\dfrac{t}{2}
+\]
+
+As such, Galois linked the root field (splitting field) $F[x_1, x_2, ..., x_n]$ of the equation to the field extension $F[t]$. When permute $n$ roots, Galois resolvent $t$ gets different values. Following Lagrange's idea, $t$ is some root of another resolvent equation $f_t(X) = 0$ (which has many roots).
+
+\begin{lemma}
+In field $F$, construct a minimal polynomial $f_t(X)$ with $t$ as a root, let the roots of $f_t(X)$ be $t_1, t_2, ..., t_m$. Then
+
+\[
+\varphi_1(t_k), \varphi_2(t_k), ..., \varphi_n(t_k)
+\]
+
+is some permutation of the roots of the original equation $f(x) = 0$, where $k = 1, 2, ..., m$.
+\end{lemma}
+
+Note the difference of the two equations: $f(x) = 0$ is the original equation, while $f_t(X) = 0$ is the constructed equation. Where $f_t(X)$ is the minimal polynomial with $t$ as a root. The original equation has $n$ roots $x_1, ..., x_n$, while the resolvent equation has $m$ roots $t_1, t_2, ..., t_m$
+
+\[
+(X - t_1)(X - t_2)...(X - t_m) = 0
+\]
+
+The relationship between them is: $t = \varphi(x_1, ..., x_n)$, and $x_i = \varphi_i(t)$. Consider equation $x^3 - x^2 - 2x + 2 = 0$ for example, there are three roots $1, \pm \sqrt{2}$. As the first step, construct the Galois resolvent $t = \varphi(x_1, x_2, x_3) = x_1 + 2x_2 + 4x_3$. It has 6 different values when apply $S_3$:
+
+\btab{c|c|l}
+permutation & $\varphi(x_1, x_2, x_3)$ & $t$ \\
+\hline
+(1, 2, 3) & $x_1 + 2x_2 + 4x_3$ & $1 - 2\sqrt{2}$ \\
+(1, 3, 2) & $x_1 + 2x_4 + 4x_2$ & $1 + 2\sqrt{2}$ \\
+(2, 1, 3) & $x_2 + 2x_1 + 4x_3$ & $2 - 3\sqrt{2}$ \\
+(2, 3, 1) & $x_2 + 2x_3 + 4x_1$ & $4 - \sqrt{2}$ \\
+(3, 1, 2) & $x_3 + 2x_1 + 4x_2$ & $2 + 3\sqrt{2}$ \\
+(3, 2, 1) & $x_3 + 2x_2 + 4x_1$ & $4 + \sqrt{2}$ \\
+\etab
+
+Step two: select $t = 1 - 2\sqrt{2}$ and the first three rows to form equations:
+
+\[
+\begin{cases}
+x_1 + 2x_2 + 4x_3 & = 2t \\
+x_1 +  x_3 + 4x_2 & = 2 - t \\
+x_2 + 2x_1 + 4x_3 & = \dfrac{3t + 1}{2}
+\end{cases}
+\]
+
+Solve the equations and use $t$ to express 3 roots:
+
+\[
+\begin{cases}
+x_1 = \varphi_1(t) = 1 \\
+x_2 = \varphi_2(t) = \dfrac{1-t}{2} \\
+x_3 = \varphi_3(t) = \dfrac{t-1}{2} \\
+\end{cases}
+\]
+
+Step three: use $t = 1 - 2\sqrt{2}$ as a root to construct a minimal polynomial $f_t(X) = X^2 - 2X - 7$. It has two  roots: $t_{1,2} = 1 \pm 2\sqrt{2}$. Substitute $\varphi_1(t), \varphi_2(t), \varphi_3(t)$ to generate two permutations:
+
+\btab{c|c|c}
+$t_i$ & $\varphi_1(t_i), \varphi_2(t_i), \varphi_3(t_i)$ & permutation in $S_3$ \\
+\hline
+$t_1$ & $1, \sqrt{2}, -\sqrt{2}$ & (1) \\
+$t_2$ & $1, -\sqrt{2}, \sqrt{2}$ & (23) \\
+\etab
+
+We can see the influence from Lagrange. However, Galois resolvent is not given in a fixed way, Galois only said it existed. The resolvent equation was also defined with its existence by the minimal polynomial. There is another difference from Lagrange's method, $m$ does not necessarily equal to $n!$. Galois realized not all permutations in $S_n$ acting equally, some special permutation reflected the symmetry of the equation, as such he introduced Galois group.
+\index{Galois group}
+
+\begin{definition}
+Galois group of a equation: Use the roots of polynomial $f(x)$ in field $F$, we can construct rational expression $r$. If the value of $r$ is in $F$, then it is {\em known} value ($r \in F$). When permute the roots with some $\sigma$, and the value of $r$ is unchanged, then $r$ is{\em  invariant} ($\sigma(r) = r$). For all such $r$, there exists group $G$ satisfying the following property:
+
+\begin{center}
+$r$ value is unchanged under all permutations in $G$ $\iff$ $r$ value is known.
+\end{center}
+
+The permutation group $G$ is the Galois group of the equation $f(x) = 0$ in field $F$.
+\end{definition}
+
+It can be summarized as `If invariant, then known; if known then invariant.' \cite{JieChengHao2021} There are several key points: first, $r$ is a rational expression, but not a rational number. It applies $+, -, \times, /$ to variables, with all coefficients in $F$. For example, $r = \dfrac{3a^2 + 2b + 1}{a^2 - 2b}$. All coefficients are in $Q$. When assign values to these variables, the value of $r$ may be in $F$, then it's known; the value may not be in $F$, then it's unknown. For example,  let $a = 1, b = \sqrt{2}$, then $r = -\dfrac{12}{7} - \dfrac{10\sqrt{2}}{7}$, it's unknown in field $Q$, but it's known in field extension $Q[\sqrt{2}]$.
+
+Consider equation $x^2 - 2x - 1 = 0$ for example, the two roots are $1 \pm \sqrt{2}$. The Galois group in rational field $Q$ is $S_2 = \{(1), (12)\}$, including the identity $e = (1)$ and transpose $(12)$. As any rational expression is unchanged under identity permutation, we only focus on the transpose permutation (12). If a rational expression $r$ is unchanged when swap the two variables, it must be symmetric polynomial. From Newton's theorem, it can be expressed with the primitive symmetric polynomials $x_1x_2 = -1$ and $x_1 + x_2 = 2$, hence is rational number, and known value. Revisit the previous example, the Galois group of equation $x^3 - x^2 - 2x + 2 = 0$ is $\{(1), (23)\}$, including the identity permutation, and another one that fixes the first root, and exchange the other two roots: $\pm \sqrt{2}$. It's a subgroup of $S_3$.
+
+\begin{Exercise}\label{ex:resolvent-and-galois-group}
+\Question{Deduce (\ref{eq:LR-pq}), give the relation between Lagrange resolvent and the coefficients of the original equation. Hint: consider the fact $(L + R)(L + \omega R)(L + \omega^2 R)$.}
+
+\Question{Verify the Galois group of the equation $x^3 - x^2 - 2x + 2 = 0$ is $\{(1), (23)\}$. Hint: verify `if known, then invariant, if invariant then known'.}
+\end{Exercise}
+
+\begin{Answer}[ref={ex:resolvent-and-galois-group}]
+\Question{Deduce (\ref{eq:LR-pq}), give the relation between Lagrange resolvent and the coefficients of the original equation. Hint: consider the fact $(L + R)(L + \omega R)(L + \omega^2 R)$.
+
+Expand $(L + R)(L + \omega R)(L + \omega^2 R)$, and consider $1 + \omega + \omega^2 = 0$, we have:
+
+\[
+(L + R)(L + \omega R)(L + \omega^2 R) = L^3 + R^3
+\]
+
+Use $L, R$ to express the three roots $r_1, r_2, r_3$, we have:
+
+\[
+\begin{cases}
+L + R & = 3r_3 \\
+L + \omega R & = 3 \omega^2 r_2 \\
+L + \omega^2 R & = 3 \omega r_1 \\
+\end{cases}
+\]
+Substitute in above equation, and use $\omega^3 = 1$, we have:
+
+\bea*{rcll}
+L^3 + R^3 & = & 27 r_1 r_2 r_3 & \text{代入}r_1, r_2, r_3 \\
+          & = & -27q & \text{Vieta's theorem}
+\eea*
+
+Next evaluate $LR$:
+\bea*{rcll}
+LR & = & (r_1 + \omega r_2 + \omega^2 r_3)(r_1 + \omega^2 r_2 + \omega r_3) & \text{definition of} L, R \\
+   & = & (r_1^2 + r_2^2 + r_3^2) + (\omega + \omega^2)(r_1r_2 + r_2r_3 + r_1r_3) & \text{expand} \\
+   & = & (r_1^2 + r_2^2 + r_3^2) - (r_1r_2 + r_2r_3 + r_1r_3) & 1 + \omega + \omega^2 = 0 \\
+   & = & -2p - p & \text{Newton's notes} \\
+   & = & -3p
+\eea*
+Therefore: $L^3R^3 = -27p^3$.
+}
+
+\Question{Verify the Galois group of the equation $x^3 - x^2 - 2x + 2 = 0$ is $\{(1), (23)\}$. Hint: verify `if known, then invariant, if invariant then known'.
+
+We skip the identity $(1)$, only verify permutation $(23)$. We know the three roots are $1, \pm \sqrt{2}$. The equation can be factored as $(x - 1)(x^2 - 2) = 0$. From the section of field extension, all rational expressions of the three roots are in the form of $r = a + b\sqrt{2}$. If $r$ is known,  then $b = 0$. In other words $r \in Q[\pm 1, \pm 2]$ can be expressed with the coefficients of the equation. While the coefficients are primitive symmetric polynomials, they are unchanged under the transpose $(23)$.
+
+Conversely, permutation $(23)$ swaps $\pm \sqrt{2}$, it flip the sign of $\sqrt{2}$ in expression $a + b\sqrt{2}$. If unchanged, then $a + b \sqrt{2} = a - b \sqrt{2}$, hence $b = 0$. The rational number $a$ is known.
+}
+\end{Answer}
+
 \subsection{Automorphism and Galois group}
+\index{Emil Artin}
 
-Our thought so far is to start from the rational number field, where the coefficients of the equation belong to, then move forward to the splitting field step by step through a series of radical extensions. How to further simplify the problem to find the answer? At this stage, Galois changed his mind to another direction. He turned to consider the symmetry among the roots of the equation. For example, There is a pair of roots for equation $x^2 - 2 = 0$, which are $\pm \sqrt{2}$. Obviously, if replace $\sqrt{2}$ with $-\sqrt{2}$, the equation still holds. Besides that, replacing $\sqrt{2}$ in equation $\sqrt{2}^2 + \sqrt{2} + 1 = 3 + \sqrt{2}$ with $-\sqrt{2}$, then the equation holds too. It means, the pair of roots $\pm \sqrt{2}$ is symmetric to the relation $\alpha^2 + \alpha + 1 = 3 + \alpha$. We can further say, for any expressions that only consist of addition and multiplication of $\sqrt{2}$, the pair of roots can be exchanged with each other. We know that the most powerful tool to describe symmetry is group, in particular, the symmetric group (we just introduced it in section \ref{symmetric group}). To connect field extension and group, Galois introduced an important concept of field automorphism.
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.4]{img/emil-artin}
+ %\captionsetup{labelformat=empty}
+ \caption{Emil Artin 1898 - 1962}
+ \label{fig:Emil-Artin}
+\end{figure}
+% https://milwaukeearmenians.com/2015/12/19/emil-artin/
 
-Using the same example of $Q[\sqrt{2}]$, we can define a function from $Q[\sqrt{2}]$ to $Q[\sqrt{2}]$ with type $f: Q[\sqrt{2}] \to Q[\sqrt{2}]$. The definition is as this:
+In 1938, German mathematician Emil Artin refined Galois's idea on top of field, and gave the modern form of Galois theory. Compare Artin's version and Galois' original one, we see how Galois theory gradually changed to be clear, concise, and elegant. For example, equation $x^2 - 2 = 0$ has two roots $\pm \sqrt{2}$. It's obviously that the equation holds when substitute $\sqrt{2}$ with $-\sqrt{2}$. What's more, $\sqrt{2}^2 + \sqrt{2} + 1 = 3 + \sqrt{2}$ also holds with this substitution. In other words, the expression $\alpha^2 + \alpha + 1 = 3 + \alpha$ is symmetric under $\pm \sqrt{2}$. Any equation of rational expression of $\sqrt{2}$ holds when transpose $\pm \sqrt{2}$. We know group is the best tool for symmetry, this is the reason why Galois introduced symmetric group to study equation. Artin found the relationship link Galois group to field automorphism. Consider field extension $Q[\sqrt{2}]$, define a function from $Q[\sqrt{2}]$ to itself: $f: Q[\sqrt{2}] \to Q[\sqrt{2}]$. It flip the sign of $\sqrt{2}$:
 
 \[
 f(a + b \sqrt{2}) = a - b \sqrt{2}
@@ -1975,57 +3018,164 @@ Then $f$ is a field automorphism.
 \textbf{Field Automorphism} is a invertible function $f$, that maps the field to itself. It satisfies $f(x + y) = f(x) + f(y)$，$f(ax) = f(a) f(x)$，$f(1/x) = 1/f(x)$.
 \end{definition}
 
-We can verify the example function $f(a + b \sqrt{2}) = a - b \sqrt{2}$ satisfies all the three conditions. The idea behind field automorphism is that, we can permute some elements in the field without any impact to the field structure.
+We can verify the example function $f(a + b \sqrt{2}) = a - b \sqrt{2}$ satisfies all the three conditions. Flipping the sign is equivalent to permute the roots $x_{1,2} = \pm \sqrt{2}$. The idea behind field automorphism is that, we can permute some elements in the field without any impact to the field structure.
 
 \begin{definition}
 $F$-Automorphism: If $E$ is field extension of $F$, the automorphism $f$ of field $E$ also satisfy an extra condition, that for any element in $F$, equation $f(x) = x$ holds, then it is called $F$-automorphism of $E$.
 \end{definition}
 
-The symmetry among roots is precisely defined under the $F$-automorphism. All the elements in $F$ keep unchanged, while all the new elements, and only these new elements in filed extension $E$ are changed. The changing among the elements in the field exactly means permutation, while the relations keep unchanged after permutation exactly means symmetry. For the example of $Q[\sqrt{2}]$, there are only two functions in $Q$-automorphism: one is the identity function $g(x) = x$, the other is $f$ we defined above.
+The symmetry of roots is precisely defined under the $F$-automorphism. All the elements in $F$ keep unchanged, while all the new elements, and only these new elements in filed extension $E$ are changed. It well explains `If known then invariant; if invariant then known' found by Galois. An element is known, i.e. $x \in F$ if and only if it is unchanged under automorphism, i.e. $f(x) = x$. The changing among the elements in the field exactly means permutation, while the relations keep unchanged after permutation exactly means symmetry. For the example of $Q[\sqrt{2}]$, there are only two $Q$-automorphisms: one is the identity function $e(x) = x$, the other is $f(a + b\sqrt{2}) = a - b\sqrt{2}$. They form a group $\{e, f\}$, which is isomorphic to cyclic group $C_2$ and symmetric group $S_2$. We can write it as $\{f, f^2\}$ because $f^2 = f \cdot f = e$; we can also write it as permutations $\{(1), (1\ 2)\}$, where (1) keeps the two roots unchanged, and (12) transpose them.
 
-Let us summarize the result we obtained so far with the example $p(x) = x^2 - 2$:
+For another example, the splitting field of equation $x^4 - 5x^2 + 6 = 0$ is $Q[\sqrt{2}, \sqrt{3}]$. There is automorphism $f$ to transpose $\pm \sqrt{2}$. To transpose $\pm \sqrt{3}$, we can also define an automorphism $g(a + b\sqrt{3}) = a - b\sqrt{3}$. However, there does not exist any $Q$-automorphism can transpose $\sqrt{2}$ and $\sqrt{3}$. Otherwise, assume there is $h(\sqrt{2}) = \sqrt{3}$, then $h(\sqrt{2})^2 = h(\sqrt{2}^2) = h(2) = 2$. This is because $h$ preserve multiplication structure, and from the definition of automorphism, $h(x) = x$ for any rational number $x$. Since $h(\sqrt{2}) = \sqrt{3}$, then $h(\sqrt{2})^2 = \sqrt{3}^2 = 3$, and we have $2 = 3$ which is absurd. It tells the fact, not all permutations in $S_4$ reflect the symmetry of the given equation. There are four automorphisms: $\{e, f, g, f \cdot g\}$, they correspond to identity, $f$ to transpose $\pm \sqrt{2}$, $g$ to transpose $\pm \sqrt{3}$, and the combination to transpose two pairs $f \cdot g$. They form a group.
 
-\begin{enumerate}
-\item The splitting field of $p(x)$ is $Q[\sqrt{2}]$;
-\item The $Q$-automorphism defines the symmetry of the roots of $p(x)$. It contains two functions: $f(a + b\sqrt{2}) = a - b\sqrt{2}$, and $g(x) = x$.
-\end{enumerate}
-
-However, we can't ensure the symmetry to all roots if only extend to the splitting field. For example, the splitting field of equation $x^4 - 5x + 6 = 0$ is $Q[\sqrt{2}, \sqrt{3}]$. Although there is automorphism $f$ that swaps (permute) $\pm \sqrt{2}$, there does not exist $Q$-automorphism permutes $\sqrt{2}$ and $\sqrt{3}$. Otherwise, suppose there was $f(\sqrt{2}) = \sqrt{3}$, then $f(\sqrt{2})^2 = f(\sqrt{2}^2) = f(2) = 2$, because $f$ preserves multiplicative structure and $f(x) = x$ for rational $x$. On the other hand, since $f(\sqrt{2}) = f(\sqrt{3})$, we have $f(\sqrt{2})^2 = \sqrt{3}^2 = 3$. It means $2 = 3$, which is clearly nonsense. Besides that, consider field extension $Q[x_1, ..., x_n, \sqrt{x_1}]$, it contains the square root of $x_1$, but does not contain the square root of $x_2$. Therefore, there is not automorphism that permutes $x_1$ and $x_2$. In order to obtain the complete symmetry, we need keep extending the field with $\sqrt{x_2}, ..., \sqrt{x_n}$.
-
-\begin{theorem}
-For each radical extension $E$ of $Q[x_1, ..., x_n]$, there exists a bigger radical extension $E \subseteq \overline{E}$ with automorphisms $\sigma$ extending all permutations of $x_1, ..., x_n$.
-\end{theorem}
-
-With this, we connected the field extension with automorphism. If we put all the automorphisms together as a set, using composition as the binary operation, and let the identity function be the identity element, we obtain a group, named Galois group.
+Now we link field extension to automorphism. Put all the automorphisms in a set, define the morphism composition as the binary operation, the identity as the unit. Artin gave the new definition of Galois group.
 
 \index{Galois group}
 \begin{definition}
-\textbf{Galois group}: For field extension $E$ from $F$, there is a set $G$ contains all the $F$-automorphisms of $E$. For any two $F$-automorphisms $f$ and $g$ in $G$, define the binary operation as $(f \cdot g)(x) = f(g(x))$. We define $G$ as the Galois group of field extension $E/F$. Denoted as $Gal(E/F)$.
+\textbf{Galois group}: For field extension $E$ from $F$, there is a set $G$ of all the $F$-automorphisms of $E$. For any two $F$-automorphisms $f$ and $g$ in $G$, define the binary operation as $(f \cdot g)(x) = f(g(x))$. We define $G$ as the Galois group of field extension $E/F$. Denoted as $Gal(E/F)$.
 \end{definition}
-
-We still use $p(x) = x^2 - 2$ for example. Galois group $G = Gal(p) = \{f, g\}$, contains two elements, one is $f(a + b\sqrt{2}) = a - b\sqrt{2}$, the other is $g(x) = x$. Where the identity element is $g$. Let's verify if $f \cdot f = g$:
-
-\[
-\begin{array}{rll}
-(f \cdot f)(a + b\sqrt{2}) & = f(f(a + b\sqrt{2})) & \text{Composition} \\
-  & = f(a - b\sqrt{2}) & \text{Definition of $f$ for inner parenthesis} \\
-  & = a + b\sqrt{2} & \text{Definition of $f$ again} \\
-  & = g(a + b\sqrt{2}) & \text{Definition of identity function $g$}
-\end{array}
-\]
-
-We do see that $G$ is a group. It's isomorphic (identical) to a 2-cycle cyclic group, and is also isomorphic to the degree 2 symmetric group $S_2$. This group can be written as $\{f, f^2\}$, since $f^2 = f \cdot f = 1$ is the identity element. It can also be written as the permutation group $\{(1), (1\ 2)\}$, where (1) keeps the two roots unchanged, and (1 2) swaps the two roots.
 
 \begin{mdframed}
 It's a critical idea to study the equation through the symmetry of its roots in Galois theory. By using the concept of automorphism, we can give the definition symmetry: in mathematics, the symmetry of object is the automorphism to the object itself while preserving all of its structure.
 \end{mdframed}
 
-\begin{Exercise}
+\begin{Exercise}\label{ex:automorphism}
 \Question{Prove that, for any polynomial $p(x)$ with rational coefficients, $E/Q$ is the field extension, $f$ is the $Q$-automorphism of $E$, then equation $f(p(x)) = p(f(x))$ holds.}
 \Question{Taking the complex number into account, what is the splitting field for polynomial $p(x) = x^4-1$? What are the functions in its $Q$-automorphism?}
 \Question{What's the Galois group for quadratic equation $x^2 - bx + c = 0$?}
 \Question{Prove that, if $p$ is prime number, then Galois group for equation $x^p - 1$ is the ($p-1$)-cycle cyclic group $C_{p-1}$.}
+\Question{Let $\alpha$ be a root of equation $x^3 + x^2 - 4x + 1$, verify that $2 − 2\alpha - \alpha^2$ is also a root. What's the Galois group of this equation in rational field?}
 \end{Exercise}
+
+\begin{Answer}[ref = {ex:automorphism}]
+\Question{Prove that, for any polynomial $p(x)$ with rational coefficients, $E/Q$ is the field extension, $f$ is the $Q$-automorphism of $E$, then equation $f(p(x)) = p(f(x))$ holds.
+
+\begin{proof}
+Because $f$ is automorphism, we have:
+
+\[
+f(x + y) = f(x) + f(y), f(ax) = f(a) f(x), f(1/x) = 1 / f(x)
+\]
+
+Further, since $f$ is $Q$-automorphism, we have:
+
+\[
+ f(x) = x, \forall x \in Q
+\]
+
+Let $p(x) = a_0 + a_1 x + ... + a_n x^n$, where $a_i \in Q$, then:
+
+\bea*{cll}
+  & f(p(x)) & \\
+= & f(a_0 + a_1 x + ... + a_n x^n) \\
+= & f(a_0) + f(a_1 x) + ... + f(a_n x^n) & f(x + y) = f(x) + f(y) \\
+= & f(a_0) + f(a_1) f(x) + f(a_2) f(x)^2 + ... + f(a_n) f(x)^n & f(ax) = f(a) f(x) \\
+= & a_0 + a_1 f(x) + a_2 f(x)^2 + ... + a_n f(x)^n & f(x) = x, \forall x \in Q \\
+= & p(f(x)) & \\
+\eea*
+\end{proof}
+}
+\Question{Taking the complex number into account, what is the splitting field for polynomial $p(x) = x^4-1$? What are the functions in its $Q$-automorphism?
+
+There are four roots for polynomial $x^4 -1$. They are $\pm 1, \pm i$. We can factor the polynomial to $p(x) = (x + 1)(x - 1)(x + i)( x - i)$. Actually, the splitting field of $p(x)$ is not complex number field $C$. It is too big. The splitting field is $Q[i]$.
+
+There are two transformations in this $Q$-automorphism. One is $f(a + bi) = a - bi$, the other is the identity transformation $g(x) = x$.
+}
+\Question{What's the Galois group for quadratic equation $x^2 - bx + c = 0$?
+
+We know the two roots for quadratic equation are:
+
+\[
+x_1, x_2 = \dfrac{b \pm \sqrt{b^2 - 4c}}{2}
+\]
+
+There are three cases: (1) there exists a rational number, such that $b^2 - 4c = r^2$. There are two rational roots (including duplicated ones) in this case; (2) No such rational number. Equation is not solvable in rational field, but there are real roots; (3) the discriminant is negative, hence the equation is not solvable in real field. But there are complex roots. Let's see the corresponding Galois groups for these three cases:
+
+Case 1: there are two rational roots $\dfrac{b \pm r}{2}$. There is only one element in its Galois group, which is the identity automorphism $f(x) = x$.
+
+Case 2: there are two irrational roots $\dfrac{b \pm \sqrt{d}}{2}$. There are two elements in its Galois group. One is the automorphism $f(p + q \sqrt{d}) = p - q \sqrt{d}$, where $p, q$ are rationals; the other is the identity transformation.
+
+Case 3: There are two complex roots $\dfrac{b \pm i \sqrt{d}}{2}$. There are two elements in its Galois group. One is the automorphism $f(p + q i) = p - q i$, where $p, q$ are real numbers; the other is the identity transformation.
+
+Actually, in case 2 and 3, their Galois groups are isomorphic in the splitting field. Note that $f(f(x)) = x$. It is isomorphic to the group of two elements ${0, 1}$ under the addition modulo 2. It is also isomorphic to the cyclic group $C_2$ or $\pmb{Z}/2\pmb{Z}$. Where the notation $\pmb{Z}/2\pmb{Z}$ means the quotation group of integers under addition $\pmb{Z}$ and its sub-group of even numbers $2\pmb{Z}$.
+}
+\Question{Prove that, if $p$ is prime number, then Galois group for equation $x^p - 1$ is the ($p-1$)-cycle cyclic group $C_{p-1}$.
+
+The $p$ roots of $x^p - 1$ are the points along the unit circle in complex plane, i.e. $1, \omega, \omega^2, ..., \omega^{p-1}$. They can be expressed in form of $e^{2 \pi k i / p}$. The splitting field is $Q[\omega]$.
+
+Consider automorphism $f$ as an element in Galois group $Gal(Q[\omega]/Q)$. According to the definition of automorphism, we have:
+
+\[
+f(\omega)^k = f(\omega^k) = 1 \iff \omega^k = 1
+\]
+
+It means $f(\omega)$ is also a $p$-th root of unity (a root of equation $x^p - 1 = 0$\footnote{If $p$ is not a prime number, but an integer $n$ greater than 1, then the $k$-th power of the $m$-th root is $\zeta_m^k = e^{2 \pi m k i / n}$. There may exist some $k < n$, such that $\zeta_m^k = 1$. Actually, it holds as far as $n$ divides $mk$. However, if $n$ is a prime number $p$, then $k$ can't be less than $p$, but must be multiplicand of $p$.}). Denote:
+
+\[
+f(\omega) = h_i(\omega) = \omega^{i}
+\]
+
+If $f(\omega)$ is the $i$-th root of unity, we name it as $h_i$, where $1 \leq i \leq p-1$ (why $i$ can't be 0?). In this way, we establish a one-to-one mapping from Galois group to cyclic group $C_{p-1}$:
+
+\[
+Gal(Q[\omega]/Q) \arrowto{\sigma} C_{p-1} :  \sigma(h_i) = i
+\]
+
+Where the Galois group contains $p-1$ automorphisms $\{h_1, h_2, ..., h_{p-1}\}$, hence it has the same order as the cyclic group $C_{p-1}$.
+
+Next we prove this is a group isomorphism.
+
+\[
+(h_i \cdot h_j)(\omega) = h_i(h_j(\omega)) = h_i(\omega^j) = \omega^{ji} = \omega^{ij}
+\]
+
+hence
+
+\[
+\sigma(h_i \cdot h_j) = ij = \sigma(h_i) \cdot \sigma(h_j)
+\]
+
+And $h_1(\omega)$ is the generator of this cyclic Galois group.
+
+\begin{mdframed}
+Here are two different groups that often cause confusion. The first one is the group of integers under addition modulo $n$. It's a cyclic group, containing the residue class modulo $n$ of \{ 0, 1, 2, ..., $n - 1$\}, total $n$ elements. This group is often denoted as $\pmb{Z}/n\pmb{Z}$. It is isomorphic to the group formed with the $n$ roots of equation $x^n - 1 = 0$. The elements are the $n$-th root of unity $\{1 = \zeta_n^0, \zeta_n^1, \zeta_n^2, ..., \zeta_n^{n-1}\}$. The binary operation is multiplication.
+
+\vspace{5mm}
+
+The second group is integers under multiplication modulo $n$. The group elements are not all the residues from 0 to $n-1$, but all the ones coprime to $n$. The group operation is modulo multiplication. Denoted as $(\pmb{Z}/n\pmb{Z})^{\times}$. There are total $\upphi(n)$ elements, where $\upphi$ is Euler's totient function. When $n$ is prime $p$, there are $\{1, 2, ..., p-1\}$, total $p-1$ group elements. However, the multiplicative group modulo $n$ is not necessary cyclic. Luckily it is cyclic when $n$ is prime. An interesting fact is that $(\pmb{Z}/p\pmb{Z})^{\times}$ is isomorphic to the additive group $\pmb{Z}/(p-1)\pmb{Z}$.
+
+\vspace{5mm}
+
+This exercise tells us: For the Galois group in rational field extension, if it is generated by $n$-th root of unity, then this group is isomorphic to the multiplicative group of integers modulo $n$, i.e. $(\pmb{Z}/n\pmb{Z})^{\times}$. For example, the cubic equation $x^3 -1 = 0$ has three roots $\{1, \dfrac{-1 \pm i \sqrt{3}}{2}\}$. Its Galois group contains two automorphisms. One is $f(x) = x$, which is corresponding to $h_1(\omega) = \omega^1$; the other is $g(a + bi) = a - bi$, which is corresponding to $h_2(\omega) = \omega^2$. The effect of $h_2$ is transform the order of the three roots from $1, 2, 3$ to $1, 3, 2$.
+
+\[
+\begin{array}{l}
+1 \mapsto 1^2 = 1 \\
+\omega \mapsto \omega^2 \\
+\omega^2 \mapsto (\omega^2)^2 = \omega^3 \omega = \omega \\
+\end{array}
+\]
+
+\end{mdframed}
+}
+\Question{Let $\alpha$ be a root of equation $x^3 + x^2 - 4x + 1$, verify that $2 − 2\alpha - \alpha^2$ is also a root. What's the Galois group of this equation in rational field?
+
+% from: https://math.stackexchange.com/questions/850818/find-the-galois-group-of-the-polynomial-when-a-root-is-given
+Let $f(x) = x^3 + x^2 - 4x + 1$, then $f(\alpha) = 0$ holds. We can verify $f(2 - 2\alpha - 2\alpha^2) = 0$. Next let $g(\alpha) = 2 - 2\alpha - 2\alpha^2$, we can verify the following:
+
+\bea*{rcll}
+g^2(\alpha) & = & g(2 - 2\alpha - 2\alpha^2) & \\
+            & = & \alpha^3 + \alpha - 3 & f(\alpha) = 0 \\
+\eea*
+
+\bea*{rcll}
+g^3(\alpha) & = & g(\alpha^3 + \alpha - 3) &  \\
+            & = & \alpha & f(\alpha) = 0\\
+\eea*
+
+Therefore, $G = \{e, g, g^2\}$. It's the cyclic group $C_3$.
+}
+\end{Answer}
 
 \subsection{Fundamental theorem of Galois theory}
 \index{Fundamental theorem of Galois theory}
@@ -2033,12 +3183,12 @@ It's a critical idea to study the equation through the symmetry of its roots in 
 We come to the center of Galois theory. Starting from the equation coefficient field $F$, we keep extending the fields to the splitting field $F \subset F_1 \subset F_2 ... \subset E$. The corresponding Galois group is $Gal(E/F)$. Galois found, there was one to one correspondence between the Galois subgroups and its intermediate fields $F_1, F_2, ...$ in the reversed order.
 
 \begin{theorem}
-\textbf{Fundamental theorem of Galois theory}: If $E/F$ is field extension\footnote{Strictly speaking, it should be Galois extension, we skipped the definition of Galois extension here.}, $G$ is the corresponding Galois group. There is one to one correspondence between subgroups of $G$ and intermediate fields. If $F \subset L \subset E$, and $Gal(E/L) = H$, then $H$ is the subgroup of $Gal(E/F)$.
+\textbf{Fundamental theorem of Galois theory}: If $E/F$ is normal extension, $G$ is the corresponding Galois group. There is one to one correspondence between subgroups of $G$ and intermediate fields. If $F \subset L \subset E$, and $Gal(E/L) = H$, then $H$ is the subgroup of $Gal(E/F)$.
 \end{theorem}
 
 The reason why it's in reversed order is because the group gets smaller when extend the field. The starting point of field extension is $F$, the corresponding Galois group is $G = Gal(E/F)$; the end point is the splitting field $E$, while the corresponding group only contains one element, which is the identity permutation $\{1\}$. For the intermediate field $L$, the corresponding group is $H = Gal(E/L)$. It's a subgroup, $Gal(E/L) \subset Gal(E/F)$. If $H$ is a normal subgroup (refer to previous section \ref{normal-subgroup}), then its quotient group is $G/H = Gal(L/F)$.
 
-Let us see a concrete example\cite{MArtin} (pp. 490). Consider equation $x^4 - 8x^2 + 15 = 0$, it can be factored as $(x^2 - 3)(x^2 - 5) = 0$. The coefficients are in rational field $Q$, the splitting field is $E = Q[\sqrt{3}, \sqrt{5}]$. The order of its Galois group $Gal(E/Q)$ is 4. It is isomorphic to a 4-cycle cyclic group. We can find 3 intermediate field extensions: $Q[\sqrt{3}]$, $Q[\sqrt{5}]$, and $Q[\sqrt{15}]$. The Galois subgroup orders corresponding to all these 3 intermediate fields are 2. While the Galois group of the equation, which is the 4-cycle cyclic group only has one subgroup of order 2. Besides that, it hasn't any other non-trivial subgroups. According to the fundamental theorem of Galois theory, we know there is no other field extension besides those 3 intermediate field extensions. We can consider it from another view point. All elements in the splitting field are in the form of $\alpha = a + b\sqrt{3} + c\sqrt{5} + d\sqrt{15}$, where $a, b, c, d$ are rational numbers. For any elements in the 3 intermediate field extensions, among $b, c, d$, there are at least two are 0.
+For example, equation $x^4 - 8x^2 + 15 = 0$, it can be factored as $(x^2 - 3)(x^2 - 5) = 0$. The coefficients are in rational field $Q$, the splitting field is $E = Q[\sqrt{3}, \sqrt{5}]$. its Galois group $Gal(E/Q)$ is isomorphic to a Klein four group (with order 4), often denoted as $V$ or $K_4$. We can find 3 intermediate field extensions: $Q[\sqrt{3}]$, $Q[\sqrt{5}]$, and $Q[\sqrt{15}]$. The Galois subgroup orders corresponding to all these 3 intermediate fields are 2. While the Galois group of the equation, which is the Klein four group only has one subgroup of order 2. Besides that, it hasn't any other non-trivial subgroups. According to the fundamental theorem of Galois theory, we know there is no other field extension besides those 3 intermediate field extensions. We can consider it from another view point. All elements in the splitting field are in the form of $\alpha = a + b\sqrt{3} + c\sqrt{5} + d\sqrt{15}$, where $a, b, c, d$ are rational numbers. For any elements in the 3 intermediate field extensions, among $b, c, d$, there are at least two are 0.
 
 \begin{figure}[htbp]
 \centering
@@ -2113,206 +3263,275 @@ The composite morphism $f \cdot g$ negates $\sqrt{3}$ and $\sqrt{5}$ at the same
 \begin{figure}[htbp]
 %\begin{wrapfigure}{R}{0.4\textwidth}
 \centering
-\begin{tikzpicture}[scale=0.7]
-\filldraw[fill=gray, draw=gray] (-1, -2) rectangle (1, 2)
-    (-2, -0.5) rectangle (2, 0.5);
-\end{tikzpicture}
-\captionsetup{labelformat=empty}
+\includegraphics[scale=0.4]{img/K4}
 \caption{Klein four group. Symmetric when flip horizontally, vertically, or flip at the same time.}
 \label{fig:Klein-four-group}
 %\end{wrapfigure}
 \end{figure}
 
-In addition to the identity morphism 1, for the base field $Q$, there are four elements in its Galois group: $G = \{1, f, g, (f \cdot g)\}$. This group is isomorphic to Klein four group, while the Klein group is the product of two 2-cycle cyclic groups. It has 5 subgroups, each is corresponding to a field extension:
+In addition to the identity morphism 1, for the base field $Q$, there are four elements in its Galois group: $G = \{1, f, g, (f \cdot g)\}$. This group is isomorphic to Klein four group $V$, and $V$ is the product of two cyclic groups $C_2$. It has 5 subgroups, each is corresponding to a field extension:
 
-\begin{itemize}
+\begin{enumerate}
 \item The subgroup only contains the identity element $\{1\}$, it corresponds to the splitting field $Q[\sqrt{3}, \sqrt{5}]$;
 \item $G$ itself, corresponds to the rational field $Q$;
 \item Order 2 subgroup $\{1, f\}$, corresponds to field extension $Q[\sqrt{5}]$. $f$ only negates $\sqrt{3}$ and leaves $\sqrt{5}$ unchanged;
 \item Order 2 subgroup $\{1, g\}$, corresponds to field extension $Q[\sqrt{3}]$. $g$ only negates $\sqrt{5}$ and leaves $\sqrt{3}$ unchanged;
 \item Order 2 subgroup $\{1, (f \cdot g)\}$, corresponds to field extension $Q[\sqrt{15}]$. $(f \cdot g)$ negates $\sqrt{5}$ and $\sqrt{3}$ at the same time, and leaves $\sqrt{15}$ unchanged.
-\end{itemize}
+\end{enumerate}
 
-We can also write the Galois group of this equation in the form of permutation group \{(1), (1 2), (3 4), (1 2)(3 4)\}. Where (1) keeps all the 4 roots unchanged; (1 2) swaps $\pm \sqrt{3}$; (3 4) swaps $\pm \sqrt{5}$; while (1 2)(3 4) swaps these two pairs at the same time.
-
-Through the fundamental theorem of Galois theory, we managed to convert the equation problem in field to an equivalent problem about permutation group. The last attack is to reveal the solvability essence with group.
+We can also write the Galois group of this equation in the form of permutation group \{(1), (1 2), (3 4), (1 2)(3 4)\}. Where (1) keeps all the 4 roots unchanged; (1 2) swaps $\pm \sqrt{3}$; (3 4) swaps $\pm \sqrt{5}$; while (1 2)(3 4) swaps these two pairs at the same time. Through the fundamental theorem of Galois theory, we managed to convert the equation problem in field to an equivalent problem about permutation group. The last attack is to reveal the solvability essence with group.
 
 \subsection{Solvability}
 
-Through Galois correspondence, we connect the radical extension with group structure. To simplify the problem, we add some extra conditions. First, for every radical extension $F[\alpha_i]$, we assume the $\alpha_i$ being extended is a $p$-th root for some prime $p$. For example, we will factor $\sqrt[6]{\alpha}$ to $\sqrt{\alpha} = \beta$ and $\sqrt[3]{\beta}$. Then extend the field two times with them one by one. Second, if $\alpha_i$ is $p$-th root, and the radical extension $F[\alpha_1, ..., \alpha_{i-1}]$ does not contain $p$-th root of unity, we can assume the next radical extension $F[\alpha_1, ..., \alpha_i]$ does not contain $p$-th root of unity too, unless $\alpha_i$ itself is a $p$-th root of unity. For example, when we want to extend the field with root $\alpha = \sqrt[3]{2}$, if the field $F$ does not contain $\zeta = \dfrac{-1 + i\sqrt{3}}{2}$ as shown in figure \ref{fig:root-of-unity}, we can assume the radical extension $F[\sqrt[3]{2}]$ does not contain $\zeta$ too, unless $\alpha^3 = 1$, which means $\alpha$ itself equals $\zeta$. If it isn't the case, we can adjoin $\zeta$ before $\alpha_i$, then the radical extension $F[\alpha_1, ..., \alpha_{i-1}, \zeta]$ contains all the $p$-th root of unity: $1, \zeta, \zeta^2, ..., \zeta^{p-1}$. With both these modifications, the final field $F[\alpha_1, ..., \alpha_k]$ is the same, and it remains the same if the newly adjoined root $\zeta$ are included in the list $\alpha_1, ..., \alpha_k$.
+\begin{definition}
+The polynomial equation is radical solvable if and only if its root field $E$ is the radical extension of its base field $F$.
+\end{definition}
 
-Hence any radical extension $F[\alpha_1, ..., \alpha_k]$ is a chain of ascending fields:
-
-\[
-F = F_0 \subseteq F_1 \subseteq F_2 \subseteq ... \subseteq F_k = F[\alpha_1, ..., \alpha_k]
-\]
-
-Where every $F_i = F_{i-1}[\alpha_i]$. $\alpha_i$ is the $p$-th root of some element in $F_{i-1}$, where $p$ is prime. They satisfy the condition about root of unity above. Corresponding to this chain of radical extensions, we have a chain of descending groups:
+Start from base field $F = Q$, repeatedly apply radical extension by
+adding the primitive root of unity or $\sqrt[p]{\alpha}$ where $p$ is a prime number, and $\alpha$ is some element in the previous field. Finally obtain the root field $E = F[\alpha_1, ..., \alpha_k]$ if radical solvable. They form a tower of radical series:
 
 \[
-Gal(F_k/F_0) = G_0 \supseteq G_1 \supseteq ... \supseteq G_k = Gal(F_k/F_k) = \{1\}
+F = F_0 \subseteq F_1 \subseteq F_2 \subseteq ... \subseteq F_k = E
 \]
 
-Where $G_i = Gal(F_k/F_i) = Gal(F_k/F_{i-1}[\alpha_i])$. Every step moves from $G_{i-1}$ to its subgroup $G_i$, corresponding to adjoin $p$-th root $\alpha_i$ to field $F$, where $p$ is prime. Using the terms in group theory, $G_i$ is the normal subgroup of the previous group $G_{i-1}$, while the quotient group $G_{i-1}/G_i$ is abelian (commutative). We have the following theorem reflects this fact:
+Where every $F_i = F_{i-1}[\alpha_i]$, and $\alpha_i$ is either a primitive root of unity or $p$-th root ($p$ is prime) of some element in $F_{i-1}$. Through Galois correspondence, we connect the radical extension with group structure. Along the tower of extension series, is a tower of reduced groups:
+
+\[
+Gal(F_k/F_0) = G_0 \rhd G_1 \rhd ... \rhd G_k = Gal(F_k/F_k) = \{e\}
+\]
+
+Where every group is the normal subgroup of the previous one. Each step from $G_{i-1}$ to its subgroup $G_i$ corresponds to extending the field $F$ with some $\alpha_i$. Galois saw the insight between radical extension and the reduction of Galois group. Every time, Galois added all the $p$ roots of the minimal polynomial $f_t(X)$ to the field, where $p$ is prime. With normal extension, the corresponding Galois group $H$ partitions the previous group into $p$ cosets:
+
+\[
+G = \sigma_1H + \sigma_2H + ... \sigma_pH
+\]
+
+Where $H$ is invariant subgroup, the quotient group $G/H$ consists of these cosets has the prime order $p$. From the corollary of Lagrange theory\ref{co:prime-order-group}, we know any group with prime order is a cyclic group, and cyclic group is abelian (see exercise \ref{ex:cyclic-group}). Therefore, the reduced quotient group after radical extension is abelian.
+
+\begin{definition}
+\textbf{Solvable group}: A finite group $G$ is solvable, if it has a subnormal series:
+
+\[
+  G = G_0 \rhd G_1 \rhd ... \rhd G_k = \{e\}
+\]
+
+Such that every quotient group $G_i/G_{i+1}$ is abelian. The group series is called solvable group series.
+\end{definition}
+
+From this definition, we known any subgroup in solvable series is solvable. Because for any abelian group $G$, $G \rhd \{e\}$ holds, therefore, all abelian groups are solvable.
+
+Using his theory, Galois gave the final answer to radical solvability for any polynomial equation:
 
 \begin{theorem}
-In field extension $B \subseteq B[\alpha] \subseteq E$, $\alpha^p \in B$ for some prime $p$, if $B[\alpha]$ contains no $p$-th roots of unity not in $B$ unless $\alpha$ itself is a $p$-th root of unity, then $Gal(E/B[\alpha])$ is a normal subgroup of $Gal(E/B)$, and the quotient group
-
-\[
-Gal(E/B) / Gal(E/B[\alpha])
-\]
-is abelian.
-
+A polynomial equation is radical solvable if and only if its Galois group is solvable.
 \end{theorem}
 
-\begin{mdframed}
-The proof is a bit complex, reader can skip it in the this frame
-\begin{proof}
-We'll use the homomorphism theorem for groups introduced in section \ref{normal-subgroup} to prove this theorem. We need find a homomorphism of $Gal(E/B)$, with the kernal of $Gal(E/B[\alpha])$, into an abelian group (onto a subgroup of an abelian group, which of course is also abelian). The obvious map with kernel $Gal(E/B[\alpha])$ is restriction to field $B[\alpha]$, we denote this map as $|_{B[\alpha]}$. According to the definition of Galois group, the group elements are automorphisms:
+For general cubic equation, all permutations of the three roots form the group $S_3$, it has a normal subgroup $C_3$, and $C_3$ is a simple group, hence has the only subgroup $\{e\}$. Refer to figure \ref{fig:S3-Cayley}, we have the group series:
 
 \[
-\sigma \in Gal(E/B[\alpha]) \iff \sigma|_{B[\alpha]} \text{is the identity map}
+S_3 \rhd C_3 \rhd \{e\}
 \]
 
-All such automorphisms $\sigma$ in Galois group $Gal(E/B)$ satisfy the homomorphism property:
+The order of the quotient groups $S_3/C_3 = 2, C_3/\{e\} = 3$ are all prime, hence is solvable group series. Therefore general cubic equation is radical solvable.
 
-\[
-\sigma'\sigma|_{B[\alpha]} = \sigma'|_{B[\alpha]}\sigma|_{B[\alpha]}
-\]
-
-Since $\sigma$ fixes all elements in $B$, $\sigma|_{B[\alpha]}$ is completely determined by the value of $\sigma(\alpha)$. There are two cases. In the first case, $\alpha$ is a $p$-th root of unity $\zeta$, then:
-
-\[
-(\sigma(\alpha))^p = \sigma(\alpha^p) = \sigma(\zeta^p) = \sigma(1) = 1
-\]
-
-Hence $\sigma(\alpha) = \zeta^i \in B[\alpha]$, since each $p$-th root of unity is some $\zeta^i$. In the second case, $\alpha$ is not a root of unity, then:
-
-\[
-(\sigma(\alpha))^p = \sigma(\alpha^p) = \alpha^p
-\]
-
-According to radical extension rule, $\alpha^p$ is in field $B$, hence $\sigma(\alpha) = \zeta^j\alpha$ for some $p$-th root of unity $\zeta$, and $\zeta \in B$, so again $\sigma(\alpha) \in B[\alpha]$. Thus $B[\alpha]$ is closed for every $\sigma$.
-
-This also implies that $|_{B[\alpha]}$ maps $Gal(E/B)$ into $Gal(B[\alpha]/B)$, so it now remains to check that $Gal(B[\alpha]/B)$ is abelian. There are two cases: In the first case, $\alpha$ is a root of unity, then every element in Galois group, which is automorphism $\sigma_i = \sigma|_{B[\alpha]} \in Gal(B[\alpha]/B)$ can be written in form $\sigma_i(\alpha) = \alpha^i$, hence:
-
-\[
-\sigma_i\sigma_j(\alpha) = \sigma_i(\alpha^j) = \alpha^{ij} = \sigma_j\sigma_i(\alpha)
-\]
-
-In the second case, $\alpha$ is not a root of unity, then each group element, the automorphism $\sigma_i$ is of the form $\sigma_i(\alpha) = \zeta^i\alpha$, hence:
-
-\[
-\sigma_i\sigma_j(\alpha) = \sigma_i(\zeta^j\alpha) = \zeta^{i + j}\alpha = \sigma_j\sigma_i(\alpha)
-\]
-
-Since $\zeta \in B$, therefore $\zeta$ is fixed under the automorphism. Hence in either case, $Gal(B[\alpha]/B)$ is abelian.
-\end{proof}
-\end{mdframed}
-
-When observe the chain of Galois subgroups:
-
-\[
-Gal(F[\alpha_1, ..., \alpha_k]/F) = G_0 \supseteq G_1 \supseteq ... \supseteq G_k = \{1\}
-\]
-
-Along this chain, if every group $G_i$ is the normal subgroup of the previous group $G_{i-1}$, and every quotient group $G_{i-1}/G_i$ is abelian, then we say the Galois group $Gal(F[\alpha_1, ..., \alpha_k]/F)$ is \textbf{solvable}.
-
-Now let us see the general $n$-th degree equation:
-
-\[
-x^n - a_1x^{n-1} + a_2x^{n-2}... \pm a_n = 0
-\]
-
-The base field contains coefficients is $Q[a_1, ..., a_n]$. Let its $n$ roots (not necessarily be radical) be $x_1, ..., x_n$, which means:
-
-\[
-(x - x_1)...(x - x_n) = x^n - a_1x^{n-1} ... \pm a_n
-\]
-
-The splitting field of the equation is $Q[x_1, ..., x_n]$. If whatever radical extension we obtain, it can't contain the splitting field, then the equation is not radical solvable.
-
-\begin{theorem}
-When $n \geq 5$, any radical extension of $Q[a_1, ..., a_n]$ does not contain the splitting field $Q[x_1, ..., x_n]$.
-\end{theorem}
-
-\begin{proof}
-We use the reduction to absurdity method. Suppose some radical extension $E$ contains the splitting field $Q[x_1, ..., x_n]$. According to the theorem we proved previously, there exits a bigger radical extension $\overline{E} \supseteq E$, such that the corresponding Galois group $G_0 = Gal(\overline{E}/Q[a_1, ..., a_n])$ includes automorphisms of permutations of all roots. Hence we can construct a chain of Galois subgroups:
-
-\[
-G_0 \supseteq G_1 \supseteq ... \supseteq G_k = \{1\}
-\]
-
-Where each $G_i$ is the normal subgroup of the previous group $G_{i-1}$, and the quotient group $G_{i-1}/G_i$ is abelian. We now show that this is impossible. Since the normal subgroup $G_i$ is the kernel of the homomorphism of $G_{i-1}$, for any two automorphisms $\sigma, \tau$ in $G_{i-1}$, we have:
-
-\[
-\sigma^{-1}\tau^{-1}\sigma\tau \in G_{i}
-\]
-
-When $n \geq 5$, $G_0$ contains the permutations of all roots. It is isomorphic to symmetric group $S_n$, it must include 3-cycle permutation $(a\ b\ c)$. Suppose $G_{i-1}$ also include 3-cycle permutation, we have:
-
-\[
-(a\ b\ c) = (d\ a\ c)^{-1}(c\ e\ b)^{-1}(d\ a\ c)(c\ e\ b) \in G_i
-\]
-
-Where $a, b, c, d, e$ are distinct. It means $G_i$ includes 3-cycle permutation as well. According to mathematical induction, all groups in the chain include 3-cycle permutation. But this is impossible, because the last group in this chain is $\{1\}$, it does not include 3-cycle permutation.
-\end{proof}
+For general quartic equation, all 24 permutations of the four roots form the group $S_4$. It has a normal subgroup $A_4$, which is an alternating group of 12 elements, as shown in figure \ref{fig:A4-Cayley}. The next subgroup is Klein four group $V$ with 4 elements. It has normal subgroup $C_2$ (isomorphic to $S_2$), it's a simple group, with the only subgroup of $\{e\}$. The group series are:
 
 \begin{figure}[htbp]
-%\begin{wrapfigure}{R}{0.3\textwidth}
  \centering
- \includegraphics[scale=0.3]{img/Soccer-ball.png}
- \captionsetup{labelformat=empty}
- \caption{Symmetric group $S_5$ is the production of alternating group $A_5$ and 2-cycle cyclic group. It can describe the symmetry of a football}
- \label{fig:S5}
-%\end{wrapfigure}
+ \includegraphics[scale=0.4]{img/A4-Cayley}
+ \caption{Cayley graph of alternating group $A_4$. Cut the three vertex angles of a triangle pyramid.}
+ \label{fig:A4-Cayley}
 \end{figure}
-
-Thus we proved the general 5th degree equation is not radical solvable. We can explain from another perspective. The symmetric group $S_5$ has 120 elements, its only normal subgroup is $A_5$. Where $A_5$ is called alternating group, which contains 60 elements. The only normal subgroup of $A_5$ is $\{1\}$. Hence the subgroup chain is $S_5 \supset A_5 \supset \{1\}$. However, the quotient group $A_5/\{1\}$ is not abelian (not commutative). Therefore, it is not solvable group. The corresponding general 5th degree equation is not radical solvable.
-
-For the general 4th degree equation, the symmetric group $S_4$ has a normal subgroup $A_4$, and the alternating group $A_4$ has a normal subgroup:
+% http://weddslist.com/groups/cayley-31/index.html
+% A graph illustrate K4 and A4: https://math.stackexchange.com/questions/651053/visualize-a-4-and-langle-x-z-rangle-isomorphic-to-the-klein-4-group
 
 \[
-\{(1), (1 2)(3 4), (1 3)(2 4), (1 4)(2 3)\}
+S_4 \rhd A_4 \rhd V \rhd C_2 \rhd \{e\}
 \]
 
-This group is isomorphic to Klein group, which is solvable.
+The orders of the corresponding quotient groups  are 2, 3, 2, 2. They are all primes. The group series is solvable. Therefore general quartic equation is solvable.
 
-For the general cubic equation, the symmetric group $S_3$ has a normal subgroup $A_3$, and the alternating group $A_3$ is isomorphic to 3-cycle cyclic group. Hence it is also solvable.
+We can deduce the Abel-Ruffini theorem directly from Galois theory: there is no solution in radicals to general quintic polynomial equation. All 120 permutations of the five roots form the group $S_5$. The only normal subgroup is the alternating group $A_5$ with 60 elements, as shown in figure \ref{fig:A5-Cayley}. $A_5$ is a simple group, its only normal subgroup is $\{e\}$. The group series are:
+
+\[
+S_5 \rhd A_5 \rhd \{e\}
+\]
+
+The quotient group $A_5/\{e\}$ is isomorphic to $A_5$, however, $A_5$ is not abelian. The order of the quotient group is 60, which is not a prime. It is not a solvable group. Therefore, general quintic polynomial equation is not solvable in radicals.
 
 \begin{figure}[htbp]
-  \centering
-  \subcaptionbox{Alternating $A_3$ is isomorphic to 3-cycle cyclic group}[0.3\linewidth]{\includegraphics[scale=0.25]{img/C3.png}} \quad
-  \subcaptionbox{Symmetric group $S_3$, the upper part is $A_3$}[0.3\linewidth]{\includegraphics[scale=0.25]{img/S3.png}}
-  \subcaptionbox{Alternating group $A_4$}[0.3\linewidth]{\includegraphics[scale=0.25]{img/A4.png}}
-  \caption{Symmetric group and alternating group. Black point is identity element, cycle is closed loop}
-  \label{fig:group-graph}
+ \centering
+ \includegraphics[scale=0.25]{img/A5-Cayley}
+ %\captionsetup{labelformat=empty}
+ \caption{Cayley graph of alternating group $A_5$ likes a football.}
+ \label{fig:A5-Cayley}
 \end{figure}
 
-We introduced Galois theory in this short section. Galois theory is a powerful tool in abstract algebra. It can solve many problems, like to prove the fundamental theorem of algebra, prove Gauss's finding that the regular heptadecagon (17-sided polygon) can be constructed with straightedge and compass. Galois theory can also prove that the three classic geometric problems with straightedge and compass in ancient Greek, squaring the circle, trisecting the angle, and doubling the cube, are all impossible. We hope that readers can appreciate the depth and beauty of abstract thinking through this chapter.
+We can also verify that $S_n$ is not solvable when $n > 5$ (see exercise \ref{ex:3-cycle}. Use reduction of absurdity, it leads to the contradict result that $\{e\}$ contains 3-cycles). Galois theory tells there is no solution in radicals to general polynomial equations of degree five or higher.
 
-\begin{Exercise}
-\Question{The 5th degree equation $x^5 - 1 = 0$ is radical solvable. What's its Galois subgroup chain?}
+Studied of the symmetry of equations, Galois developed his theory. Galois theory is a powerful tool in abstract algebra. It can solve many problems, like to prove Gauss's finding that the regular heptadecagon (17-sided polygon) can be constructed with straightedge and compass. Galois theory can also prove that the three classic geometric problems with straightedge and compass in ancient Greek, squaring the circle, trisecting the angle, and doubling the cube, are all impossible.
+
+\begin{Exercise}\label{ex:solvable}
+\Question{The 5th degree equation $x^5 - 1 = 0$ is radical solvable. What is its Galois group and what are the solvable group series?}
+\Question{Prove that, when $n \geq 5$, assume the subgroup $G$ of $S_n$ contains all 3-cycles like $(abc)$, $N$ is a normal subgroup of $G$, the quotient group $G/N$ is abelian, then $N$ contains all 3-cycles too.}
+\label{ex:3-cycle}
 \end{Exercise}
 
-\section{Further reading}
+\begin{Answer}[ref = {ex:solvable}]
+\Question{The 5th degree equation $x^5 - 1 = 0$ is radical solvable. What is its Galois group and what are the solvable group series?
 
-There are many textbooks introduce about abstract algebra. {\em Groups and Symmetry} by Armstrong is a good book about basic concept of groups and how it related and define symmetry in mathematics. {\em Algebra} by Micheal Artin is also a widely used textbook. It introduces Galois theory in the last chapter. {\em Galois Theory} by Emil Artin published in 1944 is the classic book. It was republished several times in 1998 and 2007. Artin was the important expositor. He gave the modern form of Galois theory. Harold M. Edwards introduced the development history in his {\em Galois Theory}, and took the classic way to explain this topic.
+We know the 5 roots along the unit circle in the complex plane: \{1, $\zeta$, $\zeta^2$, $\zeta^3$, $\zeta^4$ \}, where $\zeta = e^{2 \pi i / 5} = \dfrac{\sqrt{5} - 1 + i\sqrt{10 + 2 \sqrt{5}}}{4}$. The Galois group in rational field is a cyclic group of order 4: $G(Q[\zeta]/Q) = C_4$. It is isomorphic to the multiplicative group modulo 5: $(\pmb{Z}/5\pmb{Z})^{\times} = \{1, 2, 3, 4 \}_5$. There is no intermediate field extension. The splitting field is $Q[\zeta]$. The Galois group in splitting field is $\{e\}$.
+
+Obviously, $\{e\}$ is the normal subgroup of $C_4$. The quotient group $C_4/\{e\}$ is cyclic too. In previous exercise, we proved that cyclic group is abelian, hence the equation is radical solvable. The group series are:
+
+\[
+C_4 \rhd \{e\}
+\]
+}
+\Question{Prove that, when $n \geq 5$, assume the subgroup $G$ of $S_n$ contains all 3-cycles like $(abc)$, $N$ is a normal subgroup of $G$, the quotient group $G/N$ is abelian, then $N$ contains all 3-cycles too.
+
+Since the quotient group $G/N$ is abelian, for any $g_1, g_2 \in G$, we have $g_1N \cdot g_2N = g_1g_2N = g_2g_1N$. Therefore, $g_1^{-1}g_2^{-1}g_1g_2N = N$, i.e. $g_1^{-1}g_2^{-1}g_1g_2 \in N$.
+
+Because $n \geq 5$, there are at least 5 numbers, for any 3-cycle $(abc)$, choose another two different numbers $d, f$, construct $g_1 = (dba), g_2 = (afc) \in G$, we have:
+
+\[
+g_1^{-1}g_2^{-1}g_1g_2 = (abd)(cfa)(dba)(afc) = (abc) \in N
+\]
+
+Hence $N$ contains all 3-cycles too.
+}
+\end{Answer}
+
+\section{Appendix}
+Galois list the tower of group series for general quartic equation in his memoir. He did not have the tool of Cayley graph by that time. Galois denoted the four roots as $abcd$, and permuted them to explain his idea.
+
+\vspace{5mm}
+\begin{center}
+
+\begin{tabular}[t]{|c|}
+\hline
+$S_4$ \\
+\hline
+abcd \\
+badc \\
+cdab \\
+dcba \\
+acdb \\
+cabd \\
+dbac \\
+bdca \\
+adbc \\
+dacb \\
+bcad \\
+cbda \\
+bacd \\
+abdc \\
+dcab \\
+cdba \\
+cadb \\
+acbd \\
+bdac \\
+dbca \\
+dabc \\
+adcb \\
+cbad \\
+bcda \\
+\hline
+\end{tabular}
+\parbox[t]{3mm}{\vspace{2mm} $\rhd$}
+\begin{tabular}[t]{|c|}
+\hline
+$A_4$ \\
+\hline
+abcd \\
+badc \\
+cdab \\
+dcba \\
+acdb \\
+cabd \\
+dbac \\
+bdca \\
+adbc \\
+dacb \\
+bcad \\
+cbda \\
+\hline
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\hline
+\end{tabular}
+\parbox[t]{3mm}{\vspace{2mm} $\rhd$}
+\begin{tabular}[t]{|c|}
+\hline
+$V$ \\
+\hline
+abcd \\
+badc \\
+cdab \\
+dcba \\
+\hline
+\\
+\\
+\\
+\\
+\hline
+\\
+\\
+\\
+\\
+\hline
+\end{tabular}
+\parbox[t]{3mm}{\vspace{2mm} $\rhd$}
+\begin{tabular}[t]{|c|}
+\hline
+$C_2$ \\
+\hline
+abcd \\
+badc \\
+\hline
+\\
+\\
+\hline
+\end{tabular}
+\parbox[t]{3mm}{\vspace{2mm} $\rhd$}
+\begin{tabular}[t]{|c|}
+\hline
+$\{e\}$ \\
+\hline
+abcd \\
+\hline
+\\
+\hline
+\end{tabular}
+\end{center}
 
 \ifx\wholebook\relax \else
+\section{Answers}
+\shipoutAnswer
+
 \begin{thebibliography}{99}
 
 \bibitem{HanXueTao16}
-{\fontspec{\cnmainft}韩雪涛 ``数学悖论与三次数学危机''. 人民邮电出版社.} 2016, ISBN: 9787115430434
+韩雪涛 ``数学悖论与三次数学危机''. 人民邮电出版社. 2016, ISBN: 9787115430434
 
 \bibitem{LiuXinyu2017}
-{\fontspec{\cnmainft}刘新宇 ``算法新解'' 人民邮电出版社.} 2017, ISBN: 9787115440358
+刘新宇 ``算法新解'' 人民邮电出版社. 2017, ISBN: 9787115440358
 
 \bibitem{HanXueTao2009}
-{\fontspec{\cnmainft}韩雪涛 ``好的数学——“下金蛋”的数学问题''. 湖南科学技术出版社.} 2009, ISBN: 9787535756725
+韩雪涛 ``好的数学——“下金蛋”的数学问题''. 湖南科学技术出版社. 2009, ISBN: 9787535756725
 
 \bibitem{HanXueTao2012}
-{\fontspec{\cnmainft}韩雪涛 ``好的数学——方程的故事''. 湖南科学技术出版社.} 2012, ISBN: 9787535770066
+韩雪涛 ``好的数学——方程的故事''. 湖南科学技术出版社. 2012, ISBN: 9787535770066
 
 \bibitem{Wiki-Galois-theory}
 Wikipedia ``Galois theory''. \url{https://en.wikipedia.org/wiki/Galois_theory}
@@ -2333,7 +3552,7 @@ Alexander A. Stepanov, Daniel E. Rose ``From Mathematics to Generic Programming'
 Wikipedia ``Rubik's Cube group''. \url{https://en.wikipedia.org/wiki/Rubik's_Cube_group}
 
 \bibitem{ZhangHeRui1978}
-{\fontspec{\cnmainft}张禾瑞 ``近世代数基础''. 高等教育出版社.} 1978, ISBN: 9787040012224
+张禾瑞 ``近世代数基础''. 高等教育出版社. 1978, ISBN: 9787040012224
 
 \bibitem{Armstrong1988}
 M.A. Armstrong ``Groups and Symmetry''. Springer. 1988. ISBN: 0387966757.
@@ -2360,7 +3579,7 @@ Wikipedia ``Miller-Rabin primality test''. \url{https://en.wikipedia.org/wiki/Mi
 Wikipedia ``Emmy Noether''. \url{https://en.wikipedia.org/wiki/Emmy_Noether}
 
 \bibitem{ZhangPu2013}
-{\fontspec{\cnmainft}章璞. ``伽罗瓦理论：天才的激情''. 高等教育出版社.} 2013. ISBN: 9787040372526
+章璞. ``伽罗瓦理论：天才的激情''. 高等教育出版社. 2013. ISBN: 9787040372526
 
 \bibitem{Stillwell1994}
 John Stillwell. ``Galois Theory for Beginners''. The American Mathematical Monthly, Vol. 101, No. 1 (Jan., 1994), pp. 22-2
@@ -2373,6 +3592,12 @@ Michael Artin. ``Algebra (Second Edition)''. Pearson. Feb. 2017. ISBN: 978013468
 
 \bibitem{Weyl1952}
 Hermann Weyl. ``Symmetry''. Princeton University Press; Reprint edition (October 4, 2016). ISBN: 978-0691173252
+
+\bibitem{FengChengTian2019}
+冯承天\ 著. {从一元一次方程到伽罗瓦理论}（第二版）. 华东师范大学出版社. 2019年10月. ISBN: 9787567587380
+
+\bibitem{JieChengHao2021}
+[日]\ 结城浩\ 著\ 陈冠贵\ 译. {数学女孩. 5，伽罗瓦理论}. 人民邮电出版社. 2021年4月. ISBN: 9787115559623
 
 \end{thebibliography}
 

@@ -1,58 +1,28 @@
-BOOK = unplugged
-BOOK_EN = $(BOOK)-en
-BOOK_CN = $(BOOK)-zh-cn
-OBJ_EN = $(BOOK_EN).pdf
-OBJ_CN = $(BOOK_CN).pdf
-XELATEX = $(shell which xelatex > /dev/null)
-
-ifdef XELATEX
-LATEX = xelatex
-DVIPDFM = echo
-else
-LATEX = latex
-DVIPDFM = dvipdfmx
-endif
-
-SRC = unplugged
-SRC_EN = $(foreach file, $(SRC), $(file)-en.tex)
-SRC_CN = $(foreach file, $(SRC), $(file)-zh-cn.tex)
-CHAPTERS = nat/nat recursion/recursion algebra/algebra category-theory/category \
-deduction/deduction infinity/infinity paradox/paradox
-CHAPTER_OBJ_EN = $(foreach file, $(CHAPTERS), $(file)-en.pdf)
-CHAPTER_OBJ_CN = $(foreach file, $(CHAPTERS), $(file)-zh-cn.pdf)
-CHAPTER_SRC_EN = $(foreach file, $(CHAPTERS), $(file)-en.tex)
-CHAPTER_SRC_EN = $(foreach file, $(CHAPTERS), $(file)-zh-cn.tex)
-
 all: cn en
 
-cn: $(OBJ_CN)
+BOOK-CN := $(wildcard *-zh-cn.tex)
+BOOK-EN := $(wildcard *-en.tex)
 
-en: $(OBJ_EN)
+cn: $(BOOK-CN:.tex=.pdf)
+en: $(BOOK-EN:.tex=.pdf)
 
-# only build the dependant images, but not the PDF for performance consideration
-%.pdf : %.tex
-	$(MAKE) -C $(@D) image
+%.pdf: %.tex; latexmk -cd -xelatex $<
 
-image:
-	$(MAKE) -C img
+CHAPTERS-CN := $(shell egrep -l documentclass $$(find . -name '*-zh-cn.tex' -a \! -name 'unplugged-*.tex'))
+CHAPTERS-EN := $(shell egrep -l documentclass $$(find . -name '*-en.tex' -a \! -name 'unplugged-*.tex'))
 
-index:
-	makeindex $(BOOK)
+chapters: chapters-cn chapters-en
+chapters-cn: $(CHAPTERS-CN:.tex=.pdf)
+chapters-en: $(CHAPTERS-EN:.tex=.pdf)
 
-$(OBJ_CN): image $(SRC_CN) $(CHAPTER_OBJ_CN)
-	$(LATEX) $(BOOK_CN).tex
-	makeindex $(BOOK_CN).idx
-	$(LATEX) $(BOOK_CN).tex
-	$(DVIPDFM) $(BOOK_CN)
+# force build:
+force-cn:
+	latexmk -cd -xelatex unplugged-zh-cn.tex
 
-$(OBJ_EN): image $(SRC_EN) $(CHAPTER_OBJ_EN)
-	$(LATEX) $(BOOK_EN).tex
-	makeindex $(BOOK_EN).idx
-	$(LATEX) $(BOOK_EN).tex
-	$(DVIPDFM) $(BOOK_EN)
+force-en:
+	latexmk -cd -xelatex unplugged-en.tex
 
 clean:
-	rm -f *.aux *.toc *.lon *.lor *.lof *.ilg *.idx *.ind *.out *.log *.exa
+	git clean -fdx
 
-distclean: clean
-	rm -f *.pdf *.dvi *~
+.PHONY: all cn en chapters chapters-cn chapters-en
