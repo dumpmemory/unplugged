@@ -1444,7 +1444,7 @@ depth = foldt(one, x, d, y \mapsto d + max(x, y), 0)
 Where $one$ is a constant function. It always returns 1. i.e. $one = x \mapsto 1$. Alternative definition:
 
 \[
-depth = foldt(id, x, k, y \mapsto 1 + \max(x, y), 0)
+depth = foldt(id, (x, d, y \mapsto d + \max(x, y)), 0)
 \]
 }
 \Question{Someone thought the abstract fold operation for binary tree $foldt$, should be defined as the following:

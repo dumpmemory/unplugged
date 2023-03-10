@@ -1447,18 +1447,14 @@ mapt(f, node(l, x, r)) & = node(mapt(f, l), f(x), mapt(f, r)) \\
 }
 \Question{定义一个函数$depth$，计算一棵二叉树的最大深度；
 
-方法1：
 \[
-depth = foldt(one, x, d, y \mapsto d + \max(x, y), 0)
+depth = foldt(one, (x, d, y \mapsto d + \max(x, y)), 0)
 \]
 
 其中$one$为常函数，总返回1，即：$one = x \mapsto 1$。
-
-方法2：
-\[
-depth = foldt(id, x, k, y \mapsto 1 + \max(x, y), 0)
-\]
-
+%% \[
+%% depth = foldt(id, x, k, y \mapsto 1 + \max(x, y), 0)
+%% \]
 }
 \Question{有人认为，二叉树的抽象叠加操作$foldt$应该这样定义：
 \[
