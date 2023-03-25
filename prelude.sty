@@ -57,7 +57,7 @@
 \usepackage{mathtools}
 \usepackage{extarrows}
 \usepackage{polynom}
-\usepackage[answerdelayed]{exercise} % for exercise
+\usepackage[lastexercise, answerdelayed]{exercise} % for exercise
 \usepackage{stmaryrd} % for banana brackets
 \usepackage{pict2e}   % for customize lens brackets
 \usepackage[normalem]{ulem}
@@ -132,7 +132,7 @@
 
 \lstdefinelanguage{Bourbaki}{
   morekeywords={abstract, case, catch, class, struct,
-    and, or, not, data, void, to, loop, in,
+    and, or, not, data, void, to, loop, in, then, repeat, until,
     do, else, false, for, if, new, null, return,
     throw, true, try, type, val, var, while, yield },
   otherkeywords={=>,<-,<\%,<:,>:,\#,@},
@@ -166,6 +166,11 @@
 {\lstset{
     language = Haskell,
     style=Haskell,
+    #1}}{}
+
+\lstnewenvironment{Bourbaki}[1][]
+{\lstset{
+    language = Bourbaki,
     #1}}{}
 
 \newcommand{\inlineHaskell}{\lstinline[language=Haskell, basicstyle=\ttfamily]}
@@ -248,7 +253,8 @@
 \makeatother
 
 \setcounter{tocdepth}{4}
-%\setcounter{secnumdepth}{4}
+\setcounter{secnumdepth}{4}
+\renewcommand{\thesubsubsection}{} %\arabic, \Alph
 
 %\verbatimfont{\footnotesize}
 
