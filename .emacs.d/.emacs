@@ -9,7 +9,6 @@
 ;;  start the emacsserver that listens to emacsclietn
 ;; (server-start)
 
-
 ;; =======================================
 ;; proxy settings
 ;; set the use-proxy to true (t) when need proxy
@@ -78,10 +77,11 @@
 (add-to-list 'auto-mode-alist '("\\.tex$" . LaTeX-mode))
 
 (defun remove-electric-indent-mode ()
-  (electric-indent-local-mode -1))
+  (electric-indent-local-mode 0))
 
 (add-hook 'LaTeX-mode-hook 'remove-electric-indent-mode)
 (add-hook 'plain-TeX-mode-hook 'remove-electric-indent-mode)
+(add-hook 'text-mode-hook 'remove-electric-indent-mode)
 
 ;; =======================================
 ;;    Interactive with host OS
@@ -165,14 +165,6 @@
 ;;   (ede-enable-generic-projects)
 ;;   (global-semantic-idle-summary-mode 1))
 
-;; ==================================
-;; ggtags
-;;
-;; (add-hook 'c-mode-common-hook
-;;           (lambda ()
-;;             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-;;               (ggtags-mode 1))))
-
 (global-set-key [(f5)] 'speedbar)
 
 ;; =================================================
@@ -187,109 +179,84 @@
 (desktop-save-mode 1)
 
 ;; ============================================
-;; language and font
-
+;; Language and font
 (set-language-environment 'UTF-8)
 (set-locale-environment "UTF-8")
 
-(defun qiang-font-existsp (font)
-  (if (null (x-list-fonts font))
-      nil t))
+;; self-contained CN/Latin hybrid font settings.
+;; ===============================
+;; Alternative: https://github.com/tumashu/cnfonts, (or melpa cnfonts)
+;;
+(defun font-exists-p (font)
+  (not (null (x-list-fonts font))))
 
-(defun qiang-make-font-string (font-name font-size)
-  (if (and (string-or-null-p font-size)
-           (equal ":" (string (elt font-size 0))))
-      (format "%s%s" font-name font-size)
-    (format "%s-%s" font-name font-size)))
+(require 'cl-lib)  ;; for cl-remove-if-not, cl-find-if
+(defalias 'filter 'cl-remove-if-not)
+(defalias 'map 'mapcar)
 
-(defvar bhj-english-font-size nil)
-(defun qiang-set-font (english-fonts
-                       english-font-size
-                       chinese-fonts
-                       &optional chinese-fonts-scale
-                       )
-  (setq chinese-fonts-scale (or chinese-fonts-scale 1.0))
-  (setq face-font-rescale-alist `(("Microsoft Yahei" . ,chinese-fonts-scale)
-                                  ("STHeiti" . ,chinese-fonts-scale)
-                                  ("微软雅黑" . ,chinese-fonts-scale)
-                                  ("STSong" . ,chinese-fonts-scale)
-                                  ("WenQuanYi Zen Hei" . ,chinese-fonts-scale)))
-  (require 'cl-lib)                         ; for find if
-  (setq bhj-english-font-size english-font-size)
-  (let ((en-font (qiang-make-font-string
-                  (cl-find-if #'qiang-font-existsp english-fonts)
-                  english-font-size))
-        (zh-font (font-spec :family (cl-find-if #'qiang-font-existsp chinese-fonts))))
+;; Latin mono (fixed-width) fonts, ordered by preference
+(defvar latin-mono-fonts
+  (filter #'font-exists-p
+          '("Monaco"   ;; Mac OS X
+            "Consolas" "Courier New" ;; Windows
+            "Source Code Pro" "Noto Sans Mono CJK" "Noto Mono"
+            "DejaVu Sans Mono"))) ;; Linux
 
-    ;; Set the default English font
-    (set-face-attribute
-     'default nil :font en-font)
-    (condition-case font-error
-        (progn
-          (set-face-font 'italic (font-spec :family "Courier New" :slant 'italic :weight 'normal :size (+ 0.0 english-font-size)))
-          (set-face-font 'bold-italic (font-spec :family "Courier New" :slant 'italic :weight 'bold :size (+ 0.0 english-font-size)))
+;; CN fonts, ordered by preference
+(defvar cn-fonts
+  (filter #'font-exists-p
+          '("STSong" "STHeiti" "STKaiti" "STFangsong" "STXingkai"   ;; Mac OS X
+            "微软雅黑" "Microsoft Yahei" "Microsoft_Yahei"
+            "宋体" "SimSun" "新宋体" "NSimSun" "黑体" "SimHei"   ;; Windows
+            "Noto Serif CJK SC" "Noto Sans CJK SC" "文泉驿等宽微米黑"))) ;; Linux
 
-          (set-fontset-font t 'symbol (font-spec :family "Courier New")))
-      (error nil))
-    (set-fontset-font t 'symbol (font-spec :family "Unifont") nil 'append)
-    (set-fontset-font t nil (font-spec :family "DejaVu Sans"))
+(defun xe-set-font (latin-fonts cn-fonts size)
+  (xe--set-font latin-fonts size cn-fonts 1.0))
 
-    ;; Set Chinese font
-    ;; Do not use 'unicode charset, it will cause the english font setting invalid
-    (dolist (charset '(kana han cjk-misc bopomofo))
-      (set-fontset-font t charset zh-font)))
-  (when (and (boundp 'global-emojify-mode)
-             global-emojify-mode)
-    (global-emojify-mode 1))
-  ;;(shell-command-to-string "sawfish-client -e '(maximize-window (input-focus))'&")
-  )
+(defvar global-latin-font-size nil)
+(defun xe--set-font (latin-fonts latin-font-size cn-fonts cn-font-scale)
+  (setq face-font-rescale-alist
+        (map (lambda (fnt) `(,fnt . ,cn-font-scale)) cn-fonts))
+  (setq global-latin-font-size latin-font-size)
+  (let* ((latin-font-family (car latin-fonts))
+         (latin-font (format "%s-%s" latin-font-family latin-font-size))
+         (zh-font (font-spec :family (cl-find-if #'font-exists-p cn-fonts))))
+      (set-face-attribute 'default nil :font latin-font)     ;; default Latin font
+      (condition-case font-error
+          (progn
+            (set-face-font 'italic (font-spec :family latin-font-family :slant 'italic
+                                              :weight 'normal :size latin-font-size))
+            (set-face-font 'bold-italic (font-spec :family latin-font-family :slant 'italic
+                                                   :weight 'bold :size latin-font-size))
+            (set-fontset-font t 'symbol (font-spec :family latin-font-family)))
+        (error nil))
+      (dolist (charset '(kana han cjk-misc bopomofo))
+        (set-fontset-font t charset zh-font))))
 
+;; deprecated:
+;; (defvar latin-font-size-steps '(9 10.5 11.5 12.5 14 16 17 18 20 22))
+;; (defvar cn-font-scale-alist
+;;          (cond
+;;           ((string-equal system-type "darwin")     ;; Mac OS X
+;;            '((10.5 . 1.3) (11.5 . 1.3) (16 . 1.3) (18 . 1.25)))
+;;           ((string-equal system-type "windows-nt") ;; Windows
+;;            '((11.5 . 1.25) (16 . 1.25)))
+;;           ((string-equal system-type "gnu/linux")  ;; Linux
+;;            '((12.5 . 1.25) (14 . 1.25) (16 . 1.25) (20 . 1.25)))))
 
-(defvar bhj-english-fonts '("Monaco" "Consolas" "DejaVu Sans Mono" "Monospace" "Courier New"))
-(defvar bhj-chinese-fonts '("Microsoft Yahei" "Microsoft_Yahei" "微软雅黑" "STSong" "STHei" "文泉驿等宽微米黑" "黑体" "新宋体" "宋体"))
+;; +/- font size
+(defun zoom-frame-font (step)
+  (let* ((delta (if (< global-latin-font-size 14) (* 0.5 step) step))
+         (next-size (max (min (+ delta global-latin-font-size) 22) 9)))
+    (xe-set-font latin-mono-fonts cn-fonts next-size)
+    (message "Set font size to %.1f" next-size)))
 
-(qiang-set-font
- bhj-english-fonts
- (if (file-exists-p "~/.config/system-config/emacs-font-size")
-     (save-excursion
-       (find-file "~/.config/system-config/emacs-font-size")
-       (goto-char (point-min))
-       (let ((monaco-font-size (read (current-buffer))))
-         (kill-buffer (current-buffer))
-         (if (numberp monaco-font-size)
-             monaco-font-size
-           12.5)))
-   12.5)
- bhj-chinese-fonts)
-
-(defvar chinese-font-size-scale-alist nil)
-
-;; On different platforms, I need to set different scaling rate for
-;; differnt font size.
-(cond
- ((and (boundp '*is-a-mac*) *is-a-mac*)
-  (setq chinese-font-size-scale-alist '((10.5 . 1.3) (11.5 . 1.3) (16 . 1.3) (18 . 1.25))))
- ((and (boundp '*is-a-win*) *is-a-win*)
-  (setq chinese-font-size-scale-alist '((11.5 . 1.25) (16 . 1.25))))
- (t ;; is a linux:-)
-  (setq chinese-font-size-scale-alist '((12.5 . 1.25) (14 . 1.25) (16 . 1.25) (20 . 1.25)))))
-
-(defvar bhj-english-font-size-steps '(9 10.5 11.5 12.5 14 16 18 20 22))
-(defun bhj-step-frame-font-size (step)
-  (let ((steps bhj-english-font-size-steps)
-        next-size)
-    (when (< step 0)
-        (setq steps (reverse bhj-english-font-size-steps)))
-    (setq next-size
-          (cadr (member bhj-english-font-size steps)))
-    (when next-size
-        (qiang-set-font bhj-english-fonts next-size bhj-chinese-fonts (cdr (assoc next-size chinese-font-size-scale-alist)))
-        (message "Your font size is set to %.1f" next-size))))
-
-(global-set-key [(control x) (meta -)] (lambda () (interactive) (bhj-step-frame-font-size -1)))
-(global-set-key [(control x) (meta +)] (lambda () (interactive) (bhj-step-frame-font-size 1)))
-
-(set-face-attribute 'default nil :font (font-spec))
+;; Main process to set CN/Latin fonts
+;; ====================================
+;; Default size: 17, use M-x describe-char to see the details of char at cursor
+(xe-set-font latin-mono-fonts cn-fonts 17)
+(global-set-key (kbd "C--") (lambda () (interactive) (zoom-frame-font -1)))
+(global-set-key (kbd "C-=") (lambda () (interactive) (zoom-frame-font  1)))
 
 ;; Some memo:
 ;; ===============================

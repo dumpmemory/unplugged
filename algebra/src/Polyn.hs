@@ -1,7 +1,7 @@
 module Polyn where
 
 -- Polynomial long division
--- a polynomial a(x) = a_0 x^n + a_1 x^{n-1} + ... =a_n x + a_{n+1}
+-- a polynomial a(x) = a_0 x^n + a_1 x^{n-1} + ... + a_n x + a_{n+1}
 -- as = [a_0, a_1, ..., a_{n+1}]
 -- assume |as| >= |bs|, all numbers are integer
 -- a(x) = q(x)b(x) + r(x)
