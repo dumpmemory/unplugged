@@ -3,10 +3,10 @@
 
 (setq debug-on-error nil)
 
-(setq explicit-shell-file-name "/bin/bash")
+(setq explicit-shell-file-name "/bin/zsh")
 
 ;;==========================================
-;;  start the emacsserver that listens to emacsclietn
+;;  start the emacsserver that listens to emacsclient
 ;; (server-start)
 
 ;; =======================================
