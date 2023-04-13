@@ -1,7 +1,7 @@
 Isomorphism -- Mathematics of Programming
 ====
 
-2023/03
+2023/04
 
 This book introduces the mathematics behind computer programming.
 
@@ -10,7 +10,7 @@ This book introduces the mathematics behind computer programming.
 Contents
 --------
 
-The book can be downloaded in English ([EN](https://github.com/liuxinyu95/unplugged/files/11070580/unplugged-en.pdf)) and 中文 ([样章](https://github.com/liuxinyu95/unplugged/files/11183276/nat-zh-cn.pdf)).
+The book can be downloaded in English ([EN](https://github.com/liuxinyu95/unplugged/files/11070580/unplugged-en.pdf)). The Chinese edition will be published soon ([中文样章](https://github.com/liuxinyu95/unplugged/files/11183276/nat-zh-cn.pdf)).
 
 - Preface
 - Chapter 1, Natural numbers. Peano Axiom, list and folding;
