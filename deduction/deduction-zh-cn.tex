@@ -310,7 +310,7 @@ range'\ a\ b\ (+)\ 0 =
 [\ ]= build\ (f\ z \mapsto z)
 \]
 
-我们可以代入$build$的定义(\ref{eq:build-definition})来验证这个定义：
+我们可以代入$build$的定义(\cref{eq:build-definition})来验证这个定义：
 
 \begin{proof}
 \bre
@@ -331,7 +331,7 @@ x : xs = build\ (f\ z \mapsto f\ x\ (foldr\ f\ z\ xs))
   & build\ (f\ z \mapsto f\ x\ (foldr\ f\ z\ xs)) & \\
 = & (f\ z \mapsto f\ x\ (foldr\ f\ z\ xs))\ (:)\ [\ ] & build\text{的定义} \\
 = & x : (foldr\ (:)\ [\ ]\ xs) & \beta-\text{规约} \\
-= & x : xs & \text{由(\ref{eq:foldr-fixed-point})，叠加的不动点} \\
+= & x : xs & \text{由(\cref{eq:foldr-fixed-point})，叠加的不动点} \\
 \elre
 \end{proof}
 
@@ -347,7 +347,7 @@ xs \doubleplus ys = build\ (f\ z \mapsto foldr\ f\ (foldr\ f\ z\ ys)\ xs)
 = & (f\ z \mapsto foldr\ f\ (foldr\ f\ z\ ys)\ xs)\ (:)\ [\ ] & build \text{的定义} \\
 = & foldr\ (:)\ (foldr\ (:)\ [\ ]\ ys)\ xs & \beta-\text{规约} \\
 = & foldr\ (:)\ ys\ xs & \text{对内层用叠加的不动点} \\
-= & xs \doubleplus ys & \text{由(\ref{eq:binary-concat})，列表的连接} \\
+= & xs \doubleplus ys & \text{由(\cref{eq:binary-concat})，列表的连接} \\
 \elre
 \end{proof}
 

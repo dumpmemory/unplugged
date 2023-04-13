@@ -306,7 +306,7 @@ To leverage fusion law conveniently, we can rewrite the common functions that ge
 [\ ] = build\ (f\ z \mapsto z)
 \]
 
-We can substitute it with the definition (\ref{eq:build-definition}) of $build$ to prove this result.
+We can substitute it with the definition (\cref{eq:build-definition}) of $build$ to prove this result.
 
 \begin{proof}
 \bre
@@ -329,7 +329,7 @@ Let us verify it.
   & build\ (f\ z \mapsto f\ x\ (foldr\ f\ z\ xs)) & \\
 = & (f\ z \mapsto f\ x\ (foldr\ f\ z\ xs))\ (:)\ [\ ] & \text{definition of } build \\
 = & x : (foldr\ (:)\ [\ ]\ xs) & \beta-\text{reduction} \\
-= & x : xs & \text{By (\ref{eq:foldr-fixed-point}), the fixed point of folding} \\
+= & x : xs & \text{By (\cref{eq:foldr-fixed-point}), the fixed point of folding} \\
 \elre
 \end{proof}
 
@@ -345,7 +345,7 @@ xs \doubleplus ys = build\ (f\ z \mapsto foldr\ f\ (foldr\ f\ z\ ys)\ xs)
 = & (f\ z \mapsto foldr\ f\ (foldr\ f\ z\ ys)\ xs)\ (:)\ [\ ] & \text{Definition of } build\\
 = & foldr\ (:)\ (foldr\ (:)\ [\ ]\ ys)\ xs & \beta-\text{reduction} \\
 = & foldr\ (:)\ ys\ xs & \text{Fixed point for inner part} \\
-= & xs \doubleplus ys & \text{By (\ref{eq:binary-concat}), list concatenation} \\
+= & xs \doubleplus ys & \text{By (\cref{eq:binary-concat}), list concatenation} \\
 \elre
 \end{proof}
 
