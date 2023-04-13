@@ -52,6 +52,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(current-language-environment "UTF-8")
+ '(ediff-split-window-function 'split-window-horizontally)
  '(package-selected-packages
    '(magit auto-complete graphviz-dot-mode smart-tabs-mode flyspell-popup markdown-mode flycheck haskell-mode))
  '(tab-stop-list
@@ -197,7 +198,7 @@
   (filter #'font-exists-p
           '("Monaco"   ;; Mac OS X
             "Consolas" "Courier New" ;; Windows
-            "Source Code Pro" "Noto Sans Mono CJK" "Noto Mono"
+            "Source Code Pro" "Noto Sans Mono CJK" "Noto Mono" ;; Google
             "DejaVu Sans Mono"))) ;; Linux
 
 ;; CN fonts, ordered by preference
