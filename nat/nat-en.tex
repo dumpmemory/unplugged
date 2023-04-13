@@ -94,14 +94,14 @@ Are these three axioms enough? We can still find another counter example. Consid
   \item Different natural numbers have different successors. In other words, if two natural numbers have the same successor, then they are same. Expressed as $n, m \in N$ if $n' = m'$ then $n = m$;
 \end{enumerate}
 
-However, it is still not enough. We can still find another example. For set $\{0, 0.5, 1, 1.5, 2, 2.5, ...\}$. Define 1 is the successor of 0, 2 is the successor of 1, ...; 1.5 is the successor of 0.5, 2.5 is the successor of 1.5, ...; But 0.5 is not the successor of any other numbers. In order to exclude such `unreachable' elements, we need the last Peano axiom.
+However, it is still not enough. We can still find another example. For set \{0, 0.5, 1, 1.5, 2, 2.5, ...\}. Define 1 is the successor of 0, 2 is the successor of 1, ...; 1.5 is the successor of 0.5, 2.5 is the successor of 1.5, ...; But 0.5 is not the successor of any other numbers. In order to exclude such `unreachable' elements, we need the last Peano axiom.
 
 \begin{enumerate}
   \setcounter{enumi}{4}
   \item If some subset of natural numbers contains 0, and every element in it has a successor, then this subset is same as the whole natural numbers. Expressed as if $S \subset N: 0 \in S$ and $\forall n \in S$ if $n' \in S$ then $S = N$.
 \end{enumerate}
 
-Why does the fifth axiom exclude the above counter example? For $\{$0, 0.5, 1, 1.5, 2, 2.5, ...$\}$, consider the subset of $\{0, 1, 2, ...\}$. 0 belongs to it, and every element has a successor. But it is not identical to the original set. As 1.5, 2.5, ... are not in this subset, it does not satisfy the fifth Peano axiom. This last axiom as also known as `Axiom of induction'. It can be equally stated as the following.
+Why does the fifth axiom exclude the above counter example? For \{0, 0.5, 1, 1.5, 2, 2.5, ...\}, consider the subset of \{0, 1, 2, ...\}. 0 belongs to it, and every element has a successor. But it is not identical to the original set. As 1.5, 2.5, ... are not in this subset, it does not satisfy the fifth Peano axiom. This last axiom as also known as `Axiom of induction'. It can be equally stated as the following.
 
 \begin{enumerate}
   \setcounter{enumi}{4}
@@ -814,7 +814,7 @@ filter(p) = foldr(nil, (p \circ 1st \mapsto cons, 2nd))
 
 Let's use an example to understand how this definition works. We want to select all even numbers from a list $filter(even, [1, 4, 9, 16, 25])$. Like expansion process in $sum$, the filtering expands to $h(1, h(4, h(9, ...)))$ till the right end $cons(25, nil)$. According to the definition of $foldr$, the result is $c$ when the list is $nil$. So the next step is to compute $h(25, nil)$, where $h$ is the conditional expression. When apply $even \circ 1st$ to the pair $(25, nil)$, function $1st$ picks 25, as it's odd, the predication $even$ does not hold. Based on the conditional expression, $2nd$ is evaluated and gives the result $nil$. Then we enter the upper level to compute $h(16, nil)$. Function $1st$ extracts the number 16, as 16 is even, the predicate $even$ holds, so the conditional expression sends to $cons(16, nil)$, which produces the list $[16]$. Then we enter one more upper level to compute $h(9, [16])$, the conditional expression sends to $2nd$, which again produces $[16]$. The computation enters to $h(4, [16])$ next. The conditional expression sends to $cons(4, [16])$, which produces the list $[4, 16]$. The computation finally reach to the top level $h(1, [4, 16])$. The conditional expression sends to $2nd$, which produces the final result $[4, 16]$.
 
-The concept of mapping is to transform every element in one list to another value through a function $f$, and form a new list. That is $map(f, \{x_1, x_2, ..., x_n\} = \{f(x_1), f(x_2), ..., f(x_n)\}$. It can be defined with $foldr$ as below.
+The concept of mapping is to transform every element in one list to another value through a function $f$, and form a new list. That is $map(f, \{x_1, x_2, ..., x_n\})$ = $\{f(x_1)$, $f(x_2)$, ..., $f(x_n)\}$. It can be defined with $foldr$ as below.
 
 \be
 \begin{array}{l}
