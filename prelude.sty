@@ -62,7 +62,6 @@
 \usepackage{pict2e}   % for customize lens brackets
 \usepackage[normalem]{ulem}
 \usepackage{suffix}   % for starred command
-
 \usepackage{import} % for nested input
 \usepackage{standalone}
 \usepackage{tocloft}
@@ -87,6 +86,7 @@
 \usepackage{mdframed}
 \usepackage{xeCJK}
 \usepackage{sourcecodepro}
+\usepackage{cleveref}
 
 \titleformat{\paragraph}
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
@@ -134,7 +134,7 @@
 \lstdefinelanguage{Bourbaki}{
   morekeywords={abstract, case, catch, class, struct,
     and, or, not, data, void, to, loop, in, then, repeat, until,
-    do, else, false, for, if, new, null, return,
+    do, else, false, for, if, new, null, return, break,
     throw, true, try, type, val, var, while, yield },
   otherkeywords={=>,<-,<\%,<:,>:,\#,@},
   literate={+}{{$+$}}1 {/}{{$/$}}1 {*}{{$*$}}1 {=}{{$=$}}1
@@ -258,6 +258,10 @@
 \renewcommand{\thesubsubsection}{} % \arabic{subsubsection}, \Alph{subsubsection}, {}
 \setlength{\cftsubsubsecindent}{30pt} % indent for \subsubsection
 
+\renewcommand{\theQuestion}{\theExercise.\arabic{Question}} % for question reference
+\renewcommand{\QuestionNB}{\theExercise.\arabic{Question}.\ } % for question presentation
+\crefalias{Question}{Exercise}
+
 %\verbatimfont{\footnotesize}
 
 % For Chinese Language support
@@ -295,6 +299,9 @@
   \XeTeXlinebreaklocale "zh"  % to solve the line breaking issue
   \XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
 
+  % Simplified way to customize Chinese. Or \usepackage[chinese, english]{babel}
+  % However, it need install the additional texlive-lang-chinese.
+
   \newtheorem{axiom}{公理}[section]
   \newtheorem{theorem}{定理}[section]
   \newtheorem{lemma}[theorem]{引理}
@@ -305,7 +312,7 @@
 
   \renewcommand\ExerciseName{练习}
   \renewcommand\AnswerName{答案}
-  \renewcommand{\sectionautorefname}{节}
+  \crefname{Exercise}{练习}{练习}
 }
 
 \DeclareOption{en}{
@@ -317,7 +324,6 @@
   \newtheorem{definition}{Definition}[section]
   \newtheorem{example}{Example}[section]
 }
-
 
 \DeclareOption*{\PackageWarning{prelude}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
