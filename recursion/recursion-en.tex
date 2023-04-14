@@ -121,13 +121,13 @@ The Pythagoreans believed all things were made of numbers. They studied the numb
 %\end{wrapfigure}
 \end{figure}
 
-Figure \cref{fig:triangular-num} and \cref{fig:oblong-num} demonstrate the triangular numbers and oblong numbers (rectangle numbers). It's easy to figure out that the oblong number is two times of the corresponding triangle number. While the triangle number is the sum of the first $n$ postive integers. By this way, the Pythagoreans found the formula to calculate the sum of postive integers.
+\Cref{fig:triangular-num,fig:oblong-num} demonstrate the triangular numbers and oblong numbers (rectangle numbers). It's easy to figure out that the oblong number is two times of the corresponding triangle number. While the triangle number is the sum of the first $n$ postive integers. By this way, the Pythagoreans found the formula to calculate the sum of postive integers.
 
 \[
 1 + 2 + 3 + ... + n = \frac{1}{2}n(n+1)
 \]
 
-The Pythagoreans also found the odd number could be represented in gnomon\footnote{The word ``gnomon'' originally in Babylonia it probably meant and upright stick whose shadow was used to tell time. In Pythagoras' time it meant a carpenter's square. It also meant what was left over from a square when a smaller square was cut out of one corner. Later Euclid extended from square to parallelogram(\cite{MKlein1972}, p31).} shape as shown in figure \cref{fig:gnomon-num}. And the first $n$ gnomon shapes form a square, as in figure \cref{fig:square-num}. By this way, they found the formula to calculate the sum of $n$-odd numbers.
+The Pythagoreans also found the odd number could be represented in gnomon\footnote{The word ``gnomon'' originally in Babylonia it probably meant and upright stick whose shadow was used to tell time. In Pythagoras' time it meant a carpenter's square. It also meant what was left over from a square when a smaller square was cut out of one corner. Later Euclid extended from square to parallelogram(\cite{MKlein1972}, p31).} shape as shown in \cref{fig:gnomon-num}. And the first $n$ gnomon shapes form a square, as in \cref{fig:square-num}. By this way, they found the formula to calculate the sum of $n$-odd numbers.
 
 \[
 1 + 3 + 5 + ... + (2n - 1) = n^2
@@ -243,7 +243,7 @@ The solution Euclid gave only uses recursion and subtraction. It means the great
 \label{eq:gcm-minus}
 \ee
 
-Suppose segement $a$ and $b$ are comensurable. If they are equal, then either one is the greatest common measure, we can return $a$ as the result. If $a$ is longer than $b$, we can use compass to intercept $b$ from $a$ repeatedly (through recursion), then find the greatest common measure for the intercepted segment $a'$ and $b$; otherwise if $b$ is longer than $a$, we intercept $a$ from $b$ repeatedly, and find the greatest common measure for the segment $a$ and $b'$. Figure \cref{fig:line-seg-gcm} illustrated the steps when processing two segments. We can also use this algorithm to process two integers 42 and 30. The detailed steps are list in the following table.
+Suppose segement $a$ and $b$ are comensurable. If they are equal, then either one is the greatest common measure, we can return $a$ as the result. If $a$ is longer than $b$, we can use compass to intercept $b$ from $a$ repeatedly (through recursion), then find the greatest common measure for the intercepted segment $a'$ and $b$; otherwise if $b$ is longer than $a$, we intercept $a$ from $b$ repeatedly, and find the greatest common measure for the segment $a$ and $b'$. \Cref{fig:line-seg-gcm} illustrated the steps when processing two segments. We can also use this algorithm to process two integers 42 and 30. The detailed steps are list in the following table.
 
 \begin{figure}[htbp]
 \centering
@@ -374,13 +374,13 @@ Where the remainder $0 \leq r < g$. It is either zero or belongs to set $S$, thi
 
 \[
 \begin{array}{rll}
-r & = a - qg & \text{From (\cref{eq:Euclidean-division})} \\
+r & = a - qg & \text{From \cref{eq:Euclidean-division}} \\
   & = a - q(as + bt) & \text{Definition of}\ g \\
   & = a(1 - qs) - bqt & \text{Change to combination of}\ a\ \text{and}\ b
 \end{array}
 \]
 
-It means $r$ can be expressed as the linear combination of $a$ and $b$, therefore, if it's not zero, it must belong to set $S$. However, this is not possible because we previously defined $g$ as the least postive element in $S$, while $r$ is less than $g$. To avoid this contradition, we know that $r$ has to be zero. From equation (\cref{eq:Euclidean-division}), $g$ measures $a$. With the same method, we can prove $g$ also measures $b$. Therefore $g$ is the common measure of them. We'll next prove that $g$ is the greatest one. Consider an arbitrary common measure $c$ for $a$ and $b$, according to the definition, there exists integers $m$ and $n$, that $a = mc$ and $b = nc$. Then $g$ can be expressed as:
+It means $r$ can be expressed as the linear combination of $a$ and $b$, therefore, if it's not zero, it must belong to set $S$. However, this is not possible because we previously defined $g$ as the least postive element in $S$, while $r$ is less than $g$. To avoid this contradition, we know that $r$ has to be zero. From \cref{eq:Euclidean-division}, $g$ measures $a$. With the same method, we can prove $g$ also measures $b$. Therefore $g$ is the common measure of them. We'll next prove that $g$ is the greatest one. Consider an arbitrary common measure $c$ for $a$ and $b$, according to the definition, there exists integers $m$ and $n$, that $a = mc$ and $b = nc$. Then $g$ can be expressed as:
 
 \[
 \begin{array}{rll}
@@ -397,7 +397,7 @@ We can deduce the extended Euclid algorithm with Bézout's idendity.
 \[
 \begin{array}{rlr}
 ax + by & = \gcm(a, b) & \text{Bézout's idendity} \\
-        & = \gcm(b, r_0) & \text{Euclid algorithm (\cref{eq:recursive-gcm})} \\
+        & = \gcm(b, r_0) & \text{Euclid algorithm \cref{eq:recursive-gcm}} \\
         & = bx' + r_0 y' & \text{Use Bézout's idendity for $b$ and $r_0$} \\
         & = bx' + (a - bq_0)y' & \text{By $a = b q_0 + r_0$} \\
         & = ay' + b(x' - y'q_0) & \text{As linear combination of $a$ and $b$} \\
@@ -474,7 +474,7 @@ For example, we can't get 5 gallons of water with two jars of 4 gallons and 6 ga
 
 Although we can tell that the puzzle is solvable when $g$ measures $c$, we still don't know the detailed steps to pour water. Actually, the steps can be decuded as far as we can find two integers $x$ and $y$, satisfying $ax + by = c$. If $x > 0, y < 0$, it means we need fill jar $A$ $x$ times, and empty jar $B$ $y$ times; Else if $x < 0, y > 0$, we need empty jar $A$ $x$ times, and fill jar $B$ $y$ times.
 
-For instance, let the capacity of the big jar $a = 5$ gallons, the small jar $b = 3$ gallons. We want to get $c=4$ gallons of water. As $4 = 3 \times 3 - 5$, so $x = -1, y = 3$. We can arrange the steps as in table \cref{tab:designed-jugs-ops}.
+For instance, let the capacity of the big jar $a = 5$ gallons, the small jar $b = 3$ gallons. We want to get $c=4$ gallons of water. As $4 = 3 \times 3 - 5$, so $x = -1, y = 3$. We can arrange the steps as in \cref{tab:designed-jugs-ops}.
 
 \begin{table}[htbp]
 \centering
@@ -561,7 +561,7 @@ The Euclidean algorithm is the most famous recursive algorithm. German mathemati
 %\end{wrapfigure}
 
 \index{Hippasus of Metapontum}
-The Euclid algorithm is a double-edges sword. The powerful recursive method can be applied to attack the corner stone of the concept that all things are made of numbers. The Pythagoreans believed any two numbers must have common measurement, because all things and phenomenon are essentially ratio of integer to integer. About 470AC, Hippasus, a student in Pythagorean school attempted to find the common measure for the side and diagonal of a square. However, no matter how small magnitude being used, he could not measure them. It surprised the people, and led to a crisis for the foundation of Pythagoreans. There is also saying that, Hippasus was inspired by the mysterious pentagram logo of Pythagorean school. The Pythagoreans use pentagram as the school's badge and liaison symbol. There was a story about a school member met difficulty in a foreign land, poor and sick. The landlord helped to take care of him. He drew a pentagram on the door before dead. A few years later, someone in Pythagorean school saw the sign. He asked about the past, paid the landlord a lot of money then left\cite{HanXueTao16}. In the Walt Disney's film {\em Donald in Mathmagic Land} in 1959, Duck Donald met Pythagoras and his friends, they discovered the principles of music scale together. After shaking hands with Pythagoras, who then vanishes, Donald found on his hand a pentagram, the symbol of the secret Pythagorean society. As shown in figure \cref{fig:pentagram}, there is another story said that Hippasus also found segment AC and AG couldn't be commensurable.
+The Euclid algorithm is a double-edges sword. The powerful recursive method can be applied to attack the corner stone of the concept that all things are made of numbers. The Pythagoreans believed any two numbers must have common measurement, because all things and phenomenon are essentially ratio of integer to integer. About 470AC, Hippasus, a student in Pythagorean school attempted to find the common measure for the side and diagonal of a square. However, no matter how small magnitude being used, he could not measure them. It surprised the people, and led to a crisis for the foundation of Pythagoreans. There is also saying that, Hippasus was inspired by the mysterious pentagram logo of Pythagorean school. The Pythagoreans use pentagram as the school's badge and liaison symbol. There was a story about a school member met difficulty in a foreign land, poor and sick. The landlord helped to take care of him. He drew a pentagram on the door before dead. A few years later, someone in Pythagorean school saw the sign. He asked about the past, paid the landlord a lot of money then left\cite{HanXueTao16}. In the Walt Disney's film {\em Donald in Mathmagic Land} in 1959, Duck Donald met Pythagoras and his friends, they discovered the principles of music scale together. After shaking hands with Pythagoras, who then vanishes, Donald found on his hand a pentagram, the symbol of the secret Pythagorean society. As shown in \cref{fig:pentagram}, there is another story said that Hippasus also found segment AC and AG couldn't be commensurable.
 
 %\begin{wrapfigure}{L}{0.4\textwidth}
 \begin{figure}[htbp]
@@ -575,7 +575,7 @@ The Euclid algorithm is a double-edges sword. The powerful recursive method can 
 \end{figure}
 %\end{wrapfigure}
 
-The Scottish mathematician George Chrystal reconstructed Hippasus's proof in the 19th Century. Using reduction to absurdity, suppose there exists a segment $c$ that measures both the side and diagonal of the square. From the definition of the common measurement, let the side be $nc$, and the diagonal be $mc$, where both $m, n$ are integers. As shown in figure \cref{fig:irrational}, taking the side as radius, we draw an arc with $A$ as the center, which intersects the diagonal $AC$ at point $E$. Then draw a line from $E$ that is perpendicular to the diagonal, and intersects side $BC$ at point $F$.
+The Scottish mathematician George Chrystal reconstructed Hippasus's proof in the 19th Century. Using reduction to absurdity, suppose there exists a segment $c$ that measures both the side and diagonal of the square. From the definition of the common measurement, let the side be $nc$, and the diagonal be $mc$, where both $m, n$ are integers. As shown in \cref{fig:irrational}, taking the side as radius, we draw an arc with $A$ as the center, which intersects the diagonal $AC$ at point $E$. Then draw a line from $E$ that is perpendicular to the diagonal, and intersects side $BC$ at point $F$.
 
 As it is an arc, the length of $AE$ equals to the square side. Thus the length of segment $AE$ is $(m - n)c$. Because $EF$ is perpendicular to $AC$, while angle $\angle ECF$ spans $45\degree$, therefore the triangle $ECF$ is the isosceles right triangle. Since the isosceles triangle has two sides of equal length, we have $|EC| = |EF|$ holds. Observe two right triangles $\triangle AEF$ and $\triangle ABF$. Side $AE$ equals $AB$, and $AF$ is the shared side, they congruent. Then we have $|EF| = |FB|$. As the result, the three segments $|EC| = |EF| = |FB|$. Therefore the length of $FB$ is also $(m - n)c$, while segment $CF$ can be get by deducing $FB$ from $CB$, which is $nc - (m - n)c = (2n - m)c$. We list all the results as below.
 
@@ -609,7 +609,7 @@ It's interesting that the incommensurable is defined by checking whether the Euc
 \Question{Most programming environments require integers for modular operation. However, the length of segment isn't necessarily integer. Implement a modular operation that manipulates segments. What's about its efficiency?}
 \Question{In the proof of Euclidean algorithm, we mentioned ``Remainders are always less than the divisor. We have $b > r_0 > r_1 > r_2 > ... > 0$. As the remainder can not less than zero, and the initial magnitude is finite, the algorithm must terminate.'' Can $r_{n}$ infinitely approximate zero, but not be zero? Does the algorithm always terminate? What does the precondition that $a$ and $b$ are commensurable ensure?}
 \Question{For the binary linear Diophantine equation $ax + by = c$, let $x_1, y_1$ and $x_2, y_2$ be two pairs of solution. Proof that the minimum of $|x_1 - x_2|$ is $b/\gcm(a, b)$, and the minimum of $|y_1 - y_2|$ is $a/\gcm(a, b)$}
-\Question{For the regular pentagon with side of 1, how long is the diagonal? Proof that in the pentagram shown in figure \cref{fig:pentagram}, the segment $AC$ and $AG$ are incommensurable. What's their ratio in real number?}
+\Question{For the regular pentagon with side of 1, how long is the diagonal? Proof that in the pentagram shown in \cref{fig:pentagram}, the segment $AC$ and $AG$ are incommensurable. What's their ratio in real number?}
 \end{Exercise}
 
 \begin{Answer}[ref={ex:euclid-algorithm}]
@@ -807,7 +807,7 @@ Hence proved every pair of solution is in this form. Obviously, for any two such
 }
 \Question{For the regular pentagon with side of 1, how long is the diagonal? Proof that in the pentagram shown in this chapter, the segment $AC$ and $AG$ are incommensurable. What's their ratio in real number?
 
-Paul Lockhart gives a beautiful method in his {\em Measurement}\cite{Lockhart2012}. As shown in figure \cref{fig:pentagram-unit}, we can divide the regular pentagon into three triangles. It's easy to show that triangle $A$ and $B$ are congruent, and they are similar to triangle $C$ (can you prove it?). If the length of the pentagon side is 1, let the diagonal length be $d$, then the base of triangle $C$ is 1, and its two hypotenuses both are $d - 1$. From the similar triangles, we have:
+Paul Lockhart gives a beautiful method in his {\em Measurement}\cite{Lockhart2012}. As shown in \cref{fig:pentagram-unit}, we can divide the regular pentagon into three triangles. It's easy to show that triangle $A$ and $B$ are congruent, and they are similar to triangle $C$ (can you prove it?). If the length of the pentagon side is 1, let the diagonal length be $d$, then the base of triangle $C$ is 1, and its two hypotenuses both are $d - 1$. From the similar triangles, we have:
 
 \[
   1 / d = (d - 1) / a
@@ -1094,7 +1094,7 @@ A more interesting example is $(\lambda x . 1)\ (D\ D)$, if firstly reduce the $
 If $E_1 \leftrightarrow E_2$, then there exists $E$ that $E_1 \to E$ and $E_2 \to E$.
 \end{theorem}
 
-It means, if the reduction process terminates, then the results confluence. Varies reduction steps give the same result, as shown in figure \cref{fig:Church-Rosser-confluence}. Church and Rosser proved the second theorem on top of the first one. We need the concept of the {\em normal form} to understand it. The normal form, also known as $\beta$ normal form, is an expression that we can't do any further $\beta$-reduction. It means all the functions have already been applied. A more strict normal form is the $\beta-\eta$ normal form, which neither $\beta$-reduction, nor $\eta$-reduction can be performed. For example, $(x \mapsto x + 1)\ y$ is not normal form, because we can apply $\beta$-reduction to change it to $y + 1$. The following defines the normal form recursively.
+It means, if the reduction process terminates, then the results confluence. Varies reduction steps give the same result, as shown in \cref{fig:Church-Rosser-confluence}. Church and Rosser proved the second theorem on top of the first one. We need the concept of the {\em normal form} to understand it. The normal form, also known as $\beta$ normal form, is an expression that we can't do any further $\beta$-reduction. It means all the functions have already been applied. A more strict normal form is the $\beta-\eta$ normal form, which neither $\beta$-reduction, nor $\eta$-reduction can be performed. For example, $(x \mapsto x + 1)\ y$ is not normal form, because we can apply $\beta$-reduction to change it to $y + 1$. The following defines the normal form recursively.
 
 \[
 \begin{array}{rcll}
@@ -1144,7 +1144,7 @@ where
 H = f \mapsto (n \mapsto (... f ...))
 \]
 
-Note that after this conversion, $H$ is not recursive any more. It is a normal $\lambda$ expression. Observe the equation (\cref{eq:H-fact}), it represents recursion. It is in equation form, which reminds us about the differential equation. For example, solving the differential equation $y' = sin(x)$ gives $y = a - cos(x)$. If we can solve the equation $F = H\ F$, then we are able to define factorial independently. Further observe this equation, it means when apply $H$ to $F$, the result is still $F$. Such concept is called {\em fixed point} in mathematics. We say that $F$ is the fixed point of $H$. Here's another example: the fixed points for $\lambda$ expression $x \mapsto x \times x$ are 0 and 1, this is because we have $(x \mapsto x \times x)\ 0 = 0$ and $(x \mapsto x \times x)\ 1 = 1$.
+Note that after this conversion, $H$ is not recursive any more. It is a normal $\lambda$ expression. Observe \cref{eq:H-fact}, it represents recursion. It is in equation form, which reminds us about the differential equation. For example, solving the differential equation $y' = sin(x)$ gives $y = a - cos(x)$. If we can solve the equation $F = H\ F$, then we are able to define factorial independently. Further observe this equation, it means when apply $H$ to $F$, the result is still $F$. Such concept is called {\em fixed point} in mathematics. We say that $F$ is the fixed point of $H$. Here's another example: the fixed points for $\lambda$ expression $x \mapsto x \times x$ are 0 and 1, this is because we have $(x \mapsto x \times x)\ 0 = 0$ and $(x \mapsto x \times x)\ 1 = 1$.
 
 \subsection{Y combinator}
 
@@ -1155,7 +1155,7 @@ Y\ H = H\ (Y\ H)
 \label{eq:Y-H}
 \ee
 
-$Y$ is called fixpoint combinator. By using $Y$, we define the solution to equation (\cref{eq:H-fact}).
+$Y$ is called fixpoint combinator. By using $Y$, we define the solution to \cref{eq:H-fact}.
 
 \be
 fact = Y\ H
@@ -1166,9 +1166,9 @@ Such $fact$ is a non-recursive definition. We can verify this solution as the fo
 
 \[
 \begin{array}{rcll}
-fact & = & Y\ H & \text{By (\cref{eq:fact-in-Y})} \\
-     & = & H\ (Y\ H) & \text{By (\cref{eq:Y-H})} \\
-     & = & H\ fact & \text{Reverse of (\cref{eq:fact-in-Y})}
+fact & = & Y\ H & \text{By \cref{eq:fact-in-Y}} \\
+     & = & H\ (Y\ H) & \text{By \cref{eq:Y-H}} \\
+     & = & H\ fact & \text{Reverse of \cref{eq:fact-in-Y}}
 \end{array}
 \]
 
@@ -1489,7 +1489,7 @@ mapm(f) = foldm(f, node, nil)
 
 \section{The recursive pattern and structure}
 
-Recursion exists both in the ancient Euclidean algorithm and in modern computer systems. The fascinating recursive pattern and structure also appear in various of arts in human civilizations. For example in Islamic mosaic arts, shown in figure \cref{fig:Ceramic-Tile-Tessellations-Marrakech}.
+Recursion exists both in the ancient Euclidean algorithm and in modern computer systems. The fascinating recursive pattern and structure also appear in various of arts in human civilizations. For example in Islamic mosaic arts, shown in \cref{fig:Ceramic-Tile-Tessellations-Marrakech}.
 
 %\begin{wrapfigure}{R}{0.3\textwidth}
 \begin{figure}[htbp]
@@ -1501,7 +1501,7 @@ Recursion exists both in the ancient Euclidean algorithm and in modern computer 
 \end{figure}
 %\end{wrapfigure}
 
-We can see the polygon patterns in the mosaic recursively contain smaller polygons. It demonstrates the beauty of recursive geometric patterns through the colorful tiles. The small patterns form big stripes, which brings the varies of effects. Figure \cref{fig:flower} is a sketch of the famous Renaissance artist Leonardo da Vinci. It's also a recursive pattern. Using the same radius, he drew six interlaced circles along the centered one. They form a six-lobed snowflake style figure. And they recursively form the same pattern in a bigger scope. The right figure shows a pile of Chinese hand-made katydid cages. It demonstrated the similar recursive pattern. The mesh of the cage is hexagonal. While the overall shape of the cage is also hexagonal when viewed from the axial direction.
+We can see the polygon patterns in the mosaic recursively contain smaller polygons. It demonstrates the beauty of recursive geometric patterns through the colorful tiles. The small patterns form big stripes, which brings the varies of effects. \Cref{fig:flower} is a sketch of the famous Renaissance artist Leonardo da Vinci. It's also a recursive pattern. Using the same radius, he drew six interlaced circles along the centered one. They form a six-lobed snowflake style figure. And they recursively form the same pattern in a bigger scope. The right figure shows a pile of Chinese hand-made katydid cages. It demonstrated the similar recursive pattern. The mesh of the cage is hexagonal. While the overall shape of the cage is also hexagonal when viewed from the axial direction.
 
 %\begin{wrapfigure}{R}{0.3\textwidth}
 \begin{figure}[htbp]
@@ -1538,9 +1538,9 @@ Not only in art, recursion also appears in music. For example, the polyphonic mu
 
 A fugue is like a canon, in that it is usually based on one theme which gets played in different voices and different keys, and occasionally at different speeds or upside down or backwards. However, the notion of fugue is much less rigid than that of canon, and consequently it allows for more emotional and artistic expression. The telltale sign of a fugue is the way it begins: with a single voice singing its theme. When it is done, then a second voice enters, either five scale-notes up, or four down. Meanwhile the first voice goes on, singing the ``countersubject'': a secondary theme, chosen to provide rhythmic, harmonic, and melodic contrasts to the subject. Each of the voices enters in turn, singing the theme, often to the accompaniment of the countersubject in some other voice, with the remaining voices doing whatever fanciful things entered the composer's mind. When all the voices have ``arrived'', then there are no rules. There are, to be sure, standard kinds of things to do-but not so standard that one can merely compose a fugue by formula. The two fugues in J.S. Bach's Musical Offering are outstanding examples of fugues that could never have been "composed by formula". There is something much deeper in them than mere fugality\cite{GEB}.
 
-Not only finite recursion, we can also find the infinite recursion in arts. Figure \cref{fig:Drawing-Hands}, Drawing Hands is a lithograph by the Dutch artist M. C. Escher first printed in January 1948. Two hands mutual recursively are drawing each other. It an example of infinite recursion. The upper hand is using a pencil drawing the lower hand, while the lower hand, at the same time, is drawing the upper hand. The recursion is embedded loop by loop endlessly.
+Not only finite recursion, we can also find the infinite recursion in arts. \Cref{fig:Drawing-Hands}, Drawing Hands is a lithograph by the Dutch artist M. C. Escher first printed in January 1948. Two hands mutual recursively are drawing each other. It an example of infinite recursion. The upper hand is using a pencil drawing the lower hand, while the lower hand, at the same time, is drawing the upper hand. The recursion is embedded loop by loop endlessly.
 
-The perfect combination of mathematical recursion and art is fractal. Kock snowflake is a famous fractal curve, which can be generated by infinite recursion rules: For every section, divided it into 3 equal parts, draw a equilateral triangle on top of the middle section, then erase the bottom side of the triangle. Figure \cref{fig:fractal} shows the Kock snowflake result after recursively applying this rule three times on a equilateral triangle. Another famous fractal pattern is called Sierpinski triangle. The generation rule is to connect all the three middle points of the side in a triangle recursively. Below figure shows the Sierpinski triangle after recursively applying the rules four times.
+The perfect combination of mathematical recursion and art is fractal. Kock snowflake is a famous fractal curve, which can be generated by infinite recursion rules: For every section, divided it into 3 equal parts, draw a equilateral triangle on top of the middle section, then erase the bottom side of the triangle. \Cref{fig:fractal} shows the Kock snowflake result after recursively applying this rule three times on a equilateral triangle. Another famous fractal pattern is called Sierpinski triangle. The generation rule is to connect all the three middle points of the side in a triangle recursively. Below figure shows the Sierpinski triangle after recursively applying the rules four times.
 
 %\begin{wrapfigure}{R}{0.3\textwidth}
 \begin{figure}[htbp]
@@ -1570,7 +1570,7 @@ We show another two fractal patterns as the close of this chapter. One is the fr
 
 \section{Appendix: Example program for 2 water jars puzzle}
 
-After figure out the integer solutions for 2 water jars puzzle, we can generate the detailed steps, and output them like table \cref{tab:designed-jugs-ops}.
+After figure out the integer solutions for 2 water jars puzzle, we can generate the detailed steps, and output them like \cref{tab:designed-jugs-ops}.
 
 \lstset{frame=single}
 \begin{Haskell}
