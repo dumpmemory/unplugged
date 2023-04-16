@@ -53,7 +53,7 @@ What is symmetry? How to accurately define, or even measure symmetry? Let's star
 f(x) = f(-x)
 \]
 
-Let's abstract the reflective figure as a segment with two ends of 1 and 2. The segment is congruent when exchange ends from 1, 2 to 2, 1 as shown in figure \cref{fig:reflection}. We call the transform $(1, 2) \mapsto (2, 1)$ a permutation.
+Let's abstract the reflective figure as a segment with two ends of 1 and 2. The segment is congruent when exchange ends from 1, 2 to 2, 1 as shown in \cref{fig:reflection}. We call the transform $(1, 2) \mapsto (2, 1)$ a permutation.
 
 \begin{figure}[htbp]
   \centering
@@ -86,7 +86,7 @@ e & s & e \\
 
 Such table is called Cayley table, named after British mathematicial Arthur Cayley. We can skip the dot to simplify the composition of $\tau$ and $\mu$ as $\tau\mu$. We call the permutation set $\{s, e\}$ and the compositions among its elements as $S_2$. It defines the reflexive symmetry in a plane. For any reflexive thing $a$, $s(a) = a$ holds. For example, consider three points with coordinate $A = (-1, 0), B = (1, 0), C = (2, 0)$. Because $s(AB) = AB$, segment $AB$ is reflexive symmetric, while $s(AC)  \neq AC$, segment $AC$ is not symmetric.
 
-What symmetry can we obtain when extend from a segment with two end points to a triangle? Let the three end points 1, 2, and 3. There are 6 permutations, change the points to: $(2, 1, 3)$、$(3, 2, 1)$、$(1, 3, 2)$、$(2, 3, 1)$、$(3, 1, 2)$、$(1, 2, 3)$. Where the last one is the identity $e$, keeping points same. As shown in figure \cref{fig:triangles}, the first permutation swaps 1 and 2, while keeping 3 fixed. It flips the triangle against the middle axis. We denote it as $s$. The fourth permutation rotates the triangle clockwise, denoted as $r$. The fifth permutation rotates counter clockwise, it's $r^{-1}$. We call these 6 permutations together with their compositions as $S_3$. The three triangles shown in this figure have different symmetries. The left triangle only unchanged under the permutation of identity $e$. It has the least symmetry; The middle triangle unchanged under $s$ and $e$. It has more symmetry than the left; The right regular triangle unchanged under all the 6 permutations. It has the most symmetry (Reflection against three axes, two rotations of $\pm\dfrac{2\pi}{3}$, and identity). We can measure the symmetry of triangle with $S_3$.
+What symmetry can we obtain when extend from a segment with two end points to a triangle? Let the three end points 1, 2, and 3. There are 6 permutations, change the points to: $(2, 1, 3)$、$(3, 2, 1)$、$(1, 3, 2)$、$(2, 3, 1)$、$(3, 1, 2)$、$(1, 2, 3)$. Where the last one is the identity $e$, keeping points same. As shown in \cref{fig:triangles}, the first permutation swaps 1 and 2, while keeping 3 fixed. It flips the triangle against the middle axis. We denote it as $s$. The fourth permutation rotates the triangle clockwise, denoted as $r$. The fifth permutation rotates counter clockwise, it's $r^{-1}$. We call these 6 permutations together with their compositions as $S_3$. The three triangles shown in this figure have different symmetries. The left triangle only unchanged under the permutation of identity $e$. It has the least symmetry; The middle triangle unchanged under $s$ and $e$. It has more symmetry than the left; The right regular triangle unchanged under all the 6 permutations. It has the most symmetry (Reflection against three axes, two rotations of $\pm\dfrac{2\pi}{3}$, and identity). We can measure the symmetry of triangle with $S_3$.
 
 \begin{figure}[htbp]
   \centering
@@ -674,7 +674,7 @@ We say $f$ is a \textbf{homomorphism} from $A$ to $B$. If $f$ is a surjection, k
 
 \index{isomorphism}
 \index{automorphism}
-If $f$ is not only a surjection, but also a injection (there are no any two different elements map to the same image), then it's one-to-one mapping. We call $f$ is the \textbf{isomorphism} from $A$ to $B$. Denote as $A \cong B$. Isomorphism is a very powerful relationship. Besides group, isomorphism is also applicable to semigroups, monoids and other algebraic structures. As shown in figure \cref{fig:isomorphism}. If $A$ is isomorphic to $B$, from the abstracted view, they are essentially the same thing with different names. If there is a algebraic property in $A$, then there is exactly a same property in $B$ (\cite{ZhangHeRui1978} pp.25). The special isomorphism from $A$ to $A$ is called \textbf{automorphism} of $A$. For example, the group of integers with addition has a automorphism under the negate operation.
+If $f$ is not only a surjection, but also a injection (there are no any two different elements map to the same image), then it's one-to-one mapping. We call $f$ is the \textbf{isomorphism} from $A$ to $B$. Denote as $A \cong B$. Isomorphism is a very powerful relationship. Besides group, isomorphism is also applicable to semigroups, monoids and other algebraic structures. As shown in \cref{fig:isomorphism}. If $A$ is isomorphic to $B$, from the abstracted view, they are essentially the same thing with different names. If there is a algebraic property in $A$, then there is exactly a same property in $B$ (\cite{ZhangHeRui1978} pp.25). The special isomorphism from $A$ to $A$ is called \textbf{automorphism} of $A$. For example, the group of integers with addition has a automorphism under the negate operation.
 
 %% \begin{figure}[htbp]
 %% \centering
@@ -929,7 +929,7 @@ When do the multiplication, which is composition essentially, we can determine t
 \end{array}
 \]
 
-They are different results. $S_3$ is not abelian. Actually, it is the smallest finite none abelian group. A finite none abelian group contains at least 6 elements. Observe the permutation for 5 elements $(2, 3, 1, 4, 5)$, only the first three ones change, while the rest two keep same. The changes for the first three elements have a pattern, as shown n \cref{fig:cycle-permutation}, it is cyclic.
+They are different results. $S_3$ is not abelian. Actually, it is the smallest finite none abelian group. A finite none abelian group contains at least 6 elements. Observe the permutation for 5 elements $(2, 3, 1, 4, 5)$, only the first three ones change, while the rest two keep same. The changes for the first three elements have a pattern, as shown in \cref{fig:cycle-permutation}, it is cyclic.
 
 \begin{figure}[htbp]
 \centering
@@ -944,7 +944,7 @@ With this pattern, we can simplify the permutation notation from $(2, 3, 1, 4, 5
 i_1 \to i_2 \to i_3 \to ... \to i_{k-1} \to i_k \to i_1
 \]
 
-This explains the $k$-cycle notation from map perspective as shown in the lower part in figure \cref{fig:cycle-permutation}. Let the permutation be $\sigma$, follow the arrows in the figure: $1 \to \sigma(1) = 2$, $2 \to \sigma(2) = 3$, $3 \to \sigma(3) = 1$. We can also explain it as movements. $k$-cycle moves every element to its predecessor's position, and move the first element to the last to form a cycle, as shown in the upper part in figure \cref{fig:cycle-permutation}. The elements in $k$-cycle may not be necessarily adjacent, for example $(3\ 9\ 4)$, nor in a fixed order, for example $(2\ 4\ 1\ 3)$. If there are only two elements in the cycle, like $(i\ j)$, we call it transposition (swap). Identity transformation is the special case, for example $(1, 2, 3, 4, 5)$, we denote it as $e = (1)$, and let:
+This explains the $k$-cycle notation from map perspective as shown in the lower part in \cref{fig:cycle-permutation}. Let the permutation be $\sigma$, follow the arrows in the figure: $1 \to \sigma(1) = 2$, $2 \to \sigma(2) = 3$, $3 \to \sigma(3) = 1$. We can also explain it as movements. $k$-cycle moves every element to its predecessor's position, and move the first element to the last to form a cycle, as shown in the upper part in \cref{fig:cycle-permutation}. The elements in $k$-cycle may not be necessarily adjacent, for example $(3\ 9\ 4)$, nor in a fixed order, for example $(2\ 4\ 1\ 3)$. If there are only two elements in the cycle, like $(i\ j)$, we call it transposition (swap). Identity transformation is the special case, for example $(1, 2, 3, 4, 5)$, we denote it as $e = (1)$, and let:
 
 \[
 e = (1) = (2) = ... = (n)
@@ -1054,7 +1054,7 @@ There are total $4! = 24$ elements.
 
 \subsection{Groups and symmetry}
 
-Why the group of all permutations of a set is called symmetric group? Because it exactly defines what is symmetry. Consider a regular triangle for example, let the three vertex be 1, 2, 3. We choose from $S_3$ three elements, (1 2), (1 2 3), and (1 3 2), and apply them to the triangle vertexes as shown in figure \cref{fig:S3-examples}.
+Why the group of all permutations of a set is called symmetric group? Because it exactly defines what is symmetry. Consider a regular triangle for example, let the three vertex be 1, 2, 3. We choose from $S_3$ three elements, (1 2), (1 2 3), and (1 3 2), and apply them to the triangle vertexes as shown in \cref{fig:S3-examples}.
 
 \begin{figure}[htbp]
  \centering
@@ -1105,11 +1105,11 @@ It defines the symmetry of a tetrahedron. A tetrahedron has four vertex corners,
 \end{center}
 %\end{figure}
 
-For the tetrahedron 1234 in figure \cref{fig:S4}, elements in group $A_4$ transform it to:
+For the tetrahedron 1234 in \cref{fig:S4}, elements in group $A_4$ transform it to:
 
 3124, 2314, 1423, 1342, 4213, 3241, 4132, 2431, 2143, 3412, 4321, 1234
 
-These 12 transformations are all proper congruences. Besides, there are also improper congruences. As shown in figure \cref{fig:S4}, when rotated by $120\degree$ against the axis, the tetrahedron transforms to 3124 on the right, this is a proper congruence. Then reflect it against surface $O13$, we get the bottom-right tetrahedron 3142. This is an improper congruence.
+These 12 transformations are all proper congruences. Besides, there are also improper congruences. As shown in \cref{fig:S4}, when rotated by $120\degree$ against the axis, the tetrahedron transforms to 3124 on the right, this is a proper congruence. Then reflect it against surface $O13$, we get the bottom-right tetrahedron 3142. This is an improper congruence.
 
 %\begin{figure}[htbp]
 \begin{center}
@@ -1265,7 +1265,7 @@ Now we are ready to explain the rotational symmetry of snowflake. The hexagon sh
 
 \subsubsection{Cyclotomic equation}
 
-We lay the regular hexagon, the abstracted snowflake, to the complex plane, scale it to inscribe the unit circle. The six vertexes represent the roots for equation $x^6 - 1 = 0$, as shown in figure \cref{fig:cyclotomic-6}. Obviously $x = \pm 1$ are two roots, the rest roots can be given by de Moivre's formula learnt in high school:
+We lay the regular hexagon, the abstracted snowflake, to the complex plane, scale it to inscribe the unit circle. The six vertexes represent the roots for equation $x^6 - 1 = 0$, as shown in \cref{fig:cyclotomic-6}. Obviously $x = \pm 1$ are two roots, the rest roots can be given by de Moivre's formula learnt in high school:
 
 \begin{figure}[htbp]
  \centering
@@ -1295,7 +1295,7 @@ When $n = 4$, factor $x^4 - 1 = (x^2 - 1)(x^2 + 1) = (x - 1)(x + 1)(x - i)(x + i
 %%    \dfrac{-\sqrt{5} - 1 \pm \sqrt{2 \sqrt{5} - 10}}{4}
 %% \]
 
-When $n = 6$, factor $x^6 - 1 = (x^3 - 1)(x^3 + 1)$. Therefore all the roots for cubic cyclotomic equation are also the roots for $n = 6$. Obviously, $x = -1$ is another root, hence $(x + 1)$ divides $x^3 + 1$. Using polynomial long division, gives $x^3 + 1 = (x + 1)(x^2 - x + 1)$. Next solve the quadratic equation $x^2 - x + 1 = 0$, we obtain all the six roots: $\pm 1, \dfrac{\pm 1 \pm i \sqrt{3}}{2}$, as shown in figure \cref{fig:cyclotomic-6}.
+When $n = 6$, factor $x^6 - 1 = (x^3 - 1)(x^3 + 1)$. Therefore all the roots for cubic cyclotomic equation are also the roots for $n = 6$. Obviously, $x = -1$ is another root, hence $(x + 1)$ divides $x^3 + 1$. Using polynomial long division, gives $x^3 + 1 = (x + 1)(x^2 - x + 1)$. Next solve the quadratic equation $x^2 - x + 1 = 0$, we obtain all the six roots: $\pm 1, \dfrac{\pm 1 \pm i \sqrt{3}}{2}$, as shown in \cref{fig:cyclotomic-6}.
 
 %% \begin{center}
 %% \polylongdiv{x^3+1}{x+1}
@@ -1333,7 +1333,7 @@ $n$ & cyclotomic equation & roots & primitive roots & cyclotomic polynomial $\Ph
 \etab
 
 \begin{Exercise}\label{ex:cyclic-group}
-\Question{Proof that cyclic groups are abelian.}
+\Question{Proof that cyclic groups are abelian.}\label{ex:cyclic-is-abelian}
 \Question{Write a program for polynomial long division.}
 \Question{Factor $x^{12} - 1$ to cyclotomic polynomials.}
 \Question{Solve the quintic cyclotomic equation in radicals. hint: the equation $x^4 + x^3 + x^2 + x + 1 = 0$ changes to symmetric after being divided by $x^2$ as $x^2 + x + 1 + x^{-1} + x^{-2} = 0$.}
@@ -1438,9 +1438,9 @@ For any group $G$, a none empty subset $H$ forms a subgroup if and only if, for 
 \end{theorem}
 
 \begin{proof}
-First prove the sufficiency. Let $a \in H$, and $b = a$, then $aa^{-1} = e \in H$. Since $e, a \in H$, therefore, $ea^{-1} = a^{-1} \in H$. This is the second condition in theorem \cref{theorem:subgroup}; For all $a, b \in H$, we just proved $b^{-1} \in H$. Therefore, $a(b^{-1})^{-1} = ab \in H$. This is the first condition in theorem \cref{theorem:subgroup};
+First prove the sufficiency. Let $a \in H$, and $b = a$, then $aa^{-1} = e \in H$. Since $e, a \in H$, therefore, $ea^{-1} = a^{-1} \in H$. This is the second condition in \cref{theorem:subgroup}; For all $a, b \in H$, we just proved $b^{-1} \in H$. Therefore, $a(b^{-1})^{-1} = ab \in H$. This is the first condition in \cref{theorem:subgroup};
 
-Next prove the necessity. Let $a, b \in H$, from the second condition in theorem \cref{theorem:subgroup}, we have $b^{-1} \in H$. Then using the first condition, we get $ab^{-1} \in H$.
+Next prove the necessity. Let $a, b \in H$, from the second condition in \cref{theorem:subgroup}, we have $b^{-1} \in H$. Then using the first condition, we get $ab^{-1} \in H$.
 \end{proof}
 
 If the subset $H$ is finite, then the condition to form a subgroup can be further simplified:
@@ -1457,7 +1457,7 @@ For another example, one of the most important subgroups for the symmetric group
 
 keeps same. Such permutations are called even permutations. They flip the sign of $\Delta$ even times, hence it is not changed. The rest permutations are odd permutations. The product of two even or odd permutations is still even, while an even one and an odd one gives an odd permutation. There are equal numbers of even and odd permutations, both are $n!/2$.
 
-With integer $n$, we can partition all the integers into residues modulo $n$. Using the similar idea, we can partition the elements in a group. Consider the additive group of integers $Z$, let $H$ be the subset of all multiples of $n$, i.e. $H = \{ kn \}$ where $k = 0, \pm 1, \pm 2, ...$. For any two elements $hn$ and $kn$, $hn + (-k)n = (h - k)n \in H$. While $-kn$ is exactly the inverse of $kn$ in $Z$, and $+$ is the binary operation in additive group of integers. According to the theorem \cref{theorem:subgroup-2}, $H$ is the subgroup of $Z$.
+With integer $n$, we can partition all the integers into residues modulo $n$. Using the similar idea, we can partition the elements in a group. Consider the additive group of integers $Z$, let $H$ be the subset of all multiples of $n$, i.e. $H = \{ kn \}$ where $k = 0, \pm 1, \pm 2, ...$. For any two elements $hn$ and $kn$, $hn + (-k)n = (h - k)n \in H$. While $-kn$ is exactly the inverse of $kn$ in $Z$, and $+$ is the binary operation in additive group of integers. According to the \cref{theorem:subgroup-2}, $H$ is the subgroup of $Z$.
 
 When we partition integers into residues modulo $n$, we use the equivalence relation as:
 
@@ -1511,7 +1511,7 @@ Ha = \{ha | h \in H\}
 \label{fig:right-cosets-Z3}
 \end{figure}
 
-As shown in figure \cref{fig:right-cosets-Z3}, $Z$ is the additive group of integers. Set $H$ contains all multiples of 3, includes $0, \pm 3, \pm 6, ...$. It forms a subgroup under the addition. We add 0 in $Z$ from right\footnote{As the additive group of integers is abelian, the addition is commutative, therefore, the left and right cosets are same.} to every element in $H$, which gives $H0$. Obviously, $H0$ equals to $H$. It contains all the remainders of 0 modulo 3, denoted as [0]. Adding 1 in $Z$ from right to every element in $H$ gives $H1$. It contains all remainders of 1 modulo 3, denoted as [1]; Adding 2 in $Z$ from right to every element in $H$ gives $H2$. It contains all remainders of 2 modulo 3, denoted as [2]. If add 3 to every element in $H$, the result is as same as $H0$. In fact, whatever element $a$ we choose from $H0$ to generate a right coset $Ha$, it is always as same as $H0$; whatever element $b$ we choose from $H1$ to generate a right coset $Hb$, it is always as same as $H1$; whatever element $c$ we choose from $H2$ to generate a right coset $Hc$, it is always as same as $H2$. Put the three right cosets $H0$, $H1$, and $H2$ together, the result is exactly all the integers $Z$. It is a partition of $Z$: [0], [1], [2].
+As shown in \cref{fig:right-cosets-Z3}, $Z$ is the additive group of integers. Set $H$ contains all multiples of 3, includes $0, \pm 3, \pm 6, ...$. It forms a subgroup under the addition. We add 0 in $Z$ from right\footnote{As the additive group of integers is abelian, the addition is commutative, therefore, the left and right cosets are same.} to every element in $H$, which gives $H0$. Obviously, $H0$ equals to $H$. It contains all the remainders of 0 modulo 3, denoted as [0]. Adding 1 in $Z$ from right to every element in $H$ gives $H1$. It contains all remainders of 1 modulo 3, denoted as [1]; Adding 2 in $Z$ from right to every element in $H$ gives $H2$. It contains all remainders of 2 modulo 3, denoted as [2]. If add 3 to every element in $H$, the result is as same as $H0$. In fact, whatever element $a$ we choose from $H0$ to generate a right coset $Ha$, it is always as same as $H0$; whatever element $b$ we choose from $H1$ to generate a right coset $Hb$, it is always as same as $H1$; whatever element $c$ we choose from $H2$ to generate a right coset $Hc$, it is always as same as $H2$. Put the three right cosets $H0$, $H1$, and $H2$ together, the result is exactly all the integers $Z$. It is a partition of $Z$: [0], [1], [2].
 
 %% \begin{figure}[htbp]
 %% \centering
@@ -1581,7 +1581,7 @@ C_3 (1\ 2) = \{(1\ 2), (1\ 3), (2\ 3)\}
 \end{array}
 \]
 
-Figure \cref{fig:S3-Cayley} and \cref{fig:S3-Cayley-aH} show the two partitions. They have major difference, subgroup $C_3$ generates the same left and right cosets, while $C_{2a}$ generates the different left and right cosets.
+\Cref{fig:S3-Cayley,fig:S3-Cayley-aH} show the two partitions. They have major difference, subgroup $C_3$ generates the same left and right cosets, while $C_{2a}$ generates the different left and right cosets.
 
 \begin{figure}[htbp]
  \centering
@@ -1664,7 +1664,7 @@ If $f$ is a surjective homomorphism from group $G$ to another group $G'$, consid
 We have the following theorem. If $G$ is homomorphic to $G'$, then the kernal $N$ of the homomorphism is the normal subgroup of $G$. And the quotient group $G/N \cong G'$. A group is homomorphic to every of its quotient group, and from the abstract point of view, $G$ can only be homomorphic to its quotient groups. Sometimes, we find $G$ is homomorphic to $G'$, and we don't know well about the properties of $G'$. However, we are sure to be able to find a normal subgroup $N$ of $G$, that the properties of $G'$ are essentially identical to the quotient group $G/N$. We can see the importance of the normal subgroup and the quotient group. Galois did use this idea to figure out the way to define the equation group is solvable or not.
 
 \begin{Exercise}\label{ex:subgroup}
-\Question{Proof theorem \cref{theorem:subgroup}, which determines if a subset forms a subgroup.}
+\Question{Proof \cref{theorem:subgroup}, which determines if a subset forms a subgroup.}
 \end{Exercise}
 
 \begin{Answer}[ref={ex:subgroup}]
@@ -1782,7 +1782,7 @@ Lagrange's theorem in group theory can be used to prove the Fermat's little theo
 \end{theorem}
 
 \begin{proof}
-Consider the multiplicative integer group modulo $p$. The group elements are all none zero residues modulo $p$. As $p$ is prime, therefore the group elements are 1, 2, ..., $p-1$. The identity element $e = 1$. The order of the group is thus $p-1$. According to the corollary \cref{corollary:Lagrange-elem-order} of Lagrange's theorem, we have:
+Consider the multiplicative integer group modulo $p$. The group elements are all none zero residues modulo $p$. As $p$ is prime, therefore the group elements are 1, 2, ..., $p-1$. The identity element $e = 1$. The order of the group is thus $p-1$. According to the \cref{corollary:Lagrange-elem-order} of Lagrange's theorem, we have:
 
 \[
 a^{p-1} = e
@@ -1919,7 +1919,7 @@ Where $\upphi(n)$ is Euler function\footnote{Also know as Euler totient function
 Euler proved this theorem with the method in elementary theory of numbers. There is a elegant proof by using Lagrange's theorem in group theory.
 
 \begin{proof}
-Consider the none zero residues modulo $n$. We pick out all the mutually inverse residues under the multiplication modulo $n$. They form a multiplicative group modulo $n$. From the definition of Euler $\upphi$ function, the value of $\upphi(n)$ is the number of all positive integers that less than $n$ and coprime to $n$. While these positive numbers are exactly the elements of the multiplicative group. Thus the order of this group is $\upphi(n)$. From the corollary \cref{corollary:Lagrange-elem-order} of Lagrange's theorem, we have:
+Consider the none zero residues modulo $n$. We pick out all the mutually inverse residues under the multiplication modulo $n$. They form a multiplicative group modulo $n$. From the definition of Euler $\upphi$ function, the value of $\upphi(n)$ is the number of all positive integers that less than $n$ and coprime to $n$. While these positive numbers are exactly the elements of the multiplicative group. Thus the order of this group is $\upphi(n)$. From the \cref{corollary:Lagrange-elem-order} of Lagrange's theorem, we have:
 
 \[
 a^{\upphi(n)} = e
@@ -2091,7 +2091,7 @@ If for some $a$ that $a^{n-1} \not\equiv 1 \mod n$ holds, then for any witness $
 
 And because $i \neq j$, we have $a \cdot i \not\equiv a \cdot j$, therefore, all these negative cases are not same.
 
-As shown in figure \cref{fig:Fermat-test}, if there exists a number that can't pass Fermat test, then the positive cases are as same amount as the negative cases.
+As shown in \cref{fig:Fermat-test}, if there exists a number that can't pass Fermat test, then the positive cases are as same amount as the negative cases.
 \end{proof}
 
 If we select $k$ different witness and perform Fermat test, we can reduce the probability of failure that $n$ is not prime number to $\dfrac{1}{2^k}$. However, there exist such composite number $n$, that for any $a$ less than $n$ and coprime to $n$, $a^{n-1} \equiv 1 \mod n$ holds. It means whatever $a$ we selected, such composite number can pass Fermat test. Carmichael found first such number in 1910, that 561 = 3 $\times$ 11 $\times$ 17. This kind of numbers is called Carmichael numbers or Fermat pseudoprime\footnote{The Czech mathematician Václav Šimerka found the first 7 Fermat pseudoprimes: 561 = 3 $\times$7 $\times$11, 1105 = 5 $\times$13 $\times$7, 1729 = 7 $\times$13 $\times$19, 2465 = 5 $\times$17 $\times$29, 2821 = 7 $\times$13 $\times$31, 6601 = 7 $\times$23 $\times$41, 8911 = 7 $\times$19 $\times$67. However, his work was not well known to the people}. Erdős conjectured there are infinite many Carmichael numbers. In 1994, people proved for sufficient large $n$, there are at least $n^{2/7}$ Carmichael numbers from 1 to $n$. Thus explains Erdős' conjecture\cite{Wiki-Carmichael-number}.
@@ -2509,7 +2509,7 @@ According to this definition, all rational numbers form a field. Similarly, all 
 a^{-1}ab = b = 0
 \]
 
-Thus $b$ must be zero, therefore, division ring is a nonzero ring (does not contain zero divisor). The other property is that, all non-zero elements in division ring $R$ form a group under multiplication, denoted as $R*$. We call $R*$ the multiplicative group of division ring $R$. A division ring consists of two groups: addition group and multiplication group. The distributive axiom bridges the two groups together. We summarized the ring, semiring, integral domain, division ring, and field as figure \cref{fig:ring}.
+Thus $b$ must be zero, therefore, division ring is a nonzero ring (does not contain zero divisor). The other property is that, all non-zero elements in division ring $R$ form a group under multiplication, denoted as $R*$. We call $R*$ the multiplicative group of division ring $R$. A division ring consists of two groups: addition group and multiplication group. The distributive axiom bridges the two groups together. We summarized the ring, semiring, integral domain, division ring, and field as \cref{fig:ring}.
 
 \begin{figure}[htbp]
 \centering
@@ -2944,13 +2944,13 @@ It can be summarized as `If invariant, then known; if known then invariant.' \ci
 Consider equation $x^2 - 2x - 1 = 0$ for example, the two roots are $1 \pm \sqrt{2}$. The Galois group in rational field $Q$ is $S_2 = \{(1), (12)\}$, including the identity $e = (1)$ and transpose $(12)$. As any rational expression is unchanged under identity permutation, we only focus on the transpose permutation (12). If a rational expression $r$ is unchanged when swap the two variables, it must be symmetric polynomial. From Newton's theorem, it can be expressed with the primitive symmetric polynomials $x_1x_2 = -1$ and $x_1 + x_2 = 2$, hence is rational number, and known value. Revisit the previous example, the Galois group of equation $x^3 - x^2 - 2x + 2 = 0$ is $\{(1), (23)\}$, including the identity permutation, and another one that fixes the first root, and exchange the other two roots: $\pm \sqrt{2}$. It's a subgroup of $S_3$.
 
 \begin{Exercise}\label{ex:resolvent-and-galois-group}
-\Question{Deduce (\cref{eq:LR-pq}), give the relation between Lagrange resolvent and the coefficients of the original equation. Hint: consider the fact $(L + R)(L + \omega R)(L + \omega^2 R)$.}
+\Question{Deduce \cref{eq:LR-pq}, give the relation between Lagrange resolvent and the coefficients of the original equation. Hint: consider the fact $(L + R)(L + \omega R)(L + \omega^2 R)$.}
 
 \Question{Verify the Galois group of the equation $x^3 - x^2 - 2x + 2 = 0$ is $\{(1), (23)\}$. Hint: verify `if known, then invariant, if invariant then known'.}
 \end{Exercise}
 
 \begin{Answer}[ref={ex:resolvent-and-galois-group}]
-\Question{Deduce (\cref{eq:LR-pq}), give the relation between Lagrange resolvent and the coefficients of the original equation. Hint: consider the fact $(L + R)(L + \omega R)(L + \omega^2 R)$.
+\Question{Deduce \cref{eq:LR-pq}, give the relation between Lagrange resolvent and the coefficients of the original equation. Hint: consider the fact $(L + R)(L + \omega R)(L + \omega^2 R)$.
 
 Expand $(L + R)(L + \omega R)(L + \omega^2 R)$, and consider $1 + \omega + \omega^2 = 0$, we have:
 
@@ -3186,7 +3186,7 @@ We come to the center of Galois theory. Starting from the equation coefficient f
 \textbf{Fundamental theorem of Galois theory}: If $E/F$ is normal extension, $G$ is the corresponding Galois group. There is one to one correspondence between subgroups of $G$ and intermediate fields. If $F \subset L \subset E$, and $Gal(E/L) = H$, then $H$ is the subgroup of $Gal(E/F)$.
 \end{theorem}
 
-The reason why it's in reversed order is because the group gets smaller when extend the field. The starting point of field extension is $F$, the corresponding Galois group is $G = Gal(E/F)$; the end point is the splitting field $E$, while the corresponding group only contains one element, which is the identity permutation $\{1\}$. For the intermediate field $L$, the corresponding group is $H = Gal(E/L)$. It's a subgroup, $Gal(E/L) \subset Gal(E/F)$. If $H$ is a normal subgroup (refer to previous section \cref{normal-subgroup}), then its quotient group is $G/H = Gal(L/F)$.
+The reason why it's in reversed order is because the group gets smaller when extend the field. The starting point of field extension is $F$, the corresponding Galois group is $G = Gal(E/F)$; the end point is the splitting field $E$, while the corresponding group only contains one element, which is the identity permutation $\{1\}$. For the intermediate field $L$, the corresponding group is $H = Gal(E/L)$. It's a subgroup, $Gal(E/L) \subset Gal(E/F)$. If $H$ is a normal subgroup (refer to previous \cref{normal-subgroup}), then its quotient group is $G/H = Gal(L/F)$.
 
 For example, equation $x^4 - 8x^2 + 15 = 0$, it can be factored as $(x^2 - 3)(x^2 - 5) = 0$. The coefficients are in rational field $Q$, the splitting field is $E = Q[\sqrt{3}, \sqrt{5}]$. its Galois group $Gal(E/Q)$ is isomorphic to a Klein four group (with order 4), often denoted as $V$ or $K_4$. We can find 3 intermediate field extensions: $Q[\sqrt{3}]$, $Q[\sqrt{5}]$, and $Q[\sqrt{15}]$. The Galois subgroup orders corresponding to all these 3 intermediate fields are 2. While the Galois group of the equation, which is the Klein four group only has one subgroup of order 2. Besides that, it hasn't any other non-trivial subgroups. According to the fundamental theorem of Galois theory, we know there is no other field extension besides those 3 intermediate field extensions. We can consider it from another view point. All elements in the splitting field are in the form of $\alpha = a + b\sqrt{3} + c\sqrt{5} + d\sqrt{15}$, where $a, b, c, d$ are rational numbers. For any elements in the 3 intermediate field extensions, among $b, c, d$, there are at least two are 0.
 
@@ -3222,7 +3222,7 @@ For example, equation $x^4 - 8x^2 + 15 = 0$, it can be factored as $(x^2 - 3)(x^
 \label{fig:Galois-Correspondence}
 \end{figure}
 
-As shown in figure \cref{fig:Galois-Correspondence}, any element in the splitting field can be written in form:
+As shown in \cref{fig:Galois-Correspondence}, any element in the splitting field can be written in form:
 
 \[
 \begin{array}{rl}
@@ -3306,7 +3306,7 @@ Where every group is the normal subgroup of the previous one. Each step from $G_
 G = \sigma_1H + \sigma_2H + ... \sigma_pH
 \]
 
-Where $H$ is invariant subgroup, the quotient group $G/H$ consists of these cosets has the prime order $p$. From the corollary of Lagrange theory\cref{co:prime-order-group}, we know any group with prime order is a cyclic group, and cyclic group is abelian (see exercise \cref{ex:cyclic-group}). Therefore, the reduced quotient group after radical extension is abelian.
+Where $H$ is invariant subgroup, the quotient group $G/H$ consists of these cosets has the prime order $p$. From \cref{co:prime-order-group} of Lagrange theory, we know any group with prime order is a cyclic group, and cyclic group is abelian (see \cref{ex:cyclic-is-abelian}). Therefore, the reduced quotient group after radical extension is abelian.
 
 \begin{definition}
 \textbf{Solvable group}: A finite group $G$ is solvable, if it has a subnormal series:
@@ -3326,7 +3326,7 @@ Using his theory, Galois gave the final answer to radical solvability for any po
 A polynomial equation is radical solvable if and only if its Galois group is solvable.
 \end{theorem}
 
-For general cubic equation, all permutations of the three roots form the group $S_3$, it has a normal subgroup $C_3$, and $C_3$ is a simple group, hence has the only subgroup $\{e\}$. Refer to figure \cref{fig:S3-Cayley}, we have the group series:
+For general cubic equation, all permutations of the three roots form the group $S_3$, it has a normal subgroup $C_3$, and $C_3$ is a simple group, hence has the only subgroup $\{e\}$. Refer to \cref{fig:S3-Cayley}, we have the group series:
 
 \[
 S_3 \rhd C_3 \rhd \{e\}
@@ -3334,7 +3334,7 @@ S_3 \rhd C_3 \rhd \{e\}
 
 The order of the quotient groups $S_3/C_3 = 2, C_3/\{e\} = 3$ are all prime, hence is solvable group series. Therefore general cubic equation is radical solvable.
 
-For general quartic equation, all 24 permutations of the four roots form the group $S_4$. It has a normal subgroup $A_4$, which is an alternating group of 12 elements, as shown in figure \cref{fig:A4-Cayley}. The next subgroup is Klein four group $V$ with 4 elements. It has normal subgroup $C_2$ (isomorphic to $S_2$), it's a simple group, with the only subgroup of $\{e\}$. The group series are:
+For general quartic equation, all 24 permutations of the four roots form the group $S_4$. It has a normal subgroup $A_4$, which is an alternating group of 12 elements, as shown in \cref{fig:A4-Cayley}. The next subgroup is Klein four group $V$ with 4 elements. It has normal subgroup $C_2$ (isomorphic to $S_2$), it's a simple group, with the only subgroup of $\{e\}$. The group series are:
 
 \begin{figure}[htbp]
  \centering
@@ -3351,7 +3351,7 @@ S_4 \rhd A_4 \rhd V \rhd C_2 \rhd \{e\}
 
 The orders of the corresponding quotient groups  are 2, 3, 2, 2. They are all primes. The group series is solvable. Therefore general quartic equation is solvable.
 
-We can deduce the Abel-Ruffini theorem directly from Galois theory: there is no solution in radicals to general quintic polynomial equation. All 120 permutations of the five roots form the group $S_5$. The only normal subgroup is the alternating group $A_5$ with 60 elements, as shown in figure \cref{fig:A5-Cayley}. $A_5$ is a simple group, its only normal subgroup is $\{e\}$. The group series are:
+We can deduce the Abel-Ruffini theorem directly from Galois theory: there is no solution in radicals to general quintic polynomial equation. All 120 permutations of the five roots form the group $S_5$. The only normal subgroup is the alternating group $A_5$ with 60 elements, as shown in \cref{fig:A5-Cayley}. $A_5$ is a simple group, its only normal subgroup is $\{e\}$. The group series are:
 
 \[
 S_5 \rhd A_5 \rhd \{e\}
@@ -3367,7 +3367,7 @@ The quotient group $A_5/\{e\}$ is isomorphic to $A_5$, however, $A_5$ is not abe
  \label{fig:A5-Cayley}
 \end{figure}
 
-We can also verify that $S_n$ is not solvable when $n > 5$ (see exercise \cref{ex:3-cycle}. Use reduction of absurdity, it leads to the contradict result that $\{e\}$ contains 3-cycles). Galois theory tells there is no solution in radicals to general polynomial equations of degree five or higher.
+We can also verify that $S_n$ is not solvable when $n > 5$ (see \cref{ex:3-cycle}. Use reduction of absurdity, it leads to the contradict result that $\{e\}$ contains 3-cycles). Galois theory tells there is no solution in radicals to general polynomial equations of degree five or higher.
 
 Studied of the symmetry of equations, Galois developed his theory. Galois theory is a powerful tool in abstract algebra. It can solve many problems, like to prove Gauss's finding that the regular heptadecagon (17-sided polygon) can be constructed with straightedge and compass. Galois theory can also prove that the three classic geometric problems with straightedge and compass in ancient Greek, squaring the circle, trisecting the angle, and doubling the cube, are all impossible.
 
