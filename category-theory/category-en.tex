@@ -228,7 +228,7 @@ This is a very big category. It contains {\em all} the monoids in the universe\f
 prefix hello $\circ$ prefix hi = prefix hellohi
 \end{center}
 
-It means first prepend prefix `hi', then prepend prefix `hello'. It's easy to verify that, any three such arrows are associative. For the identity element, any string keeps same when prepended with empty string as prefix, hence it is the identity arrow. Now we have a monoid category with only one object, as shown in figure \cref{fig:monoid-as-category}. Every arrow in the category is an element in the monoid, the arrow composition is given by monoid binary operation, and the identity arrow is the identity element in the monoid.
+It means first prepend prefix `hi', then prepend prefix `hello'. It's easy to verify that, any three such arrows are associative. For the identity element, any string keeps same when prepended with empty string as prefix, hence it is the identity arrow. Now we have a monoid category with only one object, as shown in \cref{fig:monoid-as-category}. Every arrow in the category is an element in the monoid, the arrow composition is given by monoid binary operation, and the identity arrow is the identity element in the monoid.
 
 \begin{figure}[htbp]
 \centering
@@ -296,7 +296,7 @@ preset \quad \quad \quad poset
 \label{fig:genealogical-tree}
 \end{figure}
 
-Not every two elements are comparable in partial order set. The figures in Duck Donald family form a partial order set under the descendant relation, as shown in figure \cref{fig:genealogical-tree}. We can see Donald$\leq$Quackmore, but there is no $\leq$ relation between Huey and Donald, or between Donald and Scrooge. Although every one has its ancestor in this family tree (The figures at the root can be considered as the ancestor of themselves according to reflexive rule), but the figures at the same level or in different branches are not comparable.
+Not every two elements are comparable in partial order set. The figures in Duck Donald family form a partial order set under the descendant relation, as shown in \cref{fig:genealogical-tree}. We can see Donald$\leq$Quackmore, but there is no $\leq$ relation between Huey and Donald, or between Donald and Scrooge. Although every one has its ancestor in this family tree (The figures at the root can be considered as the ancestor of themselves according to reflexive rule), but the figures at the same level or in different branches are not comparable.
 
 As shown in \cref{fig:powerset}, for a given set $\{x, y, z\}$, all its subsets form a partial order set under the inclusion relationship. Although every element (a subset) has a subset, elements at the same level are not comparable. Besides that there are also non-comparable elements, like $\{x\}$ and $\{y, z\}$ for example.
 
@@ -2290,7 +2290,7 @@ We'll next use some examples to understand what data types the initial and final
 
 \begin{example}
 \normalfont
-Consider a partial order set. The arrow is the ordering relation. If there is a minimum element, then it is the initial object. Similarly, if there is a maximum element, then it is the final object. Use finite figures in the duck family for example, in poset \{Huey, Thelma Duck, Quackmore Duck, Grandma Duck\}, with the ancestral ordering, Donald's nephew Huey is the initial object, and Grandma Duck is the final object. While for the Fibonacci numbers \{1, 1, 2, 3, 5, 8, ...\}, the ordering is less than or equal. 1 is the minimum number, hence it is the initial object; but there is no final object. Note that, there are two 1s in Fibonacci numbers, however, they are isomorphic under the less than or equal ordering. Consider the poset of real numbers $R$. The ordering is still less than or equal. There is neither the minimum nor the maximum number, hence there is not initial or final object. Consider the poset of all the figures in the duck family tree shown in figure \cref{fig:genealogical-tree}, again, with the ancestral ordering. As there is no common ancestor, so it has not initial or final object.
+Consider a partial order set. The arrow is the ordering relation. If there is a minimum element, then it is the initial object. Similarly, if there is a maximum element, then it is the final object. Use finite figures in the duck family for example, in poset \{Huey, Thelma Duck, Quackmore Duck, Grandma Duck\}, with the ancestral ordering, Donald's nephew Huey is the initial object, and Grandma Duck is the final object. While for the Fibonacci numbers \{1, 1, 2, 3, 5, 8, ...\}, the ordering is less than or equal. 1 is the minimum number, hence it is the initial object; but there is no final object. Note that, there are two 1s in Fibonacci numbers, however, they are isomorphic under the less than or equal ordering. Consider the poset of real numbers $R$. The ordering is still less than or equal. There is neither the minimum nor the maximum number, hence there is not initial or final object. Consider the poset of all the figures in the duck family tree shown in \cref{fig:genealogical-tree}, again, with the ancestral ordering. As there is no common ancestor, so it has not initial or final object.
 \end{example}
 
 \begin{example}
