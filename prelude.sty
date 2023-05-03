@@ -1,42 +1,19 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{prelude}[2019/06/19 Unplug Prelude LaTeX package]
-%
-% loading packages
-%
 
 \usepackage[hyphens]{url}
 \urlstyle{rm}
 \RequirePackage{ifpdf}
 \RequirePackage{ifxetex}
 
-\ifpdf
-  \RequirePackage[pdftex,%
-       bookmarksnumbered,%
-              colorlinks,%
-          linkcolor=blue,%
-              hyperindex,%
-        plainpages=false,%
-       pdfstartview=FitH]{hyperref}
-\else\ifxetex
-  \RequirePackage[bookmarksnumbered,%
-               colorlinks,%
-           linkcolor=blue,%
-               hyperindex,%
-         plainpages=false,%
-        pdfstartview=FitH]{hyperref}
-\else
-  \RequirePackage[dvipdfm,%
-        bookmarksnumbered,%
-               colorlinks,%
-           linkcolor=blue,%
-               hyperindex,%
-         plainpages=false,%
-        pdfstartview=FitH]{hyperref}
-\fi\fi
-%\usepackage{hyperref}
+\RequirePackage[bookmarksnumbered,
+             colorlinks,
+         linkcolor=blue,
+             hyperindex,
+       plainpages=false,
+      pdfstartview=FitH]{hyperref}
 
-% other packages
-%--------------------------------------------------------------------------
+\usepackage{fontspec}
 \usepackage{graphicx, color}
 \usepackage{adjustbox}
 \usepackage{wrapfig}
@@ -45,7 +22,7 @@
 \usepackage{enumerate}
 \usepackage{multicol}
 \usepackage{pdfpages}    % to include pdf
-\usepackage[table]{xcolor} % for colored table
+\usepackage{xcolor} % for colored table
 \usepackage{hhline}
 \usepackage[super, square]{natbib}
 \usepackage{tikz}
@@ -66,9 +43,6 @@
 \usepackage{standalone}
 \usepackage{tocloft}
 
-%
-% for programming
-%
 \usepackage{verbatim}
 \usepackage{fancyvrb}
 \usepackage{listings}
@@ -79,12 +53,8 @@
 \usepackage{titlesec}
 \usepackage{epigraph}
 \usepackage{ifplatform} % for platform detection
-
-\usepackage{fontspec}
-\usepackage{xunicode}
 \usepackage{textcomp}
 \usepackage{mdframed}
-\usepackage{xeCJK}
 \usepackage{sourcecodepro}
 \usepackage{cleveref}
 
@@ -274,31 +244,38 @@
   % fc-list :mono       % list all mono fonts
   % fc-cache            % refresh cache to load new installed fonts
 
-  \ifmacosx{ % Mac OS X
-    \message{Apply CN font: STSong, STHeiti, STFangsong}
-    \setCJKmainfont[BoldFont=STHeiti, ItalicFont=STKaiti]{STSong}
-    \setCJKsansfont{STHeiti}
-    \setCJKmonofont{STFangsong}
-  }\else{
-    \ifwindows{ % Windows
-      \message{Apply CN font: SimSun, SimHei}
-      \setCJKmainfont{SimSun}
+  \IfFontExistsTF{Noto Serif CJK SC}{ % prefer Noto CJK for all platforms
+    \message{Apply CN font: Noto CJK}
+    \setCJKmainfont{Noto Serif CJK SC} % Noto Serif CJK SC (思源宋体)
+    \setCJKsansfont{Noto Sans CJK SC}  % Noto Sans CJK SC(思源黑体)
+    \setCJKmonofont{Noto Sans Mono CJK SC}
+  }{ % else
+    \ifwindows{
+      \message{Apply CN font for Windows: SimSun, SimHei}
+      \setCJKmainfont{SimSun} % you can replace with other font, e.g. Microsoft YaHei
       \setCJKsansfont{SimHei}
-    }\else{ % unknown OS
-      \IfFontExistsTF{Noto Serif CJK SC}{ % prefer Noto to the default font Fandol
-        \message{Apply CN font: Noto CJK}
-        \setCJKmainfont{Noto Serif CJK SC} % (思源宋体)
-        \setCJKsansfont{Noto Sans CJK SC}  % (思源黑体)
-        \setCJKmonofont{Noto Sans Mono CJK SC}
-      }{
-        \message{Apply CN font: xeCJK default Fandol}
-      }
-    }\fi
-  }\fi
+    }\else{
+      % ifplatform need --shell-escape being turned on to detect Mac OS X
+      \IfFontExistsTF{STSong}{
+        \message{Apply CN font for Mac OS X: STSong, STHeiti, STFangsong}
+        %
+        % Mac OS X specific:
+        % Some system fonts, e.g. STKaiti were moved to
+        %    /System/Library/AssetsV2/com_apple_MobileAsset_Font7 (or Font6 in Catalina)
+        % as of Monterey, we need add the path into local TeXLive configuration:
+        % sudo tlmgr conf texmf OSFONTDIR /System/Library/AssetsV2/com_apple_MobileAsset_Font7
+        %
+        \setCJKmainfont[BoldFont=STHeiti, ItalicFont=STKaiti]{STSong} % or DengXian, Ping Fang SC
+        \setCJKsansfont{STHeiti}
+        \setCJKmonofont{STFangsong}
+      }{ % else
+        \message{Apply CN font: default}
+      } % end if exits STSong
+    }\fi % end if windows
+  } % end if exits noto cjk
 
-  \xeCJKsetup{PunctStyle=kaiming}
-  \XeTeXlinebreaklocale "zh"  % to solve the line breaking issue
-  \XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+  %%   \XeTeXlinebreaklocale "zh"  % to solve the line breaking issue
+  %%   \XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
 
   % Simplified way to customize Chinese. Or \usepackage[chinese, english]{babel}
   % However, it need install the additional texlive-lang-chinese.
