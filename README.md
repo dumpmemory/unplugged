@@ -43,15 +43,12 @@ $ sudo ./install-tl -gui text -repository http://mirror.ctan.org/systems/texlive
 
 In Windows, TeXLive provide a [gui based installer](https://tug.org/texlive/), in Mac OS X, there's a [MacTeX](https://www.tug.org/mactex/).
 
-### Customize font (Optional)
+### Customize font
 
-If the host system fonts are available, e.g. under VM. they
-could be imported as the following example:
+The default build supports Linux, Mac OS X, and Windows. You can install additional font (like [Noto CJK](https://github.com/notofonts/noto-cjk/)) typesetting (see `prelude.sty`). Some system fonts, e.g. STKaiti, were moved to `/System/Library/AssetsV2/com_apple_MobileAsset_Font7` in Mac OS X, you need add the path to the local TeXLive configuration:
 
 ```bash
-$ sudo mkdir /usr/share/fonts/host-system
-$ sudo cp /Host-System/Fonts/{FontName, fontname}* /usr/share/fonts/host-system/
-$ fc-cache
+sudo tlmgr conf texmf OSFONTDIR /System/Library/AssetsV2/com_apple_MobileAsset_Font7
 ```
 
 ### Others
@@ -66,14 +63,6 @@ In Windows, you can install the MSYS for it. In Mac OS X, please install the dev
 
 ```bash
 $ xcode-select --install
-```
-
-### Font setting
-
-The default build support Linux, Mac OS X, and Windows. You can install additional font (like [Noto CJK](https://github.com/notofonts/noto-cjk/)) typesetting (see `prelude.sty`). Some system fonts, e.g. STKaiti, were moved to `/System/Library/AssetsV2/com_apple_MobileAsset_Font7` in Mac OS X, you need add the path to the local TeXLive configuration:
-
-```bash
-sudo tlmgr conf texmf OSFONTDIR /System/Library/AssetsV2/com_apple_MobileAsset_Font7
 ```
 
 ### Build the PDF book
