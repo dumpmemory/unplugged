@@ -10,7 +10,7 @@ This book introduces the mathematics behind computer programming.
 Contents
 --------
 
-The book can be downloaded in English ([EN](https://github.com/liuxinyu95/unplugged/files/11070580/unplugged-en.pdf)) and Chinese ([中文](https://github.com/liuxinyu95/unplugged/files/11070583/unplugged-zh-cn.pdf)).
+The book can be downloaded in English ([EN](https://github.com/liuxinyu95/unplugged/files/11070580/unplugged-en.pdf)). The Chinese edition will be published soon ([中文样章](https://github.com/liuxinyu95/unplugged/files/11183276/nat-zh-cn.pdf)).
 
 - Preface
 - Chapter 1, Natural numbers. Peano Axiom, list and folding;
@@ -68,6 +68,14 @@ In Windows, you can install the MSYS for it. In Mac OS X, please install the dev
 $ xcode-select --install
 ```
 
+### Font setting
+
+The default build support Linux, Mac OS X, and Windows. You can install additional font (like [Noto CJK](https://github.com/notofonts/noto-cjk/)) typesetting (see `prelude.sty`). Some system fonts, e.g. STKaiti, were moved to `/System/Library/AssetsV2/com_apple_MobileAsset_Font7` in Mac OS X, you need add the path to the local TeXLive configuration:
+
+```bash
+sudo tlmgr conf texmf OSFONTDIR /System/Library/AssetsV2/com_apple_MobileAsset_Font7
+```
+
 ### Build the PDF book
 
 enter the folder contains the book TeX manuscript, run
@@ -76,7 +84,7 @@ enter the folder contains the book TeX manuscript, run
 $ make
 ```
 
-This will generate unplugged-en.pdf and unplugged-zh-cn.pdf. If you only need the Chinese version for example, you can run `make cn` instead.
+This will generate unplugged-en.pdf and unplugged-zh-cn.pdf. If you only need the Chinese version for example, you can run `make cn` instead. Run `make force-cn` or `make force-en` to force build the book.
 
 --
 
