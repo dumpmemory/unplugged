@@ -205,7 +205,7 @@ The Pythagoreans' most famous achievement is the Pythagoras theorem. However, we
 
 \section{The Euclidean algorithm}
 
-As there can be mutliple common measures, we define the biggest one as the greatest common measure. Formally speaking, if segment V is the common measure of A and B, and V is greater than any other common measures, we say V is the greatest common measure of A and B. Given two segments, how to find the greatest common measure? There is a famous acient recursive method, called the Euclidean algorithm can solve this problem. It is named after the great ancient Greek methematician Euclid\footnote{The Euclidean algorithm was also developed independently in ancient India and China. The Indian mathematician Aryabhata used this method to solve the Diophantine equation around the end of the 5th centry. The Euclidean algorithm was treated as a special case of the Chinese remainder theorem in {\em Sunzi Suanjing}. Qin Jiushao gave the detailed algorithm in his {\em Mathematical Treatise in Nine Sections} (数书九章) in 1247.}. This algorithm is defined as proposition 3, in book X\footnote{The same algorithm for integers is also defined as propostion 1, book VII. However, the algorithm for segements covers the integer case.} of Euclid's Elements\cite{Elements}.
+As there can be mutliple common measures, we define the biggest one as the greatest common measure. Formally speaking, if segment V is the common measure of A and B, and V is greater than any other common measures, we say V is the greatest common measure of A and B. Given two segments, how to find the greatest common measure? There is a famous acient recursive method, called the Euclidean algorithm can solve this problem. It is named after the great ancient Greek methematician Euclid\footnote{The Euclidean algorithm was also developed independently in ancient India and China. The Indian mathematician Aryabhata used this method to solve the Diophantine equation around the end of the 5th centry. The Euclidean algorithm was treated as a special case of the Chinese remainder theorem in {\em Sunzi Suanjing}. Qin Jiushao gave the detailed algorithm in his {\em Mathematical Treatise in Nine Sections} (\foreignlanguage{chinese}{数书九章}) in 1247.}. This algorithm is defined as proposition 3, in book X\footnote{The same algorithm for integers is also defined as propostion 1, book VII. However, the algorithm for segements covers the integer case.} of Euclid's Elements\cite{Elements}.
 
 \subsection{The Euclid's Elements}
 
@@ -425,7 +425,7 @@ The edge case happens when $b = 0$, we have $\gcm(a, 0) = 1a + 0b$. Combine it w
   b = 0 & (a, 1, 0) \\
   \text{otherwise} & \begin{array}{l}
                 (g, y', x' - y' \lfloor a / b \rfloor) \\[2pt]
-                \text{其中}(g, x', y') = \gcm_{ex}(b, a \bmod b)
+                \text{where}\ (g, x', y') = \gcm_{ex}(b, a \bmod b)
                 \end{array} \\
   \end{array}
 \right.
@@ -1249,7 +1249,7 @@ head\ (cons\ p\ q) & = & (c \mapsto c\ (a \mapsto b \mapsto a))\ (cons\ p\ q) \\
 It tells us that the composite data structure needn't be built-in realized. We can use $\lambda$ to define them. The exercise of this chapter demands you to consider how to define the natural numbers in Peano Axioms, the Boolean values, and the logic operators with $\lambda$ calculus.
 
 \begin{Exercise}\label{ex:lambda-calculus}
-\Question{Use $\lambda$ conversion rules to verify $tail\ (cons\ p\ q) = q$。}
+\Question{Use $\lambda$ conversion rules to verify $tail\ (cons\ p\ q) = q$.}
 \Question{We can define numbers with $\lambda$ calculus. The following definition is called Church numbers:
 
 \[
@@ -1280,7 +1280,7 @@ where \textbf{false} is defined as same as the Church number 0. Use the $\lambda
 \end{Exercise}
 
 \begin{Answer}[ref={ex:lambda-calculus}]
-\Question{Use $\lambda$ conversion rules to verify $tail\ (cons\ p\ q) = q$。
+\Question{Use $\lambda$ conversion rules to verify $tail\ (cons\ p\ q) = q$.
 
 The $\lambda$ expressions for $cons$ and $tail$ are:
 

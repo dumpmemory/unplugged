@@ -86,7 +86,7 @@ e & s & e \\
 
 Such table is called Cayley table, named after British mathematicial Arthur Cayley. We can skip the dot to simplify the composition of $\tau$ and $\mu$ as $\tau\mu$. We call the permutation set $\{s, e\}$ and the compositions among its elements as $S_2$. It defines the reflexive symmetry in a plane. For any reflexive thing $a$, $s(a) = a$ holds. For example, consider three points with coordinate $A = (-1, 0), B = (1, 0), C = (2, 0)$. Because $s(AB) = AB$, segment $AB$ is reflexive symmetric, while $s(AC)  \neq AC$, segment $AC$ is not symmetric.
 
-What symmetry can we obtain when extend from a segment with two end points to a triangle? Let the three end points 1, 2, and 3. There are 6 permutations, change the points to: $(2, 1, 3)$、$(3, 2, 1)$、$(1, 3, 2)$、$(2, 3, 1)$、$(3, 1, 2)$、$(1, 2, 3)$. Where the last one is the identity $e$, keeping points same. As shown in \cref{fig:triangles}, the first permutation swaps 1 and 2, while keeping 3 fixed. It flips the triangle against the middle axis. We denote it as $s$. The fourth permutation rotates the triangle clockwise, denoted as $r$. The fifth permutation rotates counter clockwise, it's $r^{-1}$. We call these 6 permutations together with their compositions as $S_3$. The three triangles shown in this figure have different symmetries. The left triangle only unchanged under the permutation of identity $e$. It has the least symmetry; The middle triangle unchanged under $s$ and $e$. It has more symmetry than the left; The right regular triangle unchanged under all the 6 permutations. It has the most symmetry (Reflection against three axes, two rotations of $\pm\dfrac{2\pi}{3}$, and identity). We can measure the symmetry of triangle with $S_3$.
+What symmetry can we obtain when extend from a segment with two end points to a triangle? Let the three end points 1, 2, and 3. There are 6 permutations, change the points to: $(2, 1, 3)$, $(3, 2, 1)$, $(1, 3, 2)$, $(2, 3, 1)$, $(3, 1, 2)$, $(1, 2, 3)$. Where the last one is the identity $e$, keeping points same. As shown in \cref{fig:triangles}, the first permutation swaps 1 and 2, while keeping 3 fixed. It flips the triangle against the middle axis. We denote it as $s$. The fourth permutation rotates the triangle clockwise, denoted as $r$. The fifth permutation rotates counter clockwise, it's $r^{-1}$. We call these 6 permutations together with their compositions as $S_3$. The three triangles shown in this figure have different symmetries. The left triangle only unchanged under the permutation of identity $e$. It has the least symmetry; The middle triangle unchanged under $s$ and $e$. It has more symmetry than the left; The right regular triangle unchanged under all the 6 permutations. It has the most symmetry (Reflection against three axes, two rotations of $\pm\dfrac{2\pi}{3}$, and identity). We can measure the symmetry of triangle with $S_3$.
 
 \begin{figure}[htbp]
   \centering
@@ -259,7 +259,7 @@ let us see some examples to understand the definition of groups.
 
 \item The set of remainders of all integers divided by 5, that is $\{0, 1, 2, 3, 4\}$. The binary operation is addition then divided by 5, and take the remainder. For example $3 + 4 = 7 \bmod 5 = 2$. They form a group called addition group of integers modulo 5. Denoted as $Z_5$. We can consider it as partition the integers by taking the remainder\footnote{It is denoted as $\pmb{Z}/5\pmb{Z}$ nowadays.}. It is called \textbf{residue class} or residue modulo $n$;
 
-\item The rotations of Rubik cube form a group. The elements are all cube rotations\footnote{There are 18 Rubik cube rotations. A cube move rotates one of the 6 faces, front, back, top, bottom, left, right, 90\degree, 180\degree, or -90\degree. For example, rotating the left side 90\degree, 180\degree, -90\degree can be denoted as $L$、$L^2$、$L'$\cite{Wiki-Rubik-Cube-group}. Plus the identity transform, there are total 19 elements.}, the binary operation is the composition of cube rotates, corresponding to the result of performing one cube rotate after another.
+\item The rotations of Rubik cube form a group. The elements are all cube rotations\footnote{There are 18 Rubik cube rotations. A cube move rotates one of the 6 faces, front, back, top, bottom, left, right, 90\degree, 180\degree, or -90\degree. For example, rotating the left side 90\degree, 180\degree, -90\degree can be denoted as $L$, $L^2$, $L'$\cite{Wiki-Rubik-Cube-group}. Plus the identity transform, there are total 19 elements.}, the binary operation is the composition of cube rotates, corresponding to the result of performing one cube rotate after another.
 
 \begin{figure}[htbp]
 %\begin{wrapfigure}{L}{0.4\textwidth}
@@ -1028,7 +1028,7 @@ i_1 = \sigma(i_k) = \sigma^k(i_1) \\
 
 (1234), (1243), (1324), (1342), (1423), (1432);
 
-(12)(34), (13)(24), (14)(23)。
+(12)(34), (13)(24), (14)(23).
 
 There are total $4! = 24$ elements.
 }
@@ -1416,13 +1416,13 @@ For any group $G$, there are at least two subgroups. One is $G$ itself, the othe
 \item Close under multiplication: $(1)(1) = (1)$, $(1)(1\ 2) = (1\ 2)$, $(1\ 2)(1) = (1\ 2)$, $(1\ 2) (1\ 2) = (1)$. The last equation means to swap the first two elements, then swap again. It equals to identity transformation;
 \item The associative law applies to all elements in $S_3$, thus also applies to $H$;
 \item The identity element $(1) \in H$;
-\item All elements in $H$ have inverse: $(1)(1) = (1)$、$(1\ 2) (1\ 2) = (1)$。
+\item All elements in $H$ have inverse: $(1)(1) = (1)$, $(1\ 2) (1\ 2) = (1)$.
 \end{enumerate}
 
 It's tedious to verify all these group properties for arbitrary subset. Fortunately, there is a powerful tool:
 
 \begin{theorem}
-For any group $G$, a none empty subset $H$ forms a subgroup if and only if：
+For any group $G$, a none empty subset $H$ forms a subgroup if and only if:
 \begin{enumerate}
 \item For all $a, b \in H$, the product $ab \in H$;
 \item For all element $a \in H$, its reverse $a^{-1} \in H$.

@@ -14,6 +14,7 @@
       pdfstartview=FitH]{hyperref}
 
 \usepackage{fontspec}
+\usepackage[nil,english]{babel}
 \usepackage{graphicx, color}
 \usepackage{adjustbox}
 \usepackage{wrapfig}
@@ -233,8 +234,6 @@
 \crefname{Exercise}{Exercise}{Exercises}
 \crefalias{Question}{Exercise}
 
-%\verbatimfont{\footnotesize}
-
 % For Chinese Language support
 \DeclareOption{cn}{
 
@@ -307,6 +306,7 @@
   \newtheorem{corollary}[theorem]{Corollary}
   \newtheorem{definition}{Definition}[section]
   \newtheorem{example}{Example}[section]
+  \babelfont[chinese]{rm}{Noto Serif CJK SC}
 }
 
 \DeclareOption*{\PackageWarning{prelude}{Unknown ‘\CurrentOption’}}
