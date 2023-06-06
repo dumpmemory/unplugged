@@ -1480,7 +1480,7 @@ From this diagram, the arrow $A \arrowto{f} C$ and $B \arrowto{g} D$ are sent to
 (f \times g)(a, b) = (f\ a\ , g\ b)
 \]
 
-The bifunctor $F$ applies to this product of arrows $f \times g$, sends it to the new arrow 头$\mathbf{F}(f \times g)$. Hence the final definition for bifunctor is as below:
+The bifunctor $F$ applies to this product of arrows $f \times g$, sends it to the new arrow $\mathbf{F}(f \times g)$. Hence the final definition for bifunctor is as below:
 
 \[
 \begin{array}{rcl}
@@ -3036,7 +3036,7 @@ In the second step, we remove all the concrete elements like $x$, $y$, $z$, and 
 \[
 \begin{cases}
 \text{Associativity:} & m \circ (m, id) = m \circ (id, m) \\
-\text{Identity element:：} & m \circ (id, e) = m \circ (e, id) = id \\
+\text{Identity element:} & m \circ (id, e) = m \circ (e, id) = id \\
 \end{cases}
 \]
 
@@ -3527,8 +3527,8 @@ We denote the initial object 0 of category $\pmb{NatF}$ as a pair $(I, i)$. Ther
 Since there is unique arrow from the initial object to {\em every} object, hence for the object formed by recursively applying the functor $\mathbf{NatF}(\mathbf{NatF}I)$, there must be the unique arrow as well. The recursive F-algebra is furnished with three properties:
 
 \begin{enumerate}
-\item The common functor $\mathbf{NatF}$；
-\item The carrier object $\mathbf{NatF}I$；
+\item The common functor $\mathbf{NatF}$;
+\item The carrier object $\mathbf{NatF}I$;
 \item Arrow $\mathbf{NatF}(\mathbf{NatF}I) \to \mathbf{NatF}I$. Because functor applies to both object and arrow, by using functor $\mathbf{NatF}$, we can `lift' the arrow $i$ in the initial object. Hence the arrow for this recursive F-algebra is $\mathbf{NatF}(i)$.
 \end{enumerate}
 
@@ -3930,7 +3930,7 @@ Below example defines the algebra to sum the elements in the binary tree, then i
 \begin{array}{l}
 sum : \mathbf{Tree}\ A \to A \\
 sum = cata \circ sumAlg \\
-\text{其中：}
+\text{where: }
       \begin{cases}
         sumAlg : \mathbf{TreeF}\ A\ B \to B \\
         sumAlg\ NilF = 0_{B} \\
