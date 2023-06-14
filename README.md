@@ -1,16 +1,16 @@
 Isomorphism -- Mathematics of Programming
 ====
 
-2023/04
+2023/06
 
 This book introduces the mathematics behind computer programming.
 
-<img src="https://user-images.githubusercontent.com/332938/87840667-73856c80-c8d3-11ea-8d8b-0c5b366cde0f.png" width="400">
+<img src="https://user-images.githubusercontent.com/332938/245659299-fa556453-2f5f-4771-ade1-0a0c1adf499c.png" width="400">
 
 Contents
 --------
 
-The book can be downloaded in English ([EN](https://github.com/liuxinyu95/unplugged/files/11070580/unplugged-en.pdf)). The Chinese edition will be published soon ([中文样章](https://github.com/liuxinyu95/unplugged/files/11183276/nat-zh-cn.pdf)).
+The book can be downloaded in English ([EN](https://github.com/liuxinyu95/unplugged/files/11070580/unplugged-en.pdf)). The 1st edition in Chinese ([中文](https://item.jd.com/14015042.html)) was published in 2023 ([中文样章](https://github.com/liuxinyu95/unplugged/files/11183276/nat-zh-cn.pdf)).
 
 - Preface
 - Chapter 1, Natural numbers. Peano Axiom, list and folding;
@@ -28,7 +28,7 @@ Install
 To build the book in PDF format from the sources, you need
 the following software pre-installed.
 
-- TeXLive, The book is built with XeLaTeX, a Unicode friendly version of TeX;
+- TeXLive, The book is built with LuaLaTeX, an extended version of TeX.
 
 ### Install TeXLive
 
@@ -73,10 +73,8 @@ enter the folder contains the book TeX manuscript, run
 $ make
 ```
 
-This will generate unplugged-en.pdf and unplugged-zh-cn.pdf. If you only need the Chinese version for example, you can run `make cn` instead. Run `make force-cn` or `make force-en` to force build the book.
+This will generate unplugged-en.pdf and unplugged-zh-cn.pdf. If you only need the English version for example, you can run `make en` instead. Run `make force-en` to force build the book.
 
 --
 
 LIU Xinyu
-
-liuxinyu95@gmail.com
