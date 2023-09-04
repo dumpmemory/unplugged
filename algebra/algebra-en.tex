@@ -1225,7 +1225,7 @@ f: a^k \to k
 
 This map is isomorphic between the cyclic group $G = (a)$ and the additive group of integers $Z$. That is $a^ha^k \to h + k$.
 
-If the order of $a$ is integer $n$, which means $a^n = e$. Then $a^h = a^k$ if and only if $h \equiv k \mod n$. We can construct another one to one map:
+If the order of $a$ is integer $n$, which means $a^n = e$. Then $a^h = a^k$ if and only if $h \equiv k \pmod n$. We can construct another one to one map:
 
 \[
 f: a^k \to [k]
@@ -1462,13 +1462,13 @@ With integer $n$, we can partition all the integers into residues modulo $n$. Us
 When we partition integers into residues modulo $n$, we use the equivalence relation as:
 
 \[
-a \equiv b \mod n, \text{if and only if}\ n | (a - b)
+a \equiv b \pmod n, \text{if and only if}\ n | (a - b)
 \]
 
 Using subgroup $H$, this equivalence relation can also be defined as:
 
 \[
-a \equiv b \mod n, \text{if and only if}\ (a - b) \in H
+a \equiv b \pmod n, \text{if and only if}\ (a - b) \in H
 \]
 
 Thus we use subgroup $H$ to partition $Z$ into residues. Now let's expand this to more generic case, to partition any group $G$ with subgroup $H$. To do that, we need define the equivalence relation $\sim$ with subgroup $H$ first:
@@ -1778,7 +1778,7 @@ Lagrange's theorem in group theory can be used to prove the Fermat's little theo
 
 \index{Fermat's little theorem}
 \begin{theorem}
-\textbf{Fermat's little theorem}: If $p$ is prime, for any integer $a$ that $0 < a < p$, then $p$ divides $a^{p-1}-1$.
+\textbf{Fermat's little theorem}: If $p$ is prime, for any integer $a$ that $0 < a < p$, then $p$ divides $a^{p-1}-1$\footnote{Alternative saying $p$ divides $a^p - a$, or $a^p \equiv a \pmod p$.}.
 \end{theorem}
 
 \begin{proof}
@@ -1791,7 +1791,7 @@ a^{p-1} = e
 Since the identity element is 1, this equation can be written as:
 
 \[
-a^{p-1} \equiv 1 \mod p
+a^{p-1} \equiv 1 \pmod p
 \]
 
 Therefore, $p$ divides $a^{p-1} - 1$.
@@ -1925,7 +1925,7 @@ Consider the none zero residues modulo $n$. We pick out all the mutually inverse
 a^{\upphi(n)} = e
 \]
 
-Therefore, $a^{\upphi(n)} \equiv 1 \mod n$, which immediately gives the result, $n$ divides $a^{\upphi(n)} - 1$.
+Therefore, $a^{\upphi(n)} \equiv 1 \pmod n$, which immediately gives the result, $n$ divides $a^{\upphi(n)} - 1$.
 \end{proof}
 
 Let us see an example. Below is the multiplication table for all the none zero residues modulo 10. We can locate the identity element 1, and mark the cells underline. Then from that cell, along with the row and column, we can find two numbers, marked in bold. Their modulo product is 1, and both are coprime to 10. On the other hand, for every residue number that is not coprime to 10, the row and column where it is in also contain 0. But 0 is not group element. We can see that all the residues that are coprime to 10 are exactly the group elements 1, 3, 7, 9.
@@ -2031,7 +2031,7 @@ The {\em Fermat primality test} algorithm (also known as Fermat test) based on t
 \begin{algorithmic}[1]
 \Function{primality}{$n$}
   \State Random select a positive integer $a < n$
-  \If{$a^{n-1} \equiv 1 \mod n$}
+  \If{$a^{n-1} \equiv 1 \pmod n$}
     \State \Return prime number
   \Else
     \State \Return composite number
@@ -2039,18 +2039,18 @@ The {\em Fermat primality test} algorithm (also known as Fermat test) based on t
 \EndFunction
 \end{algorithmic}
 
-We needn't compute the exact value of $n-1$ power of $a$, then divide $n$ to get the remainder. We can use modular arithmetic to speed up. The intermediate result can be largely re-used. After we calculate $b = a^2 \mod n$, we can next get $b^2 \mod n$, which equals to $a^4 \mod n$. For example, when evaluate $a^{11} \mod n$, since:
+We needn't compute the exact value of $n-1$ power of $a$, then divide $n$ to get the remainder. We can use modular arithmetic to speed up. The intermediate result can be largely re-used. After we calculate $b = a^2 \bmod n$, we can next get $b^2 \bmod n$, which equals to $a^4 \bmod n$. For example, when evaluate $a^{11} \bmod n$, since:
 
 \[
-a^{11} = a^{8 + 2 + 1} = ((a^2)^2)^2a^2a \mod n
+a^{11} = a^{8 + 2 + 1} = ((a^2)^2)^2a^2a \bmod n
 \]
 
-What have to calculated are only $a^2 \mod n$, $(a^2)^2 \mod n$, and $((a^2)^2)^2 \mod n$. Basically, we can express $n$ in binary format, and only iterate calculating the modular product for the digits of 1. The complexity of this algorithm is $O(\lg n)$ (proportion to the logarithm of $n$). Fermat test is very fast because of this.
+What have to calculated are only $a^2 \bmod n$, $(a^2)^2 \bmod n$, and $((a^2)^2)^2 \bmod n$. Basically, we can express $n$ in binary format, and only iterate calculating the modular product for the digits of 1. The complexity of this algorithm is $O(\lg n)$ (proportion to the logarithm of $n$). Fermat test is very fast because of this.
 
-However, even a number can pass Fermat test, it is not necessarily prime. For example 341 = 11 $\times$ 31 is a composite number, but $2^{340} \equiv 1 \mod 341$ can pass the Fermat test. To reduce the probability of such failure, people developed many improvements. The first improvement is to increase the number of witness. We can prove that, if a number does not pass Fermat test, then there exist at least half of $n$ numbers that can't pass too (\cite{Algorithms-DPV}, pp26).
+However, even a number can pass Fermat test, it is not necessarily prime. For example 341 = 11 $\times$ 31 is a composite number, but $2^{340} \equiv 1 \pmod 341$ can pass the Fermat test. To reduce the probability of such failure, people developed many improvements. The first improvement is to increase the number of witness. We can prove that, if a number does not pass Fermat test, then there exist at least half of $n$ numbers that can't pass too (\cite{Algorithms-DPV}, pp26).
 
 \begin{theorem}
-For positive integer $a$ less than $n$, and coprime with $n$, if $a^{n-1} \not\equiv 1 \mod n$, then for all selected $a < n$, it also holds for at least half.
+For positive integer $a$ less than $n$, and coprime with $n$, if $a^{n-1} \not\equiv 1 \pmod n$, then for all selected $a < n$, it also holds for at least half.
 \end{theorem}
 
 \begin{figure}[htbp]
@@ -2083,10 +2083,10 @@ Set $\{1, 2, ..., n-1\}$
 \end{figure}
 
 \begin{proof}
-If for some $a$ that $a^{n-1} \not\equiv 1 \mod n$ holds, then for any witness $b$ that passes Fermat test (It means $b^{n-1} \equiv 1 \mod n$), we can create a negative case for Fermat test $ab$.
+If for some $a$ that $a^{n-1} \not\equiv 1 \pmod n$ holds, then for any witness $b$ that passes Fermat test (It means $b^{n-1} \equiv 1 \pmod n$), we can create a negative case for Fermat test $ab$.
 
 \[
-(ab)^{n-1} \equiv a^{n-1}b^{n-1} \equiv a^{n-1}1 \not\equiv 1 \mod n
+(ab)^{n-1} \equiv a^{n-1}b^{n-1} \equiv a^{n-1}1 \not\equiv 1 \pmod n
 \]
 
 And because $i \neq j$, we have $a \cdot i \not\equiv a \cdot j$, therefore, all these negative cases are not same.
@@ -2094,7 +2094,7 @@ And because $i \neq j$, we have $a \cdot i \not\equiv a \cdot j$, therefore, all
 As shown in \cref{fig:Fermat-test}, if there exists a number that can't pass Fermat test, then the positive cases are as same amount as the negative cases.
 \end{proof}
 
-If we select $k$ different witness and perform Fermat test, we can reduce the probability of failure that $n$ is not prime number to $\dfrac{1}{2^k}$. However, there exist such composite number $n$, that for any $a$ less than $n$ and coprime to $n$, $a^{n-1} \equiv 1 \mod n$ holds. It means whatever $a$ we selected, such composite number can pass Fermat test. Carmichael found first such number in 1910, that 561 = 3 $\times$ 11 $\times$ 17. This kind of numbers is called Carmichael numbers or Fermat pseudoprime\footnote{The Czech mathematician Václav Šimerka found the first 7 Fermat pseudoprimes: 561 = 3 $\times$7 $\times$11, 1105 = 5 $\times$13 $\times$7, 1729 = 7 $\times$13 $\times$19, 2465 = 5 $\times$17 $\times$29, 2821 = 7 $\times$13 $\times$31, 6601 = 7 $\times$23 $\times$41, 8911 = 7 $\times$19 $\times$67. However, his work was not well known to the people}. Erdős conjectured there are infinite many Carmichael numbers. In 1994, people proved for sufficient large $n$, there are at least $n^{2/7}$ Carmichael numbers from 1 to $n$. Thus explains Erdős' conjecture\cite{Wiki-Carmichael-number}.
+If we select $k$ different witness and perform Fermat test, we can reduce the probability of failure that $n$ is not prime number to $\dfrac{1}{2^k}$. However, there exist such composite number $n$, that for any $a$ less than $n$ and coprime to $n$, $a^{n-1} \equiv 1 \pmod n$ holds. It means whatever $a$ we selected, such composite number can pass Fermat test. Carmichael found first such number in 1910, that 561 = 3 $\times$ 11 $\times$ 17. This kind of numbers is called Carmichael numbers or Fermat pseudoprime\footnote{The Czech mathematician Václav Šimerka found the first 7 Fermat pseudoprimes: 561 = 3 $\times$7 $\times$11, 1105 = 5 $\times$13 $\times$7, 1729 = 7 $\times$13 $\times$19, 2465 = 5 $\times$17 $\times$29, 2821 = 7 $\times$13 $\times$31, 6601 = 7 $\times$23 $\times$41, 8911 = 7 $\times$19 $\times$67. However, his work was not well known to the people}. Erdős conjectured there are infinite many Carmichael numbers. In 1994, people proved for sufficient large $n$, there are at least $n^{2/7}$ Carmichael numbers from 1 to $n$. Thus explains Erdős' conjecture\cite{Wiki-Carmichael-number}.
 
 The primality test algorithm in RSA is Miller-Rabin algorithm. It is also a probabilistic algorithm\footnote{There is a deterministic version of Miller-Rabin algorithm, but the correctness is on top of the generalized Riemann hypothesis (GRH)\cite{Wiki-Miller-Rabin}.}. According to the above theorem, if select more than 100 witnesses, the probability of failure is expected less than $\dfrac{1}{2^{100}}$. Donald Knuth commented ``far less, for instance, than the probability that a random cosmic ray will sabotage the computer during the computation!''
 
@@ -2141,12 +2141,12 @@ We summarized the relations for group, semigroup, monoid introduced so far as th
 \begin{Answer}[ref={ex:Lagrange-theorem}]
 \Question{Today is Sunday, what day it will be after $2^{100}$ days?
 
-There are 7 days in a week. According to the Fermat's little theorem, $2^{7-1} \equiv 1 \mod 7$. We have:
+There are 7 days in a week. According to the Fermat's little theorem, $2^{7-1} \equiv 1 \pmod 7$. We have:
 
 \blre
-2^{100} = 2^{16 \times 6 + 4} & \equiv & 1 \times 2^4 \mod 7 \\
-  & \equiv & 16 \mod 7 \\
-  & \equiv & 2 \mod 7 \\
+2^{100} = 2^{16 \times 6 + 4} & \equiv & 1 \times 2^4 \pmod 7 \\
+  & \equiv & 16 \pmod 7 \\
+  & \equiv & 2 \pmod 7 \\
 \elre
 
 Therefore, it will be Tuesday.
@@ -2276,7 +2276,7 @@ With Fermat's little theorem, we can realize the primality test with some select
 \begin{algorithmic}[1]
 \Function{primality}{$n$}
   \State random select $k$ positive numbers $a_1, a_2, ..., a_k < n$
-  \If{$a_i^{n-1} \equiv 1 \mod n$, for all $i = 1, 2, ..., k$}
+  \If{$a_i^{n-1} \equiv 1 \pmod n$, for all $i = 1, 2, ..., k$}
     \State \Return prime
   \Else
     \State \Return composite
