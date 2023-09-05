@@ -2132,6 +2132,7 @@ We summarized the relations for group, semigroup, monoid introduced so far as th
 \begin{Exercise}\label{ex:Lagrange-theorem}
 \Question{Today is Sunday, what day it will be after $2^{100}$ days?}
 \Question{Given two strings (character string or list), write a program to test if they form the same necklace.}
+\Question{Weil thought Fermat might use the binomial theorem to derive the little theorem\cite{Weil83}. Prove the Fermat's little theorem in this way.}
 \Question{Write a program to realize Eratosthenes sieve algorithm.}
 \Question{Extend the idea of Eratosthenes sieve algorithm, write a program to generate Euler $\upphi$ function values for all numbers from 2 to 100.}
 \Question{From Euler's theorem, how many $n$-th primitive of unit roots are there?}
@@ -2158,6 +2159,18 @@ Given two strings $S_1, S_2$ with the same length, we can duplicate $S_1$ and ap
 \[
 eqiv(S_1, S_2) = S_2 \subset (S_1 \doubleplus S_1)
 \]
+}
+\Question{Weil thought Fermat might use the binomial theorem to derive the little theorem\cite{Weil83}. Prove the Fermat's little theorem in this way.
+
+\begin{proof}Induction on $a$. Base step: when $a = 1$, $p$ divides $a^p - a = 1^p - 1 = 0$; Suppose $p | (a^p - a)$. For $a + 1$, use the binomial theorem:
+
+\bre
+ &   & (a + 1)^p - (a + 1) & \\
+ & = & a^p + \dbinom{p}{1}a^{p-1} + \dots + \dbinom{p}{p-1}a + 1 - a - 1 & \text{Binomial theorem} \\
+ & \equiv & a^p - a & p|\dbinom{p}{i} \\
+ & \equiv & 0 & \text{Induction hypothesis: } p | (a^p - a) \\
+\ere
+\end{proof}
 }
 \Question{Write a program to realize Eratosthenes sieve algorithm.
 

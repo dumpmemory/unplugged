@@ -2079,6 +2079,7 @@ a^{11} = a^{8 + 2 + 1} = ((a^2)^2)^2a^2a \bmod n
 \begin{Exercise}\label{ex:Lagrange-theorem}
 \Question{今天是星期日，$2^{100}$天以后是星期几?}
 \Question{任给两个串（字符串或者列表），如何通过编程判断它们可以连成相同的项链？}
+\Question{韦伊猜测费马使用了二项式定理证明了小定理\cite{Weil83}。请尝试用这个方法证明费马小定理。}
 \Question{编程实现埃拉托斯特尼筛法。}
 \Question{利用埃拉托斯特尼筛法的思想，编程产生2到100内正整数的欧拉$\upphi$函数表。}
 \Question{根据欧拉定理，$n$次本原单位根有多少个？}
@@ -2106,6 +2107,20 @@ a^{11} = a^{8 + 2 + 1} = ((a^2)^2)^2a^2a \bmod n
 eqiv(S_1, S_2) = S_2 \subset (S_1 \doubleplus S_1)
 \]
 }
+
+\Question{韦伊猜测费马使用了二项式定理证明了小定理\cite{Weil83}。请尝试用这个方法证明费马小定理。
+
+\begin{proof}对$a$使用数学归纳法。$a = 1$时，$a^p - a = 1^p - 1 = 0$可以被$p$整除；设$p | (a^p - a)$，当$a + 1$时，利用二项式定理：
+
+\bre
+ &   & (a + 1)^p - (a + 1) & \\
+ & = & a^p + \dbinom{p}{1}a^{p-1} + \dots + \dbinom{p}{p-1}a + 1 - a - 1 & \text{二项式展开} \\
+ & \equiv & a^p - a & p|\dbinom{p}{i} \\
+ & \equiv & 0 & \text{递推假设：} p | (a^p - a) \\
+\ere
+\end{proof}
+}
+
 \Question{编程实现埃拉托斯特尼筛法。
 
 从2开始对于所有的自然数，取出下一个作为素数，然后去掉所有它的倍数，并递归进行这一操作。如下面的Haskell例子程序：
