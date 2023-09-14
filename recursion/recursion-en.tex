@@ -1564,9 +1564,43 @@ We show another two fractal patterns as the close of this chapter. One is the fr
  \label{fig:more-fractal}
 \end{figure}
 
-\section{Further Reading}
+%% \section{Further Reading}
 
-{\em Mathematics: The Loss of Certainty} by Morris Kline contains good introduction about mathematics in ancient Greek. The {\em Elements} by Euclidean is the most famous classic book. It contains the Euclidean algorithm. {\em From Mathematics to Generic Programming} by Alexander Stepanov and Daniel E Ross gives varies of implementation of the Euclidean algorithm. As more and more main stream programming environments adopt lambda calculus, there are many materials about it. {\em The Implementation of Functional Programming Languages} by Simon Peyton Jones is a good book introduced lambda calculus in depth. {\em Gödel, Escher, Bach: An Eternal Golden Braid} by Douglas Hofstadter intensively presents the unbelievable ideas of recursion and self-reference. It won the Pulitzer Prize for general non-fiction and the National Book Award for Science.
+%% {\em Mathematics: The Loss of Certainty} by Morris Kline contains good introduction about mathematics in ancient Greek. The {\em Elements} by Euclidean is the most famous classic book. It contains the Euclidean algorithm. {\em From Mathematics to Generic Programming} by Alexander Stepanov and Daniel E Ross gives varies of implementation of the Euclidean algorithm. As more and more main stream programming environments adopt lambda calculus, there are many materials about it. {\em The Implementation of Functional Programming Languages} by Simon Peyton Jones is a good book introduced lambda calculus in depth. {\em Gödel, Escher, Bach: An Eternal Golden Braid} by Douglas Hofstadter intensively presents the unbelievable ideas of recursion and self-reference. It won the Pulitzer Prize for general non-fiction and the National Book Award for Science.
+
+\begin{Exercise}\label{ex:fractal}
+\Question{What are the area and circumference of the Kock snowflake?}
+\end{Exercise}
+
+\begin{Answer}[ref={ex:fractal}]
+\Question{What are the area and circumference of the Kock snowflake?
+
+Let the edge of the equilateral triangle be $a$, the area be $s = \dfrac{\sqrt{3}}{4}a^2$. In every recursion, each edge is transformed to 4 shorter edges (of the $\dfrac{1}{3}$ length). Below table lists the number of recursions, edges, and incremental areas:
+
+\btab{r|c|c|c|c|c|c}
+Recursion & 0 & 1  & 2  & $\dots$ & $n$ & $\dots$ \\
+\hline
+Number of edges & 3 & 12 & 48 & $\dots$ & $3 \times 4^n$ & $\dots$ \\
+\hline
+Edge length & $a$ & $\dfrac{a}{3}$ & $\dfrac{a}{9}$ & $\dots$ & $\dfrac{a}{3^n}$ $\dots$ \\[12pt]
+\hline
+Incremental area & & $\dfrac{s}{3}$ & $\dfrac{4s}{27}$ & $\dots$ & $3 \times 4^{n-1} \dfrac{s}{9^n}$ & $\dots$ \\
+\etab
+
+The total area is $s$ plus all the incremental areas:
+
+\[
+\begin{array}{cll}
+  & s + \dfrac{s}{3} + \dfrac{4s}{27} + \dots + \dfrac{3s}{4} (\dfrac{4}{9})^n + \dots & \\[12pt]
+= & s + \dfrac{3s}{4}\dfrac{4}{9} + \dfrac{3s}{4}(\dfrac{4}{9})^2 + \dots + \dfrac{3s}{4} (\dfrac{4}{9})^n + \dots & \text{From the 2nd, a geometric series of } \dfrac{4}{9} \\[12pt]
+= & \dfrac{s}{4} + \dfrac{3s}{4}\dfrac{1}{1-\dfrac{4}{9}} & \text{change $s$ to }\dfrac{s}{4} + \dfrac{3s}{4} \\[12pt]
+= & \dfrac{8s}{5} & \\
+\end{array}
+\]
+
+While the circumference equals to the edge length times the number of edges, which is $3a(\dfrac{4}{3})^n$. It diverges. Kock snowflake demonstrates an infinite curve with finite area.
+}
+\end{Answer}
 
 \section{Appendix: Example program for 2 water jars puzzle}
 

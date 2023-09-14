@@ -1587,7 +1587,7 @@ mapm(f) = foldm(f, node, nil)
 \hline
 边数 & 3 & 12 & 48 & $\dots$ & $3 \times 4^n$ & $\dots$ \\
 \hline
-边长 & $a$ & $\dfrac{a}{3}$ & $\dfrac{a}{9}$ & $\dots$ & $\dfrac{a}{3^n}$ $\dots$ \\
+边长 & $a$ & $\dfrac{a}{3}$ & $\dfrac{a}{9}$ & $\dots$ & $\dfrac{a}{3^n}$ $\dots$ \\[12pt]
 \hline
 面积增加 & & $\dfrac{s}{3}$ & $\dfrac{4s}{27}$ & $\dots$ & $3 \times 4^{n-1} \dfrac{s}{9^n}$ & $\dots$ \\
 \etab
@@ -1596,9 +1596,9 @@ mapm(f) = foldm(f, node, nil)
 
 \[
 \begin{array}{cll}
-  & s + \dfrac{s}{3} + \dfrac{4s}{27} + \dots + \dfrac{3s}{4} (\dfrac{4}{9})^n + \dots & \\
-= & s + \dfrac{3s}{4}\dfrac{4}{9} + \dfrac{3s}{4}(\dfrac{4}{9})^2 + \dots + \dfrac{3s}{4} (\dfrac{4}{9})^n + \dots & \text{除第一项外为等比数列，公比} \dfrac{4}{9} \\
-= & \dfrac{s}{4} + \dfrac{3s}{4}\dfrac{1}{1-\dfrac{4}{9}} & \text{将第一项$s$变为}\dfrac{s}{4} + \dfrac{3s}{4} \\
+  & s + \dfrac{s}{3} + \dfrac{4s}{27} + \dots + \dfrac{3s}{4} (\dfrac{4}{9})^n + \dots & \\[12pt]
+= & s + \dfrac{3s}{4}\dfrac{4}{9} + \dfrac{3s}{4}(\dfrac{4}{9})^2 + \dots + \dfrac{3s}{4} (\dfrac{4}{9})^n + \dots & \text{除第一项外为等比数列，公比} \dfrac{4}{9} \\[12pt]
+= & \dfrac{s}{4} + \dfrac{3s}{4}\dfrac{1}{1-\dfrac{4}{9}} & \text{将第一项$s$变为}\dfrac{s}{4} + \dfrac{3s}{4} \\[12pt]
 = & \dfrac{8s}{5} & \\
 \end{array}
 \]
