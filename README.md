@@ -25,10 +25,7 @@ The book can be downloaded in English ([EN](https://github.com/liuxinyu95/unplug
 Install
 --------
 
-To build the book in PDF format from the sources, you need
-the following software pre-installed.
-
-- TeXLive, The book is built with LuaLaTeX, an extended version of TeX.
+You need TeXLive to build the book in PDF format. We use LuaLaTeX, an extended version of TeX.
 
 ### Install TeXLive
 
@@ -41,11 +38,11 @@ $ cd install-tl
 $ sudo ./install-tl -gui text -repository http://mirror.ctan.org/systems/texlive/tlnet
 ```
 
-In Windows, TeXLive provide a [gui based installer](https://tug.org/texlive/), in Mac OS X, there's a [MacTeX](https://www.tug.org/mactex/).
+In Windows, TeXLive provides a [gui based installer](https://tug.org/texlive/), in Mac OS X, there's a [MacTeX](https://www.tug.org/mactex/).
 
 ### Customize font
 
-The default build supports Linux, Mac OS X, and Windows. You can install additional font (like [Noto CJK](https://github.com/notofonts/noto-cjk/)) typesetting (see `prelude.sty`). Some system fonts, e.g. STKaiti, were moved to `/System/Library/AssetsV2/com_apple_MobileAsset_Font7` in Mac OS X, you need add the path to the local TeXLive configuration:
+The default build supports Linux, Mac OS X, and Windows. You can install additional font (like [Noto CJK](https://github.com/notofonts/noto-cjk/)) typesetting (see `prelude.sty`). Some system fonts, e.g. STKaiti, were moved to `/System/Library/AssetsV2/com_apple_MobileAsset_Font7` in Mac OS X from 2022, you need add the path to the local TeXLive configuration:
 
 ```bash
 sudo tlmgr conf texmf OSFONTDIR /System/Library/AssetsV2/com_apple_MobileAsset_Font7
@@ -59,7 +56,7 @@ You need the GNU make tool, in Debian/Ubuntu like Linux, it can be installed thr
 $ sudo apt-get install build-essential
 ```
 
-In Windows, you can install the MSYS for it. In Mac OS X, please install the developer tool from this command line:
+In Windows, you can use WSL or install MSYS. In Mac OS X, please install the developer tool from this command line:
 
 ```bash
 $ xcode-select --install
@@ -73,7 +70,7 @@ enter the folder contains the book TeX manuscript, run
 $ make
 ```
 
-This will generate unplugged-en.pdf and unplugged-zh-cn.pdf. If you only need the English version for example, you can run `make en` instead. Run `make force-en` to force build the book.
+This will generate the pdf files (Run `make en` to only build the English version; run `make force-en` to force build the book).
 
 --
 
