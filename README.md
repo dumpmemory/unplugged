@@ -10,7 +10,7 @@ This book introduces the mathematics behind computer programming.
 Contents
 --------
 
-The book can be downloaded in English ([EN](https://github.com/liuxinyu95/unplugged/files/11070580/unplugged-en.pdf)). The 1st edition in Chinese ([中文](https://book.douban.com/subject/36347220/)) was published in 2023 ([中文样章](https://github.com/liuxinyu95/unplugged/files/11183276/nat-zh-cn.pdf)).
+The book can be downloaded in English ([EN](https://github.com/liuxinyu95/unplugged/files/12913188/unplugged-en.pdf)). The 1st edition in Chinese ([中文](https://book.douban.com/subject/36347220/)) was published in 2023 ([中文样章](https://github.com/liuxinyu95/unplugged/files/12913190/nat-zh-cn.pdf)).
 
 - Preface
 - Chapter 1, Natural numbers. Peano Axiom, list and folding;
