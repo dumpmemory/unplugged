@@ -1,7 +1,7 @@
 # 锁车趣题
 
 刘新宇
-Email: liuxinyu95@gmail.com
+Email: liuxinyu99@hotmail.com
 
 ## 共享自行车
 
